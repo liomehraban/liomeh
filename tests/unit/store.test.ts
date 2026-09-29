@@ -73,3 +73,26 @@ describe("registrarPedido", () => {
     expect(useAppStore.getState().locatario.pedidos).toHaveLength(2);
   });
 });
+
+describe("compra a productor", () => {
+  beforeEach(() => useAppStore.getState().resetDemo());
+  it("da puntos dobles y no agrega sello de mercado", () => {
+    const s0 = useAppStore.getState();
+    const p = s0.registrarPedido({
+      puestoId: "prod-milpa-01",
+      mercadoId: "",
+      items: [{ nombre: "Nopal verdura (ciento)", precio: 70, unidad: "ciento", qty: 2, huertoId: "prod-milpa-01" }],
+      resumen: { subtotal: 140, descuento: 0, servicio: 9, servicioOriginal: 9, envio: 0, total: 149 },
+      metodo: "qr",
+      entrega: "recoger",
+    });
+    expect(p.puntos).toBe(28);
+    expect(useAppStore.getState().puntos).toBe(s0.puntos + 28);
+    expect(useAppStore.getState().sellos).toEqual(s0.sellos);
+  });
+  it("reservarVisita guarda la reserva", () => {
+    const r = useAppStore.getState().reservarVisita({ productorId: "prod-xochi-01", fecha: "2026-10-05", personas: 2, total: 400 });
+    expect(r.id).toMatch(/^VIS-\d{4}$/);
+    expect(useAppStore.getState().reservasVisita[0]).toEqual(r);
+  });
+});

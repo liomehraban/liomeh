@@ -1,41 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus, ShoppingBasket } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Stepper } from "@/components/ui/stepper";
+import { useAgregarAlCarrito } from "@/components/cart/useAgregarAlCarrito";
 import { useRouter } from "@/i18n/navigation";
-import { huertoDeProducto, requiereNuevoPedido, type ItemCarrito } from "@/lib/carrito";
+import { huertoDeProducto } from "@/lib/carrito";
 import type { Puesto } from "@/lib/schemas";
-import { useAppStore } from "@/store/useAppStore";
 import { Precio } from "./Precio";
 
 /** Catálogo con stepper de cantidad y «Agregar». Un pedido por puesto: si hay otro puesto en el carrito, pregunta. */
 export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nombresPuestos: Record<string, string> }) {
   const t = useTranslations("puesto");
   const router = useRouter();
-  const agregar = useAppStore((s) => s.agregarAlCarrito);
   const [qty, setQty] = useState<Record<string, number>>({});
-  const [pendiente, setPendiente] = useState<ItemCarrito | null>(null);
-
-
-  const confirmar = (item: ItemCarrito) => {
-    agregar(puesto.id, item);
+  const { agregar, dialogo } = useAgregarAlCarrito(puesto.id, nombresPuestos, (item) => {
     setQty((q) => ({ ...q, [item.nombre]: 1 }));
     toast.success(t("agregado", { qty: item.qty, producto: item.nombre }), {
       action: { label: t("verCarrito"), onClick: () => router.push("/carrito") },
     });
-  };
-
-  const onAgregar = (item: ItemCarrito) => {
-    if (requiereNuevoPedido(useAppStore.getState().carrito, puesto.id)) setPendiente(item);
-    else confirmar(item);
-  };
-
-  const otro = useAppStore.getState().carrito.find((l) => l.puestoId !== puesto.id);
+  });
 
   return (
     <>
@@ -52,32 +40,17 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
                 <Precio monto={prod.p} className="text-right" />
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex items-center rounded-pill border border-border" role="group" aria-label={t("cantidad", { producto: prod.n })}>
-                  <button
-                    type="button"
-                    aria-label={t("menos")}
-                    disabled={n <= 1}
-                    onClick={() => setQty((q) => ({ ...q, [prod.n]: Math.max(1, n - 1) }))}
-                    className="grid size-11 place-items-center rounded-pill text-morado disabled:text-gris/50"
-                  >
-                    <Minus className="size-4" aria-hidden />
-                  </button>
-                  <output className="w-8 text-center font-bold" aria-live="polite">
-                    {n}
-                  </output>
-                  <button
-                    type="button"
-                    aria-label={t("mas")}
-                    onClick={() => setQty((q) => ({ ...q, [prod.n]: Math.min(99, n + 1) }))}
-                    className="grid size-11 place-items-center rounded-pill text-morado"
-                  >
-                    <Plus className="size-4" aria-hidden />
-                  </button>
-                </div>
+                <Stepper
+                  valor={n}
+                  onCambio={(v) => setQty((q) => ({ ...q, [prod.n]: v }))}
+                  etiqueta={t("cantidad", { producto: prod.n })}
+                  menos={t("menos")}
+                  mas={t("mas")}
+                />
                 <Button
                   size="sm"
                   className="ml-auto"
-                  onClick={() => onAgregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: n, huertoId: huertoDeProducto(prod.n, puesto.origen) })}
+                  onClick={() => agregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: n, huertoId: huertoDeProducto(prod.n, puesto.origen) })}
                 >
                   <ShoppingBasket aria-hidden />
                   {t("agregar")}
@@ -87,28 +60,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
           );
         })}
       </ul>
-
-      <Dialog open={!!pendiente} onOpenChange={(v) => !v && setPendiente(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t("otroPedidoTitulo")}</DialogTitle>
-            <DialogDescription>{t("otroPedidoTexto", { puesto: otro ? (nombresPuestos[otro.puestoId] ?? otro.puestoId) : "" })}</DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="ghost" onClick={() => setPendiente(null)}>
-              {t("otroPedidoNo")}
-            </Button>
-            <Button
-              onClick={() => {
-                if (pendiente) confirmar(pendiente);
-                setPendiente(null);
-              }}
-            >
-              {t("otroPedidoSi")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {dialogo}
     </>
   );
 }
