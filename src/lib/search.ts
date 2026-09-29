@@ -60,9 +60,10 @@ function empate(q: string, t: string): number {
   if (t === q) return 1;
   if (q.length >= 2 && t.startsWith(q)) return 0.85;
   if (q.length < 4) return 0;
-  const tol = q.length >= 7 ? 2 : 1;
+  // 1 error desde 4 letras; 2 errores solo en palabras largas (9+)
+  const tol = q.length >= 9 ? 2 : 1;
   // compara contra el token completo y contra su prefijo del largo de la consulta (errores al escribir a medias)
-  const d = Math.min(levenshtein(q, t, tol), t.length > q.length ? levenshtein(q, t.slice(0, q.length), tol) : tol + 1);
+  const d = Math.min(levenshtein(q, t, tol), t.length > q.length ? levenshtein(q, t.slice(0, q.length), 1) : tol + 1);
   return d <= tol ? 0.6 - 0.1 * d : 0;
 }
 

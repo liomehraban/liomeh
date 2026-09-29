@@ -35,6 +35,10 @@ describe("search", () => {
     expect(ids("panzita", "puesto")).toContain("pancita-dona-chela");
     expect(ids("dona tere", "puesto")[0]).toBe("dona-tere");
   });
+  it("sin falsos positivos difusos: «pancita» no trae Pantitlán ni Santa Anita", () => {
+    const m = ids("pancita", "mercado").join(" ");
+    expect(m).not.toMatch(/pantitlan|santa-anita/);
+  });
   it("el nombre pesa más que el texto libre", () => {
     expect(ids("jamaica", "mercado").slice(0, 2).sort()).toEqual(["235-jamaica-nuevo", "65-jamaica-comidas"]);
   });
