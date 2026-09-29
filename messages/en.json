@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "titulo": "Pásele · Mexico City Markets",
+    "descripcion": "All 340 public markets of Mexico City in one app: discover, find the stall, buy fair and live the market."
+  },
+  "comun": {
+    "fuente": "Source: Guía de Mercados CDMX 2026",
+    "cerrar": "Close",
+    "siguiente": "Next",
+    "anterior": "Back",
+    "saltar": "Skip",
+    "empezar": "Come on in!",
+    "reiniciarDemo": "Reset demo",
+    "demoReiniciada": "Demo reset: everything is back to the original data",
+    "proximamente": "Coming soon",
+    "enConstruccion": "This section arrives in {fase}.",
+    "sinConexion": "You're offline: your passport and orders are still here"
+  },
+  "perfiles": {
+    "consumidor": "Visitor / Shopper",
+    "locatario": "Stallholder",
+    "productor": "Grower",
+    "gobierno": "Government"
+  },
+  "shell": {
+    "abrirEnTelefono": "Open on your phone",
+    "escaneaQR": "Scan to try Pásele on your phone",
+    "cambiarPerfil": "Switch profile",
+    "perfilActual": "Current profile: {perfil}",
+    "cambiarIdioma": "Change language",
+    "idiomaActual": "English",
+    "navegacion": "Main navigation",
+    "carrito": "Cart",
+    "tabs": {
+      "explorar": "Explore",
+      "huertos": "Farms",
+      "asistente": "Assistant",
+      "agenda": "Events",
+      "yo": "Me",
+      "hoy": "Today",
+      "cobrar": "Charge",
+      "pedidos": "Orders",
+      "catalogo": "Catalog",
+      "cuenta": "Account",
+      "cosecha": "Harvest",
+      "huerto": "My farm"
+    }
+  },
+  "entrada": {
+    "saltarSplash": "Tap to enter",
+    "eslogan": "Mexico City public markets",
+    "elegirIdioma": "Which language do you prefer?",
+    "slides": [
+      {
+        "titulo": "Discover 340 markets",
+        "texto": "From La Merced to Xochimilco: opening hours, must-tries and directions to every public market in the city."
+      },
+      {
+        "titulo": "Buy fair, farm to table",
+        "texto": "Pay by QR with zero fees and see how much goes to the people who grew your food."
+      },
+      {
+        "titulo": "Live the market",
+        "texto": "Collect stamps in your passport, follow routes and never miss a fair or a fiesta."
+      }
+    ],
+    "elegirPerfil": "How are you visiting today?",
+    "elegirPerfilTexto": "You can switch profiles anytime with the button at the top.",
+    "perfilDesc": {
+      "consumidor": "Discover, find the stall and shop",
+      "locatario": "Take payments without a terminal and get orders",
+      "productor": "Sell your harvest wholesale at a fair price",
+      "gobierno": "Measure impact by agency"
+    },
+    "creditos": "An initiative of SECTUR · SEDEMA · Ministry of Economy · Mexico City Government",
+    "logoPlaceholder": "{institucion} logo",
+    "paso": "Step {actual} of {total}"
+  },
+  "paginas": {
+    "explorar": "Explore",
+    "mercado": "Market",
+    "interior": "Indoor map",
+    "puesto": "Stall",
+    "carrito": "Your cart",
+    "checkout": "Checkout",
+    "pedido": "Your order",
+    "huertos": "Farms",
+    "productor": "Grower",
+    "asistente": "Marchanta",
+    "agenda": "Events",
+    "ruta": "Route",
+    "yo": "Me",
+    "planes": "Plans",
+    "escanear": "Scan QR",
+    "locatarioHoy": "Today",
+    "locatarioCobrar": "Charge",
+    "locatarioPedidos": "Orders",
+    "locatarioCatalogo": "Catalog",
+    "locatarioCuenta": "Account",
+    "locatarioPlan": "Your plan",
+    "productorCosecha": "Harvest",
+    "productorPedidos": "Wholesale orders",
+    "productorHuerto": "My farm",
+    "productorCuenta": "Account",
+    "gobierno": "Impact dashboard",
+    "presentacion": "Presentation mode"
+  },
+  "fases": {
+    "1": "Phase 1 · Discover",
+    "2": "Phase 2 · Find the stall",
+    "3": "Phase 3 · Buy fair",
+    "4": "Phase 4 · Farms",
+    "5": "Phase 5 · Come back",
+    "6": "Phase 6 · Marchanta",
+    "7": "Phase 7 · Sell and harvest",
+    "8": "Phase 8 · Pitch and launch"
+  },
+  "yo": {
+    "ajustes": "Settings",
+    "idioma": "Language",
+    "reiniciarTexto": "Clears orders, points, stamps and local changes and goes back to the original data.",
+    "perfil": "Demo profile",
+    "hola": "Hi, {nombre}!",
+    "puntos": "{puntos} points · {nivel} level"
+  }
+}
