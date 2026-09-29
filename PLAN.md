@@ -3,17 +3,17 @@
 Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fase: `pnpm build && pnpm test`, marca las casillas y haz commit.
 
 ## Fase 0 · Base del proyecto `/fase-0`
-- [ ] Scaffold Next.js (App Router, TS strict, Tailwind v4, ESLint, `src/`), pnpm
-- [ ] Dependencias del stack (ver CLAUDE.md) y shadcn/ui inicializado
-- [ ] Mover al repo `data/`, `docs/`, `src/lib/{schemas,routing,horario}.ts`, `scripts/validate-data.ts`, `tests/unit/*`, `supabase/`
-- [ ] Scripts de package.json: `validate:data`, `test`, `e2e`
-- [ ] Tokens y fuentes (`04_diseno.md`), patrón de papel picado y placeholder fotográfico
-- [ ] next-intl (es/en) con `messages/*.json`
-- [ ] Zustand store con persist + «Reiniciar demo»
-- [ ] `Repository` + `MockRepository` + stub `SupabaseRepository`
-- [ ] Shell: PhoneFrame, TabBar por perfil, ProfileSwitcher, LocaleToggle
-- [ ] **M0** Entrada
-- [ ] `pnpm validate:data` y `pnpm test` en verde
+- [x] Scaffold Next.js (App Router, TS strict, Tailwind v4, ESLint, `src/`), pnpm
+- [x] Dependencias del stack (ver CLAUDE.md) y shadcn/ui inicializado
+- [x] Mover al repo `data/`, `docs/`, `src/lib/{schemas,routing,horario}.ts`, `scripts/validate-data.ts`, `tests/unit/*`, `supabase/`
+- [x] Scripts de package.json: `validate:data`, `test`, `e2e`
+- [x] Tokens y fuentes (`04_diseno.md`), patrón de papel picado y placeholder fotográfico
+- [x] next-intl (es/en) con `messages/*.json`
+- [x] Zustand store con persist + «Reiniciar demo»
+- [x] `Repository` + `MockRepository` + stub `SupabaseRepository`
+- [x] Shell: PhoneFrame, TabBar por perfil, ProfileSwitcher, LocaleToggle
+- [x] **M0** Entrada
+- [x] `pnpm validate:data` y `pnpm test` en verde
 
 ## Fase 1 · Descubrir `/fase-1`
 - [ ] `<MapView>` MapLibre + CARTO (con abstracción de proveedor)
