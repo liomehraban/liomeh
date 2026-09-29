@@ -1,0 +1,230 @@
+{
+ "principio": "La app no depende de la comisión: si la venta se hace en efectivo en el mostrador, el valor se captura por suscripciones, turismo, patrocinios y licencia de gobierno; el check-in QR registra la venta para lealtad y métricas.",
+ "precios": {
+  "consumidor": [
+   {
+    "plan": "Gratis",
+    "precio": 0,
+    "incluye": [
+     "Mapa de 340+ mercados",
+     "Fichas, horarios y cómo llegar",
+     "Mapa interior y ruta paso a paso",
+     "Mapa de huertos",
+     "Calendario cultural",
+     "Reseñas",
+     "Pasaporte de Mercados (lealtad)",
+     "Asistente AI 24/7 (20 preguntas al día)",
+     "Pago con QR y tarjeta",
+     "Recoger en el puesto"
+    ]
+   },
+   {
+    "plan": "Pase Turista 7 días",
+    "precio": 149,
+    "moneda": "MXN",
+    "incluye": [
+     "Todo lo gratis",
+     "Rutas premium con audioguía ES/EN",
+     "Traductor en vivo con el locatario",
+     "Mapas sin conexión",
+     "Asistente AI ilimitado",
+     "10% en puestos adheridos",
+     "Prioridad en tours"
+    ]
+   },
+   {
+    "plan": "Mercado+ (residentes)",
+    "precio": 49,
+    "moneda": "MXN/mes",
+    "incluye": [
+     "Sin tarifa de servicio en pedidos",
+     "Puntos dobles",
+     "Asistente AI ilimitado",
+     "Alertas de precio y temporada"
+    ]
+   }
+  ],
+  "locatario": [
+   {
+    "plan": "Gratis (subsidiado por gobierno)",
+    "precio": 0,
+    "incluye": [
+     "Ficha del puesto en mapa e interior",
+     "Catálogo hasta 20 productos",
+     "Cobro con QR CoDi/SPEI sin comisión",
+     "Pedidos para recoger",
+     "Reseñas y lealtad",
+     "Panel básico de ventas"
+    ]
+   },
+   {
+    "plan": "Pro",
+    "precio": 149,
+    "moneda": "MXN/mes",
+    "incluye": [
+     "Catálogo ilimitado",
+     "Envío con terceros",
+     "Promociones y cupones",
+     "Analítica de clientes y horarios",
+     "Aparecer en rutas turísticas"
+    ]
+   },
+   {
+    "plan": "Plus",
+    "precio": 349,
+    "moneda": "MXN/mes",
+    "incluye": [
+     "Todo Pro",
+     "Destacado en mapa y búsquedas",
+     "Multiusuario (empleados)",
+     "Reporte de historial de ventas para crédito",
+     "Traducción automática del catálogo"
+    ]
+   }
+  ],
+  "productor": [
+   {
+    "plan": "Gratis",
+    "precio": 0,
+    "incluye": [
+     "Perfil de huerto y lotes",
+     "Venta de mayoreo a locatarios y restaurantes",
+     "Visitas al huerto"
+    ],
+    "comision": "3% en ventas de mayoreo pagadas en la app"
+   }
+  ]
+ },
+ "comisiones": {
+  "cobro_presencial_qr_codi_spei": "0%",
+  "cobro_presencial_tarjeta": "Costo del procesador trasladado sin margen (≈3.5% + IVA referencial)",
+  "pedido_en_linea": "4% al comercio (vs 18–30% + IVA que cobran las apps de delivery)",
+  "tarifa_servicio_consumidor": "$9 MXN por pedido en línea (exenta con Mercado+)",
+  "envio_terceros": "Tarifa del tercero trasladada al consumidor",
+  "mayoreo_productor": "3%",
+  "experiencias": "20% del ticket del tour"
+ },
+ "patrocinios": [
+  {
+   "formato": "Ruta presentada por (naming de ruta)",
+   "precio_mes": 120000
+  },
+  {
+   "formato": "Evento del calendario patrocinado",
+   "precio_evento": 80000
+  },
+  {
+   "formato": "Muestreo/activación dentro de mercado",
+   "precio_mes": 60000
+  }
+ ],
+ "licencia_gobierno": {
+  "implementacion_unica": 15000000,
+  "operacion_anual": 24000000,
+  "cubre": [
+   "Gratuidad para locatarios y productores",
+   "Panel de impacto para SECTUR, SEDEMA y SE",
+   "Soporte y capacitación en mercados",
+   "Mantenimiento de datos de 340 mercados"
+  ],
+  "costo_por_mercado_mes": 5882
+ },
+ "supuestos": {
+  "1": {
+   "gmv": 1010594937,
+   "pct_online": 0.3,
+   "loc_prom": 9000,
+   "pct_pro": 0.1,
+   "pct_plus": 0.02,
+   "pases_turista": 60000,
+   "subs_local": 8000,
+   "tours": 9000,
+   "sponsors_mes": 300000,
+   "licencia": 24000000,
+   "implementacion": 15000000
+  },
+  "2": {
+   "gmv": 2627546836.2000003,
+   "pct_online": 0.35,
+   "loc_prom": 20000,
+   "pct_pro": 0.14,
+   "pct_plus": 0.04,
+   "pases_turista": 180000,
+   "subs_local": 25000,
+   "tours": 30000,
+   "sponsors_mes": 900000,
+   "licencia": 24000000,
+   "implementacion": 0
+  },
+  "3": {
+   "gmv": 4547677216.5,
+   "pct_online": 0.4,
+   "loc_prom": 32000,
+   "pct_pro": 0.18,
+   "pct_plus": 0.05,
+   "pases_turista": 320000,
+   "subs_local": 50000,
+   "tours": 60000,
+   "sponsors_mes": 1600000,
+   "licencia": 24000000,
+   "implementacion": 0
+  }
+ },
+ "precios_supuestos": {
+  "comision_online": 0.04,
+  "pro": 149,
+  "plus": 349,
+  "pase": 149,
+  "premium_local_mes": 49,
+  "ticket_tour": 850,
+  "comision_tour": 0.2
+ },
+ "proyeccion": [
+  {
+   "anio": 1,
+   "gmv_total": 1010600000,
+   "ingresos": {
+    "comisiones_pedidos_en_linea": 12127000.0,
+    "suscripciones_locatarios": 2363000.0,
+    "turistas_pases_y_premium": 13644000,
+    "experiencias_y_tours": 1530000.0,
+    "patrocinios": 3600000,
+    "licencia_gobierno": 39000000
+   },
+   "total": 72264000.0,
+   "pct_no_transaccional": 83,
+   "pct_gobierno": 54
+  },
+  {
+   "anio": 2,
+   "gmv_total": 2627500000.0,
+   "ingresos": {
+    "comisiones_pedidos_en_linea": 36786000.0,
+    "suscripciones_locatarios": 8357000.0,
+    "turistas_pases_y_premium": 41520000,
+    "experiencias_y_tours": 5100000.0,
+    "patrocinios": 10800000,
+    "licencia_gobierno": 24000000
+   },
+   "total": 126563000.0,
+   "pct_no_transaccional": 71,
+   "pct_gobierno": 19
+  },
+  {
+   "anio": 3,
+   "gmv_total": 4547700000.0,
+   "ingresos": {
+    "comisiones_pedidos_en_linea": 72763000.0,
+    "suscripciones_locatarios": 17000000.0,
+    "turistas_pases_y_premium": 77080000,
+    "experiencias_y_tours": 10200000.0,
+    "patrocinios": 19200000,
+    "licencia_gobierno": 24000000
+   },
+   "total": 220243000.0,
+   "pct_no_transaccional": 67,
+   "pct_gobierno": 11
+  }
+ ],
+ "nota": "Cifras propuestas por Cinética para la maqueta; referencias: apps de delivery en México cobran 18–30% + IVA (Tracción, 2026)."
+}

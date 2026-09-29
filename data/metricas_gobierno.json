@@ -1,0 +1,316 @@
+{
+ "nota": "Todas las cifras son PROYECCIONES SIMULADAS para la maqueta. kpis_hoy = mes 6 del piloto (marzo 2027); serie_mensual = escenario conservador año 1.",
+ "kpis_hoy": {
+  "mercados_en_app": 157,
+  "mercados_totales": 346,
+  "locatarios_activos": 7002,
+  "productores_suelo_conservacion": 214,
+  "derrama_digital_mes_mxn": 70611000.0,
+  "usuarios_activos_mes": 235375,
+  "transacciones_mes": 588438,
+  "turistas_mes": 134547,
+  "pct_ventas_efectivo_registradas": 61,
+  "km_intermediacion_evitados_mes": 96000,
+  "co2_evitado_mes_ton": 122,
+  "alimento_rescatado_mes_ton": 37,
+  "rating_promedio": 4.7
+ },
+ "por_secretaria": {
+  "SECTUR": [
+   "Turistas nacionales/extranjeros por mercado",
+   "Rutas y experiencias vendidas",
+   "Eventos del calendario con más asistencia",
+   "Idioma de los usuarios"
+  ],
+  "SEDEMA": [
+   "CO₂ evitado por compra directa a huerto",
+   "Toneladas de alimento rescatado",
+   "Productores del suelo de conservación activos",
+   "Km de cadena de suministro evitados"
+  ],
+  "SECRETARÍA DE ECONOMÍA / SEDECO": [
+   "Derrama económica por alcaldía",
+   "Locatarios formalizados digitalmente",
+   "Ingreso adicional del productor (comercio justo)",
+   "Historial de ventas para acceso a crédito"
+  ]
+ },
+ "por_alcaldia": [
+  {
+   "alcaldia": "Gustavo A. Madero",
+   "mercados": 54,
+   "mercados_activos_en_app": 19,
+   "locatarios_activos": 917,
+   "ventas_mes_mxn": 6944000.0,
+   "visitas_turistas_mes": 20869
+  },
+  {
+   "alcaldia": "Venustiano Carranza",
+   "mercados": 42,
+   "mercados_activos_en_app": 27,
+   "locatarios_activos": 1180,
+   "ventas_mes_mxn": 13495000.0,
+   "visitas_turistas_mes": 17300
+  },
+  {
+   "alcaldia": "Cuauhtémoc",
+   "mercados": 41,
+   "mercados_activos_en_app": 24,
+   "locatarios_activos": 961,
+   "ventas_mes_mxn": 11282000.0,
+   "visitas_turistas_mes": 21295
+  },
+  {
+   "alcaldia": "Iztapalapa",
+   "mercados": 23,
+   "mercados_activos_en_app": 8,
+   "locatarios_activos": 354,
+   "ventas_mes_mxn": 2833000.0,
+   "visitas_turistas_mes": 10379
+  },
+  {
+   "alcaldia": "Coyoacán",
+   "mercados": 22,
+   "mercados_activos_en_app": 6,
+   "locatarios_activos": 230,
+   "ventas_mes_mxn": 2225000.0,
+   "visitas_turistas_mes": 6312
+  },
+  {
+   "alcaldia": "Tlalpan",
+   "mercados": 22,
+   "mercados_activos_en_app": 6,
+   "locatarios_activos": 243,
+   "ventas_mes_mxn": 1978000.0,
+   "visitas_turistas_mes": 5714
+  },
+  {
+   "alcaldia": "Iztacalco",
+   "mercados": 20,
+   "mercados_activos_en_app": 12,
+   "locatarios_activos": 647,
+   "ventas_mes_mxn": 6016000.0,
+   "visitas_turistas_mes": 11171
+  },
+  {
+   "alcaldia": "Azcapotzalco",
+   "mercados": 19,
+   "mercados_activos_en_app": 6,
+   "locatarios_activos": 241,
+   "ventas_mes_mxn": 2832000.0,
+   "visitas_turistas_mes": 3860
+  },
+  {
+   "alcaldia": "Miguel Hidalgo",
+   "mercados": 19,
+   "mercados_activos_en_app": 6,
+   "locatarios_activos": 343,
+   "ventas_mes_mxn": 3417000.0,
+   "visitas_turistas_mes": 8056
+  },
+  {
+   "alcaldia": "Tláhuac",
+   "mercados": 18,
+   "mercados_activos_en_app": 6,
+   "locatarios_activos": 363,
+   "ventas_mes_mxn": 4043000.0,
+   "visitas_turistas_mes": 5262
+  },
+  {
+   "alcaldia": "Álvaro Obregón",
+   "mercados": 17,
+   "mercados_activos_en_app": 10,
+   "locatarios_activos": 395,
+   "ventas_mes_mxn": 4816000.0,
+   "visitas_turistas_mes": 5140
+  },
+  {
+   "alcaldia": "Benito Juárez",
+   "mercados": 16,
+   "mercados_activos_en_app": 9,
+   "locatarios_activos": 337,
+   "ventas_mes_mxn": 2972000.0,
+   "visitas_turistas_mes": 4709
+  },
+  {
+   "alcaldia": "Milpa Alta",
+   "mercados": 12,
+   "mercados_activos_en_app": 7,
+   "locatarios_activos": 291,
+   "ventas_mes_mxn": 2572000.0,
+   "visitas_turistas_mes": 7154
+  },
+  {
+   "alcaldia": "Xochimilco",
+   "mercados": 11,
+   "mercados_activos_en_app": 6,
+   "locatarios_activos": 271,
+   "ventas_mes_mxn": 2636000.0,
+   "visitas_turistas_mes": 3057
+  },
+  {
+   "alcaldia": "Cuajimalpa de Morelos",
+   "mercados": 5,
+   "mercados_activos_en_app": 3,
+   "locatarios_activos": 166,
+   "ventas_mes_mxn": 1926000.0,
+   "visitas_turistas_mes": 2515
+  },
+  {
+   "alcaldia": "La Magdalena Contreras",
+   "mercados": 5,
+   "mercados_activos_en_app": 2,
+   "locatarios_activos": 63,
+   "ventas_mes_mxn": 624000.0,
+   "visitas_turistas_mes": 1754
+  }
+ ],
+ "serie_mensual": [
+  {
+   "mes": "2026-10",
+   "gmv_mxn": 6286050,
+   "transacciones": 52384,
+   "usuarios_activos": 20953,
+   "turistas_extranjeros": 1676,
+   "checkins_efectivo": 31430,
+   "co2_evitado_ton": 11,
+   "alimento_rescatado_ton": 3
+  },
+  {
+   "mes": "2026-11",
+   "gmv_mxn": 16023903,
+   "transacciones": 133533,
+   "usuarios_activos": 53413,
+   "turistas_extranjeros": 4273,
+   "checkins_efectivo": 80120,
+   "co2_evitado_ton": 28,
+   "alimento_rescatado_ton": 8
+  },
+  {
+   "mes": "2026-12",
+   "gmv_mxn": 27700749,
+   "transacciones": 230840,
+   "usuarios_activos": 92336,
+   "turistas_extranjeros": 7387,
+   "checkins_efectivo": 138504,
+   "co2_evitado_ton": 48,
+   "alimento_rescatado_ton": 15
+  },
+  {
+   "mes": "2027-01",
+   "gmv_mxn": 40846873,
+   "transacciones": 340391,
+   "usuarios_activos": 136156,
+   "turistas_extranjeros": 10892,
+   "checkins_efectivo": 204234,
+   "co2_evitado_ton": 70,
+   "alimento_rescatado_ton": 22
+  },
+  {
+   "mes": "2027-02",
+   "gmv_mxn": 55206133,
+   "transacciones": 460051,
+   "usuarios_activos": 184020,
+   "turistas_extranjeros": 14722,
+   "checkins_efectivo": 276031,
+   "co2_evitado_ton": 95,
+   "alimento_rescatado_ton": 29
+  },
+  {
+   "mes": "2027-03",
+   "gmv_mxn": 70612569,
+   "transacciones": 588438,
+   "usuarios_activos": 235375,
+   "turistas_extranjeros": 18830,
+   "checkins_efectivo": 353063,
+   "co2_evitado_ton": 122,
+   "alimento_rescatado_ton": 37
+  },
+  {
+   "mes": "2027-04",
+   "gmv_mxn": 86948116,
+   "transacciones": 724568,
+   "usuarios_activos": 289827,
+   "turistas_extranjeros": 23186,
+   "checkins_efectivo": 434741,
+   "co2_evitado_ton": 150,
+   "alimento_rescatado_ton": 46
+  },
+  {
+   "mes": "2027-05",
+   "gmv_mxn": 104123631,
+   "transacciones": 867697,
+   "usuarios_activos": 347079,
+   "turistas_extranjeros": 27766,
+   "checkins_efectivo": 520618,
+   "co2_evitado_ton": 179,
+   "alimento_rescatado_ton": 55
+  },
+  {
+   "mes": "2027-06",
+   "gmv_mxn": 122068950,
+   "transacciones": 1017241,
+   "usuarios_activos": 406897,
+   "turistas_extranjeros": 32552,
+   "checkins_efectivo": 610345,
+   "co2_evitado_ton": 210,
+   "alimento_rescatado_ton": 64
+  },
+  {
+   "mes": "2027-07",
+   "gmv_mxn": 140727127,
+   "transacciones": 1172726,
+   "usuarios_activos": 469090,
+   "turistas_extranjeros": 37527,
+   "checkins_efectivo": 703636,
+   "co2_evitado_ton": 242,
+   "alimento_rescatado_ton": 74
+  },
+  {
+   "mes": "2027-08",
+   "gmv_mxn": 160050836,
+   "transacciones": 1333757,
+   "usuarios_activos": 533503,
+   "turistas_extranjeros": 42680,
+   "checkins_efectivo": 800254,
+   "co2_evitado_ton": 276,
+   "alimento_rescatado_ton": 84
+  },
+  {
+   "mes": "2027-09",
+   "gmv_mxn": 180000000,
+   "transacciones": 1500000,
+   "usuarios_activos": 600000,
+   "turistas_extranjeros": 48000,
+   "checkins_efectivo": 900000,
+   "co2_evitado_ton": 310,
+   "alimento_rescatado_ton": 95
+  }
+ ],
+ "top_mercados": [
+  {
+   "id": "la-merced",
+   "visitas_mes": 212000
+  },
+  {
+   "id": "central-de-abasto",
+   "visitas_mes": 188000
+  },
+  {
+   "id": "77-san-juan-ernesto-pugibet",
+   "visitas_mes": 64000
+  },
+  {
+   "id": "235-jamaica-nuevo",
+   "visitas_mes": 58000
+  },
+  {
+   "id": "la-ciudadela",
+   "visitas_mes": 51000
+  },
+  {
+   "id": "44-xochimilco-zona-xochitl",
+   "visitas_mes": 39000
+  }
+ ]
+}

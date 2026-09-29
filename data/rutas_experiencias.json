@@ -1,0 +1,84 @@
+[
+ {
+  "id": "ruta-centro",
+  "titulo": "Centro Histórico: murales, artesanías y sabores",
+  "paradas": [
+   "16-abelardo-l-rodriguez-zona",
+   "86-san-juan-curiosidades",
+   "77-san-juan-ernesto-pugibet",
+   "la-ciudadela",
+   "la-merced"
+  ],
+  "duracion_h": 4,
+  "km": 5.2,
+  "tipo": "gratis",
+  "precio_guiada": 650
+ },
+ {
+  "id": "ruta-antojitos",
+  "titulo": "Ruta de los antojitos chilangos",
+  "paradas": [
+   "53-rio-blanco",
+   "65-jamaica-comidas",
+   "la-merced",
+   "10-dos-de-abril"
+  ],
+  "duracion_h": 5,
+  "km": 14,
+  "tipo": "premium",
+  "precio_guiada": 890
+ },
+ {
+  "id": "ruta-chinampera",
+  "titulo": "Del lago a tu mesa: ruta chinampera",
+  "paradas": [
+   "44-xochimilco-zona-xochitl",
+   "prod-xochi-01",
+   "prod-xochi-03"
+  ],
+  "duracion_h": 5,
+  "km": 12,
+  "tipo": "premium",
+  "precio_guiada": 1200,
+  "incluye": "Visita a chinampa en trajinera + degustación"
+ },
+ {
+  "id": "ruta-nopal-mole",
+  "titulo": "Oro verde: nopal y mole de Milpa Alta",
+  "paradas": [
+   "centro-acopio-nopal-milpa-alta",
+   "prod-milpa-01",
+   "prod-milpa-03"
+  ],
+  "duracion_h": 6,
+  "km": 18,
+  "tipo": "premium",
+  "precio_guiada": 1100
+ },
+ {
+  "id": "ruta-flores",
+  "titulo": "Ciudad de flores",
+  "paradas": [
+   "235-jamaica-nuevo",
+   "74-palacio-de-las-flores",
+   "133-melchor-muzquiz-flores"
+  ],
+  "duracion_h": 3,
+  "km": 16,
+  "tipo": "gratis",
+  "precio_guiada": 550
+ },
+ {
+  "id": "ruta-puerto",
+  "titulo": "El estómago de la ciudad: CEDA y La Nueva Viga al amanecer",
+  "paradas": [
+   "central-de-abasto",
+   "la-nueva-viga"
+  ],
+  "duracion_h": 4,
+  "km": 4,
+  "tipo": "premium",
+  "precio_guiada": 950,
+  "incluye": "Salida 5:30 a.m., desayuno de mariscos"
+ }
+]

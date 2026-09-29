@@ -1,0 +1,967 @@
+{
+ "nota": "Zonas reales del suelo de conservación CDMX (polígonos ilustrativos). Productores, precios y cifras SIMULADOS para maqueta.",
+ "contexto": {
+  "suelo_conservacion_pct_cdmx": "≈58%",
+  "alcaldias_rurales": [
+   "Milpa Alta",
+   "Tlalpan",
+   "Tláhuac",
+   "Xochimilco",
+   "La Magdalena Contreras",
+   "Cuajimalpa"
+  ],
+  "productores_maiz_registrados": 2397,
+  "variedades_maiz_nativo": 23,
+  "fuente_contexto": "Expansión (2018) con datos de SEDEREC"
+ },
+ "zonas": [
+  {
+   "id": "zona-milpa-alta",
+   "nombre": "Nopaleras y milpas de Milpa Alta",
+   "alcaldia": "Milpa Alta",
+   "lat": 19.185,
+   "lng": -99.015,
+   "radio_km": 4.5,
+   "cultivos": [
+    "nopal verdura",
+    "maíz nativo (azul, cacahuacintle)",
+    "haba",
+    "mole (San Pedro Atocpan)"
+   ],
+   "descripcion": "Única alcaldía 100% rural y de suelo de conservación. Una de las principales regiones productoras de nopal del país; su centro de acopio en Villa Milpa Alta abre desde las 2:30 a.m.",
+   "poligono_ilustrativo": [
+    [
+     19.185,
+     -98.97875
+    ],
+    [
+     19.20934,
+     -98.99448
+    ],
+    [
+     19.22424,
+     -99.02447
+    ],
+    [
+     19.19789,
+     -99.04329
+    ],
+    [
+     19.16845,
+     -99.05134
+    ],
+    [
+     19.15083,
+     -99.02324
+    ],
+    [
+     19.16199,
+     -98.9956
+    ]
+   ]
+  },
+  {
+   "id": "zona-chinampas-xochimilco",
+   "nombre": "Chinampas de Xochimilco (San Gregorio Atlapulco)",
+   "alcaldia": "Xochimilco",
+   "lat": 19.255,
+   "lng": -99.058,
+   "radio_km": 2.5,
+   "cultivos": [
+    "lechuga",
+    "acelga",
+    "verdolaga",
+    "romeritos",
+    "cilantro",
+    "flor de calabaza",
+    "elote"
+   ],
+   "descripcion": "Sistema agrícola prehispánico sobre el lago; verdura de chinampa que llega al Mercado 44 (Zona Xóchitl).",
+   "poligono_ilustrativo": [
+    [
+     19.255,
+     -99.0359
+    ],
+    [
+     19.26762,
+     -99.04736
+    ],
+    [
+     19.27466,
+     -99.06274
+    ],
+    [
+     19.26215,
+     -99.07369
+    ],
+    [
+     19.24776,
+     -99.07389
+    ],
+    [
+     19.23543,
+     -99.06272
+    ],
+    [
+     19.23612,
+     -99.04208
+    ]
+   ]
+  },
+  {
+   "id": "zona-tlaxialtemalco",
+   "nombre": "Viveros de San Luis Tlaxialtemalco",
+   "alcaldia": "Xochimilco",
+   "lat": 19.262,
+   "lng": -99.043,
+   "radio_km": 1.5,
+   "cultivos": [
+    "plantas ornamentales",
+    "flor de nochebuena (temporada)",
+    "cempasúchil (temporada)"
+   ],
+   "descripcion": "Zona de viveros y producción de flor de temporada.",
+   "poligono_ilustrativo": [
+    [
+     19.262,
+     -99.0322
+    ],
+    [
+     19.27046,
+     -99.03587
+    ],
+    [
+     19.27494,
+     -99.04612
+    ],
+    [
+     19.2686,
+     -99.0575
+    ],
+    [
+     19.25637,
+     -99.05535
+    ],
+    [
+     19.25043,
+     -99.04579
+    ],
+    [
+     19.24996,
+     -99.03285
+    ]
+   ]
+  },
+  {
+   "id": "zona-tulyehualco",
+   "nombre": "Amaranto y olivo de Tulyehualco",
+   "alcaldia": "Xochimilco",
+   "lat": 19.254,
+   "lng": -99.011,
+   "radio_km": 1.8,
+   "cultivos": [
+    "amaranto",
+    "alegrías",
+    "aceituna / olivo"
+   ],
+   "descripcion": "Sede de la Feria de la Alegría y el Olivo (53ª edición en 2026, más de 100 productores).",
+   "poligono_ilustrativo": [
+    [
+     19.254,
+     -98.99864
+    ],
+    [
+     19.26777,
+     -98.99939
+    ],
+    [
+     19.26713,
+     -99.01417
+    ],
+    [
+     19.25938,
+     -99.02281
+    ],
+    [
+     19.2487,
+     -99.02263
+    ],
+    [
+     19.24074,
+     -99.0142
+    ],
+    [
+     19.24047,
+     -98.99959
+    ]
+   ]
+  },
+  {
+   "id": "zona-mixquic",
+   "nombre": "Chinampas de San Andrés Mixquic",
+   "alcaldia": "Tláhuac",
+   "lat": 19.224,
+   "lng": -98.964,
+   "radio_km": 2.2,
+   "cultivos": [
+    "brócoli",
+    "coliflor",
+    "lechuga",
+    "verdolaga",
+    "espinaca",
+    "apio"
+   ],
+   "descripcion": "Chinampas hortícolas del sur-oriente; famosas también por su celebración de Día de Muertos.",
+   "poligono_ilustrativo": [
+    [
+     19.224,
+     -98.94763
+    ],
+    [
+     19.2389,
+     -98.95144
+    ],
+    [
+     19.24308,
+     -98.9686
+    ],
+    [
+     19.23146,
+     -98.98038
+    ],
+    [
+     19.21586,
+     -98.98187
+    ],
+    [
+     19.20993,
+     -98.9674
+    ],
+    [
+     19.21274,
+     -98.95451
+    ]
+   ]
+  },
+  {
+   "id": "zona-tlahuac-ixtayopan",
+   "nombre": "Ejidos de Tláhuac (San Juan Ixtayopan)",
+   "alcaldia": "Tláhuac",
+   "lat": 19.238,
+   "lng": -99.02,
+   "radio_km": 2.0,
+   "cultivos": [
+    "maíz",
+    "hortalizas",
+    "amaranto"
+   ],
+   "descripcion": "Zona ejidal con hortalizas y maíz.",
+   "poligono_ilustrativo": [
+    [
+     19.238,
+     -99.0049
+    ],
+    [
+     19.25217,
+     -99.00805
+    ],
+    [
+     19.25368,
+     -99.02378
+    ],
+    [
+     19.24458,
+     -99.03444
+    ],
+    [
+     19.23047,
+     -99.03653
+    ],
+    [
+     19.22212,
+     -99.02383
+    ],
+    [
+     19.22624,
+     -99.01008
+    ]
+   ]
+  },
+  {
+   "id": "zona-topilejo",
+   "nombre": "Milpas de San Miguel Topilejo y Parres",
+   "alcaldia": "Tlalpan",
+   "lat": 19.19,
+   "lng": -99.15,
+   "radio_km": 4.0,
+   "cultivos": [
+    "maíz nativo",
+    "avena forrajera",
+    "haba",
+    "chícharo"
+   ],
+   "descripcion": "Altos de Tlalpan, agricultura de temporal en suelo de conservación.",
+   "poligono_ilustrativo": [
+    [
+     19.19,
+     -99.10972
+    ],
+    [
+     19.21858,
+     -99.1259
+    ],
+    [
+     19.21845,
+     -99.15687
+    ],
+    [
+     19.20499,
+     -99.1829
+    ],
+    [
+     19.17536,
+     -99.18214
+    ],
+    [
+     19.15157,
+     -99.15927
+    ],
+    [
+     19.16103,
+     -99.12558
+    ]
+   ]
+  },
+  {
+   "id": "zona-ajusco",
+   "nombre": "Ajusco medio",
+   "alcaldia": "Tlalpan",
+   "lat": 19.215,
+   "lng": -99.205,
+   "radio_km": 2.5,
+   "cultivos": [
+    "maíz",
+    "haba",
+    "papa",
+    "hongos (temporada de lluvias)"
+   ],
+   "descripcion": "Pueblos del Ajusco con producción de temporal.",
+   "poligono_ilustrativo": [
+    [
+     19.215,
+     -99.18525
+    ],
+    [
+     19.23509,
+     -99.18806
+    ],
+    [
+     19.23154,
+     -99.20899
+    ],
+    [
+     19.22368,
+     -99.22405
+    ],
+    [
+     19.20483,
+     -99.22733
+    ],
+    [
+     19.19813,
+     -99.20907
+    ],
+    [
+     19.1988,
+     -99.19134
+    ]
+   ]
+  }
+ ],
+ "productores": [
+  {
+   "id": "prod-milpa-01",
+   "nombre": "Familia Jurado Nopaleros",
+   "titular": "Don Rogelio Jurado",
+   "pueblo": "San Agustín Ohtenco",
+   "alcaldia": "Milpa Alta",
+   "zona_id": "zona-milpa-alta",
+   "lat": 19.17394,
+   "lng": -99.01096,
+   "producto_principal": "Nopal verdura",
+   "catalogo": [
+    "Nopal verdura (ciento)",
+    "Nopal limpio (kg)"
+   ],
+   "temporada": "Todo el año; pico abril–septiembre",
+   "precio_mayoreo_app": {
+    "precio": 70,
+    "unidad": "ciento"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 150,
+    "unidad": "ciento",
+    "productor_recibe_con_app": 70,
+    "productor_recibia_con_intermediarios": 35,
+    "mejora_pct": 100,
+    "participacion_productor_pct_app": 47,
+    "participacion_productor_pct_intermediarios": 23
+   },
+   "venta_minima": "10 kg",
+   "entrega": "Recoger en centro de acopio",
+   "visitas_huerto": false,
+   "precio_visita": 350,
+   "rating": 4.8,
+   "num_resenas": 128,
+   "km_a_la_merced": 29.7,
+   "practicas": [
+    "Sin agroquímicos (declarado)",
+    "Rotación de cultivos"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-milpa-02",
+   "nombre": "Cooperativa Tlacotenco",
+   "titular": "Sra. Elena Tapia",
+   "pueblo": "Santa Ana Tlacotenco",
+   "alcaldia": "Milpa Alta",
+   "zona_id": "zona-milpa-alta",
+   "lat": 19.19567,
+   "lng": -99.01562,
+   "producto_principal": "Nopal y maíz azul",
+   "catalogo": [
+    "Maíz azul (kg)",
+    "Tortilla azul (docena)",
+    "Nopal (ciento)"
+   ],
+   "temporada": "Maíz: cosecha nov–ene",
+   "precio_mayoreo_app": {
+    "precio": 16,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 28,
+    "unidad": "kg",
+    "productor_recibe_con_app": 16,
+    "productor_recibia_con_intermediarios": 9,
+    "mejora_pct": 78,
+    "participacion_productor_pct_app": 57,
+    "participacion_productor_pct_intermediarios": 32
+   },
+   "venta_minima": "1 caja",
+   "entrega": "Recoger en huerto",
+   "visitas_huerto": false,
+   "precio_visita": 250,
+   "rating": 4.8,
+   "num_resenas": 126,
+   "km_a_la_merced": 27.4,
+   "practicas": [
+    "Riego de canal",
+    "Composta propia"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-milpa-03",
+   "nombre": "Moles de Atocpan Hnos. Laguna",
+   "titular": "Hnos. Laguna",
+   "pueblo": "San Pedro Atocpan",
+   "alcaldia": "Milpa Alta",
+   "zona_id": "zona-milpa-alta",
+   "lat": 19.19429,
+   "lng": -99.01867,
+   "producto_principal": "Mole en pasta",
+   "catalogo": [
+    "Mole almendrado (kg)",
+    "Mole rojo (kg)",
+    "Pipián (kg)"
+   ],
+   "temporada": "Todo el año",
+   "precio_mayoreo_app": {
+    "precio": 180,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 320,
+    "unidad": "kg",
+    "productor_recibe_con_app": 180,
+    "productor_recibia_con_intermediarios": 120,
+    "mejora_pct": 50,
+    "participacion_productor_pct_app": 56,
+    "participacion_productor_pct_intermediarios": 38
+   },
+   "venta_minima": "5 kg",
+   "entrega": "Recoger en centro de acopio",
+   "visitas_huerto": true,
+   "precio_visita": 150,
+   "rating": 4.7,
+   "num_resenas": 67,
+   "km_a_la_merced": 27.4,
+   "practicas": [
+    "Riego de canal",
+    "Semilla nativa"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-milpa-04",
+   "nombre": "Rancho Villa Milpa Alta",
+   "titular": "Don Arturo Meza",
+   "pueblo": "Villa Milpa Alta",
+   "alcaldia": "Milpa Alta",
+   "zona_id": "zona-milpa-alta",
+   "lat": 19.19072,
+   "lng": -99.01745,
+   "producto_principal": "Nopal y xoconostle",
+   "catalogo": [
+    "Nopal (ciento)",
+    "Xoconostle (kg)"
+   ],
+   "temporada": "Todo el año",
+   "precio_mayoreo_app": {
+    "precio": 65,
+    "unidad": "ciento"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 150,
+    "unidad": "ciento",
+    "productor_recibe_con_app": 65,
+    "productor_recibia_con_intermediarios": 32,
+    "mejora_pct": 103,
+    "participacion_productor_pct_app": 43,
+    "participacion_productor_pct_intermediarios": 21
+   },
+   "venta_minima": "5 kg",
+   "entrega": "Recoger en huerto",
+   "visitas_huerto": true,
+   "precio_visita": 350,
+   "rating": 4.8,
+   "num_resenas": 47,
+   "km_a_la_merced": 27.8,
+   "practicas": [
+    "Composta propia",
+    "Riego de canal"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-xochi-01",
+   "nombre": "Chinampa Atlapulco Verde",
+   "titular": "Sra. Lucía Romero",
+   "pueblo": "San Gregorio Atlapulco",
+   "alcaldia": "Xochimilco",
+   "zona_id": "zona-chinampas-xochimilco",
+   "lat": 19.25995,
+   "lng": -99.04632,
+   "producto_principal": "Hortalizas de chinampa",
+   "catalogo": [
+    "Lechuga orejona (pieza)",
+    "Acelga (manojo)",
+    "Verdolaga (kg)",
+    "Cilantro (manojo)"
+   ],
+   "temporada": "Todo el año",
+   "precio_mayoreo_app": {
+    "precio": 18,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 45,
+    "unidad": "kg",
+    "productor_recibe_con_app": 18,
+    "productor_recibia_con_intermediarios": 9,
+    "mejora_pct": 100,
+    "participacion_productor_pct_app": 40,
+    "participacion_productor_pct_intermediarios": 20
+   },
+   "venta_minima": "5 kg",
+   "entrega": "Recoger en huerto",
+   "visitas_huerto": true,
+   "precio_visita": 200,
+   "rating": 4.6,
+   "num_resenas": 180,
+   "km_a_la_merced": 19.7,
+   "practicas": [
+    "Semilla nativa",
+    "Sin agroquímicos (declarado)"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-xochi-02",
+   "nombre": "Chinampa Doña Petra",
+   "titular": "Sra. Petra Nápoles",
+   "pueblo": "San Gregorio Atlapulco",
+   "alcaldia": "Xochimilco",
+   "zona_id": "zona-chinampas-xochimilco",
+   "lat": 19.25464,
+   "lng": -99.05586,
+   "producto_principal": "Romeritos y flor de calabaza",
+   "catalogo": [
+    "Romeritos (kg)",
+    "Flor de calabaza (manojo)",
+    "Elote (pieza)"
+   ],
+   "temporada": "Romeritos: nov–dic y Semana Santa",
+   "precio_mayoreo_app": {
+    "precio": 35,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 90,
+    "unidad": "kg",
+    "productor_recibe_con_app": 35,
+    "productor_recibia_con_intermediarios": 18,
+    "mejora_pct": 94,
+    "participacion_productor_pct_app": 39,
+    "participacion_productor_pct_intermediarios": 20
+   },
+   "venta_minima": "10 kg",
+   "entrega": "Recoger en centro de acopio",
+   "visitas_huerto": true,
+   "precio_visita": 350,
+   "rating": 4.8,
+   "num_resenas": 168,
+   "km_a_la_merced": 19.8,
+   "practicas": [
+    "Rotación de cultivos",
+    "Riego de canal"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-xochi-03",
+   "nombre": "Alegrías de Tulyehualco Quirino",
+   "titular": "Familia Quirino",
+   "pueblo": "Santiago Tulyehualco",
+   "alcaldia": "Xochimilco",
+   "zona_id": "zona-tulyehualco",
+   "lat": 19.26487,
+   "lng": -99.00643,
+   "producto_principal": "Amaranto",
+   "catalogo": [
+    "Amaranto reventado (kg)",
+    "Alegría (pieza)",
+    "Aceite de oliva local (500 ml)"
+   ],
+   "temporada": "Todo el año; feria en ene–feb",
+   "precio_mayoreo_app": {
+    "precio": 45,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 95,
+    "unidad": "kg",
+    "productor_recibe_con_app": 45,
+    "productor_recibia_con_intermediarios": 28,
+    "mejora_pct": 61,
+    "participacion_productor_pct_app": 47,
+    "participacion_productor_pct_intermediarios": 29
+   },
+   "venta_minima": "1 caja",
+   "entrega": "Recoger en centro de acopio",
+   "visitas_huerto": false,
+   "precio_visita": 350,
+   "rating": 4.7,
+   "num_resenas": 112,
+   "km_a_la_merced": 21.4,
+   "practicas": [
+    "Sin agroquímicos (declarado)",
+    "Composta propia"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-xochi-04",
+   "nombre": "Viveros Tlaxialtemalco El Colibrí",
+   "titular": "Don Samuel Ortega",
+   "pueblo": "San Luis Tlaxialtemalco",
+   "alcaldia": "Xochimilco",
+   "zona_id": "zona-tlaxialtemalco",
+   "lat": 19.26522,
+   "lng": -99.05351,
+   "producto_principal": "Plantas y flor de temporada",
+   "catalogo": [
+    "Nochebuena (maceta)",
+    "Cempasúchil (maceta)",
+    "Suculentas"
+   ],
+   "temporada": "Cempasúchil: oct; nochebuena: nov–dic",
+   "precio_mayoreo_app": {
+    "precio": 25,
+    "unidad": "maceta"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 60,
+    "unidad": "maceta",
+    "productor_recibe_con_app": 25,
+    "productor_recibia_con_intermediarios": 14,
+    "mejora_pct": 79,
+    "participacion_productor_pct_app": 42,
+    "participacion_productor_pct_intermediarios": 23
+   },
+   "venta_minima": "1 caja",
+   "entrega": "Recoger en huerto",
+   "visitas_huerto": true,
+   "precio_visita": 150,
+   "rating": 4.7,
+   "num_resenas": 25,
+   "km_a_la_merced": 18.8,
+   "practicas": [
+    "Sin agroquímicos (declarado)",
+    "Rotación de cultivos"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-tlah-01",
+   "nombre": "Chinampas Mixquic Hnos. Galicia",
+   "titular": "Hnos. Galicia",
+   "pueblo": "San Andrés Mixquic",
+   "alcaldia": "Tláhuac",
+   "zona_id": "zona-mixquic",
+   "lat": 19.2256,
+   "lng": -98.96312,
+   "producto_principal": "Brócoli y coliflor",
+   "catalogo": [
+    "Brócoli (kg)",
+    "Coliflor (pieza)",
+    "Espinaca (manojo)"
+   ],
+   "temporada": "Todo el año",
+   "precio_mayoreo_app": {
+    "precio": 12,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 32,
+    "unidad": "kg",
+    "productor_recibe_con_app": 12,
+    "productor_recibia_con_intermediarios": 6,
+    "mejora_pct": 100,
+    "participacion_productor_pct_app": 38,
+    "participacion_productor_pct_intermediarios": 19
+   },
+   "venta_minima": "10 kg",
+   "entrega": "Envío con terceros a mercado",
+   "visitas_huerto": true,
+   "precio_visita": 200,
+   "rating": 4.8,
+   "num_resenas": 50,
+   "km_a_la_merced": 27.6,
+   "practicas": [
+    "Riego de canal",
+    "Rotación de cultivos"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-tlah-02",
+   "nombre": "Huerta Mixquic Doña Chabela",
+   "titular": "Sra. Isabel Cortés",
+   "pueblo": "San Andrés Mixquic",
+   "alcaldia": "Tláhuac",
+   "zona_id": "zona-mixquic",
+   "lat": 19.22645,
+   "lng": -98.96462,
+   "producto_principal": "Verdolaga y apio",
+   "catalogo": [
+    "Verdolaga (kg)",
+    "Apio (manojo)",
+    "Lechuga (pieza)"
+   ],
+   "temporada": "Todo el año",
+   "precio_mayoreo_app": {
+    "precio": 10,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 30,
+    "unidad": "kg",
+    "productor_recibe_con_app": 10,
+    "productor_recibia_con_intermediarios": 5,
+    "mejora_pct": 100,
+    "participacion_productor_pct_app": 33,
+    "participacion_productor_pct_intermediarios": 17
+   },
+   "venta_minima": "1 caja",
+   "entrega": "Recoger en centro de acopio",
+   "visitas_huerto": false,
+   "precio_visita": 350,
+   "rating": 4.7,
+   "num_resenas": 91,
+   "km_a_la_merced": 27.4,
+   "practicas": [
+    "Sin agroquímicos (declarado)",
+    "Semilla nativa"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-tlah-03",
+   "nombre": "Ejido Ixtayopan Colectivo",
+   "titular": "Colectivo ejidal",
+   "pueblo": "San Juan Ixtayopan",
+   "alcaldia": "Tláhuac",
+   "zona_id": "zona-tlahuac-ixtayopan",
+   "lat": 19.22845,
+   "lng": -99.02378,
+   "producto_principal": "Maíz y calabaza",
+   "catalogo": [
+    "Maíz blanco (kg)",
+    "Calabaza criolla (kg)"
+   ],
+   "temporada": "Cosecha oct–dic",
+   "precio_mayoreo_app": {
+    "precio": 8,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 14,
+    "unidad": "kg",
+    "productor_recibe_con_app": 8,
+    "productor_recibia_con_intermediarios": 5,
+    "mejora_pct": 60,
+    "participacion_productor_pct_app": 57,
+    "participacion_productor_pct_intermediarios": 36
+   },
+   "venta_minima": "10 kg",
+   "entrega": "Recoger en centro de acopio",
+   "visitas_huerto": false,
+   "precio_visita": 200,
+   "rating": 4.8,
+   "num_resenas": 64,
+   "km_a_la_merced": 23.8,
+   "practicas": [
+    "Rotación de cultivos",
+    "Riego de canal"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-tlal-01",
+   "nombre": "Milpa Topilejo Los Robles",
+   "titular": "Don Fermín Robles",
+   "pueblo": "San Miguel Topilejo",
+   "alcaldia": "Tlalpan",
+   "zona_id": "zona-topilejo",
+   "lat": 19.18152,
+   "lng": -99.14896,
+   "producto_principal": "Maíz nativo y haba",
+   "catalogo": [
+    "Maíz cacahuacintle (kg)",
+    "Haba seca (kg)",
+    "Chícharo (kg)"
+   ],
+   "temporada": "Cosecha nov–ene",
+   "precio_mayoreo_app": {
+    "precio": 20,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 45,
+    "unidad": "kg",
+    "productor_recibe_con_app": 20,
+    "productor_recibia_con_intermediarios": 12,
+    "mejora_pct": 67,
+    "participacion_productor_pct_app": 44,
+    "participacion_productor_pct_intermediarios": 27
+   },
+   "venta_minima": "1 caja",
+   "entrega": "Envío con terceros a mercado",
+   "visitas_huerto": true,
+   "precio_visita": 150,
+   "rating": 4.8,
+   "num_resenas": 78,
+   "km_a_la_merced": 26.5,
+   "practicas": [
+    "Rotación de cultivos",
+    "Riego de canal"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-tlal-02",
+   "nombre": "Parres Avena y Papa",
+   "titular": "Familia Villalobos",
+   "pueblo": "Parres El Guarda",
+   "alcaldia": "Tlalpan",
+   "zona_id": "zona-topilejo",
+   "lat": 19.1998,
+   "lng": -99.15346,
+   "producto_principal": "Avena y papa",
+   "catalogo": [
+    "Papa (kg)",
+    "Avena (paca)"
+   ],
+   "temporada": "Temporal jun–oct",
+   "precio_mayoreo_app": {
+    "precio": 9,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 30,
+    "unidad": "kg",
+    "productor_recibe_con_app": 9,
+    "productor_recibia_con_intermediarios": 5,
+    "mejora_pct": 80,
+    "participacion_productor_pct_app": 30,
+    "participacion_productor_pct_intermediarios": 17
+   },
+   "venta_minima": "1 ciento",
+   "entrega": "Envío con terceros a mercado",
+   "visitas_huerto": true,
+   "precio_visita": 250,
+   "rating": 4.8,
+   "num_resenas": 168,
+   "km_a_la_merced": 24.6,
+   "practicas": [
+    "Semilla nativa",
+    "Rotación de cultivos"
+   ],
+   "simulado": true
+  },
+  {
+   "id": "prod-tlal-03",
+   "nombre": "Hongos del Ajusco Doña Rosa",
+   "titular": "Sra. Rosa Mendoza",
+   "pueblo": "San Miguel Ajusco",
+   "alcaldia": "Tlalpan",
+   "zona_id": "zona-ajusco",
+   "lat": 19.22264,
+   "lng": -99.19924,
+   "producto_principal": "Hongos silvestres",
+   "catalogo": [
+    "Hongo de temporada (kg)",
+    "Quesadilla de hongo (pieza)"
+   ],
+   "temporada": "Julio–septiembre",
+   "precio_mayoreo_app": {
+    "precio": 120,
+    "unidad": "kg"
+   },
+   "comercio_justo": {
+    "precio_consumidor_final": 260,
+    "unidad": "kg",
+    "productor_recibe_con_app": 120,
+    "productor_recibia_con_intermediarios": 70,
+    "mejora_pct": 71,
+    "participacion_productor_pct_app": 46,
+    "participacion_productor_pct_intermediarios": 27
+   },
+   "venta_minima": "1 ciento",
+   "entrega": "Recoger en huerto",
+   "visitas_huerto": true,
+   "precio_visita": 250,
+   "rating": 4.9,
+   "num_resenas": 19,
+   "km_a_la_merced": 23.4,
+   "practicas": [
+    "Riego de canal",
+    "Composta propia"
+   ],
+   "simulado": true
+  }
+ ]
+}

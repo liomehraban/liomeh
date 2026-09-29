@@ -1,0 +1,111 @@
+{
+ "programa": "Pasaporte de Mercados",
+ "como_se_gana": [
+  {
+   "accion": "Compra pagada en la app (QR o tarjeta)",
+   "puntos": "1 punto por cada $10"
+  },
+  {
+   "accion": "Check-in con el QR del puesto (aunque pagues en efectivo)",
+   "puntos": "10 puntos (máx. 1 por puesto al día)"
+  },
+  {
+   "accion": "Primer check-in en un mercado nuevo",
+   "puntos": "50 puntos + sello en el pasaporte"
+  },
+  {
+   "accion": "Reseña con foto",
+   "puntos": "15 puntos"
+  },
+  {
+   "accion": "Compra directa a un productor de huerto",
+   "puntos": "Puntos dobles"
+  }
+ ],
+ "niveles": [
+  {
+   "nivel": "Marchante",
+   "desde": 0,
+   "beneficio": "Pasaporte digital y sellos"
+  },
+  {
+   "nivel": "Casero",
+   "desde": 500,
+   "beneficio": "5% de descuento en puestos adheridos"
+  },
+  {
+   "nivel": "Compadre de Mercado",
+   "desde": 1500,
+   "beneficio": "Ruta guiada gratis cada trimestre"
+  },
+  {
+   "nivel": "Leyenda de Mercado",
+   "desde": 4000,
+   "beneficio": "Invitación a eventos con productores y acceso anticipado"
+  }
+ ],
+ "insignias": [
+  {
+   "id": "centro",
+   "nombre": "Corazón del Centro",
+   "regla": "5 mercados del Centro Histórico"
+  },
+  {
+   "id": "chinampero",
+   "nombre": "Chinampero",
+   "regla": "Compra en 2 huertos de Xochimilco o Tláhuac"
+  },
+  {
+   "id": "madrugador",
+   "nombre": "Madrugador de la CEDA",
+   "regla": "Check-in en la CEDA antes de las 7:00"
+  },
+  {
+   "id": "16",
+   "nombre": "Las 16 alcaldías",
+   "regla": "Un mercado en cada alcaldía"
+  },
+  {
+   "id": "antojo",
+   "nombre": "Antojo chilango",
+   "regla": "Huarache en Río Blanco + pancita en La Merced + carnitas en Jamaica"
+  }
+ ],
+ "recompensas": [
+  {
+   "id": "agua",
+   "titulo": "Agua fresca gratis",
+   "puntos": 120
+  },
+  {
+   "id": "desc10",
+   "titulo": "10% en tu siguiente compra en La Merced",
+   "puntos": 300
+  },
+  {
+   "id": "tour",
+   "titulo": "Ruta guiada gratis",
+   "puntos": 900
+  },
+  {
+   "id": "huerto",
+   "titulo": "Visita a una chinampa",
+   "puntos": 1200
+  }
+ ],
+ "usuario_demo": {
+  "nombre": "Sofía",
+  "nivel": "Casero",
+  "puntos": 740,
+  "sellos": [
+   "la-merced",
+   "77-san-juan-ernesto-pugibet",
+   "65-jamaica-comidas",
+   "44-xochimilco-zona-xochitl",
+   "la-ciudadela"
+  ],
+  "insignias": [
+   "antojo"
+  ]
+ }
+}

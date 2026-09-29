@@ -1,0 +1,4201 @@
+{
+ "mercado_id": "la-merced",
+ "nota": "Plano ESQUEMÁTICO para maqueta. Naves, puertas y giros según la Guía de Mercados CDMX 2026; distribución y puestos simulados salvo los marcados real_segun_guia=true.",
+ "lienzo": {
+  "w": 1200,
+  "h": 800,
+  "unidad": "≈1 m (esquemático)"
+ },
+ "edificios": [
+  {
+   "id": "nave-mayor",
+   "nombre": "Nave Mayor",
+   "x": 320,
+   "y": 260,
+   "w": 820,
+   "h": 220,
+   "giro": "Frutas, verduras, chiles secos y semillas",
+   "locatarios_aprox": 4000,
+   "nota": "Cubierta de cascarones de Félix Candela; Metro Merced (L1) en su interior",
+   "color": "#7B2D8E"
+  },
+  {
+   "id": "nave-menor",
+   "nombre": "Nave Menor",
+   "x": 320,
+   "y": 560,
+   "w": 330,
+   "h": 150,
+   "giro": "Carnes, aves y pescados",
+   "locatarios_aprox": 496,
+   "color": "#A23B72"
+  },
+  {
+   "id": "paso-desnivel",
+   "nombre": "Paso a Desnivel",
+   "x": 450,
+   "y": 480,
+   "w": 50,
+   "h": 80,
+   "giro": "Jarcería, decoración y productos diversos",
+   "nota": "Túnel que conecta Nave Mayor y Nave Menor",
+   "color": "#9E7BB5"
+  },
+  {
+   "id": "anexo",
+   "nombre": "Mercado Anexo",
+   "x": 700,
+   "y": 560,
+   "w": 230,
+   "h": 150,
+   "giro": "Artículos para el hogar, plásticos y utensilios de cocina",
+   "color": "#C08BC5"
+  },
+  {
+   "id": "comidas",
+   "nombre": "Mercado de Comidas",
+   "x": 60,
+   "y": 300,
+   "w": 200,
+   "h": 150,
+   "giro": "Más de 200 locales de comida; molinos de nixtamal",
+   "color": "#E07A1F"
+  },
+  {
+   "id": "banqueton",
+   "nombre": "Mercado Banquetón",
+   "x": 60,
+   "y": 470,
+   "w": 200,
+   "h": 60,
+   "giro": "Pasillo gastronómico (Puertas 14 y 15)",
+   "nota": "Surgió en la calle Santa Escuela para reubicar comerciantes desplazados por las obras del Metro",
+   "color": "#F2A541"
+  },
+  {
+   "id": "flores",
+   "nombre": "Mercado de Flores",
+   "x": 60,
+   "y": 170,
+   "w": 200,
+   "h": 110,
+   "giro": "≈95% flores artificiales y artículos para fiestas",
+   "color": "#D6457A"
+  },
+  {
+   "id": "ampudia",
+   "nombre": "Mercado Ampudia",
+   "x": 60,
+   "y": 50,
+   "w": 140,
+   "h": 100,
+   "giro": "Dulces mexicanos, fruta cristalizada y confitería (edificio de 4 pisos, años 40)",
+   "color": "#E85D9B"
+  }
+ ],
+ "calles": [
+  {
+   "nombre": "Anillo de Circunvalación",
+   "x1": 290,
+   "y1": 20,
+   "x2": 290,
+   "y2": 780
+  },
+  {
+   "nombre": "Calle Rosario",
+   "x1": 20,
+   "y1": 520,
+   "x2": 1180,
+   "y2": 520
+  },
+  {
+   "nombre": "General Anaya",
+   "x1": 20,
+   "y1": 160,
+   "x2": 290,
+   "y2": 160
+  },
+  {
+   "nombre": "Adolfo Gurrión",
+   "x1": 680,
+   "y1": 540,
+   "x2": 680,
+   "y2": 780
+  }
+ ],
+ "accesos": [
+  {
+   "id": "metro-merced",
+   "nombre": "Metro Merced (Línea 1) — salida Nave Mayor",
+   "x": 730,
+   "y": 470,
+   "tipo": "metro"
+  },
+  {
+   "id": "metro-candelaria",
+   "nombre": "Metro Candelaria (Líneas 1 y 4)",
+   "x": 1150,
+   "y": 370,
+   "tipo": "metro"
+  },
+  {
+   "id": "circunvalacion",
+   "nombre": "Parada Circunvalación / Rosario",
+   "x": 290,
+   "y": 520,
+   "tipo": "calle"
+  },
+  {
+   "id": "puerta-14",
+   "nombre": "Puerta 14 (Banquetón)",
+   "x": 130,
+   "y": 530,
+   "tipo": "puerta"
+  },
+  {
+   "id": "puerta-15",
+   "nombre": "Puerta 15 (Banquetón)",
+   "x": 210,
+   "y": 530,
+   "tipo": "puerta"
+  }
+ ],
+ "grafo": {
+  "nodos": [
+   {
+    "id": "NM-A1",
+    "x": 340,
+    "y": 285,
+    "label": "Pasillo A, cruce 1"
+   },
+   {
+    "id": "NM-A2",
+    "x": 440,
+    "y": 285,
+    "label": "Pasillo A, cruce 2"
+   },
+   {
+    "id": "NM-A3",
+    "x": 540,
+    "y": 285,
+    "label": "Pasillo A, cruce 3"
+   },
+   {
+    "id": "NM-A4",
+    "x": 640,
+    "y": 285,
+    "label": "Pasillo A, cruce 4"
+   },
+   {
+    "id": "NM-A5",
+    "x": 740,
+    "y": 285,
+    "label": "Pasillo A, cruce 5"
+   },
+   {
+    "id": "NM-A6",
+    "x": 840,
+    "y": 285,
+    "label": "Pasillo A, cruce 6"
+   },
+   {
+    "id": "NM-A7",
+    "x": 940,
+    "y": 285,
+    "label": "Pasillo A, cruce 7"
+   },
+   {
+    "id": "NM-A8",
+    "x": 1040,
+    "y": 285,
+    "label": "Pasillo A, cruce 8"
+   },
+   {
+    "id": "NM-B1",
+    "x": 340,
+    "y": 330,
+    "label": "Pasillo B, cruce 1"
+   },
+   {
+    "id": "NM-B2",
+    "x": 440,
+    "y": 330,
+    "label": "Pasillo B, cruce 2"
+   },
+   {
+    "id": "NM-B3",
+    "x": 540,
+    "y": 330,
+    "label": "Pasillo B, cruce 3"
+   },
+   {
+    "id": "NM-B4",
+    "x": 640,
+    "y": 330,
+    "label": "Pasillo B, cruce 4"
+   },
+   {
+    "id": "NM-B5",
+    "x": 740,
+    "y": 330,
+    "label": "Pasillo B, cruce 5"
+   },
+   {
+    "id": "NM-B6",
+    "x": 840,
+    "y": 330,
+    "label": "Pasillo B, cruce 6"
+   },
+   {
+    "id": "NM-B7",
+    "x": 940,
+    "y": 330,
+    "label": "Pasillo B, cruce 7"
+   },
+   {
+    "id": "NM-B8",
+    "x": 1040,
+    "y": 330,
+    "label": "Pasillo B, cruce 8"
+   },
+   {
+    "id": "NM-C1",
+    "x": 340,
+    "y": 370,
+    "label": "Pasillo C, cruce 1"
+   },
+   {
+    "id": "NM-C2",
+    "x": 440,
+    "y": 370,
+    "label": "Pasillo C, cruce 2"
+   },
+   {
+    "id": "NM-C3",
+    "x": 540,
+    "y": 370,
+    "label": "Pasillo C, cruce 3"
+   },
+   {
+    "id": "NM-C4",
+    "x": 640,
+    "y": 370,
+    "label": "Pasillo C, cruce 4"
+   },
+   {
+    "id": "NM-C5",
+    "x": 740,
+    "y": 370,
+    "label": "Pasillo C, cruce 5"
+   },
+   {
+    "id": "NM-C6",
+    "x": 840,
+    "y": 370,
+    "label": "Pasillo C, cruce 6"
+   },
+   {
+    "id": "NM-C7",
+    "x": 940,
+    "y": 370,
+    "label": "Pasillo C, cruce 7"
+   },
+   {
+    "id": "NM-C8",
+    "x": 1040,
+    "y": 370,
+    "label": "Pasillo C, cruce 8"
+   },
+   {
+    "id": "NM-D1",
+    "x": 340,
+    "y": 415,
+    "label": "Pasillo D, cruce 1"
+   },
+   {
+    "id": "NM-D2",
+    "x": 440,
+    "y": 415,
+    "label": "Pasillo D, cruce 2"
+   },
+   {
+    "id": "NM-D3",
+    "x": 540,
+    "y": 415,
+    "label": "Pasillo D, cruce 3"
+   },
+   {
+    "id": "NM-D4",
+    "x": 640,
+    "y": 415,
+    "label": "Pasillo D, cruce 4"
+   },
+   {
+    "id": "NM-D5",
+    "x": 740,
+    "y": 415,
+    "label": "Pasillo D, cruce 5"
+   },
+   {
+    "id": "NM-D6",
+    "x": 840,
+    "y": 415,
+    "label": "Pasillo D, cruce 6"
+   },
+   {
+    "id": "NM-D7",
+    "x": 940,
+    "y": 415,
+    "label": "Pasillo D, cruce 7"
+   },
+   {
+    "id": "NM-D8",
+    "x": 1040,
+    "y": 415,
+    "label": "Pasillo D, cruce 8"
+   },
+   {
+    "id": "NM-E1",
+    "x": 340,
+    "y": 455,
+    "label": "Pasillo E, cruce 1"
+   },
+   {
+    "id": "NM-E2",
+    "x": 440,
+    "y": 455,
+    "label": "Pasillo E, cruce 2"
+   },
+   {
+    "id": "NM-E3",
+    "x": 540,
+    "y": 455,
+    "label": "Pasillo E, cruce 3"
+   },
+   {
+    "id": "NM-E4",
+    "x": 640,
+    "y": 455,
+    "label": "Pasillo E, cruce 4"
+   },
+   {
+    "id": "NM-E5",
+    "x": 740,
+    "y": 455,
+    "label": "Pasillo E, cruce 5"
+   },
+   {
+    "id": "NM-E6",
+    "x": 840,
+    "y": 455,
+    "label": "Pasillo E, cruce 6"
+   },
+   {
+    "id": "NM-E7",
+    "x": 940,
+    "y": 455,
+    "label": "Pasillo E, cruce 7"
+   },
+   {
+    "id": "NM-E8",
+    "x": 1040,
+    "y": 455,
+    "label": "Pasillo E, cruce 8"
+   },
+   {
+    "id": "metro-merced",
+    "x": 730,
+    "y": 470,
+    "label": "Salida Metro Merced"
+   },
+   {
+    "id": "metro-candelaria",
+    "x": 1150,
+    "y": 370,
+    "label": "Metro Candelaria"
+   },
+   {
+    "id": "circunvalacion",
+    "x": 290,
+    "y": 520,
+    "label": "Circunvalación y Rosario"
+   },
+   {
+    "id": "PD-N",
+    "x": 475,
+    "y": 490,
+    "label": "Paso a Desnivel (entrada norte)"
+   },
+   {
+    "id": "PD-S",
+    "x": 475,
+    "y": 555,
+    "label": "Paso a Desnivel (salida sur)"
+   },
+   {
+    "id": "NMe-1",
+    "x": 360,
+    "y": 600,
+    "label": "Nave Menor, pasillo central 1"
+   },
+   {
+    "id": "NMe-2",
+    "x": 440,
+    "y": 600,
+    "label": "Nave Menor, pasillo central 2"
+   },
+   {
+    "id": "NMe-3",
+    "x": 520,
+    "y": 600,
+    "label": "Nave Menor, pasillo central 3"
+   },
+   {
+    "id": "NMe-4",
+    "x": 600,
+    "y": 600,
+    "label": "Nave Menor, pasillo central 4"
+   },
+   {
+    "id": "AX-1",
+    "x": 730,
+    "y": 620,
+    "label": "Anexo, pasillo 1"
+   },
+   {
+    "id": "AX-2",
+    "x": 810,
+    "y": 620,
+    "label": "Anexo, pasillo 2"
+   },
+   {
+    "id": "AX-3",
+    "x": 890,
+    "y": 620,
+    "label": "Anexo, pasillo 3"
+   },
+   {
+    "id": "CMD-P",
+    "x": 270,
+    "y": 380,
+    "label": "Puerta oriente Mercado de Comidas"
+   },
+   {
+    "id": "CMD-1",
+    "x": 220,
+    "y": 340,
+    "label": "Mercado de Comidas, pasillo norte"
+   },
+   {
+    "id": "CMD-2",
+    "x": 160,
+    "y": 340,
+    "label": "Mercado de Comidas, pasillo norte"
+   },
+   {
+    "id": "CMD-3",
+    "x": 100,
+    "y": 340,
+    "label": "Mercado de Comidas, pasillo norte"
+   },
+   {
+    "id": "CMD-4",
+    "x": 220,
+    "y": 410,
+    "label": "Mercado de Comidas, pasillo sur"
+   },
+   {
+    "id": "CMD-5",
+    "x": 160,
+    "y": 410,
+    "label": "Mercado de Comidas, pasillo sur"
+   },
+   {
+    "id": "CMD-6",
+    "x": 100,
+    "y": 410,
+    "label": "Mercado de Comidas, pasillo sur"
+   },
+   {
+    "id": "BQ-15",
+    "x": 210,
+    "y": 500,
+    "label": "Banquetón, Puerta 15"
+   },
+   {
+    "id": "BQ-14",
+    "x": 130,
+    "y": 500,
+    "label": "Banquetón, Puerta 14"
+   },
+   {
+    "id": "FL-P",
+    "x": 270,
+    "y": 225,
+    "label": "Puerta Mercado de Flores"
+   },
+   {
+    "id": "FL-1",
+    "x": 220,
+    "y": 225,
+    "label": "Mercado de Flores, pasillo 1"
+   },
+   {
+    "id": "FL-2",
+    "x": 150,
+    "y": 225,
+    "label": "Mercado de Flores, pasillo 2"
+   },
+   {
+    "id": "FL-3",
+    "x": 90,
+    "y": 225,
+    "label": "Mercado de Flores, pasillo 3"
+   },
+   {
+    "id": "AMP",
+    "x": 130,
+    "y": 150,
+    "label": "Mercado Ampudia, planta baja"
+   }
+  ],
+  "aristas": [
+   {
+    "a": "NM-A1",
+    "b": "NM-A2",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-A2",
+    "b": "NM-A3",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-A3",
+    "b": "NM-A4",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-A4",
+    "b": "NM-A5",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-A5",
+    "b": "NM-A6",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-A6",
+    "b": "NM-A7",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-A7",
+    "b": "NM-A8",
+    "via": "Pasillo A",
+    "m": 100
+   },
+   {
+    "a": "NM-B1",
+    "b": "NM-B2",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-B2",
+    "b": "NM-B3",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-B3",
+    "b": "NM-B4",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-B4",
+    "b": "NM-B5",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-B5",
+    "b": "NM-B6",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-B6",
+    "b": "NM-B7",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-B7",
+    "b": "NM-B8",
+    "via": "Pasillo B",
+    "m": 100
+   },
+   {
+    "a": "NM-C1",
+    "b": "NM-C2",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-C2",
+    "b": "NM-C3",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-C3",
+    "b": "NM-C4",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-C4",
+    "b": "NM-C5",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-C5",
+    "b": "NM-C6",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-C6",
+    "b": "NM-C7",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-C7",
+    "b": "NM-C8",
+    "via": "Pasillo C",
+    "m": 100
+   },
+   {
+    "a": "NM-D1",
+    "b": "NM-D2",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-D2",
+    "b": "NM-D3",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-D3",
+    "b": "NM-D4",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-D4",
+    "b": "NM-D5",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-D5",
+    "b": "NM-D6",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-D6",
+    "b": "NM-D7",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-D7",
+    "b": "NM-D8",
+    "via": "Pasillo D",
+    "m": 100
+   },
+   {
+    "a": "NM-E1",
+    "b": "NM-E2",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-E2",
+    "b": "NM-E3",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-E3",
+    "b": "NM-E4",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-E4",
+    "b": "NM-E5",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-E5",
+    "b": "NM-E6",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-E6",
+    "b": "NM-E7",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-E7",
+    "b": "NM-E8",
+    "via": "Pasillo E",
+    "m": 100
+   },
+   {
+    "a": "NM-A1",
+    "b": "NM-B1",
+    "via": "Cruce 1",
+    "m": 45
+   },
+   {
+    "a": "NM-B1",
+    "b": "NM-C1",
+    "via": "Cruce 1",
+    "m": 40
+   },
+   {
+    "a": "NM-C1",
+    "b": "NM-D1",
+    "via": "Cruce 1",
+    "m": 45
+   },
+   {
+    "a": "NM-D1",
+    "b": "NM-E1",
+    "via": "Cruce 1",
+    "m": 40
+   },
+   {
+    "a": "NM-A2",
+    "b": "NM-B2",
+    "via": "Cruce 2",
+    "m": 45
+   },
+   {
+    "a": "NM-B2",
+    "b": "NM-C2",
+    "via": "Cruce 2",
+    "m": 40
+   },
+   {
+    "a": "NM-C2",
+    "b": "NM-D2",
+    "via": "Cruce 2",
+    "m": 45
+   },
+   {
+    "a": "NM-D2",
+    "b": "NM-E2",
+    "via": "Cruce 2",
+    "m": 40
+   },
+   {
+    "a": "NM-A3",
+    "b": "NM-B3",
+    "via": "Cruce 3",
+    "m": 45
+   },
+   {
+    "a": "NM-B3",
+    "b": "NM-C3",
+    "via": "Cruce 3",
+    "m": 40
+   },
+   {
+    "a": "NM-C3",
+    "b": "NM-D3",
+    "via": "Cruce 3",
+    "m": 45
+   },
+   {
+    "a": "NM-D3",
+    "b": "NM-E3",
+    "via": "Cruce 3",
+    "m": 40
+   },
+   {
+    "a": "NM-A4",
+    "b": "NM-B4",
+    "via": "Cruce 4",
+    "m": 45
+   },
+   {
+    "a": "NM-B4",
+    "b": "NM-C4",
+    "via": "Cruce 4",
+    "m": 40
+   },
+   {
+    "a": "NM-C4",
+    "b": "NM-D4",
+    "via": "Cruce 4",
+    "m": 45
+   },
+   {
+    "a": "NM-D4",
+    "b": "NM-E4",
+    "via": "Cruce 4",
+    "m": 40
+   },
+   {
+    "a": "NM-A5",
+    "b": "NM-B5",
+    "via": "Cruce 5",
+    "m": 45
+   },
+   {
+    "a": "NM-B5",
+    "b": "NM-C5",
+    "via": "Cruce 5",
+    "m": 40
+   },
+   {
+    "a": "NM-C5",
+    "b": "NM-D5",
+    "via": "Cruce 5",
+    "m": 45
+   },
+   {
+    "a": "NM-D5",
+    "b": "NM-E5",
+    "via": "Cruce 5",
+    "m": 40
+   },
+   {
+    "a": "NM-A6",
+    "b": "NM-B6",
+    "via": "Cruce 6",
+    "m": 45
+   },
+   {
+    "a": "NM-B6",
+    "b": "NM-C6",
+    "via": "Cruce 6",
+    "m": 40
+   },
+   {
+    "a": "NM-C6",
+    "b": "NM-D6",
+    "via": "Cruce 6",
+    "m": 45
+   },
+   {
+    "a": "NM-D6",
+    "b": "NM-E6",
+    "via": "Cruce 6",
+    "m": 40
+   },
+   {
+    "a": "NM-A7",
+    "b": "NM-B7",
+    "via": "Cruce 7",
+    "m": 45
+   },
+   {
+    "a": "NM-B7",
+    "b": "NM-C7",
+    "via": "Cruce 7",
+    "m": 40
+   },
+   {
+    "a": "NM-C7",
+    "b": "NM-D7",
+    "via": "Cruce 7",
+    "m": 45
+   },
+   {
+    "a": "NM-D7",
+    "b": "NM-E7",
+    "via": "Cruce 7",
+    "m": 40
+   },
+   {
+    "a": "NM-A8",
+    "b": "NM-B8",
+    "via": "Cruce 8",
+    "m": 45
+   },
+   {
+    "a": "NM-B8",
+    "b": "NM-C8",
+    "via": "Cruce 8",
+    "m": 40
+   },
+   {
+    "a": "NM-C8",
+    "b": "NM-D8",
+    "via": "Cruce 8",
+    "m": 45
+   },
+   {
+    "a": "NM-D8",
+    "b": "NM-E8",
+    "via": "Cruce 8",
+    "m": 40
+   },
+   {
+    "a": "metro-merced",
+    "b": "NM-E4",
+    "via": "Vestíbulo del Metro",
+    "m": 91
+   },
+   {
+    "a": "metro-candelaria",
+    "b": "NM-C8",
+    "via": "Acceso oriente Nave Mayor",
+    "m": 110
+   },
+   {
+    "a": "circunvalacion",
+    "b": "NM-E1",
+    "via": "Acceso poniente Nave Mayor",
+    "m": 82
+   },
+   {
+    "a": "NM-E2",
+    "b": "PD-N",
+    "via": "Rampa al Paso a Desnivel",
+    "m": 49
+   },
+   {
+    "a": "PD-N",
+    "b": "PD-S",
+    "via": "Túnel Paso a Desnivel",
+    "m": 65
+   },
+   {
+    "a": "NMe-1",
+    "b": "NMe-2",
+    "via": "Pasillo central Nave Menor",
+    "m": 80
+   },
+   {
+    "a": "NMe-2",
+    "b": "NMe-3",
+    "via": "Pasillo central Nave Menor",
+    "m": 80
+   },
+   {
+    "a": "NMe-3",
+    "b": "NMe-4",
+    "via": "Pasillo central Nave Menor",
+    "m": 80
+   },
+   {
+    "a": "PD-S",
+    "b": "NMe-2",
+    "via": "Entrada Nave Menor",
+    "m": 57
+   },
+   {
+    "a": "AX-1",
+    "b": "AX-2",
+    "via": "Pasillo Anexo",
+    "m": 80
+   },
+   {
+    "a": "AX-2",
+    "b": "AX-3",
+    "via": "Pasillo Anexo",
+    "m": 80
+   },
+   {
+    "a": "NMe-4",
+    "b": "AX-1",
+    "via": "Calle Adolfo Gurrión",
+    "m": 132
+   },
+   {
+    "a": "circunvalacion",
+    "b": "CMD-P",
+    "via": "Banqueta de Circunvalación",
+    "m": 141
+   },
+   {
+    "a": "NM-A1",
+    "b": "CMD-P",
+    "via": "Cruce peatonal Circunvalación",
+    "m": 118
+   },
+   {
+    "a": "CMD-P",
+    "b": "CMD-1",
+    "via": "Entrada Comidas",
+    "m": 64
+   },
+   {
+    "a": "CMD-1",
+    "b": "CMD-2",
+    "via": "Pasillo norte",
+    "m": 60
+   },
+   {
+    "a": "CMD-2",
+    "b": "CMD-3",
+    "via": "Pasillo norte",
+    "m": 60
+   },
+   {
+    "a": "CMD-P",
+    "b": "CMD-4",
+    "via": "Entrada Comidas",
+    "m": 58
+   },
+   {
+    "a": "CMD-4",
+    "b": "CMD-5",
+    "via": "Pasillo sur",
+    "m": 60
+   },
+   {
+    "a": "CMD-5",
+    "b": "CMD-6",
+    "via": "Pasillo sur",
+    "m": 60
+   },
+   {
+    "a": "CMD-1",
+    "b": "CMD-4",
+    "via": "Cruce",
+    "m": 70
+   },
+   {
+    "a": "CMD-3",
+    "b": "CMD-6",
+    "via": "Cruce",
+    "m": 70
+   },
+   {
+    "a": "circunvalacion",
+    "b": "BQ-15",
+    "via": "Calle Santa Escuela",
+    "m": 82
+   },
+   {
+    "a": "BQ-15",
+    "b": "BQ-14",
+    "via": "Pasillo Banquetón",
+    "m": 80
+   },
+   {
+    "a": "CMD-4",
+    "b": "BQ-15",
+    "via": "Salida sur de Comidas",
+    "m": 91
+   },
+   {
+    "a": "NM-A1",
+    "b": "FL-P",
+    "via": "Cruce Circunvalación hacia Flores",
+    "m": 92
+   },
+   {
+    "a": "FL-P",
+    "b": "FL-1",
+    "via": "Entrada Flores",
+    "m": 50
+   },
+   {
+    "a": "FL-1",
+    "b": "FL-2",
+    "via": "Pasillo Flores",
+    "m": 70
+   },
+   {
+    "a": "FL-2",
+    "b": "FL-3",
+    "via": "Pasillo Flores",
+    "m": 60
+   },
+   {
+    "a": "FL-2",
+    "b": "AMP",
+    "via": "Calle General Anaya",
+    "m": 78
+   }
+  ]
+ },
+ "puestos": [
+  {
+   "id": "dona-tere",
+   "nombre": "Desayunos Doña Tere",
+   "giro": "Fonda / desayunos",
+   "edificio": "banqueton",
+   "nodo_cercano": "BQ-14",
+   "ubicacion_texto": "Banquetón, Puerta 14 · Local P14-03",
+   "local": "P14-03",
+   "x": 121,
+   "y": 498,
+   "productos": [
+    {
+     "n": "Atole de masa azul",
+     "p": 30,
+     "u": "vaso"
+    },
+    {
+     "n": "Pinole",
+     "p": 35,
+     "u": "vaso"
+    },
+    {
+     "n": "Tamal frito",
+     "p": 28,
+     "u": "pieza"
+    },
+    {
+     "n": "Guajolota",
+     "p": 40,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": true,
+   "simulado": false,
+   "rating": 4.6,
+   "num_resenas": 562,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "06:00–13:00",
+   "destacado": true
+  },
+  {
+   "id": "pancita-dona-chela",
+   "nombre": "Pancita Doña Chela",
+   "giro": "Fonda / pancita",
+   "edificio": "banqueton",
+   "nodo_cercano": "BQ-14",
+   "ubicacion_texto": "Banquetón, Puerta 14 · Local P14-07",
+   "local": "P14-07",
+   "x": 125,
+   "y": 507,
+   "productos": [
+    {
+     "n": "Pancita (pata, libro y cuaderno)",
+     "p": 115,
+     "u": "plato"
+    },
+    {
+     "n": "Sope",
+     "p": 35,
+     "u": "pieza"
+    },
+    {
+     "n": "Huarache sencillo",
+     "p": 60,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": true,
+   "simulado": false,
+   "rating": 4.7,
+   "num_resenas": 468,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "07:00–15:00",
+   "destacado": true
+  },
+  {
+   "id": "tacos-cabeza-p15",
+   "nombre": "Tacos de Cabeza (Puerta 15)",
+   "giro": "Taquería",
+   "edificio": "banqueton",
+   "nodo_cercano": "BQ-15",
+   "ubicacion_texto": "Banquetón, Puerta 15 · Local P15-01",
+   "local": "P15-01",
+   "x": 221,
+   "y": 512,
+   "productos": [
+    {
+     "n": "Taco de cabeza (maciza, cachete, lengua)",
+     "p": 22,
+     "u": "pieza"
+    },
+    {
+     "n": "Taco de ojo",
+     "p": 26,
+     "u": "pieza"
+    },
+    {
+     "n": "Refresco",
+     "p": 25,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": true,
+   "simulado": false,
+   "rating": 4.8,
+   "num_resenas": 638,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "07:00–16:00",
+   "destacado": true
+  },
+  {
+   "id": "jugos-moreno",
+   "nombre": "Jugos y Licuados Moreno",
+   "giro": "Jugos / postres",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-2",
+   "ubicacion_texto": "Mercado de Comidas, pasillo norte · Local C-112",
+   "local": "C-112",
+   "x": 167,
+   "y": 330,
+   "productos": [
+    {
+     "n": "Fresas con crema",
+     "p": 65,
+     "u": "vaso"
+    },
+    {
+     "n": "Escamocha",
+     "p": 70,
+     "u": "vaso"
+    },
+    {
+     "n": "Jugo verde",
+     "p": 45,
+     "u": "vaso 1/2 L"
+    },
+    {
+     "n": "Licuado de plátano",
+     "p": 45,
+     "u": "vaso"
+    }
+   ],
+   "real_segun_guia": true,
+   "simulado": false,
+   "rating": 4.4,
+   "num_resenas": 138,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Plus",
+   "horario": "07:00–17:00",
+   "destacado": true
+  },
+  {
+   "id": "molino-comidas",
+   "nombre": "Molino de Nixtamal",
+   "giro": "Molino / masa",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-3",
+   "ubicacion_texto": "Mercado de Comidas, pasillo norte · Local C-140",
+   "local": "C-140",
+   "x": 103,
+   "y": 349,
+   "productos": [
+    {
+     "n": "Masa fresca de maíz",
+     "p": 22,
+     "u": "kg"
+    },
+    {
+     "n": "Masa azul",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Tortilla hecha a mano",
+     "p": 35,
+     "u": "docena"
+    }
+   ],
+   "real_segun_guia": true,
+   "simulado": false,
+   "rating": 4.5,
+   "num_resenas": 444,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "05:30–14:00",
+   "origen": [
+    {
+     "producto": "Maíz",
+     "lugar": "Puebla",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-a2",
+   "nombre": "Frutas Doña Lupe",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-A2",
+   "ubicacion_texto": "Pasillo A, cruce 2 · Local NM-A275",
+   "local": "NM-A275",
+   "x": 451,
+   "y": 283,
+   "productos": [
+    {
+     "n": "Jitomate saladet",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Cebolla blanca",
+     "p": 26,
+     "u": "kg"
+    },
+    {
+     "n": "Chile serrano",
+     "p": 45,
+     "u": "kg"
+    },
+    {
+     "n": "Tomate verde",
+     "p": 30,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 588,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-a3",
+   "nombre": "Verduras Los Güeros",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-A3",
+   "ubicacion_texto": "Pasillo A, cruce 3 · Local NM-A392",
+   "local": "NM-A392",
+   "x": 528,
+   "y": 295,
+   "productos": [
+    {
+     "n": "Papaya maradol",
+     "p": 25,
+     "u": "kg"
+    },
+    {
+     "n": "Piña",
+     "p": 22,
+     "u": "kg"
+    },
+    {
+     "n": "Plátano tabasco",
+     "p": 24,
+     "u": "kg"
+    },
+    {
+     "n": "Mango ataulfo",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 510,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "cítricos",
+     "lugar": "Veracruz",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-a5",
+   "nombre": "La Huerta de Chayo",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-A5",
+   "ubicacion_texto": "Pasillo A, cruce 5 · Local NM-A580",
+   "local": "NM-A580",
+   "x": 731,
+   "y": 286,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 540,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "verdura de chinampa",
+     "lugar": "Xochimilco, CDMX",
+     "huerto_id": "prod-xochi-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-a6",
+   "nombre": "Frutería El Campeón",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-A6",
+   "ubicacion_texto": "Pasillo A, cruce 6 · Local NM-A663",
+   "local": "NM-A663",
+   "x": 844,
+   "y": 289,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 627,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "aguacate",
+     "lugar": "Michoacán",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-a7",
+   "nombre": "Verduras Hermanos Rosas",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-A7",
+   "ubicacion_texto": "Pasillo A, cruce 7 · Local NM-A776",
+   "local": "NM-A776",
+   "x": 950,
+   "y": 292,
+   "productos": [
+    {
+     "n": "Jitomate saladet",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Cebolla blanca",
+     "p": 26,
+     "u": "kg"
+    },
+    {
+     "n": "Chile serrano",
+     "p": 45,
+     "u": "kg"
+    },
+    {
+     "n": "Tomate verde",
+     "p": 30,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 183,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Puebla",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-b2",
+   "nombre": "Frutas Finas Tere",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-B2",
+   "ubicacion_texto": "Pasillo B, cruce 2 · Local NM-B290",
+   "local": "NM-B290",
+   "x": 449,
+   "y": 333,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 596,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Puebla",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-b3",
+   "nombre": "Legumbres La Poblana",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-B3",
+   "ubicacion_texto": "Pasillo B, cruce 3 · Local NM-B349",
+   "local": "NM-B349",
+   "x": 540,
+   "y": 331,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 313,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Edomex",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-b5",
+   "nombre": "Aguacates El Michoacano",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-B5",
+   "ubicacion_texto": "Pasillo B, cruce 5 · Local NM-B586",
+   "local": "NM-B586",
+   "x": 744,
+   "y": 333,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 242,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Edomex",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-b6",
+   "nombre": "Cítricos Veracruz",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-B6",
+   "ubicacion_texto": "Pasillo B, cruce 6 · Local NM-B675",
+   "local": "NM-B675",
+   "x": 841,
+   "y": 335,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 72,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-b7",
+   "nombre": "Jitomates Don Beto",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-B7",
+   "ubicacion_texto": "Pasillo B, cruce 7 · Local NM-B722",
+   "local": "NM-B722",
+   "x": 950,
+   "y": 340,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 565,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-c2",
+   "nombre": "El Rincón de la Fruta",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-C2",
+   "ubicacion_texto": "Pasillo C, cruce 2 · Local NM-C271",
+   "local": "NM-C271",
+   "x": 448,
+   "y": 366,
+   "productos": [
+    {
+     "n": "Jitomate saladet",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Cebolla blanca",
+     "p": 26,
+     "u": "kg"
+    },
+    {
+     "n": "Chile serrano",
+     "p": 45,
+     "u": "kg"
+    },
+    {
+     "n": "Tomate verde",
+     "p": 30,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 417,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-c3",
+   "nombre": "Verduras Mary",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-C3",
+   "ubicacion_texto": "Pasillo C, cruce 3 · Local NM-C328",
+   "local": "NM-C328",
+   "x": 528,
+   "y": 360,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.3,
+   "num_resenas": 632,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-c5",
+   "nombre": "Frutas y Verduras Los Primos",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-C5",
+   "ubicacion_texto": "Pasillo C, cruce 5 · Local NM-C589",
+   "local": "NM-C589",
+   "x": 752,
+   "y": 375,
+   "productos": [
+    {
+     "n": "Jitomate saladet",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Cebolla blanca",
+     "p": 26,
+     "u": "kg"
+    },
+    {
+     "n": "Chile serrano",
+     "p": 45,
+     "u": "kg"
+    },
+    {
+     "n": "Tomate verde",
+     "p": 30,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.9,
+   "num_resenas": 403,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Puebla",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-c6",
+   "nombre": "Frutería Don Toño",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-C6",
+   "ubicacion_texto": "Pasillo C, cruce 6 · Local NM-C698",
+   "local": "NM-C698",
+   "x": 845,
+   "y": 365,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 172,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-c7",
+   "nombre": "Legumbres Don Pepe",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-C7",
+   "ubicacion_texto": "Pasillo C, cruce 7 · Local NM-C795",
+   "local": "NM-C795",
+   "x": 932,
+   "y": 376,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 459,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-d2",
+   "nombre": "Frutas y Verduras Doña Rosy",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-D2",
+   "ubicacion_texto": "Pasillo D, cruce 2 · Local NM-D223",
+   "local": "NM-D223",
+   "x": 430,
+   "y": 404,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 399,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Puebla",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-d3",
+   "nombre": "Frutería Hnos. Martínez",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-D3",
+   "ubicacion_texto": "Pasillo D, cruce 3 · Local NM-D397",
+   "local": "NM-D397",
+   "x": 542,
+   "y": 413,
+   "productos": [
+    {
+     "n": "Papaya maradol",
+     "p": 25,
+     "u": "kg"
+    },
+    {
+     "n": "Piña",
+     "p": 22,
+     "u": "kg"
+    },
+    {
+     "n": "Plátano tabasco",
+     "p": 24,
+     "u": "kg"
+    },
+    {
+     "n": "Mango ataulfo",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 547,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "aguacate",
+     "lugar": "Michoacán",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-d5",
+   "nombre": "Frutas y Verduras La Güera",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-D5",
+   "ubicacion_texto": "Pasillo D, cruce 5 · Local NM-D576",
+   "local": "NM-D576",
+   "x": 741,
+   "y": 422,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 276,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "verdura de chinampa",
+     "lugar": "Xochimilco, CDMX",
+     "huerto_id": "prod-xochi-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-d6",
+   "nombre": "Legumbres Doña Carmen",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-D6",
+   "ubicacion_texto": "Pasillo D, cruce 6 · Local NM-D692",
+   "local": "NM-D692",
+   "x": 829,
+   "y": 423,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 87,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "cítricos",
+     "lugar": "Veracruz",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-d7",
+   "nombre": "Legumbres El Chino",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-D7",
+   "ubicacion_texto": "Pasillo D, cruce 7 · Local NM-D712",
+   "local": "NM-D712",
+   "x": 948,
+   "y": 419,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 567,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "hortalizas",
+     "lugar": "Edomex",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-e2",
+   "nombre": "Frutería La Güera",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-E2",
+   "ubicacion_texto": "Pasillo E, cruce 2 · Local NM-E244",
+   "local": "NM-E244",
+   "x": 445,
+   "y": 456,
+   "productos": [
+    {
+     "n": "Calabacita",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Zanahoria",
+     "p": 18,
+     "u": "kg"
+    },
+    {
+     "n": "Papa blanca",
+     "p": 30,
+     "u": "kg"
+    },
+    {
+     "n": "Nopal limpio",
+     "p": 25,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 430,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-e3",
+   "nombre": "Legumbres Hnos. Martínez",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-E3",
+   "ubicacion_texto": "Pasillo E, cruce 3 · Local NM-E363",
+   "local": "NM-E363",
+   "x": 542,
+   "y": 448,
+   "productos": [
+    {
+     "n": "Papaya maradol",
+     "p": 25,
+     "u": "kg"
+    },
+    {
+     "n": "Piña",
+     "p": 22,
+     "u": "kg"
+    },
+    {
+     "n": "Plátano tabasco",
+     "p": 24,
+     "u": "kg"
+    },
+    {
+     "n": "Mango ataulfo",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 531,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "nopal",
+     "lugar": "Milpa Alta, CDMX",
+     "huerto_id": "prod-milpa-01"
+    }
+   ]
+  },
+  {
+   "id": "nm-e5",
+   "nombre": "Legumbres Don Pepe",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-E5",
+   "ubicacion_texto": "Pasillo E, cruce 5 · Local NM-E539",
+   "local": "NM-E539",
+   "x": 730,
+   "y": 457,
+   "productos": [
+    {
+     "n": "Jitomate saladet",
+     "p": 28,
+     "u": "kg"
+    },
+    {
+     "n": "Cebolla blanca",
+     "p": 26,
+     "u": "kg"
+    },
+    {
+     "n": "Chile serrano",
+     "p": 45,
+     "u": "kg"
+    },
+    {
+     "n": "Tomate verde",
+     "p": 30,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 455,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "cítricos",
+     "lugar": "Veracruz",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-e6",
+   "nombre": "Frutas y Verduras El Güero",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-E6",
+   "ubicacion_texto": "Pasillo E, cruce 6 · Local NM-E655",
+   "local": "NM-E655",
+   "x": 831,
+   "y": 462,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 607,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "cítricos",
+     "lugar": "Veracruz",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "nm-e7",
+   "nombre": "Frutería San Judas",
+   "giro": "Frutas y verduras",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-E7",
+   "ubicacion_texto": "Pasillo E, cruce 7 · Local NM-E744",
+   "local": "NM-E744",
+   "x": 931,
+   "y": 451,
+   "productos": [
+    {
+     "n": "Aguacate Hass",
+     "p": 65,
+     "u": "kg"
+    },
+    {
+     "n": "Limón sin semilla",
+     "p": 32,
+     "u": "kg"
+    },
+    {
+     "n": "Naranja para jugo",
+     "p": 16,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 484,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "verdura de chinampa",
+     "lugar": "Xochimilco, CDMX",
+     "huerto_id": "prod-xochi-01"
+    }
+   ]
+  },
+  {
+   "id": "chiles-1",
+   "nombre": "Chiles Secos Don Chucho",
+   "giro": "Chiles secos y semillas",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-B8",
+   "ubicacion_texto": "Pasillo B, cruce 8 · Local NM-801",
+   "local": "NM-801",
+   "x": 1052,
+   "y": 329,
+   "productos": [
+    {
+     "n": "Chile guajillo",
+     "p": 180,
+     "u": "kg"
+    },
+    {
+     "n": "Chile ancho",
+     "p": 220,
+     "u": "kg"
+    },
+    {
+     "n": "Chile pasilla",
+     "p": 240,
+     "u": "kg"
+    },
+    {
+     "n": "Chile de árbol",
+     "p": 200,
+     "u": "kg"
+    },
+    {
+     "n": "Ajo",
+     "p": 90,
+     "u": "kg"
+    },
+    {
+     "n": "Frijol negro",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 227,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "Chiles secos, ajo y cebolla",
+     "lugar": "Guanajuato",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "chiles-2",
+   "nombre": "Chiles y Semillas La Guanajuatense",
+   "giro": "Chiles secos y semillas",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-C8",
+   "ubicacion_texto": "Pasillo C, cruce 8 · Local NM-819",
+   "local": "NM-819",
+   "x": 1038,
+   "y": 366,
+   "productos": [
+    {
+     "n": "Chile guajillo",
+     "p": 180,
+     "u": "kg"
+    },
+    {
+     "n": "Chile ancho",
+     "p": 220,
+     "u": "kg"
+    },
+    {
+     "n": "Chile pasilla",
+     "p": 240,
+     "u": "kg"
+    },
+    {
+     "n": "Chile de árbol",
+     "p": 200,
+     "u": "kg"
+    },
+    {
+     "n": "Ajo",
+     "p": 90,
+     "u": "kg"
+    },
+    {
+     "n": "Frijol negro",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 103,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "Chiles secos, ajo y cebolla",
+     "lugar": "Guanajuato",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "chiles-3",
+   "nombre": "Especias El Molcajete",
+   "giro": "Chiles secos y semillas",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-D8",
+   "ubicacion_texto": "Pasillo D, cruce 8 · Local NM-823",
+   "local": "NM-823",
+   "x": 1036,
+   "y": 411,
+   "productos": [
+    {
+     "n": "Chile guajillo",
+     "p": 180,
+     "u": "kg"
+    },
+    {
+     "n": "Chile ancho",
+     "p": 220,
+     "u": "kg"
+    },
+    {
+     "n": "Chile pasilla",
+     "p": 240,
+     "u": "kg"
+    },
+    {
+     "n": "Chile de árbol",
+     "p": 200,
+     "u": "kg"
+    },
+    {
+     "n": "Ajo",
+     "p": 90,
+     "u": "kg"
+    },
+    {
+     "n": "Frijol negro",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.3,
+   "num_resenas": 459,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "Chiles secos, ajo y cebolla",
+     "lugar": "Guanajuato",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "chiles-4",
+   "nombre": "Semillas y Granos Doña Irma",
+   "giro": "Chiles secos y semillas",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-A8",
+   "ubicacion_texto": "Pasillo A, cruce 8 · Local NM-837",
+   "local": "NM-837",
+   "x": 1028,
+   "y": 274,
+   "productos": [
+    {
+     "n": "Chile guajillo",
+     "p": 180,
+     "u": "kg"
+    },
+    {
+     "n": "Chile ancho",
+     "p": 220,
+     "u": "kg"
+    },
+    {
+     "n": "Chile pasilla",
+     "p": 240,
+     "u": "kg"
+    },
+    {
+     "n": "Chile de árbol",
+     "p": 200,
+     "u": "kg"
+    },
+    {
+     "n": "Ajo",
+     "p": 90,
+     "u": "kg"
+    },
+    {
+     "n": "Frijol negro",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 61,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "Chiles secos, ajo y cebolla",
+     "lugar": "Guanajuato",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "chiles-5",
+   "nombre": "Chiles Secos Los Compadres",
+   "giro": "Chiles secos y semillas",
+   "edificio": "nave-mayor",
+   "nodo_cercano": "NM-E8",
+   "ubicacion_texto": "Pasillo E, cruce 8 · Local NM-849",
+   "local": "NM-849",
+   "x": 1046,
+   "y": 454,
+   "productos": [
+    {
+     "n": "Chile guajillo",
+     "p": 180,
+     "u": "kg"
+    },
+    {
+     "n": "Chile ancho",
+     "p": 220,
+     "u": "kg"
+    },
+    {
+     "n": "Chile pasilla",
+     "p": 240,
+     "u": "kg"
+    },
+    {
+     "n": "Chile de árbol",
+     "p": 200,
+     "u": "kg"
+    },
+    {
+     "n": "Ajo",
+     "p": 90,
+     "u": "kg"
+    },
+    {
+     "n": "Frijol negro",
+     "p": 38,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 504,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "06:30–18:00",
+   "origen": [
+    {
+     "producto": "Chiles secos, ajo y cebolla",
+     "lugar": "Guanajuato",
+     "huerto_id": null
+    }
+   ]
+  },
+  {
+   "id": "menor-1",
+   "nombre": "Pollería La Güera",
+   "giro": "Pollería",
+   "edificio": "nave-menor",
+   "nodo_cercano": "NMe-1",
+   "ubicacion_texto": "Nave Menor, pasillo central 1 · Local NMe-01",
+   "local": "NMe-01",
+   "x": 370,
+   "y": 607,
+   "productos": [
+    {
+     "n": "Pollo entero",
+     "p": 62,
+     "u": "kg"
+    },
+    {
+     "n": "Pechuga",
+     "p": 125,
+     "u": "kg"
+    },
+    {
+     "n": "Pierna y muslo",
+     "p": 78,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.3,
+   "num_resenas": 451,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:00–16:00"
+  },
+  {
+   "id": "menor-2",
+   "nombre": "Carnes Selectas Don Memo",
+   "giro": "Carnicería",
+   "edificio": "nave-menor",
+   "nodo_cercano": "NMe-2",
+   "ubicacion_texto": "Nave Menor, pasillo central 2 · Local NMe-02",
+   "local": "NMe-02",
+   "x": 447,
+   "y": 602,
+   "productos": [
+    {
+     "n": "Bistec de res",
+     "p": 210,
+     "u": "kg"
+    },
+    {
+     "n": "Molida de res",
+     "p": 170,
+     "u": "kg"
+    },
+    {
+     "n": "Costilla de cerdo",
+     "p": 135,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 160,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "06:00–16:00"
+  },
+  {
+   "id": "menor-3",
+   "nombre": "Pescados y Mariscos El Puerto",
+   "giro": "Pescadería",
+   "edificio": "nave-menor",
+   "nodo_cercano": "NMe-3",
+   "ubicacion_texto": "Nave Menor, pasillo central 3 · Local NMe-03",
+   "local": "NMe-03",
+   "x": 529,
+   "y": 596,
+   "productos": [
+    {
+     "n": "Mojarra",
+     "p": 110,
+     "u": "kg"
+    },
+    {
+     "n": "Filete de tilapia",
+     "p": 140,
+     "u": "kg"
+    },
+    {
+     "n": "Camarón mediano",
+     "p": 280,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 402,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Plus",
+   "horario": "06:00–16:00"
+  },
+  {
+   "id": "menor-4",
+   "nombre": "Carnicería Hnos. Ramírez",
+   "giro": "Carnicería",
+   "edificio": "nave-menor",
+   "nodo_cercano": "NMe-4",
+   "ubicacion_texto": "Nave Menor, pasillo central 4 · Local NMe-04",
+   "local": "NMe-04",
+   "x": 601,
+   "y": 588,
+   "productos": [
+    {
+     "n": "Arrachera",
+     "p": 320,
+     "u": "kg"
+    },
+    {
+     "n": "Chuleta de cerdo",
+     "p": 120,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 376,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:00–16:00"
+  },
+  {
+   "id": "menor-5",
+   "nombre": "Pollos Doña Chayo",
+   "giro": "Pollería",
+   "edificio": "nave-menor",
+   "nodo_cercano": "NMe-1",
+   "ubicacion_texto": "Nave Menor, pasillo central 1 · Local NMe-05",
+   "local": "NMe-05",
+   "x": 357,
+   "y": 612,
+   "productos": [
+    {
+     "n": "Pollo entero",
+     "p": 60,
+     "u": "kg"
+    },
+    {
+     "n": "Alas",
+     "p": 85,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 637,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "06:00–16:00"
+  },
+  {
+   "id": "menor-6",
+   "nombre": "Mariscos La Sirenita",
+   "giro": "Pescadería",
+   "edificio": "nave-menor",
+   "nodo_cercano": "NMe-2",
+   "ubicacion_texto": "Nave Menor, pasillo central 2 · Local NMe-06",
+   "local": "NMe-06",
+   "x": 438,
+   "y": 594,
+   "productos": [
+    {
+     "n": "Pulpo",
+     "p": 260,
+     "u": "kg"
+    },
+    {
+     "n": "Huachinango",
+     "p": 230,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 153,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:00–16:00"
+  },
+  {
+   "id": "desnivel-1",
+   "nombre": "Jarciería La Merced",
+   "giro": "Jarcería y decoración",
+   "edificio": "paso-desnivel",
+   "nodo_cercano": "PD-N",
+   "ubicacion_texto": "Paso a Desnivel (entrada norte) · Local PD-01",
+   "local": "PD-01",
+   "x": 466,
+   "y": 479,
+   "productos": [
+    {
+     "n": "Escoba de mijo",
+     "p": 85,
+     "u": "pieza"
+    },
+    {
+     "n": "Canasta de palma",
+     "p": 120,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 400,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "06:30–18:00"
+  },
+  {
+   "id": "desnivel-2",
+   "nombre": "Decoraciones El Túnel",
+   "giro": "Jarcería y decoración",
+   "edificio": "paso-desnivel",
+   "nodo_cercano": "PD-S",
+   "ubicacion_texto": "Paso a Desnivel (salida sur) · Local PD-02",
+   "local": "PD-02",
+   "x": 472,
+   "y": 543,
+   "productos": [
+    {
+     "n": "Piñata mediana",
+     "p": 180,
+     "u": "pieza"
+    },
+    {
+     "n": "Papel picado",
+     "p": 45,
+     "u": "tira"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 167,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "06:30–18:00"
+  },
+  {
+   "id": "anexo-1",
+   "nombre": "Plásticos y Hogar La Económica",
+   "giro": "Hogar y cocina",
+   "edificio": "anexo",
+   "nodo_cercano": "AX-1",
+   "ubicacion_texto": "Anexo, pasillo 1 · Local AX-01",
+   "local": "AX-01",
+   "x": 730,
+   "y": 615,
+   "productos": [
+    {
+     "n": "Cubeta 20 L",
+     "p": 75,
+     "u": "pieza"
+    },
+    {
+     "n": "Juego de tuppers",
+     "p": 150,
+     "u": "juego"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 262,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "anexo-2",
+   "nombre": "Utensilios de Cocina Don Rafa",
+   "giro": "Hogar y cocina",
+   "edificio": "anexo",
+   "nodo_cercano": "AX-2",
+   "ubicacion_texto": "Anexo, pasillo 2 · Local AX-02",
+   "local": "AX-02",
+   "x": 815,
+   "y": 608,
+   "productos": [
+    {
+     "n": "Molcajete de piedra",
+     "p": 350,
+     "u": "pieza"
+    },
+    {
+     "n": "Comal de barro",
+     "p": 120,
+     "u": "pieza"
+    },
+    {
+     "n": "Olla de peltre",
+     "p": 280,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 592,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "anexo-3",
+   "nombre": "Peltre y Barro Doña Juana",
+   "giro": "Hogar y cocina",
+   "edificio": "anexo",
+   "nodo_cercano": "AX-3",
+   "ubicacion_texto": "Anexo, pasillo 3 · Local AX-03",
+   "local": "AX-03",
+   "x": 886,
+   "y": 612,
+   "productos": [
+    {
+     "n": "Jarro de barro",
+     "p": 45,
+     "u": "pieza"
+    },
+    {
+     "n": "Cazuela de barro",
+     "p": 220,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 54,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "flores-1",
+   "nombre": "Flores y Fiesta La Rosita",
+   "giro": "Flores artificiales y fiesta",
+   "edificio": "flores",
+   "nodo_cercano": "FL-1",
+   "ubicacion_texto": "Mercado de Flores, pasillo 1 · Local FL-01",
+   "local": "FL-01",
+   "x": 221,
+   "y": 221,
+   "productos": [
+    {
+     "n": "Arreglo artificial",
+     "p": 250,
+     "u": "pieza"
+    },
+    {
+     "n": "Globos (docena)",
+     "p": 80,
+     "u": "docena"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.9,
+   "num_resenas": 179,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "flores-2",
+   "nombre": "Decoraciones Primavera",
+   "giro": "Flores artificiales y fiesta",
+   "edificio": "flores",
+   "nodo_cercano": "FL-2",
+   "ubicacion_texto": "Mercado de Flores, pasillo 2 · Local FL-02",
+   "local": "FL-02",
+   "x": 140,
+   "y": 218,
+   "productos": [
+    {
+     "n": "Guirnalda de flores",
+     "p": 95,
+     "u": "pieza"
+    },
+    {
+     "n": "Centro de mesa",
+     "p": 180,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 564,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Pro",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "flores-3",
+   "nombre": "Mundo Fiesta Don Lalo",
+   "giro": "Flores artificiales y fiesta",
+   "edificio": "flores",
+   "nodo_cercano": "FL-3",
+   "ubicacion_texto": "Mercado de Flores, pasillo 3 · Local FL-03",
+   "local": "FL-03",
+   "x": 98,
+   "y": 229,
+   "productos": [
+    {
+     "n": "Kit fiesta infantil",
+     "p": 350,
+     "u": "kit"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.8,
+   "num_resenas": 363,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "ampudia-1",
+   "nombre": "Dulces Típicos La Tradición",
+   "giro": "Dulces mexicanos",
+   "edificio": "ampudia",
+   "nodo_cercano": "AMP",
+   "ubicacion_texto": "Mercado Ampudia, planta baja · Local AMP-PB-04",
+   "local": "AMP-PB-04",
+   "x": 138,
+   "y": 145,
+   "productos": [
+    {
+     "n": "Fruta cristalizada",
+     "p": 180,
+     "u": "kg"
+    },
+    {
+     "n": "Alegría de amaranto",
+     "p": 15,
+     "u": "pieza"
+    },
+    {
+     "n": "Cocada",
+     "p": 20,
+     "u": "pieza"
+    },
+    {
+     "n": "Jamoncillo",
+     "p": 18,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 265,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "08:00–18:00",
+   "origen": [
+    {
+     "producto": "Amaranto",
+     "lugar": "Tulyehualco, Xochimilco",
+     "huerto_id": "prod-xochi-03"
+    }
+   ]
+  },
+  {
+   "id": "ampudia-2",
+   "nombre": "Confitería Hnos. Salas",
+   "giro": "Dulces y confitería",
+   "edificio": "ampudia",
+   "nodo_cercano": "AMP",
+   "ubicacion_texto": "Mercado Ampudia, planta baja · Local AMP-P2-11",
+   "local": "AMP-P2-11",
+   "x": 141,
+   "y": 150,
+   "productos": [
+    {
+     "n": "Dulce a granel",
+     "p": 90,
+     "u": "kg"
+    },
+    {
+     "n": "Mazapán (caja)",
+     "p": 85,
+     "u": "caja"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 406,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "08:00–18:00"
+  },
+  {
+   "id": "comidas-1",
+   "nombre": "Cocina Económica Doña Mary",
+   "giro": "Comida corrida",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-1",
+   "ubicacion_texto": "Mercado de Comidas, pasillo norte · Local C-107",
+   "local": "C-107",
+   "x": 225,
+   "y": 336,
+   "productos": [
+    {
+     "n": "Comida corrida (sopa, arroz, guisado, agua)",
+     "p": 85,
+     "u": "menú"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.5,
+   "num_resenas": 243,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "07:00–17:00"
+  },
+  {
+   "id": "comidas-2",
+   "nombre": "Carnitas El Michoacano",
+   "giro": "Carnitas",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-4",
+   "ubicacion_texto": "Mercado de Comidas, pasillo sur · Local C-114",
+   "local": "C-114",
+   "x": 228,
+   "y": 412,
+   "productos": [
+    {
+     "n": "Taco de carnitas",
+     "p": 25,
+     "u": "pieza"
+    },
+    {
+     "n": "Carnitas",
+     "p": 320,
+     "u": "kg"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 523,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Plus",
+   "horario": "07:00–17:00"
+  },
+  {
+   "id": "comidas-3",
+   "nombre": "Quesadillas Doña Toña",
+   "giro": "Quesadillas",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-5",
+   "ubicacion_texto": "Mercado de Comidas, pasillo sur · Local C-121",
+   "local": "C-121",
+   "x": 166,
+   "y": 407,
+   "productos": [
+    {
+     "n": "Quesadilla de flor de calabaza",
+     "p": 40,
+     "u": "pieza"
+    },
+    {
+     "n": "Quesadilla de huitlacoche",
+     "p": 45,
+     "u": "pieza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.4,
+   "num_resenas": 458,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Gratis",
+   "horario": "07:00–17:00"
+  },
+  {
+   "id": "comidas-4",
+   "nombre": "Caldos de Gallina La Abuela",
+   "giro": "Caldos",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-6",
+   "ubicacion_texto": "Mercado de Comidas, pasillo sur · Local C-128",
+   "local": "C-128",
+   "x": 99,
+   "y": 414,
+   "productos": [
+    {
+     "n": "Caldo de gallina",
+     "p": 95,
+     "u": "plato"
+    },
+    {
+     "n": "Consomé",
+     "p": 45,
+     "u": "taza"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.7,
+   "num_resenas": 76,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": false,
+   "plan": "Gratis",
+   "horario": "07:00–17:00"
+  },
+  {
+   "id": "comidas-5",
+   "nombre": "Migas Don Poncho",
+   "giro": "Migas",
+   "edificio": "comidas",
+   "nodo_cercano": "CMD-3",
+   "ubicacion_texto": "Mercado de Comidas, pasillo norte · Local C-135",
+   "local": "C-135",
+   "x": 97,
+   "y": 339,
+   "productos": [
+    {
+     "n": "Migas",
+     "p": 90,
+     "u": "plato"
+    }
+   ],
+   "real_segun_guia": false,
+   "simulado": true,
+   "rating": 4.6,
+   "num_resenas": 309,
+   "acepta": [
+    "QR CoDi/SPEI",
+    "Tarjeta",
+    "Efectivo"
+   ],
+   "sello_comercio_justo": true,
+   "plan": "Plus",
+   "horario": "07:00–17:00"
+  }
+ ],
+ "rutas_precalculadas": [
+  {
+   "id": "metro-merced__dona-tere",
+   "desde": "metro-merced",
+   "hacia_puesto": "dona-tere",
+   "nodos": [
+    "metro-merced",
+    "NM-E4",
+    "NM-E3",
+    "NM-E2",
+    "NM-E1",
+    "circunvalacion",
+    "BQ-15",
+    "BQ-14"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Salida Metro Merced, avanza 90 m por Vestíbulo del Metro",
+     "metros": 90,
+     "hasta_nodo": "NM-E4"
+    },
+    {
+     "n": 2,
+     "instruccion": "Sigue derecho 300 m por Pasillo E",
+     "metros": 300,
+     "hasta_nodo": "NM-E1"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 80 m por Acceso poniente Nave Mayor",
+     "metros": 80,
+     "hasta_nodo": "circunvalacion"
+    },
+    {
+     "n": 4,
+     "instruccion": "Gira a la derecha y avanza 80 m por Calle Santa Escuela",
+     "metros": 80,
+     "hasta_nodo": "BQ-15"
+    },
+    {
+     "n": 5,
+     "instruccion": "Sigue derecho 80 m por Pasillo Banquetón",
+     "metros": 80,
+     "hasta_nodo": "BQ-14"
+    },
+    {
+     "n": 6,
+     "instruccion": "Llegaste: Desayunos Doña Tere está a tu lado (Banquetón, Puerta 14 · Local P14-03).",
+     "metros": 0,
+     "hasta_nodo": "BQ-14"
+    }
+   ],
+   "distancia_m": 636,
+   "minutos_caminando": 9
+  },
+  {
+   "id": "metro-merced__pancita-dona-chela",
+   "desde": "metro-merced",
+   "hacia_puesto": "pancita-dona-chela",
+   "nodos": [
+    "metro-merced",
+    "NM-E4",
+    "NM-E3",
+    "NM-E2",
+    "NM-E1",
+    "circunvalacion",
+    "BQ-15",
+    "BQ-14"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Salida Metro Merced, avanza 90 m por Vestíbulo del Metro",
+     "metros": 90,
+     "hasta_nodo": "NM-E4"
+    },
+    {
+     "n": 2,
+     "instruccion": "Sigue derecho 300 m por Pasillo E",
+     "metros": 300,
+     "hasta_nodo": "NM-E1"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 80 m por Acceso poniente Nave Mayor",
+     "metros": 80,
+     "hasta_nodo": "circunvalacion"
+    },
+    {
+     "n": 4,
+     "instruccion": "Gira a la derecha y avanza 80 m por Calle Santa Escuela",
+     "metros": 80,
+     "hasta_nodo": "BQ-15"
+    },
+    {
+     "n": 5,
+     "instruccion": "Sigue derecho 80 m por Pasillo Banquetón",
+     "metros": 80,
+     "hasta_nodo": "BQ-14"
+    },
+    {
+     "n": 6,
+     "instruccion": "Llegaste: Pancita Doña Chela está a tu lado (Banquetón, Puerta 14 · Local P14-07).",
+     "metros": 0,
+     "hasta_nodo": "BQ-14"
+    }
+   ],
+   "distancia_m": 636,
+   "minutos_caminando": 9
+  },
+  {
+   "id": "metro-merced__jugos-moreno",
+   "desde": "metro-merced",
+   "hacia_puesto": "jugos-moreno",
+   "nodos": [
+    "metro-merced",
+    "NM-E4",
+    "NM-E3",
+    "NM-E2",
+    "NM-E1",
+    "circunvalacion",
+    "CMD-P",
+    "CMD-1",
+    "CMD-2"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Salida Metro Merced, avanza 90 m por Vestíbulo del Metro",
+     "metros": 90,
+     "hasta_nodo": "NM-E4"
+    },
+    {
+     "n": 2,
+     "instruccion": "Sigue derecho 300 m por Pasillo E",
+     "metros": 300,
+     "hasta_nodo": "NM-E1"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 80 m por Acceso poniente Nave Mayor",
+     "metros": 80,
+     "hasta_nodo": "circunvalacion"
+    },
+    {
+     "n": 4,
+     "instruccion": "Gira a la derecha y avanza 140 m por Banqueta de Circunvalación",
+     "metros": 140,
+     "hasta_nodo": "CMD-P"
+    },
+    {
+     "n": 5,
+     "instruccion": "Gira a la izquierda y avanza 65 m por Entrada Comidas",
+     "metros": 65,
+     "hasta_nodo": "CMD-1"
+    },
+    {
+     "n": 6,
+     "instruccion": "Gira a la izquierda y avanza 60 m por Pasillo norte",
+     "metros": 60,
+     "hasta_nodo": "CMD-2"
+    },
+    {
+     "n": 7,
+     "instruccion": "Llegaste: Jugos y Licuados Moreno está a tu lado (Mercado de Comidas, pasillo norte · Local C-112).",
+     "metros": 0,
+     "hasta_nodo": "CMD-2"
+    }
+   ],
+   "distancia_m": 739,
+   "minutos_caminando": 11
+  },
+  {
+   "id": "metro-merced__chiles-1",
+   "desde": "metro-merced",
+   "hacia_puesto": "chiles-1",
+   "nodos": [
+    "metro-merced",
+    "NM-E4",
+    "NM-D4",
+    "NM-C4",
+    "NM-B4",
+    "NM-B5",
+    "NM-B6",
+    "NM-B7",
+    "NM-B8"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Salida Metro Merced, avanza 90 m por Vestíbulo del Metro",
+     "metros": 90,
+     "hasta_nodo": "NM-E4"
+    },
+    {
+     "n": 2,
+     "instruccion": "Gira a la derecha y avanza 125 m por Cruce 4",
+     "metros": 125,
+     "hasta_nodo": "NM-B4"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la derecha y avanza 400 m por Pasillo B",
+     "metros": 400,
+     "hasta_nodo": "NM-B8"
+    },
+    {
+     "n": 4,
+     "instruccion": "Llegaste: Chiles Secos Don Chucho está a tu lado (Pasillo B, cruce 8 · Local NM-801).",
+     "metros": 0,
+     "hasta_nodo": "NM-B8"
+    }
+   ],
+   "distancia_m": 616,
+   "minutos_caminando": 9
+  },
+  {
+   "id": "metro-merced__menor-3",
+   "desde": "metro-merced",
+   "hacia_puesto": "menor-3",
+   "nodos": [
+    "metro-merced",
+    "NM-E4",
+    "NM-E3",
+    "NM-E2",
+    "PD-N",
+    "PD-S",
+    "NMe-2",
+    "NMe-3"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Salida Metro Merced, avanza 90 m por Vestíbulo del Metro",
+     "metros": 90,
+     "hasta_nodo": "NM-E4"
+    },
+    {
+     "n": 2,
+     "instruccion": "Sigue derecho 200 m por Pasillo E",
+     "metros": 200,
+     "hasta_nodo": "NM-E2"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 50 m por Rampa al Paso a Desnivel",
+     "metros": 50,
+     "hasta_nodo": "PD-N"
+    },
+    {
+     "n": 4,
+     "instruccion": "Gira a la derecha y avanza 65 m por Túnel Paso a Desnivel",
+     "metros": 65,
+     "hasta_nodo": "PD-S"
+    },
+    {
+     "n": 5,
+     "instruccion": "Gira a la derecha y avanza 55 m por Entrada Nave Menor",
+     "metros": 55,
+     "hasta_nodo": "NMe-2"
+    },
+    {
+     "n": 6,
+     "instruccion": "Gira a la izquierda y avanza 80 m por Pasillo central Nave Menor",
+     "metros": 80,
+     "hasta_nodo": "NMe-3"
+    },
+    {
+     "n": 7,
+     "instruccion": "Llegaste: Pescados y Mariscos El Puerto está a tu lado (Nave Menor, pasillo central 3 · Local NMe-03).",
+     "metros": 0,
+     "hasta_nodo": "NMe-3"
+    }
+   ],
+   "distancia_m": 543,
+   "minutos_caminando": 8
+  },
+  {
+   "id": "metro-candelaria__ampudia-1",
+   "desde": "metro-candelaria",
+   "hacia_puesto": "ampudia-1",
+   "nodos": [
+    "metro-candelaria",
+    "NM-C8",
+    "NM-B8",
+    "NM-A8",
+    "NM-A7",
+    "NM-A6",
+    "NM-A5",
+    "NM-A4",
+    "NM-A3",
+    "NM-A2",
+    "NM-A1",
+    "FL-P",
+    "FL-1",
+    "FL-2",
+    "AMP"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Metro Candelaria, avanza 110 m por Acceso oriente Nave Mayor",
+     "metros": 110,
+     "hasta_nodo": "NM-C8"
+    },
+    {
+     "n": 2,
+     "instruccion": "Gira a la derecha y avanza 85 m por Cruce 8",
+     "metros": 85,
+     "hasta_nodo": "NM-A8"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 700 m por Pasillo A",
+     "metros": 700,
+     "hasta_nodo": "NM-A1"
+    },
+    {
+     "n": 4,
+     "instruccion": "Gira a la derecha y avanza 90 m por Cruce Circunvalación hacia Flores",
+     "metros": 90,
+     "hasta_nodo": "FL-P"
+    },
+    {
+     "n": 5,
+     "instruccion": "Gira a la izquierda y avanza 50 m por Entrada Flores",
+     "metros": 50,
+     "hasta_nodo": "FL-1"
+    },
+    {
+     "n": 6,
+     "instruccion": "Sigue derecho 70 m por Pasillo Flores",
+     "metros": 70,
+     "hasta_nodo": "FL-2"
+    },
+    {
+     "n": 7,
+     "instruccion": "Gira a la derecha y avanza 80 m por Calle General Anaya",
+     "metros": 80,
+     "hasta_nodo": "AMP"
+    },
+    {
+     "n": 8,
+     "instruccion": "Llegaste: Dulces Típicos La Tradición está a tu lado (Mercado Ampudia, planta baja · Local AMP-PB-04).",
+     "metros": 0,
+     "hasta_nodo": "AMP"
+    }
+   ],
+   "distancia_m": 1185,
+   "minutos_caminando": 17
+  },
+  {
+   "id": "circunvalacion__tacos-cabeza-p15",
+   "desde": "circunvalacion",
+   "hacia_puesto": "tacos-cabeza-p15",
+   "nodos": [
+    "circunvalacion",
+    "BQ-15"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Circunvalación y Rosario, avanza 80 m por Calle Santa Escuela",
+     "metros": 80,
+     "hasta_nodo": "BQ-15"
+    },
+    {
+     "n": 2,
+     "instruccion": "Llegaste: Tacos de Cabeza (Puerta 15) está a tu lado (Banquetón, Puerta 15 · Local P15-01).",
+     "metros": 0,
+     "hasta_nodo": "BQ-15"
+    }
+   ],
+   "distancia_m": 82,
+   "minutos_caminando": 1
+  },
+  {
+   "id": "metro-merced__anexo-2",
+   "desde": "metro-merced",
+   "hacia_puesto": "anexo-2",
+   "nodos": [
+    "metro-merced",
+    "NM-E4",
+    "NM-E3",
+    "NM-E2",
+    "PD-N",
+    "PD-S",
+    "NMe-2",
+    "NMe-3",
+    "NMe-4",
+    "AX-1",
+    "AX-2"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Salida Metro Merced, avanza 90 m por Vestíbulo del Metro",
+     "metros": 90,
+     "hasta_nodo": "NM-E4"
+    },
+    {
+     "n": 2,
+     "instruccion": "Sigue derecho 200 m por Pasillo E",
+     "metros": 200,
+     "hasta_nodo": "NM-E2"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 50 m por Rampa al Paso a Desnivel",
+     "metros": 50,
+     "hasta_nodo": "PD-N"
+    },
+    {
+     "n": 4,
+     "instruccion": "Gira a la derecha y avanza 65 m por Túnel Paso a Desnivel",
+     "metros": 65,
+     "hasta_nodo": "PD-S"
+    },
+    {
+     "n": 5,
+     "instruccion": "Gira a la derecha y avanza 55 m por Entrada Nave Menor",
+     "metros": 55,
+     "hasta_nodo": "NMe-2"
+    },
+    {
+     "n": 6,
+     "instruccion": "Gira a la izquierda y avanza 160 m por Pasillo central Nave Menor",
+     "metros": 160,
+     "hasta_nodo": "NMe-4"
+    },
+    {
+     "n": 7,
+     "instruccion": "Sigue derecho 130 m por Calle Adolfo Gurrión",
+     "metros": 130,
+     "hasta_nodo": "AX-1"
+    },
+    {
+     "n": 8,
+     "instruccion": "Sigue derecho 80 m por Pasillo Anexo",
+     "metros": 80,
+     "hasta_nodo": "AX-2"
+    },
+    {
+     "n": 9,
+     "instruccion": "Llegaste: Utensilios de Cocina Don Rafa está a tu lado (Anexo, pasillo 2 · Local AX-02).",
+     "metros": 0,
+     "hasta_nodo": "AX-2"
+    }
+   ],
+   "distancia_m": 834,
+   "minutos_caminando": 12
+  },
+  {
+   "id": "metro-candelaria__nm-a2",
+   "desde": "metro-candelaria",
+   "hacia_puesto": "nm-a2",
+   "nodos": [
+    "metro-candelaria",
+    "NM-C8",
+    "NM-B8",
+    "NM-A8",
+    "NM-A7",
+    "NM-A6",
+    "NM-A5",
+    "NM-A4",
+    "NM-A3",
+    "NM-A2"
+   ],
+   "pasos": [
+    {
+     "n": 1,
+     "instruccion": "Desde Metro Candelaria, avanza 110 m por Acceso oriente Nave Mayor",
+     "metros": 110,
+     "hasta_nodo": "NM-C8"
+    },
+    {
+     "n": 2,
+     "instruccion": "Gira a la derecha y avanza 85 m por Cruce 8",
+     "metros": 85,
+     "hasta_nodo": "NM-A8"
+    },
+    {
+     "n": 3,
+     "instruccion": "Gira a la izquierda y avanza 600 m por Pasillo A",
+     "metros": 600,
+     "hasta_nodo": "NM-A2"
+    },
+    {
+     "n": 4,
+     "instruccion": "Llegaste: Frutas Doña Lupe está a tu lado (Pasillo A, cruce 2 · Local NM-A275).",
+     "metros": 0,
+     "hasta_nodo": "NM-A2"
+    }
+   ],
+   "distancia_m": 795,
+   "minutos_caminando": 11
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "turista": {
+  "nombre": "Emily",
+  "idioma": "en",
+  "origen": "Toronto, CA",
+  "plan": "Pase Turista 7 días"
+ },
+ "consumidora": {
+  "nombre": "Sofía",
+  "idioma": "es",
+  "alcaldia": "Coyoacán",
+  "plan": "Gratis"
+ },
+ "locatario": {
+  "puesto_id": "pancita-dona-chela",
+  "nombre": "Graciela (Doña Chela)",
+  "plan": "Pro",
+  "hoy": {
+   "ventas_mxn": 8420,
+   "pedidos_app": 23,
+   "cobros_qr": 41,
+   "checkins_efectivo": 37,
+   "ticket_promedio": 118
+  },
+  "semana": [
+   {
+    "d": "Lun",
+    "v": 6100
+   },
+   {
+    "d": "Mar",
+    "v": 5800
+   },
+   {
+    "d": "Mié",
+    "v": 6400
+   },
+   {
+    "d": "Jue",
+    "v": 7000
+   },
+   {
+    "d": "Vie",
+    "v": 8900
+   },
+   {
+    "d": "Sáb",
+    "v": 12400
+   },
+   {
+    "d": "Dom",
+    "v": 13800
+   }
+  ],
+  "pedidos_pendientes": [
+   {
+    "id": "PED-4821",
+    "cliente": "Emily W.",
+    "items": "2 pancitas + 2 sopes",
+    "total": 300,
+    "tipo": "Recoger en puesto",
+    "hora": "10:40"
+   },
+   {
+    "id": "PED-4822",
+    "cliente": "Oficina Bancomer Merced",
+    "items": "8 pancitas",
+    "total": 920,
+    "tipo": "Envío (terceros)",
+    "hora": "13:00"
+   }
+  ],
+  "top_productos": [
+   "Pancita (pata, libro y cuaderno)",
+   "Sope",
+   "Huarache sencillo"
+  ]
+ },
+ "productor": {
+  "productor_id": "prod-xochi-01",
+  "nombre": "Lucía Romero",
+  "plan": "Gratis",
+  "lotes": [
+   {
+    "producto": "Lechuga orejona",
+    "cantidad": 400,
+    "unidad": "piezas",
+    "precio": 12,
+    "disponible": "2026-10-02"
+   },
+   {
+    "producto": "Verdolaga",
+    "cantidad": 120,
+    "unidad": "kg",
+    "precio": 18,
+    "disponible": "2026-10-01"
+   },
+   {
+    "producto": "Cilantro",
+    "cantidad": 300,
+    "unidad": "manojos",
+    "precio": 6,
+    "disponible": "2026-10-01"
+   }
+  ],
+  "pedidos_mayoreo": [
+   {
+    "cliente": "Frutas Doña Lupe (La Merced)",
+    "producto": "Lechuga",
+    "cantidad": "80 piezas",
+    "total": 960,
+    "estado": "Confirmado"
+   },
+   {
+    "cliente": "Fonda La Abuela (Mercado 44)",
+    "producto": "Verdolaga",
+    "cantidad": "15 kg",
+    "total": 270,
+    "estado": "Por recoger"
+   },
+   {
+    "cliente": "Restaurante Roma Norte",
+    "producto": "Cilantro",
+    "cantidad": "40 manojos",
+    "total": 240,
+    "estado": "En ruta (terceros)"
+   }
+  ]
+ }
+}
