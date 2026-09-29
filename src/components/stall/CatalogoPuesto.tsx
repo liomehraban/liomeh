@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useRouter } from "@/i18n/navigation";
-import { requiereNuevoPedido, type ItemCarrito } from "@/lib/carrito";
+import { huertoDeProducto, requiereNuevoPedido, type ItemCarrito } from "@/lib/carrito";
 import type { Puesto } from "@/lib/schemas";
 import { useAppStore } from "@/store/useAppStore";
 import { Precio } from "./Precio";
@@ -21,8 +21,6 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
   const [qty, setQty] = useState<Record<string, number>>({});
   const [pendiente, setPendiente] = useState<ItemCarrito | null>(null);
 
-  const huertoDe = (nombre: string) =>
-    puesto.origen?.find((o) => o.huerto_id && nombre.toLowerCase().includes(o.producto.toLowerCase()))?.huerto_id ?? undefined;
 
   const confirmar = (item: ItemCarrito) => {
     agregar(puesto.id, item);
@@ -79,7 +77,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
                 <Button
                   size="sm"
                   className="ml-auto"
-                  onClick={() => onAgregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: n, huertoId: huertoDe(prod.n) })}
+                  onClick={() => onAgregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: n, huertoId: huertoDeProducto(prod.n, puesto.origen) })}
                 >
                   <ShoppingBasket aria-hidden />
                   {t("agregar")}

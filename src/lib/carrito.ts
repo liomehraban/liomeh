@@ -38,3 +38,9 @@ export function cambiarCantidad(carrito: LineaCarrito[], puestoId: string, nombr
 
 export const subtotalGrupo = (l: LineaCarrito) => l.items.reduce((s, x) => s + x.precio * x.qty, 0);
 export const piezasCarrito = (c: LineaCarrito[]) => c.reduce((n, l) => n + l.items.reduce((m, x) => m + x.qty, 0), 0);
+
+/** Huerto de un producto del catálogo: el del origen cuyo producto aparece en el nombre (sin inventar vínculos). */
+export function huertoDeProducto(nombre: string, origen: { producto: string; lugar?: string; huerto_id: string | null }[] = []): string | undefined {
+  const n = nombre.toLowerCase();
+  return origen.find((o) => o.huerto_id && n.includes(o.producto.toLowerCase()))?.huerto_id ?? undefined;
+}

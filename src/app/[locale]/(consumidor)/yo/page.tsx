@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { getRepository } from "@/data/repository";
 import { AjustesDemo } from "@/components/shell/AjustesDemo";
+import { MisPedidos } from "@/components/cart/MisPedidos";
+import { resumenPuestos } from "@/data/comercio";
 import { Proximamente } from "@/components/shell/Proximamente";
 
 export default async function YoPage({ params }: PageProps<"/[locale]/yo">) {
@@ -18,6 +20,7 @@ export default async function YoPage({ params }: PageProps<"/[locale]/yo">) {
         <h1 className="font-display text-4xl">{t("yo.hola", { nombre: usuario_demo.nombre })}</h1>
       </header>
       <div className="flex flex-col gap-5 p-5">
+        <MisPedidos puestos={await resumenPuestos()} />
         <AjustesDemo />
       </div>
       <Proximamente pagina="yo" fase="5" categoria="dulces" sinEncabezado />

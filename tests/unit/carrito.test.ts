@@ -31,3 +31,11 @@ describe("carrito", () => {
   });
   it("ignora cantidades no positivas", () => expect(agregarItem([], "chela", { ...pancita, qty: 0 })).toEqual([]));
 });
+
+import { huertoDeProducto } from "../../src/lib/carrito";
+describe("huertoDeProducto", () => {
+  const origen = [{ producto: "nopal", lugar: "Milpa Alta, CDMX", huerto_id: "prod-milpa-01" }];
+  it("«Nopal limpio» viene de la Familia Jurado", () => expect(huertoDeProducto("Nopal limpio", origen)).toBe("prod-milpa-01"));
+  it("otros productos del puesto no se ligan al huerto", () => expect(huertoDeProducto("Calabacita", origen)).toBeUndefined());
+  it("origen sin huerto_id → undefined", () => expect(huertoDeProducto("Maíz", [{ producto: "Maíz", lugar: "Puebla", huerto_id: null }])).toBeUndefined());
+});

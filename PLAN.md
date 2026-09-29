@@ -26,9 +26,9 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] **M4** Puesto
 
 ## Fase 3 · Comprar justo `/fase-3`
-- [ ] **M5** Carrito, entrega, pago QR y tarjeta, pedido con timeline
-- [ ] **M7** `<FairTradeCard>`
-- [ ] `lib/money.ts`, `lib/loyalty.ts` y `lib/fairtrade.ts` con tests
+- [x] **M5** Carrito, entrega, pago QR y tarjeta, pedido con timeline
+- [x] **M7** `<FairTradeCard>`
+- [x] `lib/money.ts`, `lib/loyalty.ts` y `lib/fairtrade.ts` con tests
 
 ## Fase 4 · Huertos `/fase-4`
 - [ ] **M6** Mapa de zonas y productores, compra al mayoreo, reserva de visita
