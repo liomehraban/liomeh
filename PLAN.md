@@ -22,8 +22,8 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] `lib/search.ts` y `lib/geo.ts` con tests
 
 ## Fase 2 · Llegar al puesto `/fase-2`
-- [ ] **M3** Interior La Merced: SVG, pan y zoom, búsqueda, «Llévame», pasos, deep link
-- [ ] **M4** Puesto
+- [x] **M3** Interior La Merced: SVG, pan y zoom, búsqueda, «Llévame», pasos, deep link
+- [x] **M4** Puesto
 
 ## Fase 3 · Comprar justo `/fase-3`
 - [ ] **M5** Carrito, entrega, pago QR y tarjeta, pedido con timeline

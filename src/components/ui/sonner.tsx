@@ -10,6 +10,7 @@ function Toaster(props: ToasterProps) {
         classNames: {
           toast: "!rounded-card !border-morado-50 !bg-crema !text-tinta !font-sans",
           description: "!text-tinta-2",
+          actionButton: "!rounded-pill !bg-morado !text-crema !font-semibold !h-8 !px-3",
         },
       }}
       {...props}
