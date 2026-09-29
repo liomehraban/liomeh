@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="48" viewBox="0 0 160 48">
+  <!-- Papel picado: cuerda + 4 banderines perforados con borde en picos. Se repite en X. -->
+  <rect x="0" y="0" width="160" height="2" fill="#3E1C3C" opacity=".35"/>
+  <g fill-rule="evenodd">
+    <path fill="#E4007C" d="M2 2h36v32l-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5L2 34zM20 8l4 6-4 6-4-6zM10 11a2.5 2.5 0 1 0 .01 0zM30 11a2.5 2.5 0 1 0 .01 0zM9 24h5v3H9zM26 24h5v3h-5zM17 25l3 2 3-2v4h-6z"/>
+    <path fill="#F29F05" d="M42 2h36v32l-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5L42 34zM60 8a5 5 0 1 0 .01 0zM60 10.5a2.5 2.5 0 1 1-.01 0zM48 11l2.5 3.5L48 18l-2.5-3.5zM72 11l2.5 3.5L72 18l-2.5-3.5zM48 25h24v2H48zM53 29h14v2H53z"/>
+    <path fill="#3C8D2F" d="M82 2h36v32l-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5L82 34zM100 7l3 4.5h5l-4 3.5 1.5 5-5.5-3-5.5 3 1.5-5-4-3.5h5zM89 25a2.5 2.5 0 1 0 .01 0zM100 25a2.5 2.5 0 1 0 .01 0zM111 25a2.5 2.5 0 1 0 .01 0z"/>
+    <path fill="#93408F" d="M122 2h36v32l-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5-4.5-5-4.5 5L122 34zM140 8c4 0 7 3 7 7s-3 8-7 10c-4-2-7-6-7-10s3-7 7-7zM140 12a3 3 0 1 0 .01 0zM128 27h5v3h-5zM147 27h5v3h-5z"/>
+  </g>
+</svg>
