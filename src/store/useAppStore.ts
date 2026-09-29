@@ -18,8 +18,9 @@ export const HOME_PERFIL: Record<Perfil, string> = {
   gobierno: "/gobierno",
 };
 
-export type ItemCarrito = { nombre: string; precio: number; unidad: string; qty: number; huertoId?: string };
-export type LineaCarrito = { puestoId: string; items: ItemCarrito[] };
+import { agregarItem, cambiarCantidad, type ItemCarrito, type LineaCarrito } from "@/lib/carrito";
+
+export type { ItemCarrito, LineaCarrito };
 
 export type EstadoPedido = "recibido" | "preparando" | "listo" | "en camino" | "entregado";
 export type Pedido = {
@@ -66,6 +67,9 @@ type Acciones = {
   setLocale: (locale: Locale) => void;
   setPlan: (plan: PlanConsumidor) => void;
   marcarOnboarding: () => void;
+  agregarAlCarrito: (puestoId: string, item: ItemCarrito) => void;
+  cambiarCantidad: (puestoId: string, nombre: string, qty: number) => void;
+  quitarGrupo: (puestoId: string) => void;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
 };
@@ -103,6 +107,9 @@ export const useAppStore = create<AppState>()(
       setLocale: (locale) => set({ locale }),
       setPlan: (plan) => set({ plan }),
       marcarOnboarding: () => set({ onboardingVisto: true }),
+      agregarAlCarrito: (puestoId, item) => set((s) => ({ carrito: agregarItem(s.carrito, puestoId, item) })),
+      cambiarCantidad: (puestoId, nombre, qty) => set((s) => ({ carrito: cambiarCantidad(s.carrito, puestoId, nombre, qty) })),
+      quitarGrupo: (puestoId) => set((s) => ({ carrito: s.carrito.filter((l) => l.puestoId !== puestoId) })),
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
     }),
     {
@@ -111,7 +118,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, resetDemo, ...datos } = s;
         return datos;
       },
     },

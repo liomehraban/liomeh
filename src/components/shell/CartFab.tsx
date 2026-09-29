@@ -5,13 +5,14 @@ import { useTranslations } from "next-intl";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
+import { piezasCarrito } from "@/lib/carrito";
 
 /** Carrito flotante del consumidor: aparece solo si hay productos. */
 export function CartFab() {
   const t = useTranslations("shell");
   const hydrated = useHydrated();
   const pathname = usePathname();
-  const piezas = useAppStore((s) => s.carrito.reduce((n, l) => n + l.items.reduce((m, i) => m + i.qty, 0), 0));
+  const piezas = useAppStore((s) => piezasCarrito(s.carrito));
   if (!hydrated || piezas === 0 || pathname.startsWith("/carrito") || pathname.startsWith("/checkout")) return null;
   return (
     <Link
