@@ -41,3 +41,35 @@ describe("useAppStore", () => {
     expect(s.locatario.pedidos).toHaveLength(2);
   });
 });
+
+describe("registrarPedido", () => {
+  beforeEach(() => useAppStore.getState().resetDemo());
+  const input = {
+    puestoId: "pancita-dona-chela",
+    mercadoId: "la-merced",
+    items: [{ nombre: "Pancita", precio: 115, unidad: "plato", qty: 2 }, { nombre: "Sope", precio: 35, unidad: "pieza", qty: 2 }],
+    resumen: { subtotal: 300, descuento: 0, servicio: 9, servicioOriginal: 9, envio: 0, total: 309 },
+    metodo: "qr" as const,
+    entrega: "recoger" as const,
+  };
+
+  it("guarda el pedido, vacía ese grupo, suma 30 puntos una vez y llega al locatario", () => {
+    const st = useAppStore.getState();
+    st.agregarAlCarrito("pancita-dona-chela", input.items[0]);
+    st.agregarAlCarrito("dona-tere", { nombre: "Pinole", precio: 35, unidad: "vaso", qty: 1 });
+    const antes = useAppStore.getState().puntos;
+    const p = useAppStore.getState().registrarPedido(input);
+    const s = useAppStore.getState();
+    expect(p.folio).toMatch(/^PSL-\d{4}$/);
+    expect(s.pedidos[0].folio).toBe(p.folio);
+    expect(s.puntos).toBe(antes + 30);
+    expect(s.carrito.map((l) => l.puestoId)).toEqual(["dona-tere"]);
+    expect(s.locatario.pedidos[0].folio).toBe(p.folio);
+    expect(s.locatario.pedidos).toHaveLength(3);
+  });
+
+  it("pedidos de otros puestos no llegan al panel de Doña Chela", () => {
+    useAppStore.getState().registrarPedido({ ...input, puestoId: "dona-tere" });
+    expect(useAppStore.getState().locatario.pedidos).toHaveLength(2);
+  });
+});

@@ -19,25 +19,11 @@ export const HOME_PERFIL: Record<Perfil, string> = {
 };
 
 import { agregarItem, cambiarCantidad, type ItemCarrito, type LineaCarrito } from "@/lib/carrito";
+import { construirPedido, type NuevoPedido, type Pedido } from "@/lib/pedidos";
 
 export type { ItemCarrito, LineaCarrito };
 
-export type EstadoPedido = "recibido" | "preparando" | "listo" | "en camino" | "entregado";
-export type Pedido = {
-  folio: string;
-  fecha: string;
-  puestoId: string;
-  items: ItemCarrito[];
-  subtotal: number;
-  servicio: number;
-  envio: number;
-  total: number;
-  metodo: "qr" | "tarjeta";
-  entrega: "recoger" | "envio";
-  estado: EstadoPedido;
-  puntos: number;
-};
-
+export type { Pedido };
 export type PedidoLocatario = (typeof demoSeed.locatario.pedidos_pendientes)[number] & { folio?: string };
 export type Cobro = { id: string; monto: number; metodo: "qr" | "tarjeta"; fecha: string };
 export type Lote = (typeof demoSeed.productor.lotes)[number] & { id?: string };
@@ -70,6 +56,8 @@ type Acciones = {
   agregarAlCarrito: (puestoId: string, item: ItemCarrito) => void;
   cambiarCantidad: (puestoId: string, nombre: string, qty: number) => void;
   quitarGrupo: (puestoId: string) => void;
+  /** Crea el pedido pagado: lo guarda, vacía ese grupo, suma puntos (una sola vez) y el sello del mercado. */
+  registrarPedido: (input: Omit<NuevoPedido, "planMercadoMas">) => Pedido;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
 };
@@ -101,7 +89,7 @@ export function estadoInicial(): DatosDemo {
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...estadoInicial(),
       setPerfil: (perfil) => set({ perfil }),
       setLocale: (locale) => set({ locale }),
@@ -110,15 +98,47 @@ export const useAppStore = create<AppState>()(
       agregarAlCarrito: (puestoId, item) => set((s) => ({ carrito: agregarItem(s.carrito, puestoId, item) })),
       cambiarCantidad: (puestoId, nombre, qty) => set((s) => ({ carrito: cambiarCantidad(s.carrito, puestoId, nombre, qty) })),
       quitarGrupo: (puestoId) => set((s) => ({ carrito: s.carrito.filter((l) => l.puestoId !== puestoId) })),
+      registrarPedido: (input) => {
+        const s = get();
+        const pedido = construirPedido({ ...input, planMercadoMas: s.plan === "Mercado+" }, s.pedidos.map((p) => p.folio));
+        const hora = new Date(pedido.fecha).toLocaleTimeString("es-MX", { timeZone: "America/Mexico_City", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+        const paraLocatario = pedido.puestoId === demoSeed.locatario.puesto_id;
+        set({
+          pedidos: [pedido, ...s.pedidos],
+          carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
+          puntos: s.puntos + pedido.puntos,
+          sellos: s.sellos.includes(pedido.mercadoId) ? s.sellos : [...s.sellos, pedido.mercadoId],
+          locatario: paraLocatario
+            ? {
+                ...s.locatario,
+                pedidos: [
+                  {
+                    id: pedido.folio,
+                    folio: pedido.folio,
+                    cliente: "Pásele",
+                    items: pedido.items.map((i) => `${i.qty} × ${i.nombre}`).join(", "),
+                    total: pedido.total,
+                    tipo: pedido.entrega === "recoger" ? "Recoger en puesto" : "Envío (terceros)",
+                    hora,
+                  },
+                  ...s.locatario.pedidos,
+                ],
+              }
+            : s.locatario,
+        });
+        return pedido;
+      },
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
     }),
     {
       name: "pasele-demo",
-      version: 1,
+      version: 2,
+      // v2: nueva forma de Pedido (resumen, puntos, mercadoId)
+      migrate: (persisted, version) => (version < 2 ? { ...(persisted as object), pedidos: [] } : persisted) as AppState,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, resetDemo, ...datos } = s;
         return datos;
       },
     },
