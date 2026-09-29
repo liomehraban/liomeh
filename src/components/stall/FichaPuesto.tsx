@@ -11,6 +11,7 @@ import { BotonVolver } from "@/components/market/ficha/BotonVolver";
 import { Seccion } from "@/components/market/ficha/Seccion";
 import { categoriaGiro } from "@/lib/giros";
 import type { Productor, Puesto, Resena } from "@/lib/schemas";
+import { FairTradeCard } from "@/components/fairtrade/FairTradeCard";
 import { CatalogoPuesto } from "./CatalogoPuesto";
 import { SelloComercioJusto } from "./SelloComercioJusto";
 import { SoloQA } from "./SoloQA";
@@ -109,6 +110,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
                         <span className="font-semibold capitalize">{o.producto}</span> · {o.lugar}
                       </span>
                     </p>
+                    {prod && <FairTradeCard productor={prod} producto={o.producto} mercado={mercado.nombre.replace(/^Mercado de /, "")} />}
                     {prod && (
                       <Link
                         href={`/huertos/${prod.id}`}
