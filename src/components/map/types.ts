@@ -14,10 +14,20 @@ export type CapaPuntos = {
   puntos: PuntoMapa[];
   /** Agrupa en clusters (se separan al hacer zoom; desde zoom 15 no hay clusters). */
   cluster?: boolean;
-  estilo: "normal" | "destacado";
+  estilo: "normal" | "destacado" | "productor" | "atenuado";
+  /** false = solo decorativa (no responde a toques). Default true. */
+  interactiva?: boolean;
 };
 
-export type CapaMapa = CapaPuntos;
+/** Polígonos (anillos [lng, lat] ya cerrados). */
+export type CapaZonas = {
+  tipo: "zonas";
+  id: string;
+  zonas: { id: string; nombre: string; anillo: [number, number][] }[];
+  color: string;
+};
+
+export type CapaMapa = CapaPuntos | CapaZonas;
 
 /** Movimiento de cámara pedido desde fuera; `key` distinto fuerza el movimiento aunque el destino se repita. */
 export type Enfoque = LatLng & { zoom?: number; key: number };

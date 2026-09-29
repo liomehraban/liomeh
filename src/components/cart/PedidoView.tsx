@@ -96,11 +96,11 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
         </section>
 
         {prods.map((p) => (
-          <FairTradeCard key={p.id} productor={p} mercado={puesto?.mercadoNombre.replace(/^Mercado de /, "")} />
+          <FairTradeCard key={p.id} productor={p} mercado={puesto?.tipo === "puesto" ? puesto.mercadoNombre.replace(/^Mercado de /, "") : undefined} />
         ))}
 
         <div className="flex flex-col gap-3">
-          {puesto && (
+          {puesto?.tipo === "puesto" && (
             <Button asChild>
               <Link href={`/mercado/${puesto.mercadoId}/interior?puesto=${puesto.id}`}>
                 <Navigation aria-hidden />

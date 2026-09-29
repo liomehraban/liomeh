@@ -46,7 +46,10 @@ type DatosDemo = {
   asistente: { fecha: string; usados: number };
   locatario: { pedidos: PedidoLocatario[]; catalogoExtra: Producto[]; cobros: Cobro[] };
   productor: { lotes: Lote[]; pedidos: PedidoMayoreo[] };
+  reservasVisita: ReservaVisita[];
 };
+
+export type ReservaVisita = { id: string; productorId: string; fecha: string; personas: number; total: number; creada: string };
 
 type Acciones = {
   setPerfil: (perfil: Perfil) => void;
@@ -58,6 +61,7 @@ type Acciones = {
   quitarGrupo: (puestoId: string) => void;
   /** Crea el pedido pagado: lo guarda, vacía ese grupo, suma puntos (una sola vez) y el sello del mercado. */
   registrarPedido: (input: Omit<NuevoPedido, "planMercadoMas">) => Pedido;
+  reservarVisita: (r: Omit<ReservaVisita, "id" | "creada">) => ReservaVisita;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
 };
@@ -84,6 +88,7 @@ export function estadoInicial(): DatosDemo {
       lotes: demoSeed.productor.lotes.map((l) => ({ ...l })),
       pedidos: demoSeed.productor.pedidos_mayoreo.map((p) => ({ ...p })),
     },
+    reservasVisita: [],
   };
 }
 
@@ -107,7 +112,7 @@ export const useAppStore = create<AppState>()(
           pedidos: [pedido, ...s.pedidos],
           carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
           puntos: s.puntos + pedido.puntos,
-          sellos: s.sellos.includes(pedido.mercadoId) ? s.sellos : [...s.sellos, pedido.mercadoId],
+          sellos: !pedido.mercadoId || s.sellos.includes(pedido.mercadoId) ? s.sellos : [...s.sellos, pedido.mercadoId],
           locatario: paraLocatario
             ? {
                 ...s.locatario,
@@ -128,6 +133,11 @@ export const useAppStore = create<AppState>()(
         });
         return pedido;
       },
+      reservarVisita: (r) => {
+        const reserva = { ...r, id: `VIS-${Math.floor(1000 + Math.random() * 9000)}`, creada: new Date().toISOString() };
+        set((s) => ({ reservasVisita: [reserva, ...s.reservasVisita] }));
+        return reserva;
+      },
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
     }),
     {
@@ -138,7 +148,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, resetDemo, ...datos } = s;
         return datos;
       },
     },

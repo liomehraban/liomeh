@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { cargarEstilo } from "../estiloBase";
 import { idsInteractivos, MarketLayer } from "../MarketLayer";
+import { idsZonas, ZoneLayer } from "../ZoneLayer";
 import type { MapViewProps } from "../types";
 
 // Ver scripts/copy-maplibre-worker.mjs
@@ -63,10 +64,11 @@ export default function MapLibreView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encuadre?.key]);
 
-  const interactivos = useMemo(() => layers.flatMap(idsInteractivos), [layers]);
+  const interactivos = useMemo(() => layers.flatMap((c) => (c.tipo === "zonas" ? idsZonas(c) : idsInteractivos(c))), [layers]);
 
   const onClick = async (e: MapLayerMouseEvent) => {
-    const f = e.features?.[0];
+    // Si el toque cae en un pin y en una zona, gana el pin.
+    const f = e.features?.find((x) => x.geometry.type === "Point") ?? e.features?.[0];
     const map = ref.current;
     if (!f || !map) return;
     const props = f.properties as { id?: string; capa?: string; cluster_id?: number };
@@ -100,9 +102,13 @@ export default function MapLibreView({
           minZoom={9}
         >
           {estilo.remoto && <AttributionControl compact position="bottom-left" customAttribution={t("atribucion")} />}
-          {layers.map((capa) => (
-            <MarketLayer key={capa.id} capa={capa} seleccionado={seleccionado} conGlifos={estilo.remoto} />
-          ))}
+          {layers.map((capa) =>
+            capa.tipo === "zonas" ? (
+              <ZoneLayer key={capa.id} capa={capa} seleccionado={seleccionado} />
+            ) : (
+              <MarketLayer key={capa.id} capa={capa} seleccionado={seleccionado} conGlifos={estilo.remoto} />
+            ),
+          )}
           {ubicacion && (
             <Marker latitude={ubicacion.lat} longitude={ubicacion.lng}>
               <span className="block size-4 rounded-full border-[3px] border-white bg-anil shadow-[0_0_0_6px_rgba(31,78,154,0.25)]" />

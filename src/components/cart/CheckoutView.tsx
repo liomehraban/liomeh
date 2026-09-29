@@ -109,8 +109,8 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
             >
               {op === "recoger" ? <Store className="size-5 text-morado" aria-hidden /> : <Bike className="size-5 text-morado" aria-hidden />}
               <span className="flex flex-col">
-                <span className="font-semibold">{op === "recoger" ? t("recoger") : t("envio")}</span>
-                <span className="text-[13px] text-tinta-2">{op === "recoger" ? t("recogerTiempo") : t("envioTexto")}</span>
+                <span className="font-semibold">{op === "recoger" ? (puesto.tipo === "productor" ? t("recogerProductor") : t("recoger")) : t("envio")}</span>
+                <span className="text-[13px] text-tinta-2">{op === "recoger" ? (puesto.recogida ?? t("recogerTiempo")) : t("envioTexto")}</span>
               </span>
             </button>
           ))}

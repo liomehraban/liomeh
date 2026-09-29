@@ -370,7 +370,8 @@
     "errNombre": "Escribe el nombre",
     "procesando": "Procesando pago…",
     "seguro": "Pago simulado · sin backend",
-    "planActual": "Tu plan: {plan}"
+    "planActual": "Tu plan: {plan}",
+    "recogerProductor": "Recoger directo del productor"
   },
   "pedido": {
     "titulo": "Tu pedido",
@@ -416,5 +417,63 @@
     "titulo": "Mis pedidos",
     "vacio": "Aún no tienes pedidos.",
     "ver": "Ver pedido {folio}"
+  },
+  "huertos": {
+    "titulo": "Huertos",
+    "banner": "Más de la mitad de la CDMX es suelo de conservación. Compra directo a quien lo cuida.",
+    "mapa": "Mapa de huertos y zonas de suelo de conservación",
+    "mostrarMercados": "Mostrar mercados",
+    "chips": {
+      "nopal": "Nopal",
+      "maiz": "Maíz nativo",
+      "hortalizas": "Hortalizas de chinampa",
+      "amaranto": "Amaranto",
+      "flores": "Flores y plantas",
+      "hongos": "Hongos"
+    },
+    "temporada": "De temporada ahora",
+    "conteo": "{n, plural, =0 {Sin productores con esos filtros} one {# productor} other {# productores}}",
+    "productores": "Productores",
+    "zona": "Zona de cultivo",
+    "cultivos": "Cultivos",
+    "productoresZona": "Productores en esta zona",
+    "verProductor": "Ver productor",
+    "cerrar": "Cerrar ficha",
+    "expandir": "Cambiar tamaño de la ficha",
+    "desdeMerced": "{km} km a La Merced",
+    "simulado": "Productores y precios simulados para la maqueta"
+  },
+  "productor": {
+    "volver": "Volver",
+    "titular": "A cargo: {titular}",
+    "zona": "Zona: {zona}",
+    "practicas": "Prácticas",
+    "temporada": "Temporada",
+    "catalogo": "Catálogo",
+    "mayoreo": "Precio de mayoreo",
+    "ventaMinima": "Venta mínima: {min}",
+    "entrega": "Entrega: {entrega}",
+    "comprar": "Comprar al mayoreo",
+    "comprarTexto": "Compra directo al huerto: puntos dobles.",
+    "agregar": "Agregar al carrito",
+    "cantidad": "Cantidad en {unidad}",
+    "agregado": "Agregado: {qty} {unidad} de {producto}",
+    "verCarrito": "Ver carrito",
+    "visita": "Visita al huerto",
+    "visitaTexto": "Conoce la chinampa o la milpa con quien la trabaja.",
+    "porPersona": "{precio} por persona",
+    "reservar": "Reservar visita",
+    "reservaTitulo": "Reservar visita a {nombre}",
+    "fecha": "Elige el día",
+    "personas": "Personas",
+    "total": "Total",
+    "pagar": "Pagar {total}",
+    "procesando": "Procesando…",
+    "reservada": "Visita reservada: {fecha} · {personas, plural, one {# persona} other {# personas}} · folio {id}",
+    "tusReservas": "Tus visitas",
+    "sinVisitas": "Este huerto no recibe visitas por ahora.",
+    "resenas": "Reseñas",
+    "sinResenas": "Aún no hay reseñas de este productor.",
+    "pagoSimulado": "Pago simulado · sin backend"
   }
 }

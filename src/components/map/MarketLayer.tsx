@@ -18,11 +18,19 @@ export function geojsonDe(capa: CapaPuntos): FeatureCollection<Point> {
 }
 
 /** Ids de capas interactivas que genera una capa de puntos. */
-export const idsInteractivos = (capa: CapaPuntos) => [`${capa.id}-puntos`, ...(capa.cluster ? [`${capa.id}-clusters`] : [])];
+export const idsInteractivos = (capa: CapaPuntos) =>
+  capa.interactiva === false ? [] : [`${capa.id}-puntos`, ...(capa.cluster ? [`${capa.id}-clusters`] : [])];
+
+const ESTILO = {
+  normal: { fill: "#FEFAEB", r: 6.5, rSel: 11, stroke: 3, opacidad: 1 },
+  destacado: { fill: "#C8A96A", r: 10, rSel: 14, stroke: 4, opacidad: 1 },
+  productor: { fill: "#3C8D2F", r: 9, rSel: 13, stroke: 3, opacidad: 1 },
+  atenuado: { fill: "#FEFAEB", r: 4.5, rSel: 4.5, stroke: 2, opacidad: 0.55 },
+} as const;
 
 /** Pines de mercados: clusters morados; pin crema con anillo del giro, o dorado más grande si es destacado. */
 export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPuntos; seleccionado?: string | null; conGlifos: boolean }) {
-  const destacado = capa.estilo === "destacado";
+  const e = ESTILO[capa.estilo];
   const sel = seleccionado ?? "";
   return (
     <Source
@@ -40,7 +48,8 @@ export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPunto
           filter={["has", "point_count"]}
           paint={{
             "circle-color": "#93408F",
-            "circle-opacity": 0.9,
+            "circle-opacity": 0.9 * e.opacidad,
+            "circle-stroke-opacity": e.opacidad,
             "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 40, 26],
             "circle-stroke-width": 3,
             "circle-stroke-color": "#FEFAEB",
@@ -53,7 +62,7 @@ export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPunto
           type="symbol"
           filter={["has", "point_count"]}
           layout={{ "text-field": ["get", "point_count_abbreviated"], "text-font": ["Montserrat Medium"], "text-size": 13, "text-allow-overlap": true }}
-          paint={{ "text-color": "#FEFAEB" }}
+          paint={{ "text-color": "#FEFAEB", "text-opacity": e.opacidad }}
         />
       )}
       <Layer
@@ -61,10 +70,12 @@ export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPunto
         type="circle"
         filter={["!", ["has", "point_count"]]}
         paint={{
-          "circle-color": destacado ? "#C8A96A" : "#FEFAEB",
-          "circle-radius": ["case", ["==", ["get", "id"], sel], destacado ? 14 : 11, destacado ? 10 : 6.5],
-          "circle-stroke-width": destacado ? 4 : 3,
+          "circle-color": e.fill,
+          "circle-radius": ["case", ["==", ["get", "id"], sel], e.rSel, e.r],
+          "circle-stroke-width": e.stroke,
           "circle-stroke-color": ["get", "color"],
+          "circle-opacity": e.opacidad,
+          "circle-stroke-opacity": e.opacidad,
         }}
       />
       <Layer
@@ -73,7 +84,7 @@ export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPunto
         filter={["==", ["get", "id"], sel]}
         paint={{
           "circle-color": "transparent",
-          "circle-radius": destacado ? 20 : 17,
+          "circle-radius": e.rSel + 6,
           "circle-stroke-width": 2,
           "circle-stroke-color": "#3E1C3C",
         }}

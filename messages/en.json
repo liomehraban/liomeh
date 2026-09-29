@@ -370,7 +370,8 @@
     "errNombre": "Enter the name",
     "procesando": "Processing payment…",
     "seguro": "Simulated payment · no backend",
-    "planActual": "Your plan: {plan}"
+    "planActual": "Your plan: {plan}",
+    "recogerProductor": "Pick up from the grower"
   },
   "pedido": {
     "titulo": "Your order",
@@ -416,5 +417,63 @@
     "titulo": "My orders",
     "vacio": "You don't have any orders yet.",
     "ver": "See order {folio}"
+  },
+  "huertos": {
+    "titulo": "Farms",
+    "banner": "More than half of Mexico City is conservation land. Buy straight from the people who look after it.",
+    "mapa": "Map of farms and conservation land",
+    "mostrarMercados": "Show markets",
+    "chips": {
+      "nopal": "Nopal",
+      "maiz": "Native corn",
+      "hortalizas": "Chinampa greens",
+      "amaranto": "Amaranth",
+      "flores": "Flowers & plants",
+      "hongos": "Mushrooms"
+    },
+    "temporada": "In season now",
+    "conteo": "{n, plural, =0 {No growers match these filters} one {# grower} other {# growers}}",
+    "productores": "Growers",
+    "zona": "Growing area",
+    "cultivos": "Crops",
+    "productoresZona": "Growers in this area",
+    "verProductor": "See grower",
+    "cerrar": "Close card",
+    "expandir": "Resize card",
+    "desdeMerced": "{km} km to La Merced",
+    "simulado": "Growers and prices are simulated for this demo"
+  },
+  "productor": {
+    "volver": "Back",
+    "titular": "Run by {titular}",
+    "zona": "Area: {zona}",
+    "practicas": "Practices",
+    "temporada": "Season",
+    "catalogo": "Products",
+    "mayoreo": "Wholesale price",
+    "ventaMinima": "Minimum order: {min}",
+    "entrega": "Delivery: {entrega}",
+    "comprar": "Buy wholesale",
+    "comprarTexto": "Buy straight from the farm: double points.",
+    "agregar": "Add to cart",
+    "cantidad": "Quantity in {unidad}",
+    "agregado": "Added: {qty} {unidad} of {producto}",
+    "verCarrito": "View cart",
+    "visita": "Farm visit",
+    "visitaTexto": "Visit the chinampa or milpa with the people who work it.",
+    "porPersona": "{precio} per person",
+    "reservar": "Book a visit",
+    "reservaTitulo": "Book a visit to {nombre}",
+    "fecha": "Pick a day",
+    "personas": "People",
+    "total": "Total",
+    "pagar": "Pay {total}",
+    "procesando": "Processing…",
+    "reservada": "Visit booked: {fecha} · {personas, plural, one {# person} other {# people}} · ref {id}",
+    "tusReservas": "Your visits",
+    "sinVisitas": "This farm doesn't take visitors for now.",
+    "resenas": "Reviews",
+    "sinResenas": "No reviews for this grower yet.",
+    "pagoSimulado": "Simulated payment · no backend"
   }
 }

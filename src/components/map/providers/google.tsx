@@ -7,7 +7,7 @@ import type { MapViewProps } from "../types";
 
 /**
  * Stub funcional mínimo del proveedor Google (NEXT_PUBLIC_MAP_PROVIDER=google + NEXT_PUBLIC_GOOGLE_MAPS_KEY).
- * Pinta todos los puntos sin clusters. TODO: clusters (@googlemaps/markerclusterer), enfoque y ubicación.
+ * Pinta todos los puntos sin clusters ni zonas. TODO: clusters (@googlemaps/markerclusterer), enfoque y ubicación.
  */
 export default function GoogleView({ center, zoom, layers, onSelect, ariaLabel, className }: MapViewProps) {
   return (
@@ -15,7 +15,8 @@ export default function GoogleView({ center, zoom, layers, onSelect, ariaLabel, 
       <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY ?? ""}>
         <Map defaultCenter={center} defaultZoom={zoom} disableDefaultUI gestureHandling="greedy">
           {layers.flatMap((capa) =>
-            capa.puntos.map((p) => (
+            // TODO: polígonos de zonas con <Polygon> cuando se use este proveedor.
+            capa.tipo === "zonas" ? [] : capa.puntos.map((p) => (
               <Marker key={`${capa.id}-${p.id}`} position={p} title={p.etiqueta} onClick={() => onSelect?.(p.id, capa.id)} />
             )),
           )}

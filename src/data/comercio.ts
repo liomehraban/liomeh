@@ -2,8 +2,12 @@
 import { getRepository } from "./repository";
 import { puestosEnLinea } from "./ficha-puesto";
 
+/** Vendedor del carrito: un puesto de mercado o un productor (mayoreo directo del huerto). */
 export type PuestoResumen = {
   id: string;
+  tipo: "puesto" | "productor";
+  /** Cómo se recoge (productores: «Recoger en centro de acopio»…). */
+  recogida?: string;
   nombre: string;
   plan: "Gratis" | "Pro" | "Plus";
   giro: string;
@@ -20,7 +24,23 @@ export async function resumenPuestos(): Promise<Record<string, PuestoResumen>> {
   for (const { puestoId, mercadoId } of await puestosEnLinea()) {
     const [p, m] = await Promise.all([repo.puesto(puestoId), repo.mercado(mercadoId)]);
     if (!p || !m) continue;
-    out[p.id] = { id: p.id, nombre: p.nombre, plan: p.plan, giro: p.giro, ubicacion: p.ubicacion_texto, mercadoId: m.id, mercadoNombre: m.nombre_display, lat: m.lat, lng: m.lng };
+    out[p.id] = { id: p.id, tipo: "puesto", nombre: p.nombre, plan: p.plan, giro: p.giro, ubicacion: p.ubicacion_texto, mercadoId: m.id, mercadoNombre: m.nombre_display, lat: m.lat, lng: m.lng };
+  }
+  for (const p of await repo.productores()) {
+    out[p.id] = {
+      id: p.id,
+      tipo: "productor",
+      recogida: p.entrega,
+      nombre: p.nombre,
+      plan: "Gratis",
+      giro: p.producto_principal,
+      ubicacion: `${p.pueblo}, ${p.alcaldia}`,
+      // Sin sello: los sellos del pasaporte son de mercados.
+      mercadoId: "",
+      mercadoNombre: `${p.pueblo}, ${p.alcaldia}`,
+      lat: p.lat,
+      lng: p.lng,
+    };
   }
   return out;
 }
