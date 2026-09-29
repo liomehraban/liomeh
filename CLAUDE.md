@@ -58,3 +58,7 @@ pnpm validate:data  # valida /data contra src/lib/schemas.ts
 - Montos: enteros en MXN; formatea con `formatMXN()`. En `en`, muestra además un aproximado en USD (`NEXT_PUBLIC_USD_RATE`, default 18.5).
 - Hora: zona `America/Mexico_City` en todos los cálculos de «abierto ahora».
 - Todo lo que venga de la guía lleva la leyenda «Fuente: Guía de Mercados CDMX 2026».
+
+## Next.js
+
+@AGENTS.md
