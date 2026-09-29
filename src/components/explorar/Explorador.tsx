@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LocateFixed, Loader2, MapPin, Recycle } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { MapView, type CapaMapa, type Encuadre, type Enfoque } from "@/components/map/MapView";
@@ -26,7 +26,6 @@ type Origen = LatLng & { fuente: "gps" | "zocalo" };
 /** M1 · Mapa de la ciudad. */
 export function Explorador({ mercados, docs }: { mercados: MercadoMapa[]; docs: DocBusqueda[] }) {
   const t = useTranslations();
-  const locale = useLocale();
   const router = useRouter();
   const ahora = useAhora();
 
@@ -148,7 +147,7 @@ export function Explorador({ mercados, docs }: { mercados: MercadoMapa[]; docs: 
         onClick={() => ubicar()}
         aria-label={ubicando ? t("explorar.ubicando") : t("explorar.miUbicacion")}
         className="absolute right-4 bottom-[calc(var(--alto-inferior,0px)+1rem)] z-20 grid size-12 place-items-center rounded-full bg-white text-morado shadow-lg transition-[bottom] focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
-        style={{ ["--alto-inferior" as string]: actual ? "262px" : plegables.cerca ? "252px" : "96px" }}
+        style={{ ["--alto-inferior" as string]: actual ? "262px" : plegables.cerca ? "196px" : "96px" }}
       >
         {ubicando ? <Loader2 className="size-5 animate-spin" aria-hidden /> : <LocateFixed className="size-5" aria-hidden />}
       </button>
@@ -165,11 +164,8 @@ export function Explorador({ mercados, docs }: { mercados: MercadoMapa[]; docs: 
           >
             <ul className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
               {cercanos.map((m) => (
-                <li key={m.id} className="w-56 shrink-0 snap-start">
-                  <MarketCard
-                    m={{ ...m, lema: locale === "en" ? (m.lema_en ?? m.lema) : m.lema, distancia: m.distancia }}
-                    className="h-full [&_.aspect-video]:aspect-[2.4/1]"
-                  />
+                <li key={m.id} className="w-64 shrink-0 snap-start">
+                  <MarketCard m={{ ...m, distancia: m.distancia }} compacta />
                 </li>
               ))}
             </ul>

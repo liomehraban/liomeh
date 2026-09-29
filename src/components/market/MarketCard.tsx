@@ -22,8 +22,41 @@ export type MarketCardData = {
 };
 
 /** Tarjeta de mercado: placeholder 16:9 + nombre en Bebas + lema + estado + distancia + rating. */
-export function MarketCard({ m, className, onClick }: { m: MarketCardData; className?: string; onClick?: () => void }) {
+export function MarketCard({
+  m,
+  className,
+  onClick,
+  compacta = false,
+}: {
+  m: MarketCardData;
+  className?: string;
+  onClick?: () => void;
+  /** Versión horizontal para carruseles sobre el mapa. */
+  compacta?: boolean;
+}) {
   const locale = useLocale();
+  if (compacta) {
+    return (
+      <Link
+        href={`/mercado/${m.id}`}
+        onClick={onClick}
+        className={cn(
+          "flex items-center gap-3 rounded-card border border-border bg-white p-2 pr-3 shadow-sm hover:shadow-md focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+          className,
+        )}
+      >
+        <PhotoPlaceholder categoria={m.categoria} className="aspect-square w-16 shrink-0 rounded-2xl" iconClassName="size-6" />
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <h3 className="truncate font-display text-xl text-morado-700">{m.nombre}</h3>
+          <EstadoHorario horario={m.horario} corto className="text-[13px]" />
+          <div className="flex items-center gap-2 text-[13px] text-tinta-2">
+            {m.distancia !== undefined && <span>{formatDistance(m.distancia, locale)}</span>}
+            {m.rating && <Estrellas rating={m.rating.promedio} className="text-[13px]" />}
+          </div>
+        </div>
+      </Link>
+    );
+  }
   return (
     <Link
       href={`/mercado/${m.id}`}

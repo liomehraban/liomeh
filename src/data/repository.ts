@@ -16,6 +16,8 @@ import type {
   UsuariosDemo,
   ZonaHuerto,
 } from "@/lib/schemas";
+import { MockRepository } from "./mock-repository";
+import { SupabaseRepository } from "./supabase-repository";
 
 export type FiltroMercados = {
   alcaldias?: string[];
@@ -49,15 +51,6 @@ export interface Repository {
 let instance: Repository | null = null;
 
 export function getRepository(): Repository {
-  if (instance) return instance;
-  if (process.env.NEXT_PUBLIC_DATA_SOURCE === "supabase") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { SupabaseRepository } = require("./supabase-repository") as typeof import("./supabase-repository");
-    instance = new SupabaseRepository();
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { MockRepository } = require("./mock-repository") as typeof import("./mock-repository");
-    instance = new MockRepository();
-  }
+  instance ??= process.env.NEXT_PUBLIC_DATA_SOURCE === "supabase" ? new SupabaseRepository() : new MockRepository();
   return instance;
 }

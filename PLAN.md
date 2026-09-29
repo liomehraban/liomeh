@@ -16,10 +16,10 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] `pnpm validate:data` y `pnpm test` en verde
 
 ## Fase 1 · Descubrir `/fase-1`
-- [ ] `<MapView>` MapLibre + CARTO (con abstracción de proveedor)
-- [ ] **M1** Mapa ciudad: clusters, destacados, búsqueda, filtros, bottom sheet
-- [ ] **M2** Ficha de mercado (346 fichas renderizan)
-- [ ] `lib/search.ts` y `lib/geo.ts` con tests
+- [x] `<MapView>` MapLibre + CARTO (con abstracción de proveedor)
+- [x] **M1** Mapa ciudad: clusters, destacados, búsqueda, filtros, bottom sheet
+- [x] **M2** Ficha de mercado (346 fichas renderizan)
+- [x] `lib/search.ts` y `lib/geo.ts` con tests
 
 ## Fase 2 · Llegar al puesto `/fase-2`
 - [ ] **M3** Interior La Merced: SVG, pan y zoom, búsqueda, «Llévame», pasos, deep link
