@@ -30,7 +30,7 @@ export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) 
               <button
                 type="button"
                 onClick={() => onElegir(p)}
-                className="flex w-full items-center gap-4 rounded-card border border-border bg-white p-4 text-left shadow-sm transition-colors hover:border-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                className="pressable flex w-full items-center gap-4 rounded-card border border-border bg-white p-4 text-left shadow-sm hover:border-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               >
                 <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-morado-50 text-morado">
                   <Icono className="size-6" strokeWidth={1.75} aria-hidden />

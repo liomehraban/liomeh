@@ -79,6 +79,8 @@ export type ReservaVisita = { id: string; productorId: string; fecha: string; pe
 
 type Acciones = {
   setPerfil: (perfil: Perfil) => void;
+  /** Vuelve a la pantalla de inicio (selector de perfil) sin borrar el resto de la demo. */
+  salirDePerfil: () => void;
   setLocale: (locale: Locale) => void;
   setPlan: (plan: PlanConsumidor) => void;
   marcarOnboarding: () => void;
@@ -153,6 +155,7 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       ...estadoInicial(),
       setPerfil: (perfil) => set({ perfil }),
+      salirDePerfil: () => set({ perfil: null }),
       setLocale: (locale) => set({ locale }),
       setPlan: (plan) => set({ plan }),
       marcarOnboarding: () => set({ onboardingVisto: true }),
@@ -304,7 +307,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, ...datos } = s;
+        const { setPerfil, salirDePerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, ...datos } = s;
         return datos;
       },
     },

@@ -18,7 +18,7 @@ export function CartFab() {
     <Link
       href="/carrito"
       aria-label={`${t("carrito")} (${piezas})`}
-      className="absolute right-4 bottom-20 z-30 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl focus-visible:ring-4 focus-visible:ring-ring/50 focus-visible:outline-none"
+      className="pressable absolute right-4 bottom-[calc(5.25rem+env(safe-area-inset-bottom))] z-30 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl focus-visible:ring-4 focus-visible:ring-ring/50 focus-visible:outline-none"
     >
       <ShoppingBasket className="size-6" strokeWidth={1.75} aria-hidden />
       <span className="absolute -top-1 -right-1 grid min-w-6 place-items-center rounded-pill bg-dorado px-1.5 text-xs font-bold text-morado-900">

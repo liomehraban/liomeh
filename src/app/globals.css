@@ -4,12 +4,12 @@
 
 /* Tokens de identidad CDMX (docs/04_diseno.md) */
 @theme {
-  --color-morado: #93408f;
-  --color-morado-700: #693266;
+  --color-morado: #9B2694;
+  --color-morado-700: #6E1A6A;
   --color-morado-900: #3e1c3c;
-  --color-morado-50: #f6ecf5;
-  --color-dorado: #c8a96a;
-  --color-dorado-200: #f6e7c4;
+  --color-morado-50: #F8E9F6;
+  --color-dorado: #F2B01E;
+  --color-dorado-200: #FDE9B5;
   --color-crema: #fefaeb;
   --color-papel: #fbf7f2;
   --color-tinta: #2b1a2a;
@@ -59,18 +59,18 @@
   --card-foreground: #2b1a2a;
   --popover: #ffffff;
   --popover-foreground: #2b1a2a;
-  --primary: #93408f;
+  --primary: #9B2694;
   --primary-foreground: #fefaeb;
-  --secondary: #f6ecf5;
-  --secondary-foreground: #693266;
+  --secondary: #F8E9F6;
+  --secondary-foreground: #6E1A6A;
   --muted: #fbf7f2;
   --muted-foreground: #4a3848;
-  --accent: #f6e7c4;
+  --accent: #FDE9B5;
   --accent-foreground: #3e1c3c;
   --destructive: #c8102e;
   --border: #eadfe8;
   --input: #d9c9d6;
-  --ring: #93408f;
+  --ring: #9B2694;
 }
 
 @layer base {
@@ -79,9 +79,122 @@
   }
   html {
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Sin zoom por doble toque ni retraso de 300 ms; el pellizco sigue disponible. */
+    touch-action: manipulation;
+  }
+  html,
+  body {
+    /* Sin rebote del documento ni «pull to refresh»: solo scrollea el contenido, como en una app. */
+    overscroll-behavior: none;
   }
   body {
     @apply bg-background font-sans text-foreground antialiased;
+  }
+  /* Controles: sin menú de «copiar/abrir enlace» al mantener presionado y sin seleccionar texto por accidente. */
+  button,
+  a[href],
+  [role="tab"],
+  nav {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+/* Retroalimentación táctil: todo lo tocable se hunde un poco al presionar. */
+@utility pressable {
+  transition-property: transform, background-color, color, border-color, box-shadow;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out);
+  &:active {
+    transform: scale(0.96);
+    transition-duration: 60ms;
+  }
+}
+
+/* Hojas y diálogos (Radix): entran desde abajo como en iOS/Android y salen igual. */
+@keyframes hoja-entra {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes hoja-sale {
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes velo-entra {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes velo-sale {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes dialogo-entra {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+}
+@keyframes dialogo-sale {
+  to {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+[data-slot="dialog-content"][data-state="open"] {
+  animation: dialogo-entra 240ms var(--ease-out);
+}
+[data-slot="dialog-content"][data-state="closed"] {
+  animation: dialogo-sale 160ms ease-in forwards;
+}
+[data-slot="sheet-content"][data-state="open"] {
+  animation: hoja-entra 320ms var(--ease-out);
+}
+[data-slot="sheet-content"][data-state="closed"] {
+  animation: hoja-sale 200ms ease-in forwards;
+}
+:is([data-slot="sheet-overlay"], [data-slot="dialog-overlay"])[data-state="open"] {
+  animation: velo-entra 240ms ease-out;
+}
+:is([data-slot="sheet-overlay"], [data-slot="dialog-overlay"])[data-state="closed"] {
+  animation: velo-sale 200ms ease-in forwards;
+}
+
+/* Transición entre pantallas (React <ViewTransition> en AppShell): la barra inferior queda fija
+   y solo el contenido hace un «fade-through» corto, como el cambio de pestaña de Android/iOS. */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(tab-bar),
+::view-transition-new(tab-bar) {
+  animation: none;
+}
+::view-transition-old(tab-bar) {
+  display: none;
+}
+::view-transition-old(.pantalla) {
+  animation: 120ms ease-in both vt-sale;
+}
+::view-transition-new(.pantalla) {
+  animation: 240ms var(--ease-out) 60ms both vt-entra;
+}
+@keyframes vt-sale {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-entra {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
 }
 
@@ -106,5 +219,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

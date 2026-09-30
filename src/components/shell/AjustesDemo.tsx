@@ -1,6 +1,6 @@
 "use client";
 
-import { RotateCcw } from "lucide-react";
+import { House, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -9,11 +9,12 @@ import { useRouter } from "@/i18n/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import { LocaleToggle } from "./LocaleToggle";
 
-/** Bloque de Ajustes: idioma y «Reiniciar demo». Se usa en Yo, Locatario › Cuenta y Productor › Cuenta. */
+/** Bloque de Ajustes: idioma, volver al selector de perfil y «Reiniciar demo». Se usa en Yo, Locatario › Cuenta y Productor › Cuenta. */
 export function AjustesDemo() {
   const t = useTranslations();
   const router = useRouter();
   const resetDemo = useAppStore((s) => s.resetDemo);
+  const salirDePerfil = useAppStore((s) => s.salirDePerfil);
 
   const reiniciar = () => {
     resetDemo();
@@ -28,6 +29,15 @@ export function AjustesDemo() {
         <span className="font-semibold">{t("yo.idioma")}</span>
         <LocaleToggle />
       </div>
+      <Button
+        onClick={() => {
+          salirDePerfil();
+          router.push("/");
+        }}
+      >
+        <House aria-hidden />
+        {t("shell.volverInicio")}
+      </Button>
       <div className="flex flex-col gap-2 border-t border-border pt-4">
         <p className="text-sm text-tinta-2">{t("yo.reiniciarTexto")}</p>
         <Button variant="secondary" onClick={reiniciar}>
