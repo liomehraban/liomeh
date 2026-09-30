@@ -71,7 +71,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
   };
 
   return (
-    <div className="flex flex-col pb-10">
+    <div className="flex flex-col pb-28">
       <header className="relative bg-morado px-5 pt-16 pb-6 text-crema lg:px-10">
         <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
         <div className="mx-auto flex max-w-6xl flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">

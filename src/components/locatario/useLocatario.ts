@@ -18,11 +18,16 @@ export function useKpisLocatario(base: KpisBase, puestoId: string) {
     if (!hydrated || !ahora) return { kpis: base, extraHoy: 0 };
     const hoy = hoyCDMX(ahora);
     const esHoy = (iso: string) => hoyCDMX(new Date(iso)) === hoy;
-    const montosCobro = cobros.filter((c) => esHoy(c.fecha)).map((c) => c.monto);
-    // Los pedidos creados en la app tienen folio; los de usuarios_demo ya están en la base.
-    const montosPedidos = pedidos.filter((p) => p.folio).map((p) => p.total);
+    const cobrosHoy = cobros.filter((c) => esHoy(c.fecha));
+    // Los pedidos creados en la demo tienen folio y fecha; los de usuarios_demo ya están en la base.
+    const montosPedidos = pedidos.filter((p) => p.folio && p.fecha && esHoy(p.fecha)).map((p) => p.total);
     const nCheckins = (checkins ?? []).filter((c) => c.objetivo === puestoId && esHoy(c.fecha)).length;
-    const kpis = kpisHoy(base, { cobros: montosCobro, pedidosApp: montosPedidos, checkins: nCheckins });
+    const kpis = kpisHoy(base, {
+      cobros: cobrosHoy.map((c) => c.monto),
+      cobrosQr: cobrosHoy.filter((c) => c.metodo === "qr").length,
+      pedidosApp: montosPedidos,
+      checkins: nCheckins,
+    });
     return { kpis, extraHoy: kpis.ventas_mxn - base.ventas_mxn };
   }, [hydrated, ahora, base, cobros, pedidos, checkins, puestoId]);
 }

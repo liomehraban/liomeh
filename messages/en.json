@@ -954,7 +954,7 @@
       },
       "asistente": {
         "titulo": "Marchanta: “What events are on this month?”",
-        "espera": "National Mole Fair card + “Remind me”"
+        "espera": "Cards for upcoming events + “Remind me”"
       },
       "checkin": {
         "titulo": "QR check-in at Jugos Moreno (paid in cash)",
@@ -972,7 +972,9 @@
         "titulo": "Government dashboard → SEDEMA",
         "espera": "KPIs, adoption, CO₂ and tons rescued"
       }
-    }
+    },
+    "interrumpido": "This step didn't finish. You can retry it.",
+    "reintentar": "Retry step"
   },
   "offline": {
     "titulo": "You're offline",
@@ -1191,5 +1193,15 @@
       "Caja surtida de frutas y legumbres": "Mixed box of fruit and vegetables",
       "Ramo de flores del día": "Bouquet of today's flowers"
     }
+  },
+  "errores": {
+    "noEncontradoTitulo": "We couldn't find this page",
+    "noEncontradoTexto": "The market, stall or route may no longer be on the app. Want to find another one?",
+    "irExplorar": "Explore markets",
+    "inicio": "Go home",
+    "errorTitulo": "Something went wrong",
+    "errorTexto": "We had trouble showing this screen. Your orders and passport are still saved.",
+    "reintentar": "Try again",
+    "reiniciarDemo": "Reset the demo"
   }
 }

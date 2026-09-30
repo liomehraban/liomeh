@@ -31,7 +31,7 @@ async function siguiente(page: Page, alPasar?: () => Promise<void>) {
   await expect(boton).toBeEnabled({ timeout: 90_000 });
 }
 
-test("guion de demo completo sin errores de consola", async ({ page }) => {
+async function guionCompleto(page: Page) {
   const errores: string[] = [];
   const fallidas: string[] = [];
   page.on("pageerror", (e) => errores.push(String(e)));
@@ -92,11 +92,12 @@ test("guion de demo completo sin errores de consola", async ({ page }) => {
   await expect(ft).toContainText("$150");
   await expect(ft).toContainText("¡El doble!");
 
-  // 6 · Asistente: eventos del mes → Feria Nacional del Mole + Recordarme
+  // 6 · Asistente: eventos del mes → tarjeta de evento + Recordarme (el evento depende de la fecha)
   await siguiente(page);
-  await expect(page.getByText(/Feria Nacional del Mole/).first()).toBeVisible();
-  await expect(page.locator('[data-demo="recordar:mole-2026"]')).toHaveAttribute("aria-pressed", "true");
-  expect((await estado(page)).recordatorios).toContain("mole-2026");
+  const recordar = page.locator('[data-demo^="recordar:"]').first();
+  await expect(recordar).toHaveAttribute("aria-pressed", "true");
+  const eventoId = (await recordar.getAttribute("data-demo"))!.replace("recordar:", "");
+  expect((await estado(page)).recordatorios).toContain(eventoId);
 
   // 7 · Check-in QR en Jugos Moreno pagando en efectivo: +10
   const antes7 = (await estado(page)).puntos;
@@ -139,6 +140,13 @@ test("guion de demo completo sin errores de consola", async ({ page }) => {
   // Ningún recurso propio (mismo origen) puede fallar
   const origen = new URL(page.url()).origin;
   expect(fallidas.filter((u) => u.startsWith(origen))).toEqual([]);
+}
+
+test("guion de demo completo sin errores de consola", async ({ page }) => guionCompleto(page));
+
+test.describe("con «reducir movimiento»", () => {
+  test.use({ reducedMotion: "reduce" });
+  test("el guion completo también pasa (esperas funcionales completas)", async ({ page }) => guionCompleto(page));
 });
 
 test("los datos de tarjeta nunca salen a la red", async ({ page }) => {
@@ -168,4 +176,19 @@ test("los datos de tarjeta nunca salen a la red", async ({ page }) => {
   await page.getByRole("button", { name: /^Pagar/ }).click();
   await expect(page).toHaveURL(/\/es\/pedido\//, { timeout: 20_000 });
   expect(filtradas).toEqual([]);
+});
+
+test("si se recarga a mitad de un paso, la barra ofrece reintentarlo", async ({ page }) => {
+  await page.goto("/es/presentacion");
+  await page.getByRole("button", { name: "Comenzar demo" }).click();
+  const boton = page.locator("[data-demo-siguiente]");
+  await expect(boton).toBeDisabled();
+  await expect(page).toHaveURL(/\/en\/explorar/);
+  await page.reload();
+  await expect(boton).toHaveText(/Retry step/);
+  await boton.click();
+  await expect(boton).toBeDisabled();
+  await expect(boton).toBeEnabled({ timeout: 60_000 });
+  await expect(boton).toHaveText(/Next/);
+  await expect(page.locator('[data-demo="buscar"]')).toHaveValue("pancita");
 });

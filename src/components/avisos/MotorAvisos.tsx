@@ -54,7 +54,13 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
         const r = siguienteAviso(
           perfil,
           datos,
-          { pedidos: s.pedidos, recordatorios: s.recordatorios, lotes: s.productor.lotes, entregados: s.avisosEntregados },
+          {
+            pedidos: s.pedidos,
+            recordatorios: s.recordatorios,
+            lotes: s.productor.lotes,
+            entregados: s.avisosEntregados,
+            folios: [...s.locatario.pedidos, ...s.productor.pedidos].map((p) => p.folio ?? p.id ?? ""),
+          },
           new Date(),
           Math.floor(Math.random() * 2 ** 31),
         );

@@ -165,6 +165,7 @@ describe("locatario y productor en el store", () => {
     expect(useAppStore.getState().productor.pedidos[0].estadoId).toBe("listo");
   });
   it("una compra del consumidor a Lucía llega a sus pedidos de mayoreo", () => {
+    useAppStore.setState({ locale: "es" });
     useAppStore.getState().registrarPedido({
       puestoId: "prod-xochi-01",
       mercadoId: "",
@@ -173,6 +174,7 @@ describe("locatario y productor en el store", () => {
       metodo: "qr",
       entrega: "recoger",
     });
-    expect(useAppStore.getState().productor.pedidos[0]).toMatchObject({ estadoId: "nuevo", total: 189, cantidad: "10 kg" });
+    // La productora recibe la venta (subtotal), no el cargo de servicio de la plataforma.
+    expect(useAppStore.getState().productor.pedidos[0]).toMatchObject({ estadoId: "nuevo", total: 180, cantidad: "10 kg", cliente: "Sofía" });
   });
 });

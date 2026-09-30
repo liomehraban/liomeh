@@ -24,3 +24,10 @@ describe("Marchanta simulada: preguntas rápidas", () => {
     expect(r.respuesta.cards.map((c) => c.id)).toContain("mole-2026");
   });
 });
+
+describe("el paso 6 de la demo no caduca", () => {
+  it.each(["2026-10-26", "2026-11-15", "2027-01-10", "2027-04-20", "2027-08-01"])("el %s «eventos» ofrece al menos una tarjeta de evento", async (dia) => {
+    const [r] = await respuestasPreguardadas(["¿Qué eventos hay este mes?"], "es", new Date(`${dia}T12:00:00-06:00`));
+    expect(r.respuesta.cards.some((c) => c.tipo === "evento")).toBe(true);
+  });
+});

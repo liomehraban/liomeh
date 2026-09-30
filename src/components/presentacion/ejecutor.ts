@@ -15,16 +15,23 @@ export class Cancelado extends Error {}
 const TIMEOUT = 12_000;
 const esc = (s: string) => s.replace(/(["\\])/g, "\\$1");
 
+/** `demo` terminado en «*» busca por prefijo (p. ej. `recordar:*` = la primera tarjeta de evento). */
+const selector = (demo: string) => (demo.endsWith("*") ? `[data-demo^="${esc(demo.slice(0, -1))}"]` : `[data-demo="${esc(demo)}"]`);
+
 function buscar(demo: string, dentro?: string): HTMLElement | null {
-  const raiz: ParentNode | null = dentro ? document.querySelector(`[data-demo="${esc(dentro)}"]`) : document;
+  const raiz: ParentNode | null = dentro ? document.querySelector(selector(dentro)) : document;
   if (!raiz) return null;
-  const todos = [...raiz.querySelectorAll<HTMLElement>(`[data-demo="${esc(demo)}"]`)];
+  const todos = [...raiz.querySelectorAll<HTMLElement>(selector(demo))];
   // el primero visible y habilitado
   return todos.find((el) => el.getClientRects().length > 0 && !(el as HTMLButtonElement).disabled) ?? null;
 }
 
-async function pausa(ms: number, e: Entorno) {
-  await new Promise((r) => setTimeout(r, e.reducido ? Math.min(ms, 250) : ms));
+/**
+ * Pausa entre acciones. Con «reducir movimiento» solo se acortan las pausas cosméticas (tecleo,
+ * dedo, scroll); las esperas del guion (`esperar`) son funcionales y se respetan completas.
+ */
+async function pausa(ms: number, e: Entorno, cosmetica = true) {
+  await new Promise((r) => setTimeout(r, e.reducido && cosmetica ? Math.min(ms, 250) : ms));
   if (!e.vivo()) throw new Cancelado();
 }
 
@@ -70,7 +77,7 @@ async function accion(a: AccionDemo, locale: Locale, e: Entorno) {
       return;
     }
     case "esperar":
-      return pausa(a.ms, e);
+      return pausa(a.ms, e, false);
     case "esperarRuta":
       await esperar(() => window.location.pathname.includes(a.contiene), e, a.contiene);
       return pausa(600, e);
