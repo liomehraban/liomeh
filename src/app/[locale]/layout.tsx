@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Conductor } from "@/components/presentacion/Conductor";
 import { RegistroSW } from "@/components/pwa/RegistroSW";
 import { MotorAvisos } from "@/components/avisos/MotorAvisos";
+import { RevelarAutomatico } from "@/components/motion/RevelarAutomatico";
 import { VigilantePlan } from "@/components/planes/VigilantePlan";
 import { datosAvisos } from "@/data/avisos";
 import "../globals.css";
@@ -60,6 +61,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
                 {children}
                 <Conductor />
                 <MotorAvisos datos={await datosAvisos()} />
+                <RevelarAutomatico />
                 <VigilantePlan />
                 <Toaster />
               </PhoneFrame>

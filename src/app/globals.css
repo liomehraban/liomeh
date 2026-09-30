@@ -92,6 +92,14 @@
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
+  /* Todo lo tocable se hunde un poco al presionar (como en iOS/Android). Va en la capa base para que las
+     transiciones propias de cada componente sigan mandando; los marcadores de mapa y el SVG quedan fuera. */
+  :where(button:not(:disabled), a[href], [role="tab"], [role="radio"], [role="switch"], summary):not(svg *, .maplibregl-marker) {
+    transition: scale 160ms var(--ease-out);
+  }
+  :where(button:not(:disabled), a[href], [role="tab"], [role="radio"], [role="switch"], summary):not(svg *, .maplibregl-marker):active {
+    scale: 0.97;
+  }
   /* Los navegadores dan a <fieldset> un min-width: min-content que lo hace desbordar la pantalla. */
   fieldset {
     min-width: 0;
@@ -138,6 +146,22 @@
   opacity: 0;
   scale: 0.85;
   pointer-events: none;
+}
+
+/* Revelado escalonado de listas (RevelarAutomatico): solo oculta mientras el componente está activo. */
+:root[data-revelar-listo] [data-revelar] > :not([data-visto]) {
+  opacity: 0;
+  translate: 0 14px;
+}
+:root[data-revelar-listo] [data-revelar] > [data-visto="anim"] {
+  animation: revelar 450ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+@keyframes revelar {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
 }
 
 /* Retroalimentación táctil: todo lo tocable se hunde un poco al presionar. */
