@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { getRepository } from "@/data/repository";
 import { resumenPuestos } from "@/data/comercio";
 import { contextoInsignias } from "@/data/pasaporte";
+import { enIdioma } from "@/lib/idioma";
 import { Button } from "@/components/ui/button";
 import { AjustesDemo } from "@/components/shell/AjustesDemo";
 import { MisPedidos } from "@/components/cart/MisPedidos";
@@ -47,8 +48,8 @@ export default async function YoPage({ params }: PageProps<"/[locale]/yo">) {
           <ul className="flex flex-col gap-2 pt-2 text-sm">
             {lealtad.como_se_gana.map((x) => (
               <li key={x.accion} className="flex justify-between gap-3">
-                <span>{x.accion}</span>
-                <span className="shrink-0 font-semibold text-morado">{x.puntos}</span>
+                <span>{enIdioma(x, "accion", locale)}</span>
+                <span className="shrink-0 font-semibold text-morado">{enIdioma(x, "puntos", locale)}</span>
               </li>
             ))}
           </ul>

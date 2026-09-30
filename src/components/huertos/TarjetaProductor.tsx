@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { Estrellas } from "@/components/market/Estrellas";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { formatMXN } from "@/lib/money";
 import type { Productor } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ import { cn } from "@/lib/utils";
 export function TarjetaProductor({ p, className }: { p: Productor; className?: string }) {
   const t = useTranslations("huertos");
   const locale = useLocale();
+  const v = useVocabulario();
   return (
     <Link
       href={`/huertos/${p.id}`}
@@ -27,7 +29,7 @@ export function TarjetaProductor({ p, className }: { p: Productor; className?: s
       <span className="flex min-w-0 flex-col gap-0.5">
         <span className="truncate font-bold text-morado-700">{p.nombre}</span>
         <span className="truncate text-[13px] text-tinta-2">
-          {p.producto_principal} · {formatMXN(p.precio_mayoreo_app.precio, locale)}/{p.precio_mayoreo_app.unidad}
+          {p.producto_principal} · {formatMXN(p.precio_mayoreo_app.precio, locale)}/{v("unidades", p.precio_mayoreo_app.unidad)}
         </span>
         <span className="flex items-center gap-2 text-[13px] text-tinta-2">
           <Estrellas rating={p.rating} className="text-[13px]" />

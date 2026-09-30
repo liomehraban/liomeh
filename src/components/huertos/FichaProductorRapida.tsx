@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { Estrellas } from "@/components/market/Estrellas";
 import { precioJusto } from "@/lib/fairtrade";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { formatMXN } from "@/lib/money";
 import type { Productor } from "@/lib/schemas";
 
 export function FichaProductorRapida({ p }: { p: Productor }) {
   const t = useTranslations();
   const locale = useLocale();
+  const v = useVocabulario();
   const f = precioJusto(p);
   const km = new Intl.NumberFormat(locale === "en" ? "en-US" : "es-MX", { maximumFractionDigits: 1 }).format(p.km_a_la_merced);
   return (
@@ -28,7 +30,7 @@ export function FichaProductorRapida({ p }: { p: Productor }) {
         <span className="text-tinta-2">{t("huertos.desdeMerced", { km })}</span>
       </div>
       <p className="text-sm">
-        <strong>{p.producto_principal}</strong> · {formatMXN(p.precio_mayoreo_app.precio, locale)}/{p.precio_mayoreo_app.unidad}
+        <strong>{p.producto_principal}</strong> · {formatMXN(p.precio_mayoreo_app.precio, locale)}/{v("unidades", p.precio_mayoreo_app.unidad)}
       </p>
       <p className="rounded-2xl bg-dorado-200/60 p-3 text-sm">
         {t("fairtrade.conApp")}: <strong>{formatMXN(f.recibe, locale)}</strong> ({f.pctApp}%) · {t("fairtrade.conIntermediarios")}: {formatMXN(f.antes, locale)} ({f.pctIntermediarios}%)

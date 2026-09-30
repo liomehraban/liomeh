@@ -5,6 +5,8 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { EncabezadoPerfil } from "@/components/locatario/EncabezadoPerfil";
+import { useVocabulario } from "@/hooks/useVocabulario";
+import { traducirCantidades } from "@/lib/idioma";
 import { formatMXN } from "@/lib/money";
 import { normalizarEstadoMayoreo, siguientesEstadosMayoreo, type EstadoMayoreo } from "@/lib/productor";
 import { cn } from "@/lib/utils";
@@ -23,6 +25,7 @@ const ORDEN: EstadoMayoreo[] = ["nuevo", "confirmado", "listo", "enviado", "entr
 export function PedidosMayoreoView() {
   const t = useTranslations("productor.pedidos");
   const locale = useLocale();
+  const voc = useVocabulario();
   const hydrated = useHydrated();
   const pedidos = useAppStore((s) => s.productor.pedidos);
   const cambiar = useAppStore((s) => s.cambiarEstadoMayoreo);
@@ -46,7 +49,7 @@ export function PedidosMayoreoView() {
                 <span className={cn("shrink-0 rounded-pill px-2.5 py-0.5 text-[12px] font-bold", COLOR[p.e])}>{t(`estados.${p.e}`)}</span>
               </div>
               <p className="text-sm">
-                {p.producto} · {p.cantidad}
+                {p.producto} · {traducirCantidades(p.cantidad, (u) => voc("unidades", u))}
               </p>
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2">
                 <span className="text-lg font-bold">{formatMXN(p.total, locale)}</span>

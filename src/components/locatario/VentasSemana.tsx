@@ -3,6 +3,7 @@
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useLocale, useTranslations } from "next-intl";
 
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { formatMXN } from "@/lib/money";
 
 /**
@@ -12,8 +13,10 @@ import { formatMXN } from "@/lib/money";
 export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]; hoy: number }) {
   const t = useTranslations("locatario");
   const locale = useLocale();
+  const voc = useVocabulario();
   const $ = (n: number) => formatMXN(n, locale);
-  const conEtiqueta = datos.map((x, i) => ({ ...x, etiqueta: i === hoy ? `${t("hoy")} ${$(x.v)}` : "" }));
+  const dias = datos.map((x) => ({ ...x, d: voc("dias", x.d) }));
+  const conEtiqueta = dias.map((x, i) => ({ ...x, etiqueta: i === hoy ? `${t("hoy")} ${$(x.v)}` : "" }));
   return (
     <figure className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
       <figcaption className="flex flex-col">
@@ -27,7 +30,7 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
             <YAxis hide />
             <Tooltip
               cursor={{ fill: "#F6ECF5" }}
-              formatter={(v) => [$(Number(v)), t("kpis.ventas_mxn")]}
+              formatter={(v) => [$(Number(v)), t("ventasDia")]}
               contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }}
             />
             <Bar dataKey="v" fill="#93408F" radius={[4, 4, 0, 0]} isAnimationActive={false}>
@@ -39,7 +42,7 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
       <table className="sr-only">
         <caption>{t("semana")}</caption>
         <tbody>
-          {datos.map((x, i) => (
+          {dias.map((x, i) => (
             <tr key={x.d}>
               <th scope="row">{i === hoy ? `${x.d} (${t("hoy")})` : x.d}</th>
               <td>{$(x.v)}</td>

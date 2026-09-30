@@ -8,12 +8,13 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
 import { TARIFA_SERVICIO, type PlanConsumidor } from "@/lib/checkout";
+import { enIdioma } from "@/lib/idioma";
 import { formatMXN } from "@/lib/money";
 import { accesoRutaPremium, limiteAsistente, planDesdeModelo } from "@/lib/planes";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 
-type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[] };
+type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[]; incluye_en?: string[] };
 
 /** M12 · Planes: tabla comparativa desde modelo_negocio.precios.consumidor; «Activar» simula el pago. */
 export function PlanesView({ planes }: { planes: PlanModelo[] }) {
@@ -75,7 +76,7 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
                 {esActual && <span className="rounded-pill bg-morado px-2.5 py-0.5 text-[12px] font-bold text-crema">{t("actual")}</span>}
               </div>
               <ul className="flex flex-col gap-1.5 text-sm">
-                {m.incluye.map((x) => (
+                {enIdioma(m, "incluye", locale).map((x) => (
                   <li key={x} className="flex gap-2">
                     <Check className="mt-0.5 size-4 shrink-0 text-nopal-700" aria-hidden />
                     {x}

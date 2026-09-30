@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Stepper } from "@/components/ui/stepper";
 import { useAgregarAlCarrito } from "@/components/cart/useAgregarAlCarrito";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { useRouter } from "@/i18n/navigation";
 import { huertoDeProducto } from "@/lib/carrito";
 import type { Puesto } from "@/lib/schemas";
@@ -20,6 +21,7 @@ import { Precio } from "./Precio";
 export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nombresPuestos: Record<string, string> }) {
   const t = useTranslations("puesto");
   const tl = useTranslations("locatario.catalogo");
+  const voc = useVocabulario();
   const router = useRouter();
   const [qty, setQty] = useState<Record<string, number>>({});
   // Si es el puesto de la demo, refleja lo que el locatario editó (precio, disponibilidad, productos nuevos).
@@ -45,7 +47,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col">
                   <span className="font-semibold">{prod.n}</span>
-                  <span className="text-[13px] text-tinta-2">/ {prod.u}</span>
+                  <span className="text-[13px] text-tinta-2">/ {voc("unidades", prod.u)}</span>
                 </div>
                 <Precio monto={prod.p} className="text-right" />
               </div>

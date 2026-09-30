@@ -129,9 +129,9 @@
     "cerrado": "Closed",
     "abierto24": "Open 24 h",
     "cierraEn": "Open now · closes in {tiempo}",
-    "abreHoy": "Closed · opens today {hora}",
-    "abreManana": "Closed · opens tomorrow {hora}",
-    "abreDia": "Closed · opens {dia} {hora}",
+    "abreHoy": "Closed · opens today at {hora}",
+    "abreManana": "Closed · opens tomorrow at {hora}",
+    "abreDia": "Closed · opens {dia} at {hora}",
     "desconocido": "Hours not available · Ask at the market",
     "desconocidoCorto": "Hours not available"
   },
@@ -147,7 +147,10 @@
     "etiqueta": "Map of Mexico City's public markets",
     "sinMapaBase": "Base map offline",
     "cargando": "Loading map…",
-    "atribucion": "© OpenStreetMap · © CARTO"
+    "atribucion": "© OpenStreetMap · © CARTO",
+    "titulo": "Map",
+    "marcador": "Map marker",
+    "creditos": "Show or hide map credits"
   },
   "explorar": {
     "buscar": "Search a market, dish or product",
@@ -231,7 +234,7 @@
     "noEncontrado": "We couldn't find that market",
     "irExplorar": "Go to the map",
     "cifrasEtiquetas": {
-      "locatarios": "vendors",
+      "locatarios": "stallholders",
       "visitantes_dia": "visitors a day",
       "toneladas_dia": "tons a day",
       "hectareas": "hectares",
@@ -375,7 +378,7 @@
   },
   "pedido": {
     "titulo": "Your order",
-    "folio": "Order",
+    "folio": "Order no.",
     "gracias": "Thanks for shopping at the market!",
     "noEncontrado": "We couldn't find that order",
     "puntos": "+{n} points",
@@ -409,7 +412,7 @@
     "conIntermediarios": "With middlemen",
     "conApp": "With Bara Bara",
     "barra": "{etiqueta}: the grower gets {monto} ({pct}%) of {precio}",
-    "copy": "Of every {precio} for a {unidad} of {producto}, {recibe} goes to {nombre} (previously {antes}).",
+    "copy": "Of every {precio} you pay ({unidad} of {producto}), {recibe} goes to {nombre} (previously {antes}).",
     "doble": "Twice as much!",
     "mejora": "{pct}% more for the grower"
   },
@@ -456,8 +459,8 @@
     "comprar": "Buy wholesale",
     "comprarTexto": "Buy straight from the farm: double points.",
     "agregar": "Add to cart",
-    "cantidad": "Quantity in {unidad}",
-    "agregado": "Added: {qty} {unidad} of {producto}",
+    "cantidad": "Quantity ({unidad})",
+    "agregado": "Added: {qty} × {unidad} of {producto}",
     "verCarrito": "View cart",
     "visita": "Farm visit",
     "visitaTexto": "Visit the chinampa or milpa with the people who work it.",
@@ -516,7 +519,7 @@
       "titulo": "My farm",
       "perfil": "Your public profile",
       "verPerfil": "View as shopper",
-      "mes": "This month you earned {veces} per kilo than with middlemen",
+      "mes": "This month you earned {veces} per kilo compared with selling through middlemen",
       "doble": "twice as much",
       "masPct": "{pct}% more",
       "comision": "{plan} plan: 3% only on wholesale sales paid in the app"
@@ -554,7 +557,7 @@
     "selloDe": "{mercado} stamp",
     "nivel": "{nivel} level",
     "puntos": "{n} points",
-    "faltan": "{n} points to {nivel}",
+    "faltan": "{n} more points to reach {nivel}",
     "maximo": "You've reached the top level!",
     "beneficio": "Perk: {beneficio}",
     "insignias": "Badges",
@@ -567,12 +570,13 @@
     "cupones": "Your coupons",
     "cuponEtiqueta": "QR code for coupon {codigo}",
     "escanear": "Scan the stall's QR",
-    "escanearTexto": "Works even if you pay cash",
+    "escanearTexto": "Works even if you pay in cash",
     "recordatorios": "Reminders",
     "sinRecordatorios": "No reminders yet. Add them from Events.",
     "plan": "Your plan",
     "cambiarPlan": "See plans",
-    "comoSeGana": "How to earn"
+    "comoSeGana": "How to earn",
+    "irAgenda": "Go to Events"
   },
   "escanear": {
     "titulo": "Scan QR",
@@ -584,7 +588,7 @@
     "mostrador": "Main counter · {mercado}",
     "escaneando": "Scanning…",
     "detectado": "Detected: {nombre}",
-    "ok": "+{n} points · Works even if you pay cash",
+    "ok": "+{n} points · Works even if you pay in cash",
     "selloNuevo": "New {mercado} stamp! +50 points",
     "yaHoy": "You already checked in at {nombre} today",
     "insignia": "Badge unlocked: {nombre}!",
@@ -675,7 +679,7 @@
   "rescate": {
     "titulo": "Rescue today",
     "descuento": "−40%",
-    "vence": "Expires today {hora}",
+    "vence": "Expires today at {hora}",
     "comprar": "Buy",
     "donar": "Donate to a community kitchen",
     "comprado": "Reserved: pick it up today before {hora}. You rescued {kg} kg",
@@ -711,7 +715,7 @@
     "acciones": {
       "ver": "See",
       "comoLlegar": "Directions",
-      "llevame": "Take me",
+      "llevame": "Take me there",
       "comprar": "Buy",
       "recordarme": "Remind me",
       "recordando": "Reminder set",
@@ -770,16 +774,20 @@
     },
     "pedidos": {
       "titulo": "Orders",
-      "vacio": "No orders.",
+      "vacio": "No orders yet.",
       "app": "App order",
-      "avanzar": "Mark as {estado}",
       "estados": {
         "nuevo": "New",
         "preparando": "Preparing",
         "listo": "Ready",
         "entregado": "Delivered"
       },
-      "hora": "For {hora}"
+      "hora": "For {hora}",
+      "acciones": {
+        "preparando": "Start preparing",
+        "listo": "Mark as ready",
+        "entregado": "Mark as delivered"
+      }
     },
     "catalogo": {
       "titulo": "Catalog",
@@ -810,7 +818,8 @@
       "comision": "Online orders: Bara Bara 4% vs delivery apps 18–30% + VAT",
       "qr": "QR payments: 0% fee",
       "pagoSimulado": "Simulated payment · no backend"
-    }
+    },
+    "ventasDia": "Sales"
   },
   "gobierno": {
     "titulo": "Impact dashboard",
@@ -833,7 +842,7 @@
       "extranjeros": "Foreign users",
       "extranjerosTexto": "{n} of {total} active users",
       "pct_ventas_efectivo_registradas": "Cash sales recorded",
-      "km_intermediacion_evitados_mes": "Middleman km avoided",
+      "km_intermediacion_evitados_mes": "Middleman kilometers avoided",
       "co2_evitado_mes_ton": "CO₂ avoided",
       "alimento_rescatado_mes_ton": "Food rescued"
     },
@@ -908,7 +917,7 @@
     "pasos": {
       "buscar": {
         "titulo": "Search “pancita” in Explore",
-        "espera": "The map centers La Merced and the sheet says if it's open"
+        "espera": "The map centers on La Merced and the card shows whether it's open"
       },
       "interior": {
         "titulo": "La Merced → indoor map",
@@ -920,7 +929,7 @@
       },
       "pagar": {
         "titulo": "2 pancitas + 2 sopes, paid with CoDi QR",
-        "espera": "Payment received, BB-XXXX ref, stamp and +30 points"
+        "espera": "Payment received, order BB-XXXX, stamp and +30 points"
       },
       "huerto": {
         "titulo": "Farms → Familia Jurado Nopaleros",
@@ -931,8 +940,8 @@
         "espera": "National Mole Fair card + “Remind me”"
       },
       "checkin": {
-        "titulo": "QR check-in at Jugos Moreno (paid cash)",
-        "espera": "+10 points even when paying cash"
+        "titulo": "QR check-in at Jugos Moreno (paid in cash)",
+        "espera": "+10 points even when paying in cash"
       },
       "cobrar": {
         "titulo": "Stallholder: app order and a $250 charge",
@@ -956,5 +965,109 @@
     "pedidos": "My orders",
     "reintentar": "Try again",
     "resumen": "{sellos, plural, one {# stamp} other {# stamps}} · {puntos} points · {pedidos, plural, one {# order} other {# orders}}"
+  },
+  "datos": {
+    "unidades": {
+      "pieza": "piece",
+      "piezas": "pieces",
+      "plato": "plate",
+      "vaso": "glass",
+      "vaso 1/2 L": "½ L glass",
+      "kg": "kg",
+      "docena": "dozen",
+      "tira": "strip",
+      "juego": "set",
+      "kit": "kit",
+      "caja": "box",
+      "menú": "set menu",
+      "taza": "cup",
+      "ciento": "100 pcs",
+      "maceta": "pot",
+      "manojo": "bunch",
+      "manojos": "bunches",
+      "ramo": "bouquet",
+      "paca": "bale",
+      "cajas": "boxes",
+      "cientos": "× 100 pcs",
+      "macetas": "pots",
+      "docenas": "dozen"
+    },
+    "giros": {
+      "abasto general": "general supplies",
+      "comida": "food",
+      "flores": "flowers",
+      "plantas": "plants",
+      "arte": "art",
+      "artesanías": "crafts",
+      "pescados y mariscos": "fish & seafood",
+      "ropa y calzado": "clothing & shoes",
+      "internacional": "international",
+      "gourmet": "gourmet",
+      "religioso": "religious goods",
+      "muebles": "furniture",
+      "dulces": "sweets",
+      "hierbas y esotérico": "herbs & esoteric",
+      "productores locales": "local growers",
+      "mayoreo": "wholesale",
+      "frutas y legumbres": "fruit & vegetables",
+      "abarrotes": "groceries",
+      "cárnicos": "meat",
+      "nopal": "nopal",
+      "verdura": "vegetables"
+    },
+    "girosPuesto": {
+      "Fonda / desayunos": "Fonda / breakfast",
+      "Fonda / pancita": "Fonda / pancita",
+      "Taquería": "Taquería",
+      "Jugos / postres": "Juices / desserts",
+      "Molino / masa": "Corn mill / masa",
+      "Frutas y verduras": "Fruit & vegetables",
+      "Chiles secos y semillas": "Dried chiles & seeds",
+      "Pollería": "Poultry",
+      "Carnicería": "Butcher",
+      "Pescadería": "Fishmonger",
+      "Jarcería y decoración": "Household goods & décor",
+      "Hogar y cocina": "Home & kitchen",
+      "Flores artificiales y fiesta": "Artificial flowers & party supplies",
+      "Dulces mexicanos": "Mexican sweets",
+      "Dulces y confitería": "Sweets & confectionery",
+      "Comida corrida": "Set lunch (comida corrida)",
+      "Carnitas": "Carnitas",
+      "Quesadillas": "Quesadillas",
+      "Caldos": "Soups (caldos)",
+      "Migas": "Migas"
+    },
+    "pagos": {
+      "QR CoDi/SPEI": "QR CoDi/SPEI",
+      "Tarjeta": "Card",
+      "Efectivo": "Cash"
+    },
+    "planes": {
+      "Gratis": "Free",
+      "Pro": "Pro",
+      "Plus": "Plus",
+      "Pase Turista 7 días": "7-day Tourist Pass",
+      "Mercado+ (residentes)": "Mercado+ (residents)",
+      "Gratis (subsidiado por gobierno)": "Free (government-subsidized)",
+      "Pase Turista": "Tourist Pass",
+      "Mercado+": "Mercado+"
+    },
+    "dias": {
+      "Lun": "Mon",
+      "Mar": "Tue",
+      "Mié": "Wed",
+      "Jue": "Thu",
+      "Vie": "Fri",
+      "Sáb": "Sat",
+      "Dom": "Sun"
+    },
+    "entregas": {
+      "Recoger en puesto": "Pickup at the stall",
+      "Envío (terceros)": "Third-party delivery"
+    },
+    "productos": {
+      "Caja surtida de frutas y legumbres": "Mixed box of fruit and vegetables",
+      "Ramo de flores del día": "Bouquet of today's flowers"
+    }
   }
 }

@@ -1,8 +1,9 @@
 "use client";
 
 import { Award, Lock } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
+import { enIdioma } from "@/lib/idioma";
 import type { ContextoInsignias } from "@/lib/loyalty";
 import type { Lealtad } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,7 @@ import { useInsignias } from "./usePasaporte";
 
 export function Insignias({ insignias, ctx }: { insignias: Lealtad["insignias"]; ctx: ContextoInsignias }) {
   const t = useTranslations("pasaporte");
+  const locale = useLocale();
   const hydrated = useHydrated();
   const on = useInsignias(ctx);
   return (
@@ -26,8 +28,8 @@ export function Insignias({ insignias, ctx }: { insignias: Lealtad["insignias"];
               <span className={cn("grid size-10 place-items-center rounded-full", ok ? "bg-dorado text-morado-900" : "bg-gris/20 text-gris")} aria-hidden>
                 {ok ? <Award className="size-5" /> : <Lock className="size-4" />}
               </span>
-              <span className="font-bold">{i.nombre}</span>
-              <span className="text-[13px] text-tinta-2">{i.regla}</span>
+              <span className="font-bold">{enIdioma(i, "nombre", locale)}</span>
+              <span className="text-[13px] text-tinta-2">{enIdioma(i, "regla", locale)}</span>
               <span className={cn("text-[12px] font-bold", ok ? "text-nopal-700" : "text-gris")}>{ok ? t("desbloqueada") : t("bloqueada")}</span>
             </li>
           );

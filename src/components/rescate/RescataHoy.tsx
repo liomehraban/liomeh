@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { formatMXN } from "@/lib/money";
 import { toneladasRescatadas, type OfertaRescate } from "@/lib/rescate";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ const boton =
 /** M20 · Rescata hoy: carrusel de 4 ofertas −40% y contador de toneladas rescatadas. */
 export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiTon: number }) {
   const t = useTranslations("rescate");
+  const voc = useVocabulario();
   const locale = useLocale();
   const hydrated = useHydrated();
   const rescates = useAppStore((s) => s.rescates);
@@ -45,7 +47,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
                   <span className="absolute -top-1 -left-1 rounded-pill bg-chile px-1.5 text-[11px] font-bold text-white">{t("descuento")}</span>
                 </div>
                 <div className="flex min-w-0 flex-col">
-                  <span className="line-clamp-2 text-[13px] leading-tight font-bold">{o.producto}</span>
+                  <span className="line-clamp-2 text-[13px] leading-tight font-bold">{voc("productos", o.producto)}</span>
                   <span className="truncate text-[12px] text-tinta-2">{o.mercadoNombre}</span>
                   <span className="text-[13px]">
                     <s className="text-gris">{formatMXN(o.precioOriginal, locale)}</s> <strong>{formatMXN(o.precio, locale)}</strong>
@@ -74,7 +76,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
                   <button
                     type="button"
                     className={cn(boton, "border border-nopal text-nopal-700")}
-                    aria-label={t("donar")}
+                    aria-label={`${t("donar")}: ${voc("productos", o.producto)}`}
                     onClick={() => {
                       rescatar(o.id, "donacion", o.kg);
                       toast.success(t("donado", { kg: nf(o.kg) }));

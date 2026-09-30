@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { ColoniaEntrega, PuestoResumen } from "@/data/comercio";
 import { payloadCoDi, PROVEEDORES, resumenPedido, costoEnvio, type Entrega, type ProveedorId } from "@/lib/checkout";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { haversine } from "@/lib/geo";
 import { formatMXN, formatUSDaprox } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,7 @@ const opcion =
 /** M5 · Checkout de un pedido (un grupo del carrito). */
 export function CheckoutView({ puestos, colonias }: { puestos: Record<string, PuestoResumen>; colonias: ColoniaEntrega[] }) {
   const t = useTranslations("checkout");
+  const voc = useVocabulario();
   const locale = useLocale();
   const router = useRouter();
   const hydrated = useHydrated();
@@ -223,7 +225,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
                 </dd>
               </div>
             </dl>
-            <p className="text-[13px] text-tinta-2">{t("planActual", { plan })}</p>
+            <p className="text-[13px] text-tinta-2">{t("planActual", { plan: voc("planes", plan) })}</p>
           </section>
         )}
 

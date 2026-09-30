@@ -1,6 +1,7 @@
 import { HandHeart, Sprout, Store, UserRound } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { precioJusto, productoCorto } from "@/lib/fairtrade";
 import { formatMXN } from "@/lib/money";
 import type { Productor } from "@/lib/schemas";
@@ -23,6 +24,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
   const t = useTranslations("fairtrade");
   const locale = useLocale();
   const f = precioJusto(p);
+  const v = useVocabulario();
   const $ = (n: number) => formatMXN(n, locale);
   const km = new Intl.NumberFormat(locale === "en" ? "en-US" : "es-MX", { maximumFractionDigits: 1 }).format(p.km_a_la_merced);
 
@@ -81,7 +83,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
       <p className="text-sm">
         {t("copy", {
           precio: $(f.precio),
-          unidad: f.unidad,
+          unidad: v("unidades", f.unidad),
           producto: producto ?? productoCorto(p.producto_principal),
           recibe: $(f.recibe),
           nombre: p.nombre,

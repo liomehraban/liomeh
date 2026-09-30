@@ -4,7 +4,8 @@ import { Bike, Clock, Smartphone, Store } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
-import { ESTADOS_LOCATARIO, siguienteEstadoLocatario } from "@/lib/locatario";
+import { useVocabulario } from "@/hooks/useVocabulario";
+import { ESTADOS_LOCATARIO, siguienteEstadoLocatario, type EstadoLocatario } from "@/lib/locatario";
 import { formatMXN } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
@@ -16,6 +17,7 @@ const COLOR = { nuevo: "bg-cempasuchil text-morado-900", preparando: "bg-morado-
 export function PedidosView() {
   const t = useTranslations("locatario.pedidos");
   const locale = useLocale();
+  const voc = useVocabulario();
   const hydrated = useHydrated();
   const pedidos = useAppStore((s) => s.locatario.pedidos);
   const avanzar = useAppStore((s) => s.avanzarPedidoLocatario);
@@ -45,7 +47,7 @@ export function PedidosView() {
                 <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-tinta-2">
                   <span className="flex items-center gap-1">
                     {envio ? <Bike className="size-4" aria-hidden /> : <Store className="size-4" aria-hidden />}
-                    {p.tipo}
+                    {voc("entregas", p.tipo)}
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="size-4" aria-hidden />
@@ -62,7 +64,7 @@ export function PedidosView() {
                   <span className="text-lg font-bold">{formatMXN(p.total, locale)}</span>
                   {estado !== "entregado" && (
                     <Button size="sm" onClick={() => avanzar(p.id)}>
-                      {t("avanzar", { estado: t(`estados.${sig}`).toLowerCase() })}
+                      {t(`acciones.${sig as Exclude<EstadoLocatario, "nuevo">}`)}
                     </Button>
                   )}
                 </div>

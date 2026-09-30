@@ -4,7 +4,7 @@ import type { Locale } from "@/i18n/routing";
 import { getRepository } from "@/data/repository";
 import { PlanesView } from "@/components/planes/PlanesView";
 
-type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[] };
+type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[]; incluye_en?: string[] };
 
 export default async function PlanesPage({ params }: PageProps<"/[locale]/yo/planes">) {
   const { locale } = await params;

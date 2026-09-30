@@ -4,6 +4,7 @@ import { Minus, Plus, ShoppingBasket, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { Link } from "@/i18n/navigation";
 import { Precio } from "@/components/stall/Precio";
 import type { PuestoResumen } from "@/data/comercio";
@@ -14,6 +15,7 @@ import { EncabezadoSimple } from "./EncabezadoSimple";
 /** M5 · Carrito agrupado por puesto (un pedido por puesto). */
 export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen> }) {
   const t = useTranslations("carrito");
+  const voc = useVocabulario();
   const hydrated = useHydrated();
   const carrito = useAppStore((s) => s.carrito);
   const cambiar = useAppStore((s) => s.cambiarCantidad);
@@ -58,7 +60,7 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
                     <li key={i.nombre} className="flex items-center gap-3 py-2">
                       <div className="flex min-w-0 flex-1 flex-col">
                         <span className="font-semibold">{i.nombre}</span>
-                        <span className="text-[13px] text-tinta-2">/ {i.unidad}</span>
+                        <span className="text-[13px] text-tinta-2">/ {voc("unidades", i.unidad)}</span>
                       </div>
                       <div className="flex items-center rounded-pill border border-border">
                         <button type="button" aria-label={i.qty > 1 ? `−1 ${i.nombre}` : t("quitar", { producto: i.nombre })} onClick={() => cambiar(grupo.puestoId, i.nombre, i.qty - 1)} className="grid size-11 place-items-center text-morado">

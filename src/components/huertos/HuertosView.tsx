@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { CalendarCheck, Leaf, Sprout } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { MapView, type CapaMapa, type Enfoque } from "@/components/map/MapView";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Plegable } from "@/components/explorar/Plegable";
 import { useAhora } from "@/hooks/useAhora";
 import { HEX_GIRO, type CategoriaGiro } from "@/lib/giros";
+import { enIdioma } from "@/lib/idioma";
 import { anilloGeoJSON, CULTIVOS, filtrarProductores, mesCDMX, type Cultivo } from "@/lib/huertos";
 import type { Productor, ZonaHuerto } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -27,6 +28,7 @@ const chip =
 /** M6 · Mapa de huertos. */
 export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuerto[]; productores: Productor[]; mercados: MercadoPunto[] }) {
   const t = useTranslations("huertos");
+  const locale = useLocale();
   const ahora = useAhora();
   const [cultivos, setCultivos] = useState<Cultivo[]>([]);
   const [temporada, setTemporada] = useState(false);
@@ -40,7 +42,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
 
   const layers = useMemo<CapaMapa[]>(() => {
     const capas: CapaMapa[] = [
-      { tipo: "zonas", id: "zonas", color: "#3C8D2F", zonas: zonas.map((z) => ({ id: z.id, nombre: z.nombre, anillo: anilloGeoJSON(z.poligono_ilustrativo) })) },
+      { tipo: "zonas", id: "zonas", color: "#3C8D2F", zonas: zonas.map((z) => ({ id: z.id, nombre: enIdioma(z, "nombre", locale), anillo: anilloGeoJSON(z.poligono_ilustrativo) })) },
     ];
     if (conMercados) {
       capas.push({
@@ -54,7 +56,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
     }
     capas.push({ tipo: "puntos", id: "productores", estilo: "productor", puntos: visibles.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#FEFAEB", etiqueta: p.nombre })) });
     return capas;
-  }, [zonas, visibles, conMercados, mercados]);
+  }, [zonas, visibles, conMercados, mercados, locale]);
 
   const onSelect = (id: string, capa: string) => {
     if (capa === "zonas") {
@@ -148,7 +150,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
       <BottomSheet
         abierto={!!sel}
         onCerrar={() => setSel(null)}
-        etiqueta={zona?.nombre ?? prod?.nombre ?? ""}
+        etiqueta={(zona && enIdioma(zona, "nombre", locale)) ?? prod?.nombre ?? ""}
         etiquetaCerrar={t("cerrar")}
         etiquetaExpandir={t("expandir")}
         alturas={{ peek: 300, mitad: 0.55, completa: 0.9 }}

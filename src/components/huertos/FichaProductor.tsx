@@ -9,6 +9,7 @@ import { BotonVolver } from "@/components/market/ficha/BotonVolver";
 import { Seccion } from "@/components/market/ficha/Seccion";
 import { FairTradeCard } from "@/components/fairtrade/FairTradeCard";
 import { cultivosDe } from "@/lib/huertos";
+import { enIdioma } from "@/lib/idioma";
 import type { Productor, Resena, ZonaHuerto } from "@/lib/schemas";
 import { ComprarMayoreo } from "./ComprarMayoreo";
 import { ReservarVisita } from "./ReservarVisita";
@@ -40,7 +41,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
             <MapPin className="size-4" aria-hidden />
             {p.pueblo}, {p.alcaldia} · {t("huertos.desdeMerced", { km })}
           </p>
-          {zona && <p className="text-sm text-tinta-2">{t("productor.zona", { zona: zona.nombre })}</p>}
+          {zona && <p className="text-sm text-tinta-2">{t("productor.zona", { zona: enIdioma(zona, "nombre", locale) })}</p>}
           <RatingCombinado objetivoId={p.id} base={{ promedio: p.rating, total: p.num_resenas }} />
         </div>
 
@@ -49,7 +50,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
             <CalendarDays className="size-5 shrink-0 text-morado" aria-hidden />
             <div>
               <p className="font-semibold">{t("productor.temporada")}</p>
-              <p className="text-tinta-2">{p.temporada}</p>
+              <p className="text-tinta-2">{enIdioma(p, "temporada", locale)}</p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -58,7 +59,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
               <p className="font-semibold">{t("productor.practicas")}</p>
               <div>
                 <ul className="flex flex-wrap gap-1.5 pt-1">
-                  {p.practicas.map((x) => (
+                  {enIdioma(p, "practicas", locale).map((x) => (
                     <li key={x} className="rounded-pill bg-nopal/10 px-2.5 py-0.5 text-[13px] font-semibold text-nopal-700">
                       {x}
                     </li>
@@ -69,11 +70,11 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
           </div>
           <div className="flex gap-3">
             <Package className="size-5 shrink-0 text-morado" aria-hidden />
-            <p className="text-tinta-2">{t("productor.ventaMinima", { min: p.venta_minima })}</p>
+            <p className="text-tinta-2">{t("productor.ventaMinima", { min: enIdioma(p, "venta_minima", locale) })}</p>
           </div>
           <div className="flex gap-3">
             <Truck className="size-5 shrink-0 text-morado" aria-hidden />
-            <p className="text-tinta-2">{t("productor.entrega", { entrega: p.entrega })}</p>
+            <p className="text-tinta-2">{t("productor.entrega", { entrega: enIdioma(p, "entrega", locale) })}</p>
           </div>
         </div>
 

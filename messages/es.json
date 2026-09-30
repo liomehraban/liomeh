@@ -129,9 +129,9 @@
     "cerrado": "Cerrado",
     "abierto24": "Abierto 24 h",
     "cierraEn": "Abierto · cierra en {tiempo}",
-    "abreHoy": "Cerrado · abre hoy {hora}",
-    "abreManana": "Cerrado · abre mañana {hora}",
-    "abreDia": "Cerrado · abre el {dia} {hora}",
+    "abreHoy": "Cerrado · abre hoy a las {hora}",
+    "abreManana": "Cerrado · abre mañana a las {hora}",
+    "abreDia": "Cerrado · abre el {dia} a las {hora}",
     "desconocido": "Horario no disponible · Pregunta en el mercado",
     "desconocidoCorto": "Horario no disponible"
   },
@@ -147,7 +147,10 @@
     "etiqueta": "Mapa de los mercados públicos de la CDMX",
     "sinMapaBase": "Mapa base sin conexión",
     "cargando": "Cargando mapa…",
-    "atribucion": "© OpenStreetMap · © CARTO"
+    "atribucion": "© OpenStreetMap · © CARTO",
+    "titulo": "Mapa",
+    "marcador": "Marcador del mapa",
+    "creditos": "Mostrar u ocultar los créditos del mapa"
   },
   "explorar": {
     "buscar": "Busca mercado, platillo o producto",
@@ -409,7 +412,7 @@
     "conIntermediarios": "Con intermediarios",
     "conApp": "Con Bara Bara",
     "barra": "{etiqueta}: el productor recibe {monto} ({pct}%) de {precio}",
-    "copy": "De cada {precio} del {unidad} de {producto}, {recibe} se quedan con {nombre} (antes {antes}).",
+    "copy": "Por cada {precio} que pagas ({unidad} de {producto}), {recibe} se quedan con {nombre} (antes {antes}).",
     "doble": "¡El doble!",
     "mejora": "{pct}% más para quien lo cultiva"
   },
@@ -441,7 +444,7 @@
     "cerrar": "Cerrar ficha",
     "expandir": "Cambiar tamaño de la ficha",
     "desdeMerced": "{km} km a La Merced",
-    "simulado": "Productores y precios simulados para la maqueta"
+    "simulado": "Productores y precios simulados para la demo"
   },
   "productor": {
     "volver": "Volver",
@@ -456,8 +459,8 @@
     "comprar": "Comprar al mayoreo",
     "comprarTexto": "Compra directo al huerto: puntos dobles.",
     "agregar": "Agregar al carrito",
-    "cantidad": "Cantidad en {unidad}",
-    "agregado": "Agregado: {qty} {unidad} de {producto}",
+    "cantidad": "Cantidad ({unidad})",
+    "agregado": "Agregado: {qty} × {unidad} de {producto}",
     "verCarrito": "Ver carrito",
     "visita": "Visita al huerto",
     "visitaTexto": "Conoce la chinampa o la milpa con quien la trabaja.",
@@ -572,7 +575,8 @@
     "sinRecordatorios": "No tienes recordatorios. Agrégalos desde la Agenda.",
     "plan": "Tu plan",
     "cambiarPlan": "Ver planes",
-    "comoSeGana": "Cómo se gana"
+    "comoSeGana": "Cómo se gana",
+    "irAgenda": "Ir a la Agenda"
   },
   "escanear": {
     "titulo": "Escanear QR",
@@ -675,7 +679,7 @@
   "rescate": {
     "titulo": "Rescata hoy",
     "descuento": "−40%",
-    "vence": "Vence hoy {hora}",
+    "vence": "Vence hoy a las {hora}",
     "comprar": "Comprar",
     "donar": "Donar a comedor comunitario",
     "comprado": "Apartado: recoge hoy antes de las {hora}. Rescataste {kg} kg",
@@ -736,8 +740,8 @@
     "hoy": "Hoy",
     "kpis": {
       "ventas_mxn": "Ventas de hoy",
-      "pedidos_app": "Pedidos app",
-      "cobros_qr": "Cobros QR",
+      "pedidos_app": "Pedidos en la app",
+      "cobros_qr": "Cobros con QR",
       "checkins_efectivo": "Check-ins en efectivo",
       "ticket_promedio": "Ticket promedio"
     },
@@ -770,16 +774,20 @@
     },
     "pedidos": {
       "titulo": "Pedidos",
-      "vacio": "No hay pedidos.",
+      "vacio": "Aún no hay pedidos.",
       "app": "Pedido de la app",
-      "avanzar": "Marcar como {estado}",
       "estados": {
         "nuevo": "Nuevo",
         "preparando": "Preparando",
         "listo": "Listo",
         "entregado": "Entregado"
       },
-      "hora": "Para las {hora}"
+      "hora": "Para las {hora}",
+      "acciones": {
+        "preparando": "Empezar a preparar",
+        "listo": "Marcar como listo",
+        "entregado": "Marcar como entregado"
+      }
     },
     "catalogo": {
       "titulo": "Catálogo",
@@ -806,11 +814,12 @@
       "cambiar": "Cambiar a {plan}",
       "cambiado": "Ahora tienes el plan {plan}",
       "porMes": "{precio}/mes",
-      "gratis": "$0 · subsidiado por gobierno",
+      "gratis": "$0 · subsidiado por el gobierno",
       "comision": "Pedidos en línea: Bara Bara 4% vs apps de delivery 18–30% + IVA",
       "qr": "Cobro con QR: 0% de comisión",
       "pagoSimulado": "Pago simulado · sin backend"
-    }
+    },
+    "ventasDia": "Ventas"
   },
   "gobierno": {
     "titulo": "Panel de impacto",
@@ -888,7 +897,7 @@
   },
   "presentacion": {
     "titulo": "Modo presentación",
-    "texto": "Recorre la app en 10 pasos: turista, consumidora, locatario, productor y gobierno. Cada paso navega y ejecuta sus acciones solo; tú nada más tocas «Siguiente».",
+    "texto": "Recorre la app en 10 pasos: turista, consumidora, locataria, productora y gobierno. Cada paso navega y ejecuta sus acciones solo; tú nada más tocas «Siguiente».",
     "comenzar": "Comenzar demo",
     "siguiente": "Siguiente",
     "terminar": "Terminar",
@@ -901,7 +910,7 @@
     "perfiles": {
       "turista": "Emily · turista (EN)",
       "consumidora": "Sofía · consumidora",
-      "locatario": "Doña Chela · locatario",
+      "locatario": "Doña Chela · locataria",
       "productor": "Lucía · productora",
       "gobierno": "Gobierno CDMX"
     },
@@ -935,7 +944,7 @@
         "espera": "+10 puntos aunque pague en efectivo"
       },
       "cobrar": {
-        "titulo": "Locatario: pedido de la app y cobro de $250",
+        "titulo": "Locataria: pedido de la app y cobro de $250",
         "espera": "El pedido BB-XXXX en Pedidos y «Pago recibido $250»"
       },
       "cosecha": {
@@ -956,5 +965,109 @@
     "pedidos": "Mis pedidos",
     "reintentar": "Reintentar",
     "resumen": "{sellos, plural, one {# sello} other {# sellos}} · {puntos} puntos · {pedidos, plural, one {# pedido} other {# pedidos}}"
+  },
+  "datos": {
+    "unidades": {
+      "pieza": "pieza",
+      "piezas": "piezas",
+      "plato": "plato",
+      "vaso": "vaso",
+      "vaso 1/2 L": "vaso 1/2 L",
+      "kg": "kg",
+      "docena": "docena",
+      "tira": "tira",
+      "juego": "juego",
+      "kit": "kit",
+      "caja": "caja",
+      "menú": "menú",
+      "taza": "taza",
+      "ciento": "ciento",
+      "maceta": "maceta",
+      "manojo": "manojo",
+      "manojos": "manojos",
+      "ramo": "ramo",
+      "paca": "paca",
+      "cajas": "cajas",
+      "cientos": "cientos",
+      "macetas": "macetas",
+      "docenas": "docenas"
+    },
+    "giros": {
+      "abasto general": "abasto general",
+      "comida": "comida",
+      "flores": "flores",
+      "plantas": "plantas",
+      "arte": "arte",
+      "artesanías": "artesanías",
+      "pescados y mariscos": "pescados y mariscos",
+      "ropa y calzado": "ropa y calzado",
+      "internacional": "internacional",
+      "gourmet": "gourmet",
+      "religioso": "religioso",
+      "muebles": "muebles",
+      "dulces": "dulces",
+      "hierbas y esotérico": "hierbas y esotérico",
+      "productores locales": "productores locales",
+      "mayoreo": "mayoreo",
+      "frutas y legumbres": "frutas y legumbres",
+      "abarrotes": "abarrotes",
+      "cárnicos": "cárnicos",
+      "nopal": "nopal",
+      "verdura": "verdura"
+    },
+    "girosPuesto": {
+      "Fonda / desayunos": "Fonda / desayunos",
+      "Fonda / pancita": "Fonda / pancita",
+      "Taquería": "Taquería",
+      "Jugos / postres": "Jugos / postres",
+      "Molino / masa": "Molino / masa",
+      "Frutas y verduras": "Frutas y verduras",
+      "Chiles secos y semillas": "Chiles secos y semillas",
+      "Pollería": "Pollería",
+      "Carnicería": "Carnicería",
+      "Pescadería": "Pescadería",
+      "Jarcería y decoración": "Jarcería y decoración",
+      "Hogar y cocina": "Hogar y cocina",
+      "Flores artificiales y fiesta": "Flores artificiales y fiesta",
+      "Dulces mexicanos": "Dulces mexicanos",
+      "Dulces y confitería": "Dulces y confitería",
+      "Comida corrida": "Comida corrida",
+      "Carnitas": "Carnitas",
+      "Quesadillas": "Quesadillas",
+      "Caldos": "Caldos",
+      "Migas": "Migas"
+    },
+    "pagos": {
+      "QR CoDi/SPEI": "QR CoDi/SPEI",
+      "Tarjeta": "Tarjeta",
+      "Efectivo": "Efectivo"
+    },
+    "planes": {
+      "Gratis": "Gratis",
+      "Pro": "Pro",
+      "Plus": "Plus",
+      "Pase Turista 7 días": "Pase Turista 7 días",
+      "Mercado+ (residentes)": "Mercado+ (residentes)",
+      "Gratis (subsidiado por gobierno)": "Gratis (subsidiado por gobierno)",
+      "Pase Turista": "Pase Turista",
+      "Mercado+": "Mercado+"
+    },
+    "dias": {
+      "Lun": "Lun",
+      "Mar": "Mar",
+      "Mié": "Mié",
+      "Jue": "Jue",
+      "Vie": "Vie",
+      "Sáb": "Sáb",
+      "Dom": "Dom"
+    },
+    "entregas": {
+      "Recoger en puesto": "Recoger en el puesto",
+      "Envío (terceros)": "Envío con terceros"
+    },
+    "productos": {
+      "Caja surtida de frutas y legumbres": "Caja surtida de frutas y legumbres",
+      "Ramo de flores del día": "Ramo de flores del día"
+    }
   }
 }

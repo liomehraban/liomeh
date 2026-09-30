@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { formatRangoFechas } from "@/lib/eventos";
+import { enIdioma } from "@/lib/idioma";
 import type { Evento } from "@/lib/schemas";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 
@@ -22,7 +23,7 @@ export function Recordatorios({ eventos }: { eventos: Evento[] }) {
       {lista.length === 0 ? (
         <p className="text-tinta-2">
           {t("sinRecordatorios")}{" "}
-          <Link href="/agenda" className="font-semibold text-morado underline">
+          <Link href="/agenda" aria-label={t("irAgenda")} className="font-semibold text-morado underline">
             →
           </Link>
         </p>
@@ -31,7 +32,7 @@ export function Recordatorios({ eventos }: { eventos: Evento[] }) {
           {lista.map((e) => (
             <li key={e.id} className="flex items-center gap-3 text-sm">
               <BellRing className="size-5 shrink-0 text-dorado" aria-hidden />
-              <span className="flex-1 font-semibold">{e.titulo}</span>
+              <span className="flex-1 font-semibold">{enIdioma(e, "titulo", locale)}</span>
               {e.inicio !== "recurrente" && <span className="text-tinta-2">{formatRangoFechas(e.inicio, e.fin, locale)}</span>}
             </li>
           ))}
