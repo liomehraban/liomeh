@@ -32,9 +32,10 @@ export function AjustesDemo() {
       <h2 id="ajustes" className="text-xl font-bold text-morado-700">{t("yo.ajustes")}</h2>
       <div className="flex items-center justify-between gap-3">
         <span className="font-semibold">{t("yo.idioma")}</span>
-        <LocaleToggle />
+        <LocaleToggle className="bg-morado-50 shadow-none" />
       </div>
       <Button
+        variant="secondary"
         onClick={() => {
           salirDePerfil();
           router.push("/");

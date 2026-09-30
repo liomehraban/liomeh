@@ -51,7 +51,9 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
         <Link
           href={`/mercado/${e.mercado_id}`}
           aria-label={`${t("verMercado")}: ${e.lugar}`}
-          className="-mx-1 flex min-h-11 items-center gap-1.5 rounded-xl px-1 text-sm font-semibold text-morado hover:bg-morado-50"
+          // Área táctil de 44 px con relleno vertical compensado por margen negativo: ocupa en el flujo lo mismo que
+          // el lugar en texto plano, así el aire hasta la descripción es igual en ambas variantes.
+          className="relative -mx-1 -my-3 flex items-center gap-1.5 rounded-xl px-1 py-3 text-sm font-semibold text-morado hover:bg-morado-50"
         >
           <MapPin className="size-4 shrink-0" aria-hidden />
           <span className="min-w-0 flex-1">{e.lugar}</span>

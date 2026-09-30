@@ -23,6 +23,8 @@ import { esPuestoSimulado, mercadoDePuestoSimulado } from "@/lib/catalogo-simula
 type Resultado = { tipo: "ok"; puntos: number; selloNuevo: boolean; nombre: string; mercado: string } | { tipo: "yaHoy"; nombre: string };
 
 const ESPERA_MS = 2000;
+/** Cuántos puestos se ven antes de «Ver más»: la lista fluye en la página, sin una caja con scroll propio. */
+const PAGINA_LISTA = 6;
 
 /** M9 · Escanear QR del puesto: cámara simulada, detección a los 2 s, +10 (1 por puesto al día) y sello si es mercado nuevo. */
 export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: ObjetivoCheckin[]; ctx: ContextoInsignias; insignias: Lealtad["insignias"] }) {
@@ -58,6 +60,14 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
     return n ? objetivos.filter((o) => normalizar(`${o.nombre} ${o.mercadoNombre}`).includes(n)) : objetivos;
   }, [objetivos, q]);
   const objetivo = objetivos.find((o) => o.objetivo === sel);
+  const [limite, setLimite] = useState(PAGINA_LISTA);
+  // El seleccionado siempre queda a la vista, aunque esté más abajo del límite.
+  const visibles = useMemo(() => {
+    const primeros = filtrados.slice(0, limite);
+    const elegido = filtrados.find((o) => o.objetivo === sel);
+    return elegido && !primeros.includes(elegido) ? [elegido, ...primeros.slice(0, -1)] : primeros;
+  }, [filtrados, limite, sel]);
+  const restantes = filtrados.length - visibles.length;
 
   const insigniasDe = () => {
     const s = useAppStore.getState();
@@ -153,10 +163,20 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
               <legend className="mb-1 text-sm text-tinta-2">{t("demo")}</legend>
               <label className="flex h-12 items-center gap-2 rounded-pill border border-border bg-white px-4 focus-within:ring-[3px] focus-within:ring-ring/40">
                 <Search className="size-5 text-morado" aria-hidden />
-                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("buscar")} aria-label={t("buscar")} className="min-w-0 flex-1 bg-transparent outline-none" />
+                <input
+                  value={q}
+                  onChange={(e) => {
+                    setQ(e.target.value);
+                    setLimite(PAGINA_LISTA);
+                  }}
+                  placeholder={t("buscar")}
+                  aria-label={t("buscar")}
+                  className="min-w-0 flex-1 bg-transparent outline-none"
+                />
               </label>
-              <div role="radiogroup" aria-label={t("elige")} className="flex max-h-60 flex-col gap-1 overflow-y-auto rounded-2xl border border-border bg-white p-1">
-                {filtrados.map((o) => (
+              <div role="radiogroup" aria-label={t("elige")} className="flex flex-col gap-1 rounded-2xl border border-border bg-white p-1">
+                {visibles.length === 0 && <p className="px-3 py-3 text-sm text-tinta-2">{t("sinResultados")}</p>}
+                {visibles.map((o) => (
                   <button
                     key={o.objetivo}
                     type="button"
@@ -173,6 +193,11 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
                   </button>
                 ))}
               </div>
+              {restantes > 0 && (
+                <Button variant="ghost" size="sm" className="self-center" onClick={() => setLimite((l) => l + PAGINA_LISTA * 2)}>
+                  {t("verMas", { n: restantes })}
+                </Button>
+              )}
             </fieldset>
             <Button size="lg" onClick={escanear} disabled={!objetivo || fase === "escaneando"} data-demo="escanear">
               {fase === "escaneando" ? t("escaneando") : t("titulo")}

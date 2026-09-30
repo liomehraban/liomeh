@@ -7,6 +7,7 @@ import { useMessages, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { LocaleToggle } from "@/components/shell/LocaleToggle";
+import { Logo } from "@/components/shell/Logo";
 import type { CategoriaGiro } from "@/lib/giros";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +23,9 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   return (
     <div className="flex h-full flex-col bg-crema">
       <div className="flex flex-col items-start gap-2 px-5 pt-[max(1rem,env(safe-area-inset-top))] pr-20">
-        <span className="text-sm font-semibold text-tinta-2">{t("entrada.elegirIdioma")}</span>
+        {/* Marca arriba del primer paso: quien llega sabe en qué app está antes de elegir idioma. */}
+        <Logo className="text-4xl leading-none text-morado" />
+        <span className="text-[15px] font-semibold text-tinta-2">{t("entrada.elegirIdioma")}</span>
         <LocaleToggle className="bg-morado-50" />
       </div>
 
@@ -60,8 +63,8 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
       <div className="flex flex-col gap-4 px-5 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <div className="flex justify-center" aria-hidden>
           {slides.map((_, j) => (
-            <button key={j} type="button" tabIndex={-1} onClick={() => ir(j)} className="grid h-11 w-7 place-items-center">
-              <span className={cn("h-2 rounded-pill transition-all", j === i ? "w-6 bg-morado" : "w-2 bg-morado/25")} />
+            <button key={j} type="button" tabIndex={-1} onClick={() => ir(j)} className="grid h-11 min-w-8 place-items-center px-1">
+              <span className={cn("h-2.5 rounded-pill transition-all", j === i ? "w-7 bg-morado" : "w-2.5 bg-morado/35")} />
             </button>
           ))}
         </div>

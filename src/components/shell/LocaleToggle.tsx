@@ -8,6 +8,7 @@ import type { Locale } from "@/i18n/routing";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 
+/** Selector ES/EN: cada opción mide 44 px de alto (área táctil completa); la pista suma 4 px de aire por lado. */
 export function LocaleToggle({ className }: { className?: string }) {
   const t = useTranslations("shell");
   const locale = useLocale();
@@ -27,7 +28,7 @@ export function LocaleToggle({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={t("cambiarIdioma")}
-      className={cn("flex h-11 items-center rounded-pill bg-white p-1 shadow-sm", pending && "opacity-70", className)}
+      className={cn("flex items-center gap-0.5 rounded-pill bg-white p-1 shadow-sm", pending && "opacity-70", className)}
     >
       {(["es", "en"] as const).map((l) => (
         <button
@@ -37,7 +38,7 @@ export function LocaleToggle({ className }: { className?: string }) {
           aria-pressed={locale === l}
           onClick={() => cambiar(l)}
           className={cn(
-            "h-11 min-w-11 rounded-pill px-2 text-sm font-bold uppercase transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+            "h-11 min-w-12 rounded-pill px-3 text-sm font-bold uppercase transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
             locale === l ? "bg-primary text-primary-foreground" : "text-morado-700 hover:bg-morado-50",
           )}
         >

@@ -15,13 +15,15 @@ export function Insignias({ insignias, ctx }: { insignias: Lealtad["insignias"];
   const locale = useLocale();
   const hydrated = useHydrated();
   const on = useInsignias(ctx);
+  // Desbloqueadas primero (orden estable: dentro de cada grupo se respeta el de los datos).
+  const ordenadas = hydrated ? [...insignias].sort((a, b) => Number(on.has(b.id)) - Number(on.has(a.id))) : insignias;
   return (
     <section aria-labelledby="insignias" className="flex flex-col gap-3">
       <h2 id="insignias" className="text-xl font-bold text-morado-700">
         {t("insignias")}
       </h2>
       <ul data-revelar className="grid grid-cols-2 gap-3">
-        {insignias.map((i) => {
+        {ordenadas.map((i) => {
           const ok = hydrated && on.has(i.id);
           return (
             <li key={i.id} className={cn("flex flex-col gap-1 rounded-card border p-3", ok ? "border-dorado bg-dorado-200/60" : "border-border bg-white")}>

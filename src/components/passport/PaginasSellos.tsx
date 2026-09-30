@@ -10,6 +10,17 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 const POR_PAGINA = 6;
 const giro = (i: number) => [-8, 5, -3, 7, -6, 3][i % 6];
 
+/**
+ * Tamaño de letra del nombre dentro del sello (≈ 66 px útiles a 360 px de ancho): baja con el largo total y con
+ * la palabra más larga (Bebas Neue ≈ 0.4 em por letra), para que quepa en máximo 3 líneas sin salirse del
+ * círculo. Casos límite en /data: «Merced Paso a Desnivel Gómez Pedraza» (36) y «Tlacoquemécatl» (14 letras).
+ */
+function tamanoSello(nombre: string) {
+  const palabra = Math.max(...nombre.split(/\s+/).map((w) => w.length));
+  const porLargo = nombre.length <= 10 ? 15 : nombre.length <= 18 ? 13 : nombre.length <= 28 ? 12 : 11;
+  return Math.max(10, Math.min(porLargo, Math.floor(160 / palabra)));
+}
+
 /** Pasaporte ilustrado: páginas de sellos circulares en tinta morada con nombre y fecha. */
 export function PaginasSellos({ nombres }: { nombres: Record<string, string> }) {
   const t = useTranslations("pasaporte");
@@ -42,10 +53,16 @@ export function PaginasSellos({ nombres }: { nombres: Record<string, string> }) 
             initial={{ scale: 1.4, opacity: 0, rotate: giro(i) - 20 }}
             animate={{ scale: 1, opacity: 1, rotate: giro(i) }}
             transition={{ type: "spring", stiffness: 300, damping: 15, delay: i * 0.05 }}
-            className="flex aspect-square flex-col items-center justify-center rounded-full border-[3px] border-double border-morado/80 p-1.5 text-center text-morado"
+            className="flex aspect-square min-w-0 flex-col items-center justify-center overflow-hidden rounded-full border-[3px] border-double border-morado/80 p-2 text-center text-morado"
             aria-label={t("selloDe", { mercado: nombres[id] ?? id })}
           >
-            <span className="font-display text-[15px] leading-tight">{corto(id)}</span>
+            <span
+              lang="es"
+              className="line-clamp-3 max-w-full font-display leading-[1.05] break-words hyphens-auto"
+              style={{ fontSize: tamanoSello(corto(id)) }}
+            >
+              {corto(id)}
+            </span>
             {fechas[id] && (
               <span className="mt-0.5 text-[10px] font-semibold">
                 {new Date(fechas[id]).toLocaleDateString(locale === "en" ? "en-US" : "es-MX", { day: "numeric", month: "short", year: "2-digit", timeZone: "America/Mexico_City" })}

@@ -9,7 +9,7 @@ import { PantallaError } from "@/components/errores/PantallaError";
 export default function NoEncontrado() {
   const t = useTranslations("errores");
   return (
-    <PantallaError icono={MapPinOff} titulo={t("noEncontradoTitulo")} texto={t("noEncontradoTexto")}>
+    <PantallaError sinControles icono={MapPinOff} titulo={t("noEncontradoTitulo")} texto={t("noEncontradoTexto")}>
       <Button asChild>
         <Link href="/explorar">{t("irExplorar")}</Link>
       </Button>

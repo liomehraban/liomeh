@@ -20,8 +20,9 @@ export function PresentacionIntro() {
     window.dispatchEvent(new Event(EVENTO_SIGUIENTE));
   };
   return (
-    <div className="flex flex-col gap-5 bg-crema px-5 pt-16 pb-40">
-      <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
+    <div className="flex min-h-full flex-col gap-5 bg-crema px-5">
+      {/* Franja fija arriba con fondo sólido: el texto que se desplaza pasa por debajo, no entre las banderitas. */}
+      <div className="papel-picado sticky top-0 z-10 -mx-5 mb-1 box-content h-10 shrink-0 bg-crema bg-origin-content pt-[env(safe-area-inset-top)] shadow-[0_6px_8px_-6px_rgba(62,28,60,0.12)]" aria-hidden />
       <Logo className="text-6xl text-morado" />
       <div>
         <h1 className="font-display text-4xl text-morado-700">{t("titulo")}</h1>
@@ -39,10 +40,13 @@ export function PresentacionIntro() {
           </li>
         ))}
       </ol>
-      <Button size="lg" onClick={comenzar}>
-        <Play aria-hidden />
-        {t("comenzar")}
-      </Button>
+      {/* CTA anclado abajo: visible sin recorrer los 10 pasos; mt-auto lo lleva al fondo si la lista es corta. */}
+      <div className="sticky bottom-0 z-10 -mx-5 mt-auto bg-gradient-to-t from-crema from-75% to-crema/0 px-5 pt-6 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <Button size="lg" onClick={comenzar} className="w-full shadow-md">
+          <Play aria-hidden />
+          {t("comenzar")}
+        </Button>
+      </div>
     </div>
   );
 }

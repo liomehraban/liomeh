@@ -6,6 +6,17 @@ import { ArrowLeft } from "lucide-react";
 import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
+/**
+ * Tamaño del título según su largo (Bebas Neue es condensada): los nombres largos bajan de tamaño en vez de
+ * cortarse, y los muy largos usan hasta dos líneas. El recorte con «…» queda solo como último recurso.
+ */
+function claseTituloCompacto(titulo: string) {
+  const n = titulo.length;
+  if (n <= 14) return "text-[28px] truncate";
+  if (n <= 20) return "text-[24px] truncate";
+  return "text-[20px] leading-[1.05] line-clamp-2 break-words";
+}
+
 /** Franja superior que ocupan los controles flotantes (campana y perfil): 12 px + 44 px + aire. */
 const FRANJA_CONTROLES = 64;
 
@@ -28,7 +39,8 @@ export function EncabezadoCompacto({ contenedorId }: { contenedorId: string }) {
     const medir = () => {
       raf = 0;
       const h1 = cont.querySelector("h1");
-      setTitulo(h1?.textContent?.trim() || null);
+      // Espacios colapsados: sin dobles espacios ni un espacio suelto antes de la elipsis.
+      setTitulo(h1?.textContent?.replace(/\s+/g, " ").trim() || null);
       setVolver(cont.querySelector<HTMLButtonElement>("button[data-volver]"));
       if (!h1 || cont.scrollTop <= 0) return setVisible(false);
       const tope = cont.getBoundingClientRect().top + FRANJA_CONTROLES;
@@ -67,7 +79,7 @@ export function EncabezadoCompacto({ contenedorId }: { contenedorId: string }) {
           <ArrowLeft className="size-5" aria-hidden />
         </button>
       )}
-      <span aria-hidden className="truncate pt-1 font-display text-[28px] leading-none">
+      <span aria-hidden className={cn("min-w-0 pt-1 font-display leading-none", claseTituloCompacto(titulo))}>
         {titulo}
       </span>
     </div>

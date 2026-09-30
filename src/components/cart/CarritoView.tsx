@@ -81,30 +81,34 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
                 </div>
                 <ul className="flex flex-col divide-y divide-border">
                   {grupo.items.map((i) => (
-                    <li key={i.nombre} className="flex items-center gap-3 py-2">
-                      <div className="flex min-w-0 flex-1 flex-col">
-                        <span className="font-semibold">{i.nombre}</span>
-                        <span className="text-[13px] text-tinta-2">/ {voc("unidades", i.unidad)}</span>
+                    // Dos filas: el nombre (con su unidad) usa todo el ancho y, debajo, el contador a la izquierda y el
+                    // importe a la derecha, alineados entre renglones.
+                    <li key={i.nombre} className="flex flex-col gap-1.5 py-2.5">
+                      <p className="min-w-0">
+                        <span className="font-semibold">{i.nombre}</span>{" "}
+                        <span className="text-[13px] whitespace-nowrap text-tinta-2">/ {voc("unidades", i.unidad)}</span>
+                      </p>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center rounded-pill border border-border">
+                          <button type="button" aria-label={i.qty > 1 ? `−1 ${i.nombre}` : t("quitar", { producto: i.nombre })} onClick={() => cambiar(grupo.puestoId, i.nombre, i.qty - 1)} className="grid size-11 place-items-center text-morado">
+                            {i.qty > 1 ? <Minus className="size-4" aria-hidden /> : <Trash2 className="size-4" aria-hidden />}
+                          </button>
+                          <output className="w-6 text-center font-bold">{i.qty}</output>
+                          <button
+                            type="button"
+                            aria-label={`+1 ${i.nombre}`}
+                            onClick={() => {
+                              const max = maximo(grupo.puestoId, i);
+                              if (max !== null && i.qty + 1 > max) return toast(tp("sinStock", { producto: i.nombre }));
+                              cambiar(grupo.puestoId, i.nombre, i.qty + 1);
+                            }}
+                            className="grid size-11 place-items-center text-morado"
+                          >
+                            <Plus className="size-4" aria-hidden />
+                          </button>
+                        </div>
+                        <Precio monto={i.precio * i.qty} className="text-right" />
                       </div>
-                      <div className="flex items-center rounded-pill border border-border">
-                        <button type="button" aria-label={i.qty > 1 ? `−1 ${i.nombre}` : t("quitar", { producto: i.nombre })} onClick={() => cambiar(grupo.puestoId, i.nombre, i.qty - 1)} className="grid size-11 place-items-center text-morado">
-                          {i.qty > 1 ? <Minus className="size-4" aria-hidden /> : <Trash2 className="size-4" aria-hidden />}
-                        </button>
-                        <output className="w-6 text-center font-bold">{i.qty}</output>
-                        <button
-                          type="button"
-                          aria-label={`+1 ${i.nombre}`}
-                          onClick={() => {
-                            const max = maximo(grupo.puestoId, i);
-                            if (max !== null && i.qty + 1 > max) return toast(tp("sinStock", { producto: i.nombre }));
-                            cambiar(grupo.puestoId, i.nombre, i.qty + 1);
-                          }}
-                          className="grid size-11 place-items-center text-morado"
-                        >
-                          <Plus className="size-4" aria-hidden />
-                        </button>
-                      </div>
-                      <Precio monto={i.precio * i.qty} className="w-16 text-right" />
                     </li>
                   ))}
                 </ul>

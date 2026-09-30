@@ -24,7 +24,7 @@ type Tab = { key: TabKey; href: string; icon?: LucideIcon; match?: string[]; cen
 
 const TABS: Record<"consumidor" | "locatario" | "productor", Tab[]> = {
   consumidor: [
-    { key: "explorar", href: "/explorar", icon: Map, match: ["/explorar", "/mercado", "/puesto", "/carrito", "/checkout", "/pedido"] },
+    { key: "explorar", href: "/explorar", icon: Map, match: ["/explorar", "/mercado", "/puesto"] },
     { key: "huertos", href: "/huertos", icon: Sprout },
     { key: "asistente", href: "/asistente", central: true },
     { key: "agenda", href: "/agenda", icon: CalendarDays, match: ["/agenda", "/rutas"] },

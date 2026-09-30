@@ -615,7 +615,8 @@
     "irAgenda": "Go to Events",
     "confirmarCanjeTitulo": "Redeem “{titulo}”?",
     "confirmarCanjeTexto": "{n} points will be deducted and you'll have {resto} left. The coupon shows up under “Your coupons”.",
-    "confirmarCanje": "Redeem {n} points"
+    "confirmarCanje": "Redeem {n} points",
+    "faltanPts": "{n} pts to go"
   },
   "escanear": {
     "titulo": "Scan QR",
@@ -634,7 +635,9 @@
     "otra": "Scan another",
     "volverYo": "Go to my passport",
     "puestos": "Stalls online",
-    "mercados": "Markets"
+    "mercados": "Markets",
+    "verMas": "Show more ({n})",
+    "sinResultados": "No stall or market matches"
   },
   "agenda": {
     "titulo": "Events",
@@ -1040,7 +1043,7 @@
       },
       "huerto": {
         "titulo": "Farms → Familia Jurado Nopaleros",
-        "espera": "Fair price: $70 vs $35 of $150, “twice as much”"
+        "espera": "Fair price: $70 vs $35 of $150, “twice as much”"
       },
       "asistente": {
         "titulo": "Marchanta: “What events are on this month?”",
@@ -1051,11 +1054,11 @@
         "espera": "+10 points even when paying in cash"
       },
       "cobrar": {
-        "titulo": "Stallholder: app order and a $250 charge",
-        "espera": "The BB-XXXX order in Orders and “Payment received $250”"
+        "titulo": "Stallholder: app order and a $250 charge",
+        "espera": "The BB-XXXX order in Orders and “Payment received $250”"
       },
       "cosecha": {
-        "titulo": "Grower: publish 200 lettuces at $12",
+        "titulo": "Grower: publish 200 lettuces at $12",
         "espera": "New lot in the preview"
       },
       "gobierno": {
@@ -1068,7 +1071,7 @@
   },
   "offline": {
     "titulo": "You're offline",
-    "texto": "You're offline: your passport and orders are still here.",
+    "texto": "Your passport and orders are still here.",
     "detalle": "Pages you've already visited open without internet. When the signal's back, everything picks up where you left it.",
     "pasaporte": "My passport",
     "pedidos": "My orders",

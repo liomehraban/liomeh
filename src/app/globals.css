@@ -104,6 +104,14 @@
   :where(button:not(:disabled), a[href], [role="tab"], [role="radio"], [role="switch"], summary):not(svg *, .maplibregl-marker):active {
     scale: 0.97;
   }
+  /* Tipografía: títulos balanceados y párrafos sin palabras huérfanas. Con :where() la especificidad es 0,
+     así cualquier utilidad (text-wrap, truncate…) sigue mandando. */
+  :where(h1, h2, h3, h4) {
+    text-wrap: balance;
+  }
+  :where(p, li, figcaption, dd) {
+    text-wrap: pretty;
+  }
   /* Los navegadores dan a <fieldset> un min-width: min-content que lo hace desbordar la pantalla. */
   fieldset {
     min-width: 0;
@@ -150,6 +158,11 @@
   opacity: 0;
   scale: 0.85;
   pointer-events: none;
+}
+
+/* Pantallas de estado sin contexto de perfil (404): sin campana ni selector de perfil flotantes. */
+body:has([data-sin-controles]) [data-top-controles] {
+  display: none;
 }
 
 /* Revelado escalonado de listas (RevelarAutomatico): solo oculta mientras el componente está activo. */

@@ -615,7 +615,8 @@
     "irAgenda": "Ir a la Agenda",
     "confirmarCanjeTitulo": "¿Canjear «{titulo}»?",
     "confirmarCanjeTexto": "Se descuentan {n} puntos y te quedan {resto}. El cupón aparece en «Tus cupones».",
-    "confirmarCanje": "Canjear {n} puntos"
+    "confirmarCanje": "Canjear {n} puntos",
+    "faltanPts": "Te faltan {n} pts"
   },
   "escanear": {
     "titulo": "Escanear QR",
@@ -634,7 +635,9 @@
     "otra": "Escanear otro",
     "volverYo": "Ir a mi pasaporte",
     "puestos": "Puestos en línea",
-    "mercados": "Mercados"
+    "mercados": "Mercados",
+    "verMas": "Ver más ({n})",
+    "sinResultados": "No encontramos ese puesto o mercado"
   },
   "agenda": {
     "titulo": "Agenda",
@@ -1040,7 +1043,7 @@
       },
       "huerto": {
         "titulo": "Huertos → Familia Jurado Nopaleros",
-        "espera": "Precio justo: $70 vs $35 de $150, «el doble»"
+        "espera": "Precio justo: $70 vs $35 de $150, «el doble»"
       },
       "asistente": {
         "titulo": "Marchanta: «¿Qué eventos hay este mes?»",
@@ -1051,11 +1054,11 @@
         "espera": "+10 puntos aunque pague en efectivo"
       },
       "cobrar": {
-        "titulo": "Locataria: pedido de la app y cobro de $250",
-        "espera": "El pedido BB-XXXX en Pedidos y «Pago recibido $250»"
+        "titulo": "Locataria: pedido de la app y cobro de $250",
+        "espera": "El pedido BB-XXXX en Pedidos y «Pago recibido $250»"
       },
       "cosecha": {
-        "titulo": "Productora: publicar 200 lechugas a $12",
+        "titulo": "Productora: publicar 200 lechugas a $12",
         "espera": "Lote nuevo en la vista previa"
       },
       "gobierno": {
@@ -1068,7 +1071,7 @@
   },
   "offline": {
     "titulo": "Sin conexión",
-    "texto": "Sin conexión: tu pasaporte y tus pedidos siguen aquí.",
+    "texto": "Tu pasaporte y tus pedidos siguen aquí.",
     "detalle": "Lo que ya visitaste se abre sin internet. En cuanto vuelva la señal, todo sigue donde lo dejaste.",
     "pasaporte": "Mi pasaporte",
     "pedidos": "Mis pedidos",

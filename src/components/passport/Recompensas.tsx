@@ -34,20 +34,30 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
       <ul data-revelar className="flex flex-col gap-2">
         {recompensas.map((r) => {
           const alcanza = hydrated && puntos >= r.puntos;
+          const faltan = hydrated ? Math.max(0, r.puntos - puntos) : null;
           const titulo = enIdioma(r, "titulo", locale);
           return (
-            <li key={r.id} className="flex items-center gap-3 rounded-2xl border border-border bg-white p-3">
-              <Gift className="size-5 shrink-0 text-dorado" aria-hidden />
-              <span className="flex-1 text-sm font-semibold">{titulo}</span>
+            <li key={r.id} className="flex flex-col gap-2.5 rounded-2xl border border-border bg-white p-3">
+              <span className="flex items-start gap-3">
+                <Gift className="mt-0.5 size-5 shrink-0 text-dorado" aria-hidden />
+                <span className="min-w-0 flex-1 text-sm font-semibold">{titulo}</span>
+              </span>
+              {/* El botón va en su propia fila a todo lo ancho: el título no se aprieta a 3 líneas. */}
               <Button
                 size="sm"
                 variant={alcanza ? "premium" : "secondary"}
                 disabled={!alcanza}
-                aria-label={`${titulo}: ${alcanza ? t("canjear", { n: r.puntos }) : t("sinPuntos")}`}
+                className="w-full"
+                aria-label={`${titulo}: ${alcanza ? t("canjear", { n: r.puntos }) : faltan ? t("faltanPts", { n: faltan }) : t("sinPuntos")}`}
                 onClick={() => setPorCanjear(r)}
               >
                 {t("canjear", { n: r.puntos })}
               </Button>
+              {!alcanza && faltan !== null && faltan > 0 && (
+                <p aria-hidden className="-mt-1 text-center text-[13px] font-semibold text-tinta-2">
+                  {t("faltanPts", { n: faltan })}
+                </p>
+              )}
             </li>
           );
         })}
