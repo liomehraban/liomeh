@@ -37,7 +37,7 @@ export function LocaleToggle({ className }: { className?: string }) {
           aria-pressed={locale === l}
           onClick={() => cambiar(l)}
           className={cn(
-            "h-9 min-w-11 rounded-pill px-2 text-sm font-bold uppercase transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+            "h-11 min-w-11 rounded-pill px-2 text-sm font-bold uppercase transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
             locale === l ? "bg-primary text-primary-foreground" : "text-morado-700 hover:bg-morado-50",
           )}
         >

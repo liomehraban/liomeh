@@ -150,25 +150,24 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
                 <Search className="size-5 text-morado" aria-hidden />
                 <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("buscar")} aria-label={t("buscar")} className="min-w-0 flex-1 bg-transparent outline-none" />
               </label>
-              <ul role="radiogroup" aria-label={t("elige")} className="flex max-h-60 flex-col gap-1 overflow-y-auto rounded-2xl border border-border bg-white p-1">
+              <div role="radiogroup" aria-label={t("elige")} className="flex max-h-60 flex-col gap-1 overflow-y-auto rounded-2xl border border-border bg-white p-1">
                 {filtrados.map((o) => (
-                  <li key={o.objetivo}>
-                    <button
-                      type="button"
-                      role="radio"
-                      aria-checked={sel === o.objetivo}
-                      onClick={() => setSel(o.objetivo)}
-                      className={cn("flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-1.5 text-left text-sm", sel === o.objetivo ? "bg-morado text-crema" : "hover:bg-morado-50")}
-                    >
-                      <Store className="size-4 shrink-0" aria-hidden />
-                      <span className="flex min-w-0 flex-col">
-                        <span className="truncate font-semibold">{o.tipo === "mostrador" ? t("mostrador", { mercado: o.nombre }) : o.nombre}</span>
-                        {o.tipo === "puesto" && <span className={cn("truncate text-[12px]", sel === o.objetivo ? "text-crema/80" : "text-tinta-2")}>{o.mercadoNombre}</span>}
-                      </span>
-                    </button>
-                  </li>
+                  <button
+                    key={o.objetivo}
+                    type="button"
+                    role="radio"
+                    aria-checked={sel === o.objetivo}
+                    onClick={() => setSel(o.objetivo)}
+                    className={cn("flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-1.5 text-left text-sm", sel === o.objetivo ? "bg-morado text-crema" : "hover:bg-morado-50")}
+                  >
+                    <Store className="size-4 shrink-0" aria-hidden />
+                    <span className="flex min-w-0 flex-col">
+                      <span className="truncate font-semibold">{o.tipo === "mostrador" ? t("mostrador", { mercado: o.nombre }) : o.nombre}</span>
+                      {o.tipo === "puesto" && <span className={cn("truncate text-[12px]", sel === o.objetivo ? "text-crema" : "text-tinta-2")}>{o.mercadoNombre}</span>}
+                    </span>
+                  </button>
                 ))}
-              </ul>
+              </div>
             </fieldset>
             <Button size="lg" onClick={escanear} disabled={!objetivo || fase === "escaneando"} data-demo="escanear">
               {fase === "escaneando" ? t("escaneando") : t("titulo")}

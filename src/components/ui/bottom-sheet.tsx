@@ -111,7 +111,7 @@ export function BottomSheet({
           type="button"
           onClick={siguiente}
           aria-label={etiquetaExpandir}
-          className="grid h-8 w-24 place-items-center rounded-pill focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+          className="grid h-11 w-24 place-items-center rounded-pill focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <span aria-hidden className="h-1.5 w-12 rounded-pill bg-gris/50" />
         </button>

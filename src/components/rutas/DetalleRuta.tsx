@@ -69,7 +69,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
               {t("premium")}
             </span>
           ) : (
-            <span className="w-fit rounded-pill bg-nopal/15 px-2.5 py-0.5 text-[13px] font-bold text-nopal-700">{t("gratis")}</span>
+            <span className="w-fit rounded-pill bg-nopal-700 px-2.5 py-0.5 text-[13px] font-bold text-white">{t("gratis")}</span>
           )}
           <h1 className="font-display text-4xl text-morado-700">{ruta.titulo}</h1>
           <p className="flex flex-wrap gap-x-4 text-sm text-tinta-2">

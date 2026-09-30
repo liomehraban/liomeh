@@ -21,7 +21,7 @@ export function NivelCard({ niveles }: { niveles: Nivel[] }) {
         <div className="h-full rounded-pill bg-dorado transition-[width] duration-500" style={{ width: `${p.pct}%` }} />
       </div>
       <p className="text-sm">{p.siguiente ? t("faltan", { n: p.faltan, nivel: p.siguiente.nivel }) : t("maximo")}</p>
-      <p className="text-[13px] text-crema/80">{t("beneficio", { beneficio: p.actual.beneficio })}</p>
+      <p className="text-[13px] text-crema">{t("beneficio", { beneficio: p.actual.beneficio })}</p>
     </section>
   );
 }

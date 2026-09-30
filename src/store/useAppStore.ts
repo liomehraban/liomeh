@@ -29,6 +29,7 @@ import { claveVenta } from "@/lib/inventario";
 import type { PuestoResumen } from "@/data/comercio";
 import type { Aviso, EfectoAviso } from "@/lib/notificaciones";
 import { puntosPorResena, verificacionResena } from "@/lib/resenas";
+import { almacenamientoSeguro, mezclarEstado, recortarEstado } from "./persistencia";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -389,14 +390,20 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: "pasele-demo",
-      version: 2,
-      // v2: nueva forma de Pedido (resumen, puntos, mercadoId)
-      migrate: (persisted, version) => (version < 2 ? { ...(persisted as object), pedidos: [] } : persisted) as AppState,
-      storage: createJSONStorage(() => localStorage),
+      // v2: nueva forma de Pedido (resumen, puntos, mercadoId).
+      // v3: vendedores, vendidos, avisos, presentación, planVence, ediciones y plan del locatario.
+      version: 3,
+      migrate: (persisted, version) => {
+        const p = (version < 2 ? { ...(persisted as object), pedidos: [] } : persisted) as Partial<DatosDemo>;
+        return mezclarEstado(estadoInicial(), p) as AppState;
+      },
+      // En cada carga: lo guardado sobre el estado inicial (nunca quedan campos anidados sin definir).
+      merge: (persisted, actual) => ({ ...actual, ...mezclarEstado(estadoInicial(), persisted) }),
+      storage: createJSONStorage(() => almacenamientoSeguro(() => localStorage)),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, recibirAviso, sembrarAvisos, marcarAvisosLeidos, setAvisosSistema, ...datos } = s;
-        return datos;
+        return recortarEstado(datos);
       },
     },
   ),

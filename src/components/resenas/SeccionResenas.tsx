@@ -55,7 +55,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
               role="radio"
               aria-checked={filtro === f}
               onClick={() => setFiltro(f)}
-              className={cn("h-9 rounded-pill px-3 text-[13px] font-semibold", filtro === f ? "bg-primary text-primary-foreground" : "text-morado-700")}
+              className={cn("h-11 rounded-pill px-3 text-[13px] font-semibold", filtro === f ? "bg-primary text-primary-foreground" : "text-morado-700")}
             >
               {f === "todas" ? t("todas") : f === "es" ? t("espanol") : t("english")}
             </button>

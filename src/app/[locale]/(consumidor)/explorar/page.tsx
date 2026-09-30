@@ -4,7 +4,6 @@ import type { Locale } from "@/i18n/routing";
 import { getRepository } from "@/data/repository";
 import { categoriaMercado } from "@/lib/giros";
 import { ratingPromedio } from "@/lib/resenas";
-import { documentosBusqueda } from "@/lib/search";
 import { Explorador } from "@/components/explorar/Explorador";
 import { ofertasRescate } from "@/data/rescate";
 import type { MercadoMapa } from "@/components/explorar/tipos";
@@ -19,7 +18,7 @@ export default async function ExplorarPage({ params }: PageProps<"/[locale]/expl
   const { locale } = await params;
   setRequestLocale(locale as Locale);
   const repo = getRepository();
-  const [mercados, interior, productores] = await Promise.all([repo.mercados(), repo.interior("la-merced"), repo.productores()]);
+  const mercados = await repo.mercados();
 
   const datos: MercadoMapa[] = await Promise.all(
     mercados.map(async (m) => ({
@@ -39,9 +38,7 @@ export default async function ExplorarPage({ params }: PageProps<"/[locale]/expl
     })),
   );
 
-  const docs = documentosBusqueda(mercados, interior ? { [interior.mercado_id]: interior.puestos } : {}, productores);
-
   const [ofertas, metricas] = await Promise.all([ofertasRescate(), repo.metricas()]);
 
-  return <Explorador mercados={datos} docs={docs} rescate={{ ofertas, kpiTon: metricas.kpis_hoy.alimento_rescatado_mes_ton ?? 0 }} />;
+  return <Explorador mercados={datos} rescate={{ ofertas, kpiTon: metricas.kpis_hoy.alimento_rescatado_mes_ton ?? 0 }} />;
 }

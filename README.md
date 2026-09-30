@@ -49,6 +49,8 @@ Todo lo transaccional persiste en `localStorage` (Zustand, clave `pasele-demo`) 
 - `src/sw.ts` + `serwist.config.mjs`: Serwist en **modo configurator** (`@serwist/next/config` + `@serwist/cli`). El service worker se compila después de `next build`, así que funciona con Turbopack (el plugin de webpack de Serwist no aplica en Next 16).
   - Precache del shell y de los chunks estáticos (los JSON de `/data` viajan dentro de los chunks). No se precachean las ~1,600 páginas prerenderizadas: se cachean al visitarlas.
   - Teselas de CARTO: `StaleWhileRevalidate`, máx. 500 entradas.
+  - Índice de búsqueda de Explorar: `/api/busqueda`, JSON estático generado en el build (~49 KB gzip). Se descarga en tiempo libre, no viaja en el HTML, y queda en caché para usarlo sin conexión.
+  - Una versión nueva del service worker espera hasta que la persona toca «Nueva versión · Recargar».
   - Sin conexión, cualquier página no visitada cae en `/[locale]/offline` («Sin conexión: tu pasaporte y tus pedidos siguen aquí»).
 
 ## Deploy en Vercel

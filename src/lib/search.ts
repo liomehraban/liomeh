@@ -116,11 +116,14 @@ type ProductorBusq = { id: string; nombre: string; pueblo: string; alcaldia: str
 
 /**
  * `puestosPorMercado`: puestos con interior en línea, para que el mercado también se encuentre por sus productos.
+ * `productosPorMercado`: productos del catálogo simulado (sin documento por puesto): «aguacate» encuentra
+ * los mercados que lo venden.
  */
 export function documentosBusqueda(
   mercados: MercadoBusq[],
   puestosPorMercado: Record<string, PuestoBusq[]>,
   productores: ProductorBusq[],
+  productosPorMercado: Record<string, string[]> = {},
 ): DocBusqueda[] {
   const docs: DocBusqueda[] = [];
   for (const m of mercados) {
@@ -135,7 +138,7 @@ export function documentosBusqueda(
         nombre: [m.nombre_display],
         giros: m.giros,
         imperdibles: [...(m.imperdibles ?? []), ...puestos.map((p) => p.nombre)],
-        productos: puestos.flatMap((p) => p.productos.map((x) => x.n)),
+        productos: [...puestos.flatMap((p) => p.productos.map((x) => x.n)), ...(productosPorMercado[m.id] ?? [])],
         texto: [m.resumen ?? "", m.resumen_en ?? "", ...(m.sub_mercados ?? []), m.alcaldia],
       },
     });

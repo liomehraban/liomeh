@@ -23,7 +23,7 @@ export function TarjetaRuta({ r, paradas }: { r: Ruta; paradas: Record<string, P
               {t("premium")}
             </span>
           ) : (
-            <span className="rounded-pill bg-nopal/15 px-2 py-0.5 text-[11px] font-bold text-nopal-700">{t("gratis")}</span>
+            <span className="rounded-pill bg-nopal-700 px-2 py-0.5 text-[11px] font-bold text-white">{t("gratis")}</span>
           )}
         </div>
         <h3 className="leading-snug font-bold text-morado-700">{r.titulo}</h3>
