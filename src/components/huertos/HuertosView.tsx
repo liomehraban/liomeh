@@ -84,7 +84,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
         ariaLabel={t("mapa")}
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 bg-gradient-to-b from-crema/95 via-crema/70 to-transparent px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
         <div className="mr-14 flex items-start gap-2 rounded-card bg-nopal-700 p-3 text-white shadow-md">
           <Leaf className="mt-0.5 size-5 shrink-0" aria-hidden />
           <p className="text-[13px] leading-snug font-semibold">{t("banner")}</p>
@@ -115,10 +115,10 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
           })}
         </div>
         <div className="flex items-center gap-3">
-          <p className="rounded-pill bg-crema/90 px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
+          <p className="rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
             {t("conteo", { n: visibles.length })}
           </p>
-          <label className="ml-auto flex items-center gap-2 rounded-pill bg-crema/90 py-1 pr-1 pl-3 text-[13px] font-semibold shadow-sm">
+          <label className="ml-auto flex items-center gap-2 rounded-pill bg-white py-1 pr-1 pl-3 text-[13px] font-semibold shadow-sm">
             {t("mostrarMercados")}
             <Switch checked={conMercados} onCheckedChange={setConMercados} />
           </label>
@@ -126,7 +126,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
       </div>
 
       {!sel && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-crema/95 pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)] backdrop-blur">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           <Plegable
             titulo={t("productores")}
             icono={<Sprout className="size-5 text-nopal-700" aria-hidden />}

@@ -94,7 +94,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
               ) : r.fotos > 0 ? (
                 <div className="flex gap-2" aria-label={t("fotos", { n: r.fotos })}>
                   {Array.from({ length: Math.min(r.fotos, 3) }, (_, i) => (
-                    <span key={i} className="grid size-16 place-items-center rounded-xl bg-gradient-to-br from-dorado-200 to-morado-50 text-morado/60" aria-hidden>
+                    <span key={i} className="grid size-16 place-items-center rounded-xl bg-morado-50 text-morado" aria-hidden>
                       <ImageIcon className="size-5" />
                     </span>
                   ))}

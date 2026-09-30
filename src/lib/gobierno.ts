@@ -4,7 +4,7 @@ import type { MetricasGobierno } from "./schemas";
 type Alcaldia = MetricasGobierno["por_alcaldia"][number];
 
 /** Rampa secuencial (un solo tono, claro → oscuro) para la adopción por alcaldía. */
-export const RAMPA_ADOPCION = ["#EBD5E9", "#D3A5CF", "#B470AF", "#93408F", "#5E2A5B"] as const;
+export const RAMPA_ADOPCION = ["#EBD5E9", "#D3A5CF", "#B470AF", "#9B2694", "#5E2A5B"] as const;
 /** Cortes superiores de cada paso (el último es abierto). */
 export const CORTES_ADOPCION = [0.2, 0.35, 0.5, 0.65] as const;
 

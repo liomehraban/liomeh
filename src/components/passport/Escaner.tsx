@@ -75,7 +75,7 @@ export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoChec
       <EncabezadoSimple titulo={t("titulo")} fallback="/yo" />
       <div className="flex flex-col gap-4 p-5">
         {/* Cámara simulada */}
-        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-card bg-gradient-to-br from-tinta to-morado-900" aria-label={t("camara")} role="img">
+        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-card bg-morado-900" aria-label={t("camara")} role="img">
           <motion.div
             className="relative size-3/5"
             animate={fase === "escaneando" ? { scale: [1, 0.94, 1] } : { scale: 1 }}
@@ -86,7 +86,7 @@ export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoChec
             ))}
             {fase === "escaneando" && (
               <motion.span
-                className="absolute inset-x-2 h-0.5 bg-dorado shadow-[0_0_12px_#C8A96A]"
+                className="absolute inset-x-2 h-0.5 bg-dorado shadow-[0_0_12px_#F2B01E]"
                 animate={{ top: ["8%", "92%", "8%"] }}
                 transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
               />

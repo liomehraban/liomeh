@@ -53,7 +53,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
         <MapView
           center={centro}
           zoom={12}
-          layers={[{ tipo: "ruta", id: "ruta", puntos: paradas.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#93408F", etiqueta: p.nombre })), hechas: [...hechas] }]}
+          layers={[{ tipo: "ruta", id: "ruta", puntos: paradas.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#9B2694", etiqueta: p.nombre })), hechas: [...hechas] }]}
           encuadre={caja ? { bbox: caja, key: 1 } : null}
           paddingInferior={0}
           ariaLabel={t("mapa", { titulo: ruta.titulo })}

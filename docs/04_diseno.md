@@ -6,12 +6,12 @@ Colores muestreados de la *Guía de Mercados CDMX 2026*: morado institucional y 
 
 ```css
 @theme {
-  --color-morado: #93408F;        /* primario: botones, tab activa, pines */
-  --color-morado-700: #693266;    /* títulos */
+  --color-morado: #9B2694;        /* primario: botones, tab activa, pines */
+  --color-morado-700: #6E1A6A;    /* títulos */
   --color-morado-900: #3E1C3C;    /* fondos oscuros, texto sobre dorado */
-  --color-morado-50: #F6ECF5;     /* superficies suaves */
-  --color-dorado: #C8A96A;        /* premium, sellos, destacados */
-  --color-dorado-200: #F6E7C4;
+  --color-morado-50: #F8E9F6;     /* superficies suaves */
+  --color-dorado: #F2B01E;        /* premium, sellos, destacados */
+  --color-dorado-200: #FDE9B5;
   --color-crema: #FEFAEB;         /* fondo cálido principal */
   --color-papel: #FBF7F2;         /* fondo secundario */
   --color-tinta: #2B1A2A;         /* texto principal */
@@ -62,7 +62,7 @@ Colores muestreados de la *Guía de Mercados CDMX 2026*: morado institucional y 
 | **Bottom sheet** | con handle y 3 alturas (peek, mitad, completa) |
 | **Tab bar** | 5 ítems; el botón central del Asistente es circular, elevado y dorado |
 | **Sellos** | «Comercio justo» (dorado con ícono de mano y hoja), «Productor local CDMX» (nopal) y «Real · Guía CDMX» (morado, solo en QA) |
-| **Placeholder fotográfico** | degradado entre el color del giro y el morado + patrón SVG de papel picado al 12% de opacidad + ícono del giro. **No se usan fotos reales de la guía** |
+| **Placeholder fotográfico** | color sólido del giro (sin degradados) + patrón SVG de papel picado al 14% de opacidad + ícono del giro. **No se usan fotos reales de la guía** |
 | **Papel picado** | separador SVG repetible (`public/papel-picado.svg`) en encabezados de ficha y onboarding |
 | **Toasts** | puntos ganados (+10), recordatorio creado, pago recibido |
 | **Marco de teléfono** | en desktop ≥ 768 px, device de 390×844 con radio de 48 px y sombra, sobre fondo crema con el logotipo y un QR «Abrir en tu teléfono» |

@@ -51,10 +51,10 @@ export function StallMarker({
     >
       {/* área táctil generosa */}
       <circle cx={x} cy={y} r={16} fill="transparent" />
-      <circle className="foco opacity-0" cx={x} cy={y} r={15} fill="none" stroke="#93408F" strokeWidth={3} />
+      <circle className="foco opacity-0" cx={x} cy={y} r={15} fill="none" stroke="#9B2694" strokeWidth={3} />
       {seleccionado && <circle cx={x} cy={y} r={14} fill="none" stroke="#3E1C3C" strokeWidth={2.5} />}
       {puesto.real_segun_guia ? (
-        <polygon points={estrella(x, y, seleccionado ? 12 : 10)} fill="#C8A96A" stroke={color} strokeWidth={2} strokeLinejoin="round" />
+        <polygon points={estrella(x, y, seleccionado ? 12 : 10)} fill="#F2B01E" stroke={color} strokeWidth={2} strokeLinejoin="round" />
       ) : (
         <circle cx={x} cy={y} r={seleccionado ? 8 : 6} fill={color} stroke="#FFFFFF" strokeWidth={2} />
       )}

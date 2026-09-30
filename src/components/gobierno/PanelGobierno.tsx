@@ -115,7 +115,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               datos={serie}
               x="etiqueta"
               encabezadoX={t("serie.mes")}
-              series={[{ clave: "gmv_mxn", nombre: t("serie.gmv"), color: "#93408F" }]}
+              series={[{ clave: "gmv_mxn", nombre: t("serie.gmv"), color: "#9B2694" }]}
               formato={mxnCompacto}
             />
             <GraficaLinea
@@ -124,7 +124,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               datos={serie}
               x="etiqueta"
               encabezadoX={t("serie.mes")}
-              series={[{ clave: "usuarios_activos", nombre: t("serie.usuarios"), color: "#93408F" }]}
+              series={[{ clave: "usuarios_activos", nombre: t("serie.usuarios"), color: "#9B2694" }]}
               formato={compacto}
             />
           </div>
@@ -203,7 +203,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               <KpiTile etiqueta={t("kpis.locatarios_activos")} valor={nf(k.locatarios_activos)} />
               <KpiTile etiqueta={t("kpis.pct_ventas_efectivo_registradas")} valor={t("pct", { n: k.pct_ventas_efectivo_registradas })} className="col-span-2" detalle={t("se.creditoTexto", { pct: k.pct_ventas_efectivo_registradas })} />
             </div>
-            <GraficaLinea titulo={t("se.checkins")} subtitulo={t("se.credito")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} series={[{ clave: "checkins_efectivo", nombre: t("se.checkins"), color: "#93408F" }]} formato={compacto} />
+            <GraficaLinea titulo={t("se.checkins")} subtitulo={t("se.credito")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} series={[{ clave: "checkins_efectivo", nombre: t("se.checkins"), color: "#9B2694" }]} formato={compacto} />
           </TabsContent>
         </Tabs>
       </div>

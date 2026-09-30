@@ -141,12 +141,12 @@ export function Explorador({
       />
 
       {/* Buscador + chips */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 bg-gradient-to-b from-crema/90 via-crema/60 to-transparent px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
         <div className="mr-14">
           <BarraBusqueda docs={docs} onElegir={onBuscar} />
         </div>
         <ChipsFiltro activos={filtros.chips} onToggle={toggleChip} onFiltros={() => setSheetFiltros(true)} nFiltros={filtros.alcaldias.length + filtros.tipos.length} />
-        <p className="self-start rounded-pill bg-crema/90 px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
+        <p className="self-start rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
           {t("explorar.conteo", { n: visibles.length })}
         </p>
       </div>
@@ -164,7 +164,7 @@ export function Explorador({
 
       {/* Carruseles inferiores */}
       {!actual && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-crema/95 pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)] backdrop-blur">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           <Plegable
             titulo={t("explorar.cercaDeTi")}
             icono={<MapPin className="size-5 text-morado" aria-hidden />}

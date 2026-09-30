@@ -23,7 +23,7 @@ export const idsInteractivos = (capa: CapaPuntos) =>
 
 const ESTILO = {
   normal: { fill: "#FEFAEB", r: 6.5, rSel: 11, stroke: 3, opacidad: 1 },
-  destacado: { fill: "#C8A96A", r: 10, rSel: 14, stroke: 4, opacidad: 1 },
+  destacado: { fill: "#F2B01E", r: 10, rSel: 14, stroke: 4, opacidad: 1 },
   productor: { fill: "#3C8D2F", r: 9, rSel: 13, stroke: 3, opacidad: 1 },
   atenuado: { fill: "#FEFAEB", r: 4.5, rSel: 4.5, stroke: 2, opacidad: 0.55 },
   /** Coropleta por punto: el color va de relleno con anillo blanco (panel de gobierno). */
@@ -49,8 +49,8 @@ export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPunto
           type="circle"
           filter={["has", "point_count"]}
           paint={{
-            "circle-color": "#93408F",
-            "circle-opacity": 0.9 * e.opacidad,
+            "circle-color": "#9B2694",
+            "circle-opacity": e.opacidad,
             "circle-stroke-opacity": e.opacidad,
             "circle-radius": ["step", ["get", "point_count"], 16, 10, 20, 40, 26],
             "circle-stroke-width": 3,

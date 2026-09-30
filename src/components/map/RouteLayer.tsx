@@ -11,7 +11,7 @@ export function RouteLayer({ capa, onSelect }: { capa: CapaRuta; onSelect?: (id:
   return (
     <>
       <Source id={capa.id} type="geojson" data={{ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: capa.puntos.map((p) => [p.lng, p.lat]) } }}>
-        <Layer id={`${capa.id}-linea`} type="line" layout={{ "line-cap": "round", "line-join": "round" }} paint={{ "line-color": "#93408F", "line-width": 4, "line-dasharray": [1.5, 1.5] }} />
+        <Layer id={`${capa.id}-linea`} type="line" layout={{ "line-cap": "round", "line-join": "round" }} paint={{ "line-color": "#9B2694", "line-width": 4, "line-dasharray": [1.5, 1.5] }} />
       </Source>
       {capa.puntos.map((p, i) => (
         <Marker key={p.id} latitude={p.lat} longitude={p.lng} anchor="center">

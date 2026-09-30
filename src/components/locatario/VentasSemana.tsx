@@ -26,11 +26,11 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
             <XAxis dataKey="d" tickLine={false} axisLine={{ stroke: "#EADFE8" }} tick={{ fill: "#4A3848", fontSize: 12 }} />
             <YAxis hide />
             <Tooltip
-              cursor={{ fill: "#F6ECF5" }}
+              cursor={{ fill: "#F8E9F6" }}
               formatter={(v) => [$(Number(v)), t("kpis.ventas_mxn")]}
               contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }}
             />
-            <Bar dataKey="v" fill="#93408F" radius={[4, 4, 0, 0]} isAnimationActive={false}>
+            <Bar dataKey="v" fill="#9B2694" radius={[4, 4, 0, 0]} isAnimationActive={false}>
               <LabelList dataKey="etiqueta" position="top" fill="#2B1A2A" fontSize={11} fontWeight={700} />
             </Bar>
           </BarChart>

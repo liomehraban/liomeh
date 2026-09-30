@@ -32,7 +32,7 @@ export const HEX_GIRO: Record<CategoriaGiro, string> = {
   pescados: "#4F86C6",
   dulces: "#F29F05",
   mayoreo: "#3E1C3C",
-  otros: "#93408F",
+  otros: "#9B2694",
 };
 
 const quitarAcentos = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();

@@ -23,7 +23,7 @@ type Props = {
 };
 
 /**
- * Placeholder fotográfico: degradado giro → morado + papel picado al 12% + ícono del giro.
+ * Placeholder fotográfico: color sólido del giro + papel picado al 14% + ícono del giro.
  * No se usan fotos de la guía (propiedad de SECTUR).
  */
 export function PhotoPlaceholder({ giro, categoria, className, iconClassName }: Props) {
@@ -33,10 +33,10 @@ export function PhotoPlaceholder({ giro, categoria, className, iconClassName }: 
     <div
       aria-hidden
       className={cn("relative isolate grid aspect-video place-items-center overflow-hidden rounded-card", className)}
-      style={{ backgroundImage: `linear-gradient(135deg, ${COLOR_GIRO[cat]} 0%, var(--color-morado) 100%)` }}
+      style={{ backgroundColor: COLOR_GIRO[cat] }}
     >
-      <div className="absolute inset-0 -z-10 bg-[url(/papel-picado.svg)] [background-size:120px_auto] bg-repeat opacity-[0.12] mix-blend-luminosity" />
-      <Icono className={cn("size-12 text-crema/90", iconClassName)} strokeWidth={1.75} />
+      <div className="absolute inset-0 -z-10 bg-[url(/papel-picado.svg)] [background-size:120px_auto] bg-repeat opacity-[0.14] mix-blend-luminosity" />
+      <Icono className={cn("size-12 text-white", iconClassName)} strokeWidth={1.75} />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-const COLORES = ["#E4007C", "#F29F05", "#3C8D2F", "#93408F", "#C8A96A", "#1F4E9A"];
+const COLORES = ["#E4007C", "#F29F05", "#3C8D2F", "#9B2694", "#F2B01E", "#1F4E9A"];
 
 /** Confeti discreto (16 papelitos). No se muestra con prefers-reduced-motion. */
 export function Confeti() {

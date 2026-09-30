@@ -129,7 +129,7 @@ export default function MapLibreView({
         <p className="absolute inset-0 grid place-items-center text-sm text-tinta-2">{t("cargando")}</p>
       )}
       {estilo && !estilo.remoto && (
-        <p className="absolute bottom-2 left-2 rounded-pill bg-crema/90 px-3 py-1 text-xs font-semibold text-tinta-2 shadow-sm">
+        <p className="absolute bottom-2 left-2 rounded-pill bg-white px-3 py-1 text-xs font-semibold text-tinta-2 shadow-sm">
           {t("sinMapaBase")}
         </p>
       )}

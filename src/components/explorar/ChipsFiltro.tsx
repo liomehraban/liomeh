@@ -18,7 +18,7 @@ const ICONO: Record<Chip, LucideIcon> = {
 };
 const COLOR: Partial<Record<Chip, string>> = {
   abierto: "#3C8D2F",
-  destacados: "#C8A96A",
+  destacados: "#F2B01E",
   comida: HEX_GIRO.comida,
   flores: HEX_GIRO.flores,
   artesanias: HEX_GIRO.artesanias,
