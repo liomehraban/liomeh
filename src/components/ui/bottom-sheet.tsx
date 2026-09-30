@@ -103,6 +103,26 @@ export function BottomSheet({
 
   const siguiente = () => setAltura(ORDEN[(ORDEN.indexOf(altura) + 1) % ORDEN.length]);
 
+  // Deslizar sobre el contenido (no solo sobre el handle): hacia arriba sube la hoja un punto; hacia abajo,
+  // estando el contenido hasta arriba, la baja (y desde el punto más bajo, la cierra). Como Maps/Uber.
+  const toque = useRef<{ y: number; arriba: boolean; t: number } | null>(null);
+  const alTocar = (e: React.TouchEvent<HTMLDivElement>) => {
+    if ((e.target as Element).closest(".carrusel, .fila-chips, input, textarea")) return (toque.current = null);
+    toque.current = { y: e.touches[0].clientY, arriba: e.currentTarget.scrollTop <= 0, t: Date.now() };
+  };
+  const alSoltar = (e: React.TouchEvent<HTMLDivElement>) => {
+    const t0 = toque.current;
+    toque.current = null;
+    if (!t0 || Date.now() - t0.t > 700) return;
+    const dy = e.changedTouches[0].clientY - t0.y;
+    const i = ORDEN.indexOf(altura);
+    if (dy < -36 && i < ORDEN.length - 1) setAltura(ORDEN[i + 1]);
+    else if (dy > 56 && t0.arriba) {
+      if (i === 0) onCerrar();
+      else setAltura(ORDEN[i - 1]);
+    }
+  };
+
   return (
     <motion.section
       ref={ref}
@@ -144,7 +164,13 @@ export function BottomSheet({
       >
         <XIcon className="size-5" aria-hidden />
       </button>
-      <div className={cn("min-h-0 flex-1 px-5 pb-[calc(var(--asoma,0px)+1.5rem)]", altura === "completa" ? "overflow-y-auto" : "overflow-hidden")}>{children}</div>
+      <div
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-[calc(var(--asoma,0px)+1.5rem)]"
+        onTouchStart={alTocar}
+        onTouchEnd={alSoltar}
+      >
+        {children}
+      </div>
     </motion.section>
   );
 }

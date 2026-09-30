@@ -58,6 +58,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
           layers={[{ tipo: "ruta", id: "ruta", puntos: paradas.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#9B2694", etiqueta: p.nombre })), hechas: [...hechas] }]}
           encuadre={caja ? { bbox: caja, key: 1 } : null}
           paddingInferior={0}
+          cooperativo
           ariaLabel={t("mapa", { titulo })}
         />
         <BotonVolver fallback="/agenda?tab=rutas" className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3 z-10" />

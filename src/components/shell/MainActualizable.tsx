@@ -14,7 +14,9 @@ import { cn } from "@/lib/utils";
 export const EVENTO_ACTUALIZAR = "barabara:actualizar";
 
 /** Pantallas con mapa: el arrastre es del mapa, no se jala para actualizar. */
-const SIN_JALAR = [/^\/explorar/, /^\/huertos$/, /^\/mercado\/[^/]+\/interior/];
+const SIN_JALAR = [/^\/explorar/, /^\/huertos$/, /^\/mercado\/[^/]+\/interior/, /^\/asistente/];
+/** Zonas donde el arrastre es de otra cosa (mapas, carruseles, listas con scroll propio, campos). */
+const ZONA_PROPIA = ".maplibregl-canvas, .maplibregl-canvas-container, .carrusel, .fila-chips, input, textarea, select, [data-sin-jalar]";
 const UMBRAL = 64;
 const MAXIMO = 104;
 
@@ -29,19 +31,33 @@ export function MainActualizable({ children, className }: { children: ReactNode;
   const pathname = usePathname();
   const reducido = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const inicio = useRef<number | null>(null);
+  const inicio = useRef<{ x: number; y: number } | null>(null);
+  /** Eje decidido en los primeros píxeles: solo un gesto claramente vertical jala la pantalla. */
+  const eje = useRef<"x" | "y" | null>(null);
   const [tiron, setTiron] = useState(0);
   const [arrastrando, setArrastrando] = useState(false);
   const [cargando, setCargando] = useState(false);
   const desactivado = SIN_JALAR.some((r) => r.test(pathname));
 
-  const empezar = (y: number) => {
+  const empezar = (x: number, y: number, objetivo: EventTarget | null) => {
     if (desactivado || cargando || (ref.current?.scrollTop ?? 1) > 0) return;
-    inicio.current = y;
+    // Si el dedo empieza dentro de algo con scroll propio que no está hasta arriba, o de un mapa/carrusel, no es nuestro.
+    for (let n = objetivo instanceof Element ? objetivo : null; n && n !== ref.current; n = n.parentElement) {
+      if (n.matches(ZONA_PROPIA)) return;
+      if (n.scrollTop > 0) return;
+    }
+    inicio.current = { x, y };
+    eje.current = null;
   };
-  const mover = (y: number) => {
+  const mover = (x: number, y: number) => {
     if (inicio.current === null) return;
-    const d = y - inicio.current;
+    const dx = x - inicio.current.x;
+    const d = y - inicio.current.y;
+    if (eje.current === null) {
+      if (Math.abs(dx) < 8 && Math.abs(d) < 8) return;
+      eje.current = Math.abs(dx) > Math.abs(d) ? "x" : "y";
+    }
+    if (eje.current === "x") return;
     if (d <= 0) {
       setTiron(0);
       return;
@@ -52,6 +68,7 @@ export function MainActualizable({ children, className }: { children: ReactNode;
   const soltar = () => {
     if (inicio.current === null) return;
     inicio.current = null;
+    eje.current = null;
     setArrastrando(false);
     if (tiron >= UMBRAL) void actualizar();
     else setTiron(0);
@@ -75,12 +92,12 @@ export function MainActualizable({ children, className }: { children: ReactNode;
       ref={ref}
       id="contenido"
       className={cn(className, arrastrando && "select-none")}
-      onTouchStart={(e) => empezar(e.touches[0].clientY)}
-      onTouchMove={(e) => mover(e.touches[0].clientY)}
+      onTouchStart={(e) => empezar(e.touches[0].clientX, e.touches[0].clientY, e.target)}
+      onTouchMove={(e) => mover(e.touches[0].clientX, e.touches[0].clientY)}
       onTouchEnd={soltar}
       onTouchCancel={soltar}
-      onMouseDown={(e) => e.button === 0 && empezar(e.clientY)}
-      onMouseMove={(e) => mover(e.clientY)}
+      onMouseDown={(e) => e.button === 0 && empezar(e.clientX, e.clientY, e.target)}
+      onMouseMove={(e) => mover(e.clientX, e.clientY)}
       onMouseUp={soltar}
       onMouseLeave={soltar}
     >
