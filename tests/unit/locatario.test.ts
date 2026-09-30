@@ -1,0 +1,62 @@
+import { describe, it, expect } from "vitest";
+import demo from "../../data/usuarios_demo.json";
+import { indiceSemana, kpisHoy, puedeAgregarProducto, saludoPorHora, semanaConHoy, siguienteEstadoLocatario, teclear } from "../../src/lib/locatario";
+import { difPrecio, normalizarEstadoMayoreo, siguientesEstadosMayoreo } from "../../src/lib/productor";
+
+const base = demo.locatario.hoy;
+
+describe("locatario", () => {
+  it("sin actividad, los KPIs son los de usuarios_demo", () => expect(kpisHoy(base, { cobros: [], pedidosApp: [], checkins: 0 })).toEqual(base));
+  it("paso 8: cobrar $250 con QR suma a ventas y cobros; el pedido de $309 suma a pedidos app", () => {
+    const k = kpisHoy(base, { cobros: [250], pedidosApp: [309], checkins: 1 });
+    expect(k.ventas_mxn).toBe(8420 + 250 + 309);
+    expect(k.cobros_qr).toBe(42);
+    expect(k.pedidos_app).toBe(24);
+    expect(k.checkins_efectivo).toBe(38);
+    expect(k.ticket_promedio).toBeGreaterThan(100);
+  });
+  it("saludo por hora CDMX", () => {
+    expect(saludoPorHora(new Date("2026-10-01T15:00:00Z"))).toBe("dias"); // 09:00
+    expect(saludoPorHora(new Date("2026-10-01T20:00:00Z"))).toBe("tardes"); // 14:00
+    expect(saludoPorHora(new Date("2026-10-02T02:00:00Z"))).toBe("noches"); // 20:00
+  });
+  it("semana: suma lo de hoy a la barra del día (jueves = índice 3)", () => {
+    const jueves = new Date("2026-10-01T18:00:00Z");
+    expect(indiceSemana(jueves)).toBe(3);
+    expect(semanaConHoy(demo.locatario.semana, 250, jueves)[3].v).toBe(7250);
+  });
+  it("estados de pedido", () => {
+    expect(siguienteEstadoLocatario(undefined)).toBe("preparando");
+    expect(siguienteEstadoLocatario("listo")).toBe("entregado");
+    expect(siguienteEstadoLocatario("entregado")).toBe("entregado");
+  });
+  it("catálogo: máximo 20 en Gratis", () => {
+    expect(puedeAgregarProducto(19, "Gratis")).toBe(true);
+    expect(puedeAgregarProducto(20, "Gratis")).toBe(false);
+    expect(puedeAgregarProducto(50, "Pro")).toBe(true);
+  });
+  it("teclado de cobro", () => {
+    let m = "";
+    for (const k of ["0", "2", "5", "0"]) m = teclear(m, k);
+    expect(m).toBe("250");
+    expect(teclear(m, "⌫")).toBe("25");
+    expect(teclear(m, "C")).toBe("");
+    expect(teclear("999999", "9")).toBe("999999");
+  });
+});
+
+describe("productor", () => {
+  it("normaliza estados de usuarios_demo", () => {
+    expect(demo.productor.pedidos_mayoreo.map((p) => normalizarEstadoMayoreo(p.estado))).toEqual(["confirmado", "listo", "enviado"]);
+  });
+  it("flujo Nuevo → Confirmado → Listo/Enviado → Entregado", () => {
+    expect(siguientesEstadosMayoreo("nuevo")).toEqual(["confirmado"]);
+    expect(siguientesEstadosMayoreo("confirmado")).toEqual(["listo", "enviado"]);
+    expect(siguientesEstadosMayoreo("enviado")).toEqual(["entregado"]);
+    expect(siguientesEstadosMayoreo("entregado")).toEqual([]);
+  });
+  it("precio sugerido vs mercado", () => {
+    expect(difPrecio(12, 18)).toBe(-33);
+    expect(difPrecio(20, 18)).toBe(11);
+  });
+});
