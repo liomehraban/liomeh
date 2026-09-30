@@ -91,7 +91,19 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
         </div>
         <p className="text-sm">{metodo === "qr" ? t("sinComision") : t("linkPago")}</p>
         {fase === "esperando" ? (
-          <p className="animate-pulse font-semibold">{t("esperando")}</p>
+          <>
+            <p className="animate-pulse font-semibold">{t("esperando")}</p>
+            <Button
+              variant="ghost"
+              className="text-crema hover:bg-morado-700"
+              onClick={() => {
+                clearTimeout(timer.current);
+                nuevo();
+              }}
+            >
+              {t("cancelar")}
+            </Button>
+          </>
         ) : (
           <>
             <p className="font-display text-4xl text-dorado-200" role="status" data-demo="cobro-recibido">

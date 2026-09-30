@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Gift } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Confirmar } from "@/components/ui/confirmar";
 import { enIdioma } from "@/lib/idioma";
 import type { Lealtad } from "@/lib/schemas";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
@@ -22,6 +24,8 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
   const puntos = useAppStore((s) => s.puntos);
   const cupones = useAppStore((s) => s.cupones) ?? [];
   const canjear = useAppStore((s) => s.canjear);
+  // Canjear descuenta puntos y no se deshace: primero se confirma.
+  const [porCanjear, setPorCanjear] = useState<(typeof recompensas)[number] | null>(null);
   return (
     <section aria-labelledby="recompensas" className="flex flex-col gap-3">
       <h2 id="recompensas" className="text-xl font-bold text-morado-700">
@@ -40,10 +44,7 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
                 variant={alcanza ? "premium" : "secondary"}
                 disabled={!alcanza}
                 aria-label={`${titulo}: ${alcanza ? t("canjear", { n: r.puntos }) : t("sinPuntos")}`}
-                onClick={() => {
-                  const c = canjear(r);
-                  if (c) toast.success(t("canjeada", { codigo: c.codigo }));
-                }}
+                onClick={() => setPorCanjear(r)}
               >
                 {t("canjear", { n: r.puntos })}
               </Button>
@@ -64,6 +65,20 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
             ))}
           </ul>
         </div>
+      )}
+      {porCanjear && (
+        <Confirmar
+          abierto
+          onCambio={(v) => !v && setPorCanjear(null)}
+          icono={<Gift className="size-5 text-dorado" aria-hidden />}
+          titulo={t("confirmarCanjeTitulo", { titulo: enIdioma(porCanjear, "titulo", locale) })}
+          texto={t("confirmarCanjeTexto", { n: porCanjear.puntos, resto: puntos - porCanjear.puntos })}
+          confirmar={t("confirmarCanje", { n: porCanjear.puntos })}
+          onConfirmar={() => {
+            const c = canjear(porCanjear);
+            if (c) toast.success(t("canjeada", { codigo: c.codigo }));
+          }}
+        />
       )}
     </section>
   );

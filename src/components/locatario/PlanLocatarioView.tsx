@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Crown, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -26,10 +26,14 @@ export function PlanLocatarioView({ planes }: { planes: PlanModelo[] }) {
   const actual = useAppStore((s) => s.locatario.plan);
   const setPlan = useAppStore((s) => s.setPlanLocatario);
   const [procesando, setProcesando] = useState<PlanLocatario | null>(null);
+  // Si el locatario sale durante el «procesando», el plan no cambia a sus espaldas.
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
 
   const cambiar = (p: PlanLocatario) => {
     setProcesando(p);
-    setTimeout(() => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
       setPlan(p);
       setProcesando(null);
       toast.success(t("cambiado", { plan: v("planes", p) }));
