@@ -39,7 +39,10 @@ test("guion de demo completo sin errores de consola", async ({ page }) => {
     // Los recursos externos (teselas de CARTO) se validan aparte con `requestfailed`.
     if (m.type() === "error" && !m.text().startsWith("Failed to load resource")) errores.push(m.text());
   });
-  page.on("requestfailed", (r) => fallidas.push(r.url()));
+  // Las cancelaciones (prefetch RSC abandonado al navegar) no son fallas.
+  page.on("requestfailed", (r) => {
+    if (r.failure()?.errorText !== "net::ERR_ABORTED") fallidas.push(`${r.url()} ${r.failure()?.errorText}`);
+  });
 
   await page.goto("/es/presentacion");
   await page.getByRole("button", { name: "Comenzar demo" }).click();
