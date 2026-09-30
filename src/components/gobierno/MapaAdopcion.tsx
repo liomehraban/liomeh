@@ -45,27 +45,30 @@ export function MapaAdopcion({ mercados, porAlcaldia }: { mercados: MercadoPunto
           </li>
         ))}
       </ul>
-      <table className="sr-only">
-        <caption>{t("titulo")}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{t("alcaldia")}</th>
-            <th scope="col">{t("activos")}</th>
-            <th scope="col">{t("pctCol")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ordenadas.map((a) => (
-            <tr key={a.alcaldia}>
-              <th scope="row">{a.alcaldia}</th>
-              <td>
-                {a.mercados_activos_en_app}/{a.mercados}
-              </td>
-              <td>{pct(adopcion(a))}</td>
+      {/* La tabla va dentro de un div sr-only: una <table> no se encoge a 1 px y desbordaba la página a lo ancho. */}
+      <div className="sr-only">
+        <table>
+          <caption>{t("titulo")}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t("alcaldia")}</th>
+              <th scope="col">{t("activos")}</th>
+              <th scope="col">{t("pctCol")}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {ordenadas.map((a) => (
+              <tr key={a.alcaldia}>
+                <th scope="row">{a.alcaldia}</th>
+                <td>
+                  {a.mercados_activos_en_app}/{a.mercados}
+                </td>
+                <td>{pct(adopcion(a))}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }

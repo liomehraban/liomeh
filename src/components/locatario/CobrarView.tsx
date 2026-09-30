@@ -132,6 +132,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
           <span className="text-[13px] text-tinta-2">{t("monto")}</span>
           <span className="font-display text-6xl text-morado-700">{$(valor)}</span>
         </output>
+        {/* Cada forma de cobro lleva su nota debajo del nombre, dentro de su propia opción. */}
         <div role="radiogroup" aria-label={t("metodo")} className="grid grid-cols-2 gap-2">
           {(["qr", "tarjeta"] as const).map((m) => (
             <button
@@ -140,14 +141,20 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
               role="radio"
               aria-checked={metodo === m}
               onClick={() => setMetodo(m)}
-              className={cn("flex min-h-12 items-center justify-center gap-2 rounded-2xl border text-sm font-semibold", metodo === m ? "border-morado bg-morado-50 text-morado-700" : "border-border bg-white")}
+              className={cn(
+                "flex min-h-14 min-w-0 items-center gap-2.5 rounded-2xl border px-3 py-2 text-left",
+                metodo === m ? "border-morado bg-morado-50 text-morado-700" : "border-border bg-white text-tinta",
+              )}
             >
-              {m === "qr" ? <QrCode className="size-4" aria-hidden /> : <CreditCard className="size-4" aria-hidden />}
-              {m === "qr" ? t("codi") : t("tarjeta")}
+              {m === "qr" ? <QrCode className="size-5 shrink-0" aria-hidden /> : <CreditCard className="size-5 shrink-0" aria-hidden />}
+              <span className="flex min-w-0 flex-col leading-tight">
+                <span className="text-sm font-semibold">{m === "qr" ? t("codi") : t("tarjetaCorto")}</span>
+                <span className={cn("text-[12px] font-semibold", m === "qr" ? "text-nopal-700" : "text-tinta-2")}>{m === "qr" ? t("codiSub") : t("tarjetaSub")}</span>
+              </span>
             </button>
           ))}
         </div>
-        <p className="text-center text-[13px] font-semibold text-nopal-700">{metodo === "qr" ? t("sinComision") : t("tarjetaNota")}</p>
+        {metodo === "tarjeta" && <p className="text-center text-[13px] text-tinta-2">{t("tarjetaNota")}</p>}
         <div className="grid grid-cols-3 gap-2">
           {TECLAS.map((k) => (
             <button

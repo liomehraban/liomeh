@@ -10,16 +10,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { alcaldiasPorVentas, csvMetricas, toneladasRescatadas } from "@/lib/gobierno";
 import { formatCompacto, formatMXN } from "@/lib/money";
 import type { MetricasGobierno } from "@/lib/schemas";
+import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { GraficaBarras } from "./GraficaBarras";
 import { GraficaLinea } from "./GraficaLinea";
 import { KpiTile } from "./KpiTile";
 import { MapaAdopcion } from "./MapaAdopcion";
 import { etiquetaMes } from "./mes";
+import { BarraGobierno } from "./BarraGobierno";
 
 const SECRETARIAS = ["sectur", "sedema", "se"] as const;
 type Secretaria = (typeof SECRETARIAS)[number];
 const ETIQUETA: Record<Secretaria, string> = { sectur: "SECTUR", sedema: "SEDEMA", se: "SE" };
+
+/** Contenedor común del encabezado y el cuerpo: mismo ancho máximo y mismos márgenes laterales. */
+const CONTENEDOR = "mx-auto w-full max-w-6xl px-5 lg:px-10";
 
 /** Pestaña inicial desde el hash (#sedema), para el modo presentación. */
 const subHash = (cb: () => void) => {
@@ -77,19 +82,18 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
 
   return (
     <div className="flex flex-col pb-28">
-      <header className="relative bg-morado px-5 pt-16 pb-6 text-crema lg:px-10">
+      <BarraGobierno heroId="gobierno-hero" titulo={t("titulo")} />
+      <header id="gobierno-hero" className="relative bg-morado pt-16 pb-6 text-crema">
         <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+        {/* Mismo contenedor (ancho y márgenes) que el cuerpo: el encabezado y las tarjetas quedan alineados. */}
+        <div className={cn(CONTENEDOR, "relative flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between")}>
+          <div className="min-w-0">
             <h1 className="font-display text-4xl leading-none lg:text-5xl">{t("titulo")}</h1>
             <p className="mt-1 text-crema/90">{t("subtitulo")}</p>
-            <ul className="mt-3 flex gap-2" aria-label={t("secretarias")}>
-              {SECRETARIAS.map((s) => (
-                <li key={s} className="rounded-pill bg-morado-900/50 px-3 py-1 text-[13px] font-bold">
-                  {ETIQUETA[s]}
-                </li>
-              ))}
-            </ul>
+            {/* Las secretarías son un rótulo, no botones: texto plano separado por puntos. */}
+            <p className="mt-2 text-[13px] font-bold tracking-wide text-crema/90">
+              {SECRETARIAS.map((s) => ETIQUETA[s]).join(" · ")}
+            </p>
           </div>
           <Button onClick={exportar} variant="secondary" className="w-fit border-white bg-white text-morado hover:bg-crema">
             <Download aria-hidden />
@@ -98,17 +102,18 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
         </div>
       </header>
 
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 p-5 lg:px-10">
+      <div className={cn(CONTENEDOR, "flex flex-col gap-5 py-5")}>
         <p className="flex items-center gap-2 rounded-2xl bg-dorado-200 px-4 py-2 text-[13px] font-semibold text-morado-900" role="note">
           <Info className="size-4 shrink-0" aria-hidden />
           {t("simulados")}
         </p>
 
-        <section aria-label={t("general")} className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <section aria-label={t("general")} className="grid grid-cols-2 gap-3 lg:grid-cols-5">
           <KpiTile etiqueta={t("kpis.mercados_en_app")} numero={k.mercados_en_app} formato={nf} detalle={t("kpis.mercados_de", { total: nf(k.mercados_totales), pct: pctApp })} />
           <KpiTile etiqueta={t("kpis.usuarios_activos_mes")} numero={k.usuarios_activos_mes} formato={compacto} detalle={nf(k.usuarios_activos_mes)} />
           <KpiTile etiqueta={t("kpis.derrama_digital_mes_mxn")} numero={k.derrama_digital_mes_mxn} formato={mxnCompacto} detalle={formatMXN(k.derrama_digital_mes_mxn, locale)} />
-          <KpiTile etiqueta={t("kpis.transacciones_mes")} numero={k.transacciones_mes} formato={compacto} detalle={`${t("kpis.rating_promedio")}: ${nf(k.rating_promedio, 1)} ★`} />
+          <KpiTile etiqueta={t("kpis.transacciones_mes")} numero={k.transacciones_mes} formato={compacto} detalle={nf(k.transacciones_mes)} />
+          <KpiTile etiqueta={t("kpis.rating_promedio")} numero={k.rating_promedio} formato={(n) => `${nf(n, 1)} ★`} className="col-span-2 lg:col-span-1" />
         </section>
 
         <div className="grid gap-5 lg:grid-cols-[3fr_2fr]">
@@ -122,6 +127,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               encabezadoX={t("serie.mes")} hoy={indiceHoy}
               series={[{ clave: "gmv_mxn", nombre: t("serie.gmv"), color: "#9B2694" }]}
               formato={mxnCompacto}
+              className="flex-1"
             />
             <GraficaLinea
               titulo={t("serie.usuarios")}
@@ -131,6 +137,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               encabezadoX={t("serie.mes")} hoy={indiceHoy}
               series={[{ clave: "usuarios_activos", nombre: t("serie.usuarios"), color: "#9B2694" }]}
               formato={compacto}
+              className="flex-1"
             />
           </div>
         </div>
@@ -141,7 +148,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
             <h2 id="top" className="font-bold text-morado-700">
               {t("top.titulo")}
             </h2>
-            <ol data-revelar className="flex flex-col">
+            <ol data-revelar className="flex flex-1 flex-col justify-between">
               {m.top_mercados.map((x, i) => (
                 <li key={x.id} className="flex items-center gap-3 border-b border-border py-2 last:border-0">
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-morado-50 font-bold text-morado-700">{i + 1}</span>
@@ -157,9 +164,10 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
 
         <Tabs value={tab} onValueChange={(v) => setElegida(v as Secretaria)} className="gap-4">
           <h2 className="font-display text-3xl text-morado-700">{t("secretarias")}</h2>
-          <TabsList className="w-full lg:w-fit">
+          {/* En desktop, segmentos de igual ancho (grid de 3 columnas 1fr) con aire alrededor del texto. */}
+          <TabsList className="w-full lg:grid lg:w-fit lg:grid-cols-3">
             {SECRETARIAS.map((s) => (
-              <TabsTrigger key={s} value={s} className="min-h-11" data-demo={`tab-${s}`}>
+              <TabsTrigger key={s} value={s} className="min-h-11 lg:min-w-28 lg:px-6" data-demo={`tab-${s}`}>
                 {ETIQUETA[s]}
               </TabsTrigger>
             ))}
@@ -178,7 +186,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               </div>
             </div>
             <div className="grid gap-5 lg:grid-cols-2">
-              <GraficaLinea titulo={t("sectur.turistas")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} hoy={indiceHoy} series={[{ clave: "turistas_extranjeros", nombre: t("sectur.turistas"), color: "#1F4E9A" }]} formato={compacto} />
+              <GraficaLinea className="h-full" titulo={t("sectur.turistas")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} hoy={indiceHoy} series={[{ clave: "turistas_extranjeros", nombre: t("sectur.turistas"), color: "#1F4E9A" }]} formato={compacto} />
               <GraficaBarras titulo={t("sectur.visitas")} encabezado={t("adopcion.alcaldia")} color="#1F4E9A" datos={visitas.map((a) => ({ nombre: a.alcaldia, valor: a.visitas_turistas_mes }))} formato={compacto} />
             </div>
           </TabsContent>

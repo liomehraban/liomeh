@@ -41,17 +41,20 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <table className="sr-only">
-        <caption>{t("semana")}</caption>
-        <tbody>
-          {dias.map((x, i) => (
-            <tr key={x.d}>
-              <th scope="row">{i === hoy ? `${x.d} (${t("hoy")})` : x.d}</th>
-              <td>{$(x.v)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* La tabla va dentro de un div sr-only: una <table> no se encoge a 1 px y desbordaba la página a lo ancho. */}
+      <div className="sr-only">
+        <table>
+          <caption>{t("semana")}</caption>
+          <tbody>
+            {dias.map((x, i) => (
+              <tr key={x.d}>
+                <th scope="row">{i === hoy ? `${x.d} (${t("hoy")})` : x.d}</th>
+                <td>{$(x.v)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }

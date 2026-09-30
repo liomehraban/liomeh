@@ -8,6 +8,7 @@ import { Link } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
 import { saludoPorHora, semanaConHoy, type KpisBase } from "@/lib/locatario";
 import { formatMXN } from "@/lib/money";
+import { cn } from "@/lib/utils";
 import type { Resena, UsuariosDemo } from "@/lib/schemas";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoPerfil } from "./EncabezadoPerfil";
@@ -48,10 +49,11 @@ export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: 
       <div className="flex flex-col gap-5 p-5">
         <dl className="grid grid-cols-2 gap-3">
           {tarjetas.map(({ k, v, f, icon: Icono, ...r }, i) => (
-            <Revelar key={k} orden={i} className={"grande" in r ? "col-span-2 rounded-card bg-morado p-4 text-crema" : "rounded-card border border-border bg-white p-4"}>
-              <dt className="flex items-center gap-1.5 text-[13px] font-semibold">
-                <Icono className="size-4" aria-hidden />
-                {t(`kpis.${k}`)}
+            <Revelar key={k} orden={i} className={"grande" in r ? "col-span-2 flex flex-col gap-1 rounded-card bg-morado p-4 text-crema" : "flex flex-col gap-1 rounded-card border border-border bg-white p-4"}>
+              {/* La etiqueta reserva dos renglones: las cifras de una misma fila quedan alineadas. */}
+              <dt className={cn("flex items-start gap-1.5 text-[13px] leading-snug font-semibold", !("grande" in r) && "min-h-[2lh]")}>
+                <Icono className="mt-0.5 size-4 shrink-0" aria-hidden />
+                <span className="line-clamp-2">{t(`kpis.${k}`)}</span>
               </dt>
               <dd className={"grande" in r ? "font-display text-5xl text-dorado-200" : "font-display text-3xl text-morado-700"}>
                 <NumeroAnimado valor={v} formato={f} />

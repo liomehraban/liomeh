@@ -29,3 +29,9 @@ export function siguientesEstadosMayoreo(e: EstadoMayoreo): EstadoMayoreo[] {
 
 /** Diferencia % del precio propuesto vs el de referencia del mercado (precio_mayoreo_app). */
 export const difPrecio = (precio: number, referencia: number) => (referencia ? Math.round(((precio - referencia) / referencia) * 100) : 0);
+
+/** «Frutas Doña Lupe (La Merced)» → { nombre: «Frutas Doña Lupe», mercado: «La Merced» }; sin paréntesis, sin mercado. */
+export function partirCliente(cliente: string): { nombre: string; mercado: string | null } {
+  const m = /^(.*?)\s*\(([^()]+)\)\s*$/.exec(cliente.trim());
+  return m && m[1] ? { nombre: m[1], mercado: m[2] } : { nombre: cliente.trim(), mercado: null };
+}

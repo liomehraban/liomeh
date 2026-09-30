@@ -439,7 +439,10 @@
     "barra": "{etiqueta}: the grower gets {monto} ({pct}%) of {precio}",
     "copy": "Of every {precio} you pay ({unidad} of {producto}), {recibe} goes to {nombre} (previously {antes}).",
     "doble": "Twice as much!",
-    "mejora": "{pct}% more for the grower"
+    "mejora": "{pct}% more for the grower",
+    "tituloProductor": "From your farm to their table",
+    "consumidor": "Shopper",
+    "copyProductor": "Of every {precio} the customer pays ({unidad} of {producto}), you get {recibe} (previously {antes})."
   },
   "yoPedidos": {
     "titulo": "My orders",
@@ -531,7 +534,10 @@
         "manojo": "bunch",
         "caja": "box",
         "ciento": "hundred"
-      }
+      },
+      "phCantidad": "e.g. 200",
+      "phPrecio": "e.g. {precio}",
+      "referenciaSinDif": "Market price: {precio}/{unidad}"
     },
     "pedidos": {
       "titulo": "Wholesale orders",
@@ -559,6 +565,14 @@
       "doble": "twice as much",
       "masPct": "{pct}% more",
       "comision": "{plan} plan: 3% only on wholesale sales paid in the app"
+    },
+    "cuenta": {
+      "perfil": "Your farm"
+    },
+    "publico": {
+      "banner": "Preview of your public profile",
+      "bannerTexto": "This is how shoppers see you",
+      "salir": "Exit preview"
     }
   },
   "resenas": {
@@ -854,7 +868,10 @@
       "comprobante": "Bara Bara receipt · {puesto} · {monto} · {fecha} · {id}",
       "copiado": "Receipt copied",
       "linkPago": "Card payment link",
-      "cancelar": "Cancel charge"
+      "cancelar": "Cancel charge",
+      "tarjetaCorto": "Card",
+      "tarjetaSub": "Payment link",
+      "codiSub": "0% fee"
     },
     "pedidos": {
       "titulo": "Orders",
@@ -893,7 +910,8 @@
       "upsellTitulo": "You've reached 20 products",
       "upsellTexto": "The Free plan includes up to 20 products. With Pro your catalog is unlimited.",
       "verPlan": "See plans",
-      "duplicado": "“{producto}” is already in your catalog. Edit its price in the list."
+      "duplicado": "“{producto}” is already in your catalog. Edit its price in the list.",
+      "disponibleCorto": "Available"
     },
     "plan": {
       "titulo": "Your plan",
@@ -930,7 +948,10 @@
         ]
       }
     },
-    "ventasDia": "Sales"
+    "ventasDia": "Sales",
+    "cuenta": {
+      "perfil": "Your stall"
+    }
   },
   "gobierno": {
     "titulo": "Impact dashboard",

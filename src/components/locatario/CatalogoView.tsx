@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Camera, Crown, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -31,6 +31,7 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
   const plan = useAppStore((s) => s.locatario.plan) ?? "Gratis";
   const editar = useAppStore((s) => s.editarProducto);
   const agregar = useAppStore((s) => s.agregarProductoLocatario);
+  const idBase = useId();
   const lista = catalogoEfectivo(base, hydrated ? extra : [], hydrated ? ediciones : {});
 
   const [abierto, setAbierto] = useState(false);
@@ -63,22 +64,31 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
           {t("agregar")}
         </Button>
         <ul className="flex flex-col gap-2">
-          {lista.map((x) => (
-            <li key={x.n} className={cn("flex items-center gap-3 rounded-2xl border border-border bg-white p-3", !x.disponible && "opacity-60")}>
+          {lista.map((x, i) => (
+            <li
+              key={x.n}
+              className={cn("flex items-center gap-2 rounded-2xl border p-3 transition-colors", x.disponible ? "border-border bg-white" : "border-dashed border-gris/60 bg-papel")}
+            >
               {x.fotoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={x.fotoUrl} alt="" className="size-12 shrink-0 rounded-xl object-cover" />
+                <img src={x.fotoUrl} alt="" className={cn("size-12 shrink-0 rounded-xl object-cover", !x.disponible && "grayscale")} />
               ) : null}
               <div className="flex min-w-0 flex-1 flex-col">
-                <span className="font-semibold">{x.n}</span>
-                <span className="text-[12px] text-tinta-2">
+                <span className={cn("font-semibold", !x.disponible && "text-tinta-2")}>{x.n}</span>
+                <span className="text-[13px] text-tinta-2">
                   / {voc("unidades", x.u)}
                   {x.origen ? ` · ${x.origen}` : ""}
                   {!x.disponible ? ` · ${t("agotado")}` : ""}
                 </span>
               </div>
               <PrecioEditable valor={x.p} etiqueta={t("precio", { producto: x.n })} onGuardar={(p) => editar(x.n, { p })} />
-              <Switch checked={x.disponible} onCheckedChange={(v) => editar(x.n, { disponible: v })} aria-label={t("disponible", { producto: x.n })} />
+              {/* Interruptor con rótulo visible debajo; el nombre accesible incluye el producto. */}
+              <div className="flex w-[68px] shrink-0 flex-col items-center gap-1">
+                <Switch id={`${idBase}-disp-${i}`} checked={x.disponible} onCheckedChange={(v) => editar(x.n, { disponible: v })} aria-label={t("disponible", { producto: x.n })} />
+                <label htmlFor={`${idBase}-disp-${i}`} className="cursor-pointer text-center text-[12px] leading-tight font-semibold text-tinta-2">
+                  {t("disponibleCorto")}
+                </label>
+              </div>
             </li>
           ))}
         </ul>

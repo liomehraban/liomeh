@@ -16,13 +16,19 @@ type Props = {
   /** Nombre del mercado destino (default La Merced, al que se mide `km_a_la_merced`). */
   mercado?: string;
   className?: string;
+  /**
+   * Desde dónde se lee la tarjeta. `consumidor` (default): «Tú» y «Por cada $45 que pagas…».
+   * `productor` (Productor › Mi huerto): «Consumidor» y «Por cada $45 que paga el cliente…».
+   */
+  perspectiva?: "consumidor" | "productor";
 };
 
 /**
  * M7 · Del huerto a tu mesa: recorrido huerto → mercado → tú y barra de precio justo.
  * Todo sale de `comercio_justo`. Las barras tienen texto equivalente para lector de pantalla.
  */
-export function FairTradeCard({ productor: p, producto, mercado = "La Merced", className }: Props) {
+export function FairTradeCard({ productor: p, producto, mercado = "La Merced", className, perspectiva = "consumidor" }: Props) {
+  const esProductor = perspectiva === "productor";
   const t = useTranslations("fairtrade");
   const locale = useLocale();
   const f = precioJusto(p);
@@ -39,7 +45,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
     <section data-demo="fairtrade" className={cn("flex flex-col gap-4 rounded-card border border-dorado/60 bg-dorado-200/40 p-4", className)}>
       <h3 className="flex items-center gap-2 font-bold text-morado-700">
         <HandHeart className="size-5 text-dorado" aria-hidden />
-        {t("titulo")}
+        {esProductor ? t("tituloProductor") : t("titulo")}
       </h3>
 
       {/* Recorrido huerto → mercado → tú */}
@@ -47,7 +53,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
         {[
           { icono: Sprout, titulo: t("huerto"), texto: `${p.pueblo}, ${p.alcaldia}`, sub: p.nombre, color: "bg-nopal" },
           { icono: Store, titulo: t("mercado"), texto: mercado, sub: t("km", { km }), color: "bg-morado" },
-          { icono: UserRound, titulo: t("tu"), texto: "", sub: "", color: "bg-dorado" },
+          { icono: UserRound, titulo: esProductor ? t("consumidor") : t("tu"), texto: "", sub: "", color: "bg-dorado" },
         ].map((paso, i) => (
           <li key={paso.titulo} className="relative flex flex-1 flex-col items-center gap-1">
             {i > 0 && <span aria-hidden className="absolute top-5 right-1/2 -z-0 h-0.5 w-full border-t-2 border-dashed border-morado/30" />}
@@ -55,8 +61,9 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
               <paso.icono className="size-5" aria-hidden />
             </span>
             <span className="font-bold">{paso.titulo}</span>
-            {paso.texto && <span className="text-tinta-2">{paso.texto}</span>}
-            {paso.sub && <span className="font-semibold text-tinta-2">{paso.sub}</span>}
+            {/* Cada renglón del recorrido cabe en dos líneas como máximo. */}
+            {paso.texto && <span className="line-clamp-2 text-tinta-2">{paso.texto}</span>}
+            {paso.sub && <span className="line-clamp-2 font-semibold text-tinta-2">{paso.sub}</span>}
           </li>
         ))}
       </ol>
@@ -86,7 +93,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
       </div>
 
       <p className="text-sm">
-        {t("copy", {
+        {t(esProductor ? "copyProductor" : "copy", {
           precio: $(f.precio),
           unidad: v("unidades", f.unidad),
           producto: producto ?? productoCorto(p.producto_principal),

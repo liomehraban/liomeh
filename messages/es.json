@@ -439,7 +439,10 @@
     "barra": "{etiqueta}: el productor recibe {monto} ({pct}%) de {precio}",
     "copy": "Por cada {precio} que pagas ({unidad} de {producto}), {recibe} se quedan con {nombre} (antes {antes}).",
     "doble": "¡El doble!",
-    "mejora": "{pct}% más para quien lo cultiva"
+    "mejora": "{pct}% más para quien lo cultiva",
+    "tituloProductor": "De tu huerto a su mesa",
+    "consumidor": "Consumidor",
+    "copyProductor": "Por cada {precio} que paga el cliente ({unidad} de {producto}), tú recibes {recibe} (antes {antes})."
   },
   "yoPedidos": {
     "titulo": "Mis pedidos",
@@ -531,7 +534,10 @@
         "manojo": "manojo",
         "caja": "caja",
         "ciento": "ciento"
-      }
+      },
+      "phCantidad": "Ej. 200",
+      "phPrecio": "Ej. {precio}",
+      "referenciaSinDif": "Precio de mercado: {precio}/{unidad}"
     },
     "pedidos": {
       "titulo": "Pedidos de mayoreo",
@@ -559,6 +565,14 @@
       "doble": "el doble",
       "masPct": "{pct}% más",
       "comision": "Plan {plan}: 3% solo en ventas de mayoreo pagadas en la app"
+    },
+    "cuenta": {
+      "perfil": "Tu huerto"
+    },
+    "publico": {
+      "banner": "Vista previa de tu perfil público",
+      "bannerTexto": "Así te ven los consumidores",
+      "salir": "Salir de la vista previa"
     }
   },
   "resenas": {
@@ -854,7 +868,10 @@
       "comprobante": "Comprobante Bara Bara · {puesto} · {monto} · {fecha} · {id}",
       "copiado": "Comprobante copiado",
       "linkPago": "Link de pago con tarjeta",
-      "cancelar": "Cancelar cobro"
+      "cancelar": "Cancelar cobro",
+      "tarjetaCorto": "Tarjeta",
+      "tarjetaSub": "Link de pago",
+      "codiSub": "0% de comisión"
     },
     "pedidos": {
       "titulo": "Pedidos",
@@ -893,7 +910,8 @@
       "upsellTitulo": "Llegaste a 20 productos",
       "upsellTexto": "El plan Gratis incluye hasta 20 productos. Con Pro tu catálogo es ilimitado.",
       "verPlan": "Ver planes",
-      "duplicado": "Ya tienes «{producto}» en tu catálogo. Edita su precio en la lista."
+      "duplicado": "Ya tienes «{producto}» en tu catálogo. Edita su precio en la lista.",
+      "disponibleCorto": "Disponible"
     },
     "plan": {
       "titulo": "Tu plan",
@@ -930,7 +948,10 @@
         ]
       }
     },
-    "ventasDia": "Ventas"
+    "ventasDia": "Ventas",
+    "cuenta": {
+      "perfil": "Tu puesto"
+    }
   },
   "gobierno": {
     "titulo": "Panel de impacto",

@@ -29,12 +29,19 @@ const partir = (c: string) => {
   return m ? { producto: m[1], unidad: m[2] } : { producto: c, unidad: "kg" };
 };
 
-function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: Productor; nuevo?: boolean }) {
+/** Mismo estilo para campos de texto y listas: fondo blanco, filo `input`, 48 px de alto. */
+const CAMPO = "h-12 w-full min-w-0 rounded-pill border border-input bg-white px-4 text-base font-normal outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/40";
+
+/**
+ * Tarjeta de lote. En la lista de lotes activos no repite el huerto (es siempre el propio): muestra cantidad,
+ * precio y desde cuándo está disponible. En la vista previa (`productor`) sí, porque así la ven los locatarios.
+ */
+function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor?: Productor; nuevo?: boolean }) {
   const t = useTranslations("productor.cosecha");
   const nombreUnidad = (u: string) => (t.has(`unidades.${u}` as "unidades.kg") ? t(`unidades.${u}` as "unidades.kg") : u);
   const locale = useLocale();
   return (
-    <article className="flex gap-3 rounded-card border border-border bg-white p-3">
+    <article className="flex items-center gap-3 rounded-card border border-border bg-white p-3">
       {l.fotoUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={l.fotoUrl} alt="" className="size-16 shrink-0 rounded-2xl object-cover" />
@@ -48,12 +55,22 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
           {l.producto || "—"}
           {nuevo && <span className="rounded-pill bg-dorado px-2 text-xs text-morado-900">{t("nuevo")}</span>}
         </span>
+        {/* Sin cantidad o sin precio todavía, «—» en lugar de «0 piezas · $0». */}
         <span className="text-sm">
-          {l.cantidad} {nombreUnidad(l.unidad)} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{nombreUnidad(singular(l.unidad))}
+          {l.cantidad ? `${l.cantidad} ${nombreUnidad(l.unidad)}` : "—"} ·{" "}
+          {l.precio ? (
+            <>
+              <strong>{formatMXN(l.precio, locale)}</strong>/{nombreUnidad(singular(l.unidad))}
+            </>
+          ) : (
+            "—"
+          )}
         </span>
-        <span className="text-[12px] text-tinta-2">
-          {productor.nombre} · {productor.pueblo}
-        </span>
+        {productor && (
+          <span className="truncate text-[12px] text-tinta-2">
+            {productor.nombre} · {productor.pueblo}
+          </span>
+        )}
         {l.disponible && <span className="text-[12px] font-semibold text-nopal-700">{t("disponible", { fecha: fmtDia(l.disponible, locale, { weekday: "short", day: "numeric", month: "short" }) })}</span>}
       </div>
     </article>
@@ -110,7 +127,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
                 const o = opciones.find((x) => x.producto === e.target.value);
                 setForm({ ...form, producto: e.target.value, unidad: o ? (o.unidad === "pieza" ? "piezas" : o.unidad === "manojo" ? "manojos" : o.unidad) : form.unidad });
               }}
-              className="h-12 rounded-pill border border-input bg-white px-4 font-normal"
+              className={CAMPO}
             >
               {opciones.map((o) => (
                 <option key={o.producto}>{o.producto}</option>
@@ -120,11 +137,11 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
           <div className="grid grid-cols-2 gap-2">
             <label className="flex flex-col gap-1 text-sm font-semibold">
               {t("cantidad")}
-              <Input data-demo="lote-cantidad" type="number" inputMode="numeric" min={1} value={form.cantidad || ""} onChange={(e) => setForm({ ...form, cantidad: Math.max(0, Math.round(Number(e.target.value))) })} />
+              <Input data-demo="lote-cantidad" type="number" inputMode="numeric" min={1} placeholder={t("phCantidad")} className={CAMPO} value={form.cantidad || ""} onChange={(e) => setForm({ ...form, cantidad: Math.max(0, Math.round(Number(e.target.value))) })} />
             </label>
             <label className="flex flex-col gap-1 text-sm font-semibold">
               {t("unidad")}
-              <select value={form.unidad} onChange={(e) => setForm({ ...form, unidad: e.target.value })} className="h-12 rounded-pill border border-input bg-white px-4 font-normal">
+              <select value={form.unidad} onChange={(e) => setForm({ ...form, unidad: e.target.value })} className={CAMPO}>
                 {[...new Set([form.unidad, ...UNIDADES])].map((u) => (
                   <option key={u} value={u}>
                     {nombreUnidad(u)}
@@ -135,16 +152,26 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
           </div>
           <label className="flex flex-col gap-1 text-sm font-semibold">
             {t("precio")}
-            <Input data-demo="lote-precio" type="number" inputMode="numeric" min={1} value={form.precio || ""} onChange={(e) => setForm({ ...form, precio: Math.max(0, Math.round(Number(e.target.value))) })} />
+            <Input
+              data-demo="lote-precio"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              placeholder={comparable ? t("phPrecio", { precio: referencia }) : undefined}
+              className={CAMPO}
+              value={form.precio || ""} onChange={(e) => setForm({ ...form, precio: Math.max(0, Math.round(Number(e.target.value))) })} />
             <span className={cn("text-[13px] font-normal", dif > 15 ? "text-chile" : dif < -15 ? "text-cempasuchil" : "text-tinta-2")}>
-              {comparable
-                ? t("referencia", { precio: formatMXN(referencia, locale), unidad: nombreUnidad(singular(form.unidad)), dif: dif > 0 ? `+${dif}` : dif })
-                : t("sinReferencia", { unidad: nombreUnidad(singular(form.unidad)) })}
+              {/* La diferencia % solo aparece cuando ya hay un precio escrito. */}
+              {!comparable
+                ? t("sinReferencia", { unidad: nombreUnidad(singular(form.unidad)) })
+                : form.precio
+                  ? t("referencia", { precio: formatMXN(referencia, locale), unidad: nombreUnidad(singular(form.unidad)), dif: dif > 0 ? `+${dif}` : dif })
+                  : t("referenciaSinDif", { precio: formatMXN(referencia, locale), unidad: nombreUnidad(singular(form.unidad)) })}
             </span>
           </label>
           <label className="flex flex-col gap-1 text-sm font-semibold">
             {t("fecha")}
-            <select value={form.disponible} onChange={(e) => setForm({ ...form, disponible: e.target.value })} className="h-12 rounded-pill border border-input bg-white px-4 font-normal">
+            <select value={form.disponible} onChange={(e) => setForm({ ...form, disponible: e.target.value })} className={CAMPO}>
               {dias.map((d) => (
                 <option key={d} value={d}>
                   {fmtDia(d, locale, { weekday: "long", day: "numeric", month: "long" })}
@@ -180,7 +207,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
           </h2>
           {!hydrated && <Esqueleto className="h-24 rounded-card" />}
           {hydrated && lotes.length === 0 && <p className="text-tinta-2">{t("sinLotes")}</p>}
-          {hydrated && lotes.map((l) => <TarjetaLote key={l.id} l={l} productor={productor} nuevo={!!l.publicado} />)}
+          {hydrated && lotes.map((l) => <TarjetaLote key={l.id} l={l} nuevo={!!l.publicado} />)}
         </section>
       </div>
     </div>

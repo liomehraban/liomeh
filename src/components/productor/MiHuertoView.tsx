@@ -24,7 +24,7 @@ export function MiHuertoView({ productor: p, plan }: { productor: Productor; pla
         <p className="rounded-card bg-nopal-700 p-4 font-bold text-white" role="status">
           {t("mes", { veces: f.esDoble ? t("doble") : t("masPct", { pct: f.mejoraPct }) })}
         </p>
-        <FairTradeCard productor={p} />
+        <FairTradeCard productor={p} perspectiva="productor" />
         <section aria-labelledby="perfil" className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
           <h2 id="perfil" className="font-bold text-morado-700">
             {t("perfil")}

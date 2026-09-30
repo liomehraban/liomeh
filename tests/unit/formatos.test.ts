@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatMXN, toUSD, formatUSDaprox } from "../../src/lib/money";
+import { formatCompacto, formatMXN, toUSD, formatUSDaprox } from "../../src/lib/money";
 import { ratingPromedio, ratingsPorObjetivo } from "../../src/lib/resenas";
 import { describirHorario, rangoDias, formatMinutos } from "../../src/lib/horarioTexto";
 
@@ -68,5 +68,19 @@ describe("ofertas de rescate", () => {
     expect(new Set(o.map((x) => x.mercadoId))).toEqual(new Set(["la-merced", "central-de-abasto", "235-jamaica-nuevo"]));
     for (const x of o) expect(x.precio).toBe(Math.round(x.precioOriginal * 0.6));
     expect(o[0].vence).toBe("18:00");
+  });
+});
+
+describe("formatCompacto", () => {
+  it("español: «mil» y «M» con punto decimal y espacio duro", () => {
+    expect(formatCompacto(235400)).toBe("235.4\u00a0mil");
+    expect(formatCompacto(212000)).toBe("212\u00a0mil");
+    expect(formatCompacto(29600, "es")).toBe("29.6\u00a0mil");
+    expect(formatCompacto(40000000)).toBe("40\u00a0M");
+    expect(formatCompacto(950)).toBe("950");
+  });
+  it("inglés: K y M pegados", () => {
+    expect(formatCompacto(235400, "en")).toBe("235.4K");
+    expect(formatCompacto(40000000, "en")).toBe("40M");
   });
 });

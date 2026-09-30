@@ -50,22 +50,23 @@ export function PedidosView() {
             const envio = p.tipo.toLowerCase().includes("env");
             return (
               <motion.li layout transition={{ type: "spring", stiffness: 420, damping: 36 }} key={p.id} className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
+                {/* Jerarquía: cliente como título, folio como dato y lo pedido como texto secundario. */}
                 <div className="flex items-start justify-between gap-2">
-                  <div className="flex flex-col">
-                    <span className="font-display text-2xl text-morado-700">{p.id}</span>
-                    <span className="text-sm font-semibold">{p.cliente}</span>
+                  <div className="flex min-w-0 flex-col">
+                    <span className="text-base font-semibold text-tinta">{p.cliente}</span>
+                    <span className="text-[12px] font-semibold text-tinta-2 tabular-nums">{p.id}</span>
                   </div>
                   <motion.span
                     key={estado}
                     initial={{ scale: 0.7, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 500, damping: 22 }}
-                    className={cn("rounded-pill px-2.5 py-0.5 text-[12px] font-bold", COLOR[estado])}
+                    className={cn("shrink-0 rounded-pill px-2.5 py-0.5 text-[12px] font-bold", COLOR[estado])}
                   >
                     {t(`estados.${estado}`)}
                   </motion.span>
                 </div>
-                <p>{p.items}</p>
+                <p className="text-sm text-tinta-2">{p.items}</p>
                 <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-tinta-2">
                   <span className="flex items-center gap-1">
                     {envio ? <Bike className="size-4" aria-hidden /> : <Store className="size-4" aria-hidden />}

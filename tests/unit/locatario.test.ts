@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import demo from "../../data/usuarios_demo.json";
 import { indiceSemana, kpisHoy, puedeAgregarProducto, saludoPorHora, semanaConHoy, siguienteEstadoLocatario, teclear } from "../../src/lib/locatario";
-import { difPrecio, normalizarEstadoMayoreo, siguientesEstadosMayoreo } from "../../src/lib/productor";
+import { difPrecio, normalizarEstadoMayoreo, partirCliente, siguientesEstadosMayoreo } from "../../src/lib/productor";
 
 const base = demo.locatario.hoy;
 
@@ -78,4 +78,10 @@ describe("catálogo efectivo", () => {
     expect(k.ventas_mxn).toBe(8420 + 350);
     expect(k.cobros_qr).toBe(base.cobros_qr + 1);
   });
+});
+
+describe("partirCliente", () => {
+  it("separa el mercado entre paréntesis", () => expect(partirCliente("Frutas Doña Lupe (La Merced)")).toEqual({ nombre: "Frutas Doña Lupe", mercado: "La Merced" }));
+  it("sin paréntesis no hay mercado", () => expect(partirCliente("Restaurante Roma Norte")).toEqual({ nombre: "Restaurante Roma Norte", mercado: null }));
+  it("solo paréntesis: se deja tal cual", () => expect(partirCliente("(La Merced)")).toEqual({ nombre: "(La Merced)", mercado: null }));
 });

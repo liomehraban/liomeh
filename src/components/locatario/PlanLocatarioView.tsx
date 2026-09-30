@@ -12,7 +12,7 @@ import type { PlanLocatario } from "@/lib/locatario";
 import { formatMXN } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
-import { EncabezadoPerfil } from "./EncabezadoPerfil";
+import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
 
 type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[]; incluye_en?: string[] };
 const idPlan = (nombre: string): PlanLocatario => (/^plus/i.test(nombre) ? "Plus" : /^pro/i.test(nombre) ? "Pro" : "Gratis");
@@ -42,7 +42,8 @@ export function PlanLocatarioView({ planes }: { planes: PlanModelo[] }) {
 
   return (
     <div className="flex flex-col">
-      <EncabezadoPerfil titulo={t("titulo")} />
+      {/* Se llega desde Cuenta (y desde el aviso de límite del catálogo): volver siempre lleva a Cuenta. */}
+      <EncabezadoSimple titulo={t("titulo")} destino="/locatario/cuenta" />
       <div className="flex flex-col gap-4 p-5">
         <section className="flex flex-col gap-1 rounded-card bg-nopal-700 p-4 text-white">
           <p className="font-bold">{t("comision")}</p>

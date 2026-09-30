@@ -14,8 +14,11 @@ export function PrecioEditable({ valor, etiqueta, onGuardar }: { valor: number; 
     setBorrador(null);
   };
   return (
-    <label className="flex items-center gap-1 text-base font-semibold">
-      $
+    // «$» como prefijo dentro del campo: el campo mide 84 px y deja más espacio al nombre del producto.
+    <label className="relative flex shrink-0 items-center">
+      <span className="pointer-events-none absolute left-2.5 text-base font-semibold text-tinta-2" aria-hidden>
+        $
+      </span>
       <input
         type="number"
         inputMode="numeric"
@@ -25,7 +28,7 @@ export function PrecioEditable({ valor, etiqueta, onGuardar }: { valor: number; 
         onChange={(e) => setBorrador(e.target.value)}
         onBlur={guardar}
         onKeyDown={(e) => e.key === "Enter" && (e.currentTarget as HTMLInputElement).blur()}
-        className="h-11 w-20 rounded-xl border border-input bg-white px-2 text-right text-base"
+        className="h-11 w-[84px] [appearance:textfield] rounded-xl border border-input bg-white pr-2.5 pl-6 text-right text-base font-semibold tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
     </label>
   );

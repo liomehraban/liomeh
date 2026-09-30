@@ -4,6 +4,7 @@ import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Too
 import { useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 
+import { cn } from "@/lib/utils";
 import { AlVerse } from "./AlVerse";
 
 export type SerieLinea = { clave: string; nombre: string; color: string };
@@ -23,6 +24,7 @@ export function GraficaLinea({
   formato,
   encabezadoX,
   hoy,
+  className,
 }: {
   titulo: string;
   subtitulo?: string;
@@ -32,6 +34,8 @@ export function GraficaLinea({
   formato: (n: number) => string;
   encabezadoX: string;
   hoy?: number;
+  /** Con `h-full` o `flex-1` la tarjeta llena su fila y la gráfica crece con ella (mínimo 13 rem). */
+  className?: string;
 }) {
   const t = useTranslations("gobierno.serie");
   const animar = !useReducedMotion();
@@ -63,7 +67,7 @@ export function GraficaLinea({
       );
     };
   return (
-    <figure className="flex min-w-0 flex-col gap-2 rounded-card border border-border bg-white p-4">
+    <figure className={cn("flex min-w-0 flex-col gap-2 rounded-card border border-border bg-white p-4", className)}>
       <figcaption className="flex flex-col">
         <span className="font-bold text-morado-700">{titulo}</span>
         {subtitulo && <span className="text-[12px] text-tinta-2">{subtitulo}</span>}
@@ -79,87 +83,93 @@ export function GraficaLinea({
           ))}
         </ul>
       )}
-      <AlVerse className="h-52">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart accessibilityLayer={false} data={vis} margin={{ top: 22, right: 40, bottom: 0, left: 4 }}>
-            <CartesianGrid vertical={false} stroke="#EFE6EE" />
-            <XAxis dataKey={x} tickLine={false} axisLine={{ stroke: "#EADFE8" }} tick={{ fill: "#4A3848", fontSize: 11 }} interval="preserveStartEnd" minTickGap={12} />
-            <YAxis tickLine={false} axisLine={false} tick={{ fill: "#4A3848", fontSize: 11 }} tickFormatter={(v) => formato(Number(v))} width={52} />
-            <Tooltip
-              formatter={(v, n) => [formato(Number(v)), series.find((s) => String(n).startsWith(s.clave))?.nombre ?? String(n)]}
-              contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }}
-            />
-            {hoy !== undefined && hoy < ultimo && (
-              <ReferenceLine
-                x={String(datos[hoy][x])}
-                stroke="#6E1A6A"
-                strokeDasharray="2 3"
-                label={{ value: t("hoy"), position: "insideTopLeft", fill: "#6E1A6A", fontSize: 11, fontWeight: 700 }}
+      {/* La gráfica ocupa todo el alto libre de la tarjeta; el absoluto le da siempre un alto definido. */}
+      <AlVerse className="relative min-h-52 flex-1">
+        <div className="absolute inset-0">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart accessibilityLayer={false} data={vis} margin={{ top: 22, right: 40, bottom: 0, left: 4 }}>
+              <CartesianGrid vertical={false} stroke="#EFE6EE" />
+              <XAxis dataKey={x} tickLine={false} axisLine={{ stroke: "#EADFE8" }} tick={{ fill: "#4A3848", fontSize: 11 }} interval="preserveStartEnd" minTickGap={12} />
+              <YAxis tickLine={false} axisLine={false} tick={{ fill: "#4A3848", fontSize: 11 }} tickFormatter={(v) => formato(Number(v))} width={52} />
+              <Tooltip
+                formatter={(v, n) => [formato(Number(v)), series.find((s) => String(n).startsWith(s.clave))?.nombre ?? String(n)]}
+                contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }}
               />
-            )}
-            {series.flatMap((s) => [
-              <Line
-                key={`${s.clave}__real`}
-                type="monotone"
-                dataKey={`${s.clave}__real`}
-                stroke={s.color}
-                strokeWidth={2.5}
-                dot={false}
-                connectNulls={false}
-                activeDot={{ r: 5, stroke: "#FFFFFF", strokeWidth: 2 }}
-                isAnimationActive={animar}
-                animationDuration={1000}
-                animationEasing="ease-out"
-                label={etiqueta(s.clave, corte, true)}
-              />,
-              ...(corte < ultimo
-                ? [
-                    <Line
-                      key={`${s.clave}__proy`}
-                      type="monotone"
-                      dataKey={`${s.clave}__proy`}
-                      stroke={s.color}
-                      strokeOpacity={0.55}
-                      strokeWidth={2}
-                      strokeDasharray="5 4"
-                      dot={false}
-                      connectNulls={false}
-                      activeDot={{ r: 4, stroke: "#FFFFFF", strokeWidth: 2 }}
-                      isAnimationActive={animar}
-                      animationBegin={900}
-                      animationDuration={700}
-                      animationEasing="ease-out"
-                      label={etiqueta(`${s.clave}-p`, ultimo, false)}
-                    />,
-                  ]
-                : []),
-            ])}
-          </LineChart>
-        </ResponsiveContainer>
+              {hoy !== undefined && hoy < ultimo && (
+                <ReferenceLine
+                  x={String(datos[hoy][x])}
+                  stroke="#6E1A6A"
+                  strokeDasharray="2 3"
+                  label={{ value: t("hoy"), position: "insideTopLeft", fill: "#6E1A6A", fontSize: 11, fontWeight: 700 }}
+                />
+              )}
+              {series.flatMap((s) => [
+                <Line
+                  key={`${s.clave}__real`}
+                  type="monotone"
+                  dataKey={`${s.clave}__real`}
+                  stroke={s.color}
+                  strokeWidth={2.5}
+                  dot={false}
+                  connectNulls={false}
+                  activeDot={{ r: 5, stroke: "#FFFFFF", strokeWidth: 2 }}
+                  isAnimationActive={animar}
+                  animationDuration={1000}
+                  animationEasing="ease-out"
+                  label={etiqueta(s.clave, corte, true)}
+                />,
+                ...(corte < ultimo
+                  ? [
+                      <Line
+                        key={`${s.clave}__proy`}
+                        type="monotone"
+                        dataKey={`${s.clave}__proy`}
+                        stroke={s.color}
+                        strokeOpacity={0.55}
+                        strokeWidth={2}
+                        strokeDasharray="5 4"
+                        dot={false}
+                        connectNulls={false}
+                        activeDot={{ r: 4, stroke: "#FFFFFF", strokeWidth: 2 }}
+                        isAnimationActive={animar}
+                        animationBegin={900}
+                        animationDuration={700}
+                        animationEasing="ease-out"
+                        label={etiqueta(`${s.clave}-p`, ultimo, false)}
+                      />,
+                    ]
+                  : []),
+              ])}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </AlVerse>
-      <table className="sr-only">
-        <caption>{titulo}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{encabezadoX}</th>
-            {series.map((s) => (
-              <th key={s.clave} scope="col">
-                {s.nombre}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {datos.map((d) => (
-            <tr key={String(d[x])}>
-              <th scope="row">{d[x]}</th>
+      {/* La tabla va dentro de un div sr-only: una <table> no se encoge a 1 px y desbordaba la página a lo ancho. */}
+      <div className="sr-only">
+        <table>
+          <caption>{titulo}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{encabezadoX}</th>
               {series.map((s) => (
-                <td key={s.clave}>{formato(Number(d[s.clave]))}</td>
+                <th key={s.clave} scope="col">
+                  {s.nombre}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {datos.map((d) => (
+              <tr key={String(d[x])}>
+                <th scope="row">{d[x]}</th>
+                {series.map((s) => (
+                  <td key={s.clave}>{formato(Number(d[s.clave]))}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   );
 }
