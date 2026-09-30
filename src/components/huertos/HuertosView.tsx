@@ -84,6 +84,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
         layers={layers}
         seleccionado={sel?.id ?? null}
         onSelect={onSelect}
+        onVacio={() => setSel(null)}
         enfoque={enfoque}
         paddingInferior={240}
         ariaLabel={t("mapa")}

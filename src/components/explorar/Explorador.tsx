@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { MapView, type CapaMapa, type Encuadre, type Enfoque } from "@/components/map/MapView";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { Button } from "@/components/ui/button";
 import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { MarketCard } from "@/components/market/MarketCard";
 import { useRouter } from "@/i18n/navigation";
@@ -143,6 +144,7 @@ export function Explorador({
         layers={layers}
         seleccionado={seleccionado}
         onSelect={seleccionar}
+        onVacio={() => setSeleccionado(null)}
         enfoque={enfoque}
         encuadre={encuadre}
         ubicacion={origen.fuente === "gps" ? origen : null}
@@ -182,6 +184,14 @@ export function Explorador({
             onToggle={() => setPlegables((p) => ({ ...p, cerca: !p.cerca }))}
             extra={origen.fuente === "zocalo" && <span className="text-[13px] text-tinta-2">· {t("explorar.desdeZocalo")}</span>}
           >
+            {cercanos.length === 0 && (
+              <div className="flex items-center justify-between gap-3 px-4 pb-2" role="status">
+                <p className="text-sm text-tinta-2">{t("explorar.sinFiltro")}</p>
+                <Button size="sm" variant="secondary" className="shrink-0" onClick={() => setFiltros(FILTROS_VACIOS)}>
+                  {t("explorar.quitarFiltros")}
+                </Button>
+              </div>
+            )}
             <ul data-revelar className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
               {cercanos.map((m) => (
                 <li key={m.id} className="w-64 shrink-0 snap-start">

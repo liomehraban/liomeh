@@ -22,6 +22,7 @@ export default function MapLibreView({
   zoom,
   layers,
   onSelect,
+  onVacio,
   seleccionado,
   ubicacion,
   enfoque,
@@ -71,7 +72,8 @@ export default function MapLibreView({
     // Si el toque cae en un pin y en una zona, gana el pin.
     const f = e.features?.find((x) => x.geometry.type === "Point") ?? e.features?.[0];
     const map = ref.current;
-    if (!f || !map) return;
+    if (!map) return;
+    if (!f) return onVacio?.();
     const props = f.properties as { id?: string; capa?: string; cluster_id?: number };
     if (props.cluster_id !== undefined) {
       const src = map.getSource(f.source) as GeoJSONSource;

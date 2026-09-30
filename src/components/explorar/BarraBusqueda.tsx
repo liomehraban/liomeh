@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MapPin, Search, Sprout, Store, UtensilsCrossed, X, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -26,6 +26,16 @@ export function BarraBusqueda({ onElegir }: { onElegir: (d: DocBusqueda) => void
   const indice = useMemo(() => (docs ? crearIndice(docs) : []), [docs]);
   const [q, setQ] = useState("");
   const [abierto, setAbierto] = useState(false);
+  const raiz = useRef<HTMLDivElement>(null);
+  // Tocar fuera (el mapa, un chip) cierra los resultados, como en una app nativa.
+  useEffect(() => {
+    if (!abierto) return;
+    const fuera = (e: PointerEvent) => {
+      if (!raiz.current?.contains(e.target as Node)) setAbierto(false);
+    };
+    document.addEventListener("pointerdown", fuera);
+    return () => document.removeEventListener("pointerdown", fuera);
+  }, [abierto]);
   const resultados = useMemo(() => buscar(indice, q), [indice, q]);
   const hay = ORDEN.some((k) => resultados[k].length);
 
@@ -36,7 +46,7 @@ export function BarraBusqueda({ onElegir }: { onElegir: (d: DocBusqueda) => void
   };
 
   return (
-    <div className="relative">
+    <div ref={raiz} className="relative">
       <form
         role="search"
         onSubmit={async (e) => {
@@ -87,7 +97,7 @@ export function BarraBusqueda({ onElegir }: { onElegir: (d: DocBusqueda) => void
       {abierto && q.trim() && (
         <div
           id="resultados-busqueda"
-          className="absolute inset-x-0 top-14 z-40 max-h-[60vh] overflow-y-auto rounded-card border border-border bg-white p-2 shadow-xl"
+          className="absolute top-14 -right-28 left-0 z-40 max-h-[60vh] overflow-y-auto rounded-card border border-border bg-white p-2 shadow-xl"
         >
           {!hay && <p className="p-3 text-sm text-tinta-2">{t("sinResultados", { q: q.trim() })}</p>}
           {ORDEN.filter((k) => resultados[k].length).map((k) => {
