@@ -255,8 +255,9 @@ export function puestosSimulados(m: Pick<Mercado, "id" | "giros" | "tipos" | "de
       productos,
       real_segun_guia: false,
       simulado: true,
-      rating: Math.round((4.1 + r.sig() * 0.8) * 10) / 10,
-      num_resenas: r.entero(12, 640),
+      // Sin calificación inventada: «Nuevo en Bara Bara» hasta que la gente reseñe (regla 1).
+      rating: 0,
+      num_resenas: 0,
       acepta: r.sig() < 0.6 ? ["QR CoDi/SPEI", "Tarjeta", "Efectivo"] : ["QR CoDi/SPEI", "Efectivo"],
       sello_comercio_justo: clave === "frutas" && r.sig() < 0.25,
       plan,

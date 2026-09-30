@@ -92,7 +92,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={r.fotoUrl} alt="" className="h-28 w-fit rounded-2xl object-cover" />
               ) : r.fotos > 0 ? (
-                <div className="flex gap-2" aria-label={t("fotos", { n: r.fotos })}>
+                <div className="flex gap-2" role="group" aria-label={t("fotos", { n: r.fotos })}>
                   {Array.from({ length: Math.min(r.fotos, 3) }, (_, i) => (
                     <span key={i} className="grid size-16 place-items-center rounded-xl bg-gradient-to-br from-dorado-200 to-morado-50 text-morado/60" aria-hidden>
                       <ImageIcon className="size-5" />
@@ -100,10 +100,12 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
                   ))}
                 </div>
               ) : null}
-              <p className="flex items-center gap-1.5 text-[13px] text-nopal-700">
-                <BadgeCheck className="size-4" aria-hidden />
-                {r.verificada === "compra" ? tm("verificadaCompra") : tm("verificadaCheckin")}
-              </p>
+              {r.verificada && (
+                <p className="flex items-center gap-1.5 text-[13px] text-nopal-700">
+                  <BadgeCheck className="size-4" aria-hidden />
+                  {r.verificada === "compra" ? tm("verificadaCompra") : tm("verificadaCheckin")}
+                </p>
+              )}
             </li>
           ))}
         </ul>

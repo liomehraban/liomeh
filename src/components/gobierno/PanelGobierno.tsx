@@ -62,11 +62,13 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
   const pctExtranjeros = Math.round((ultimoMes.turistas_extranjeros / ultimoMes.usuarios_activos) * 1000) / 10;
 
   const exportar = () => {
-    const blob = new Blob([csvMetricas(m, nombres)], { type: "text/csv;charset=utf-8" });
+    const blob = new Blob([csvMetricas(m, nombres, kgDemo)], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = Object.assign(document.createElement("a"), { href: url, download: "bara-bara-impacto.csv" });
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast.success(t("exportado"));
   };
 

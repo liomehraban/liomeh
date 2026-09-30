@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { etapaActual, etapas, type Pedido } from "@/lib/pedidos";
+import { etapaSincronizada, etapas, type Pedido } from "@/lib/pedidos";
 import { cn } from "@/lib/utils";
+import { useAppStore } from "@/store/useAppStore";
 
 /** Timeline Pagado → Preparando → Listo / En ruta; avanza solo cada 8 s en modo demo. */
-export function TimelinePedido({ pedido }: { pedido: Pick<Pedido, "fecha" | "entrega"> }) {
+export function TimelinePedido({ pedido }: { pedido: Pick<Pedido, "fecha" | "entrega"> & { folio?: string } }) {
+  // Si el puesto de la demo ya avanzó el pedido en su tablero, se refleja aquí.
+  const estadoLocatario = useAppStore((s) => (pedido.folio ? s.locatario.pedidos.find((x) => x.folio === pedido.folio)?.estado : undefined));
   const t = useTranslations("pedido");
   const [now, setNow] = useState(() => new Date());
   const lista = etapas(pedido.entrega);
-  const actual = etapaActual(pedido, now);
+  const actual = etapaSincronizada(pedido, estadoLocatario, now);
 
   useEffect(() => {
     if (actual >= lista.length - 1) return;

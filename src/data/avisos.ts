@@ -23,7 +23,7 @@ export function datosAvisos(): Promise<DatosAvisos> {
     const mes = metricas.serie_mensual.find((s) => s.gmv_mxn >= metricas.kpis_hoy.derrama_digital_mes_mxn) ?? metricas.serie_mensual.at(-1)!;
     return {
       eventos: eventos.filter((e) => /^\d{4}-\d{2}-\d{2}$/.test(e.inicio)).map((e) => ({ id: e.id, titulo: e.titulo, inicio: e.inicio, fin: e.fin ?? null })),
-      ofertas: ofertas.slice(0, 6).map((o) => ({ id: o.id, producto: o.producto, mercadoNombre: o.mercadoNombre, precio: o.precio, precioOriginal: o.precioOriginal, unidad: o.unidad })),
+      ofertas: ofertas.slice(0, 6).map((o) => ({ id: o.id, producto: o.producto, producto_en: o.producto_en, mercadoNombre: o.mercadoNombre, precio: o.precio, precioOriginal: o.precioOriginal, unidad: o.unidad })),
       surtidos,
       puestoDemo: { id: puestoDemo?.id ?? demo.locatario.puesto_id, nombre: puestoDemo?.nombre ?? "", productos: puestoDemo?.productos ?? [] },
       productor: { nombre: productor?.nombre ?? "", catalogo: productor?.catalogo ?? [] },

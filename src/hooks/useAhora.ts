@@ -28,3 +28,9 @@ function subscribe(cb: () => void) {
 export function useAhora(): Date | null {
   return useSyncExternalStore(subscribe, () => ahora ?? (ahora = new Date()), () => null);
 }
+
+/** Fuerza a todos los `useAhora` a recalcular ya (lo usa «jalar para actualizar»). */
+export function refrescarAhora() {
+  ahora = new Date();
+  oyentes.forEach((f) => f());
+}

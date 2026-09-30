@@ -46,9 +46,12 @@ const celda = (v: string | number) => {
 const fila = (xs: (string | number)[]) => xs.map(celda).join(",");
 
 /** CSV con las cuatro tablas del panel, separadas por una línea en blanco. Incluye BOM para Excel. */
-export function csvMetricas(m: MetricasGobierno, nombres: Record<string, string> = {}): string {
+export function csvMetricas(m: MetricasGobierno, nombres: Record<string, string> = {}, kgDemo = 0): string {
   const bloques: string[][] = [];
-  bloques.push([fila(["# nota", m.nota]), fila(["kpi", "valor"]), ...Object.entries(m.kpis_hoy).map(([k, v]) => fila([k, v]))]);
+  // Igual que en pantalla: el alimento rescatado suma lo rescatado en esta demo.
+  const kpis = Object.entries(m.kpis_hoy).map(([k, v]) => fila([k, k === "alimento_rescatado_mes_ton" ? toneladasRescatadas(v, kgDemo) : v]));
+  const nota = kgDemo ? [fila(["# demo", `alimento_rescatado_mes_ton incluye ${kgDemo} kg rescatados en la demo`])] : [];
+  bloques.push([fila(["# nota", m.nota]), ...nota, fila(["kpi", "valor"]), ...kpis]);
   const colsA = ["alcaldia", "mercados", "mercados_activos_en_app", "adopcion_pct", "locatarios_activos", "ventas_mes_mxn", "visitas_turistas_mes"];
   bloques.push([
     fila(colsA),

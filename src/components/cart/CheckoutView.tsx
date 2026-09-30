@@ -24,6 +24,7 @@ const opcion =
 /** M5 · Checkout de un pedido (un grupo del carrito). */
 export function CheckoutView({ puestos, colonias }: { puestos: Record<string, PuestoResumen>; colonias: ColoniaEntrega[] }) {
   const t = useTranslations("checkout");
+  const tpl = useTranslations("planes");
   const locale = useLocale();
   const router = useRouter();
   const hydrated = useHydrated();
@@ -51,6 +52,8 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
     [tipo, km, proveedor],
   );
   const resumen = useMemo(() => (linea && puesto && entrega ? resumenPedido(linea, plan, puesto.plan, entrega) : null), [linea, puesto, entrega, plan]);
+  // Mientras falta la colonia, el resumen se sigue viendo (sin envío) y el pago espera a que la elija.
+  const vista = useMemo(() => resumen ?? (linea && puesto ? resumenPedido(linea, plan, puesto.plan, { tipo: "recoger" }) : null), [resumen, linea, puesto, plan]);
   const $ = (n: number) => formatMXN(n, locale);
 
   const finalizar = useCallback(
@@ -171,7 +174,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
         </fieldset>
 
         {/* Resumen */}
-        {resumen && (
+        {vista && (
           <section aria-labelledby="resumen" className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
             <h2 id="resumen" className="text-xl font-bold text-morado-700">
               {t("resumen")}
@@ -189,43 +192,55 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
             <dl className="flex flex-col gap-1 border-t border-border pt-2 text-sm">
               <div className="flex justify-between">
                 <dt>{t("subtotal")}</dt>
-                <dd>{$(resumen.subtotal)}</dd>
+                <dd>{$(vista.subtotal)}</dd>
               </div>
-              {resumen.descuento > 0 && (
+              {vista.descuento > 0 && (
                 <div className="flex justify-between text-nopal-700">
                   <dt>{t("descuento")}</dt>
-                  <dd>−{$(resumen.descuento)}</dd>
+                  <dd>−{$(vista.descuento)}</dd>
                 </div>
               )}
               <div className="flex justify-between">
                 <dt>{t("servicio")}</dt>
                 <dd>
-                  {resumen.servicio === 0 ? (
+                  {vista.servicio === 0 ? (
                     <span className="flex items-center gap-2">
-                      <s className="text-gris">{$(resumen.servicioOriginal)}</s>
+                      <s className="text-gris">{$(vista.servicioOriginal)}</s>
                       <span className="text-nopal-700">{t("servicioMercadoMas")}</span>
                     </span>
                   ) : (
-                    $(resumen.servicio)
+                    $(vista.servicio)
                   )}
                 </dd>
               </div>
+              {tipo === "envio" && !entrega && (
+                <div className="flex justify-between text-tinta-2">
+                  <dt>{t("envio")}</dt>
+                  <dd>{t("eligeColoniaCorto")}</dd>
+                </div>
+              )}
               {entrega?.tipo === "envio" && (
                 <div className="flex justify-between">
                   <dt>{t("envioLinea", { proveedor: PROVEEDORES.find((p) => p.id === entrega.proveedor)!.nombre })}</dt>
-                  <dd>{$(resumen.envio)}</dd>
+                  <dd>{$(vista.envio)}</dd>
                 </div>
               )}
               <div className="mt-1 flex items-baseline justify-between border-t border-border pt-2 text-lg font-bold">
                 <dt>{t("total")}</dt>
                 <dd className="text-right">
-                  {$(resumen.total)}
-                  {locale === "en" && <span className="block text-xs font-normal text-tinta-2">{formatUSDaprox(resumen.total)}</span>}
+                  {$(vista.total)}
+                  {locale === "en" && <span className="block text-xs font-normal text-tinta-2">{formatUSDaprox(vista.total)}</span>}
                 </dd>
               </div>
             </dl>
-            <p className="text-[13px] text-tinta-2">{t("planActual", { plan })}</p>
+            <p className="text-[13px] text-tinta-2">{t("planActual", { plan: plan === "Gratis" ? tpl("gratis") : plan === "Pase Turista" ? tpl("pase") : tpl("mercadoMas") })}</p>
           </section>
+        )}
+
+        {tipo === "envio" && !entrega && vista && (
+          <p className="rounded-2xl bg-dorado-200/60 p-3 text-sm font-semibold text-morado-900" role="status">
+            {t("eligeColonia")}
+          </p>
         )}
 
         {/* Pago */}

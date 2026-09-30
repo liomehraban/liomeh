@@ -36,15 +36,44 @@ export async function ofertasRescate(): Promise<OfertaRescate[]> {
         kg: x.u === "kg" ? cantidad : 1,
         vence: vence(merced.horario),
         giro: p.giro,
+        vendedor: { id: p.id, nombre: p.nombre, lat: merced.lat, lng: merced.lng, interior: true },
       });
     }
   }
   // Lotes simulados (sin puestos en línea en estos mercados).
   if (ceda) {
-    out.push({ id: "rescate-ceda-caja", mercadoId: ceda.id, mercadoNombre: ceda.nombre_display, producto: "Caja surtida de frutas y legumbres", unidad: "caja", cantidad: 1, precioOriginal: 180, precio: precioRescate(180), kg: 10, vence: vence(ceda.horario), giro: "frutas y legumbres" });
+    out.push({
+      id: "rescate-ceda-caja",
+      mercadoId: ceda.id,
+      mercadoNombre: ceda.nombre_display,
+      producto: "Caja surtida de frutas y legumbres",
+      producto_en: "Mixed box of fruit and vegetables",
+      unidad: "caja",
+      cantidad: 1,
+      precioOriginal: 180,
+      precio: precioRescate(180),
+      kg: 10,
+      vence: vence(ceda.horario),
+      giro: "frutas y legumbres",
+      vendedor: { id: `rescate-lote-${ceda.id}`, nombre: `Rescata hoy · ${ceda.nombre_display}`, lat: ceda.lat, lng: ceda.lng, interior: false },
+    });
   }
   if (jamaica) {
-    out.push({ id: "rescate-jamaica-flores", mercadoId: jamaica.id, mercadoNombre: jamaica.nombre_display, producto: "Ramo de flores del día", unidad: "ramo", cantidad: 1, precioOriginal: 120, precio: precioRescate(120), kg: 1.5, vence: vence(jamaica.horario), giro: "flores" });
+    out.push({
+      id: "rescate-jamaica-flores",
+      mercadoId: jamaica.id,
+      mercadoNombre: jamaica.nombre_display,
+      producto: "Ramo de flores del día",
+      producto_en: "Flower bunch of the day",
+      unidad: "ramo",
+      cantidad: 1,
+      precioOriginal: 120,
+      precio: precioRescate(120),
+      kg: 1.5,
+      vence: vence(jamaica.horario),
+      giro: "flores",
+      vendedor: { id: `rescate-lote-${jamaica.id}`, nombre: `Rescata hoy · ${jamaica.nombre_display}`, lat: jamaica.lat, lng: jamaica.lng, interior: false },
+    });
   }
   return out;
 }

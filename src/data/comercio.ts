@@ -1,6 +1,7 @@
 /** Datos de apoyo para carrito, checkout y pedidos (vía repositorio). */
 import { getRepository } from "./repository";
 import { puestosEnLinea } from "./ficha-puesto";
+import { demoSeed } from "./demo-seed";
 
 /** Vendedor del carrito: un puesto de mercado o un productor (mayoreo directo del huerto). */
 export type PuestoResumen = {
@@ -16,6 +17,10 @@ export type PuestoResumen = {
   mercadoNombre: string;
   lat: number;
   lng: number;
+  /** Puestos reales de la guía: la simulación de inventario nunca los agota. */
+  stockProtegido?: boolean;
+  /** El mercado tiene mapa interior (para «Llévame» al puesto). */
+  interior?: boolean;
 };
 
 export async function resumenPuestos(): Promise<Record<string, PuestoResumen>> {
@@ -24,7 +29,20 @@ export async function resumenPuestos(): Promise<Record<string, PuestoResumen>> {
   for (const { puestoId, mercadoId } of await puestosEnLinea()) {
     const [p, m] = await Promise.all([repo.puesto(puestoId), repo.mercado(mercadoId)]);
     if (!p || !m) continue;
-    out[p.id] = { id: p.id, tipo: "puesto", nombre: p.nombre, plan: p.plan, giro: p.giro, ubicacion: p.ubicacion_texto, mercadoId: m.id, mercadoNombre: m.nombre_display, lat: m.lat, lng: m.lng };
+    out[p.id] = {
+      id: p.id,
+      tipo: "puesto",
+      nombre: p.nombre,
+      plan: p.plan,
+      giro: p.giro,
+      ubicacion: p.ubicacion_texto,
+      mercadoId: m.id,
+      mercadoNombre: m.nombre_display,
+      lat: m.lat,
+      lng: m.lng,
+      stockProtegido: p.real_segun_guia || p.id === demoSeed.locatario.puesto_id,
+      interior: !!m.interior_disponible,
+    };
   }
   for (const p of await repo.productores()) {
     out[p.id] = {

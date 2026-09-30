@@ -2,6 +2,7 @@
 import type { ItemCarrito } from "./carrito";
 import type { Resumen } from "./checkout";
 import { puntosPorCompra } from "./loyalty";
+import { ESTADOS_LOCATARIO, type EstadoLocatario } from "./locatario";
 
 export type MetodoPago = "qr" | "tarjeta";
 export type TipoEntrega = "recoger" | "envio";
@@ -60,3 +61,16 @@ export function construirPedido(input: NuevoPedido, existentes: string[], now = 
     puntos: puntosPorCompra(resto.resumen.total, { dobles }),
   };
 }
+
+/**
+ * Etapa del pedido que ven el consumidor y el locatario por igual: la más avanzada entre el reloj
+ * de la demo y lo que marcó el locatario en su tablero (nuevo → preparando → listo → entregado).
+ */
+export function etapaSincronizada(p: Pick<Pedido, "fecha" | "entrega">, estadoLocatario: string | undefined, now = new Date()): number {
+  const ultima = etapas(p.entrega).length - 1;
+  const manual = estadoLocatario ? (ESTADOS_LOCATARIO as readonly string[]).indexOf(estadoLocatario) : -1;
+  return Math.max(etapaActual(p, now), Math.min(manual, ultima));
+}
+
+/** Estado del tablero del locatario que corresponde a una etapa del consumidor. */
+export const estadoLocatarioDeEtapa = (i: number): EstadoLocatario => ESTADOS_LOCATARIO[Math.min(Math.max(i, 0), ESTADOS_LOCATARIO.length - 1)];

@@ -18,6 +18,8 @@ import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated, type Lote } from "@/store/useAppStore";
 
 const UNIDADES = ["piezas", "kg", "manojos", "caja", "ciento"];
+/** «piezas» → «pieza» (las unidades del catálogo vienen en español, como los datos). */
+const singular = (u: string) => u.toLowerCase().replace(/s$/, "");
 /** «Lechuga orejona (pieza)» → producto y unidad. */
 const partir = (c: string) => {
   const m = /^(.*?)\s*\(([^)]+)\)\s*$/.exec(c);
@@ -26,6 +28,7 @@ const partir = (c: string) => {
 
 function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: Productor; nuevo?: boolean }) {
   const t = useTranslations("productor.cosecha");
+  const nombreUnidad = (u: string) => (t.has(`unidades.${u}` as "unidades.kg") ? t(`unidades.${u}` as "unidades.kg") : u);
   const locale = useLocale();
   return (
     <article className="flex gap-3 rounded-card border border-border bg-white p-3">
@@ -43,7 +46,7 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
           {nuevo && <span className="rounded-pill bg-dorado px-2 text-[11px] text-morado-900">{t("nuevo")}</span>}
         </span>
         <span className="text-sm">
-          {l.cantidad} {l.unidad} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{l.unidad.replace(/s$/, "")}
+          {l.cantidad} {nombreUnidad(l.unidad)} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{nombreUnidad(singular(l.unidad))}
         </span>
         <span className="text-[12px] text-tinta-2">
           {productor.nombre} · {productor.pueblo}
@@ -57,6 +60,7 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
 /** M17 · Productor › Cosecha: lotes activos, «Publicar cosecha» y vista previa. */
 export function CosechaView({ productor, nombre }: { productor: Productor; nombre: string }) {
   const t = useTranslations("productor.cosecha");
+  const nombreUnidad = (u: string) => (t.has(`unidades.${u}` as "unidades.kg") ? t(`unidades.${u}` as "unidades.kg") : u);
   const tp = useTranslations("productor");
   const locale = useLocale();
   const hydrated = useHydrated();
@@ -67,8 +71,12 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
   const [form, setForm] = useState<Omit<Lote, "id" | "publicado">>({ producto: opciones[0]?.producto ?? "", cantidad: 0, unidad: "piezas", precio: 0, disponible: dias[0] });
 
   // Referencia: el último lote del mismo producto, o el precio de mayoreo del producto principal.
-  const referencia = lotes.find((l) => l.producto === form.producto)?.precio ?? productor.precio_mayoreo_app.precio;
-  const dif = form.precio ? difPrecio(form.precio, referencia) : 0;
+  // Solo se compara si está en la misma unidad (no tiene sentido un manojo contra un kg).
+  const previo = lotes.find((l) => l.producto === form.producto);
+  const ref = previo ? { precio: previo.precio, unidad: previo.unidad } : productor.precio_mayoreo_app;
+  const comparable = singular(ref.unidad) === singular(form.unidad);
+  const referencia = ref.precio;
+  const dif = form.precio && comparable ? difPrecio(form.precio, referencia) : 0;
   const valido = form.producto && form.cantidad > 0 && form.precio > 0;
 
   const enviar = () => {
@@ -111,7 +119,9 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
               {t("unidad")}
               <select value={form.unidad} onChange={(e) => setForm({ ...form, unidad: e.target.value })} className="h-12 rounded-pill border border-input bg-white px-4 font-normal">
                 {[...new Set([form.unidad, ...UNIDADES])].map((u) => (
-                  <option key={u}>{u}</option>
+                  <option key={u} value={u}>
+                    {nombreUnidad(u)}
+                  </option>
                 ))}
               </select>
             </label>
@@ -120,7 +130,9 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
             {t("precio")}
             <Input data-demo="lote-precio" type="number" inputMode="numeric" min={1} value={form.precio || ""} onChange={(e) => setForm({ ...form, precio: Math.max(0, Math.round(Number(e.target.value))) })} />
             <span className={cn("text-[13px] font-normal", dif > 15 ? "text-chile" : dif < -15 ? "text-cempasuchil" : "text-tinta-2")}>
-              {t("referencia", { precio: formatMXN(referencia, locale), unidad: form.unidad.replace(/s$/, ""), dif: dif > 0 ? `+${dif}` : dif })}
+              {comparable
+                ? t("referencia", { precio: formatMXN(referencia, locale), unidad: nombreUnidad(singular(form.unidad)), dif: dif > 0 ? `+${dif}` : dif })
+                : t("sinReferencia", { unidad: nombreUnidad(singular(form.unidad)) })}
             </span>
           </label>
           <label className="flex flex-col gap-1 text-sm font-semibold">

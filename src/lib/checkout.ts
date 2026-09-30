@@ -84,3 +84,7 @@ export const formatearTarjeta = (s: string) => s.replace(/\D/g, "").slice(0, 19)
 export function payloadCoDi(folio: string, monto: number, puestoId: string): string {
   return `BARABARA-CODI-DEMO|folio=${folio}|monto=${monto.toFixed(2)}|mxn|puesto=${puestoId}`;
 }
+
+/** Regla 5: en la demo solo se acepta la tarjeta de prueba (nunca datos reales). */
+export const TARJETA_PRUEBA = "4242424242424242";
+export const esTarjetaPrueba = (numero: string) => numero.replace(/\D/g, "") === TARJETA_PRUEBA;

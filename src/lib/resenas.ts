@@ -1,4 +1,5 @@
 import type { Resena } from "./schemas";
+import { PUNTOS_RESENA_FOTO } from "./loyalty";
 
 export type Rating = { promedio: number; total: number };
 
@@ -32,3 +33,19 @@ export function combinarRating(base: Rating | null, propias: Pick<Resena, "estre
 export const MIN_CARACTERES_RESENA = 20;
 export const resenaValida = (r: { estrellas: number; texto: string }) =>
   r.estrellas >= 1 && r.estrellas <= 5 && r.texto.trim().length >= MIN_CARACTERES_RESENA;
+
+/**
+ * Sello de verificación de una reseña: solo si la persona compró en ese lugar (puesto, mercado o
+ * productor) o hizo check-in en él. Sin evidencia, la reseña se publica sin sello.
+ */
+export function verificacionResena(
+  objetivoId: string,
+  h: { checkins: { objetivo: string; mercadoId: string }[]; pedidos: { puestoId: string; mercadoId: string }[] },
+): Resena["verificada"] | undefined {
+  if (h.pedidos.some((p) => p.puestoId === objetivoId || p.mercadoId === objetivoId)) return "compra";
+  if (h.checkins.some((c) => c.objetivo === objetivoId || c.mercadoId === objetivoId || c.objetivo === `mercado:${objetivoId}`)) return "check-in QR";
+  return undefined;
+}
+
+/** Puntos por reseña (lealtad.json: «Reseña con foto: 15 puntos»), solo la primera vez en cada lugar. */
+export const puntosPorResena = (yaReseno: boolean, conFoto: boolean) => (!yaReseno && conFoto ? PUNTOS_RESENA_FOTO : 0);
