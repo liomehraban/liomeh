@@ -691,18 +691,13 @@
     "titulo": "Marchanta",
     "subtitulo": "Your 24/7 market guide",
     "saludo": "Come on in! I'm Marchanta, your 24/7 market guide. What are you craving today?",
-    "placeholder": "Ask Marchanta…",
-    "enviar": "Send",
-    "microfono": "Voice input",
-    "escuchando": "Listening…",
     "escribiendo": "Marchanta is typing…",
     "limite": "20 questions a day · unlimited with the Tourist Pass",
     "restantes": "{n, plural, one {# question left today} other {# questions left today}}",
     "ilimitado": "Unlimited questions with your plan",
     "agotado": "You've used your 20 questions for today. They're unlimited with the Tourist Pass or Mercado+.",
     "verPlanes": "See plans",
-    "error": "I couldn't answer. Please try again.",
-    "sugerencias": "Suggestions",
+    "sugerencias": "Tap a question",
     "chips": [
       "Where can I eat pancita?",
       "Which market is open now?",
@@ -729,7 +724,6 @@
       "evento": "Event",
       "ruta": "Route"
     },
-    "fuenteIA": "AI answer",
     "tu": "You"
   },
   "locatario": {

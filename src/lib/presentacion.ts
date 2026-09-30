@@ -100,7 +100,7 @@ export const PASOS: PasoDemo[] = [
     locale: "es",
     acciones: [
       { tipo: "ir", ruta: "/asistente" },
-      { tipo: "escribir", demo: "chat-input", texto: "¿Qué eventos hay este mes?", enviar: true },
+      { tipo: "clic", demo: "pregunta:eventos" },
       { tipo: "esperarElemento", demo: `recordar:${EVENTO_DEMO}` },
       { tipo: "clic", demo: `recordar:${EVENTO_DEMO}` },
     ],

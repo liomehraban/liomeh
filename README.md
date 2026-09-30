@@ -39,6 +39,8 @@ pnpm dev              # http://localhost:3000/es
 | Productor | `/productor` (Cosecha), `/pedidos`, `/huerto` |
 | Gobierno | `/gobierno` (layout ancho desde 1024 px) |
 
+**Marchanta** (`/asistente`) es simulada: ocho preguntas rápidas con respuestas preguardadas, calculadas en el servidor con las reglas de `src/lib/assistant/intents.ts` sobre los datos reales (la página se regenera cada 15 min por «abierto ahora» y «eventos del mes»). No hay texto libre ni llamadas a una API de IA.
+
 Todo lo transaccional persiste en `localStorage` (Zustand, clave `pasele-demo`) y se refleja entre perfiles sin recargar. «Reiniciar demo» (modo presentación o Ajustes) deja todo como en los JSON.
 
 ## PWA
@@ -60,13 +62,11 @@ pnpm dlx vercel link                 # proyecto nuevo, framework Next.js, raíz 
 pnpm dlx vercel env add NEXT_PUBLIC_DATA_SOURCE      # mock
 pnpm dlx vercel env add NEXT_PUBLIC_MAP_PROVIDER     # maplibre
 pnpm dlx vercel env add NEXT_PUBLIC_USD_RATE         # 18.5
-pnpm dlx vercel env add ANTHROPIC_API_KEY            # opcional (asistente con IA)
-pnpm dlx vercel env add ANTHROPIC_MODEL              # obligatorio si hay key; p. ej. claude-opus-5-5
 pnpm dlx vercel                      # deploy de preview
 pnpm dlx vercel --prod               # deploy de producción
 ```
 
-Sin `ANTHROPIC_API_KEY` + `ANTHROPIC_MODEL`, Marchanta responde con las intenciones guionadas (`src/lib/assistant/intents.ts`). `NEXT_PUBLIC_GOOGLE_MAPS_KEY` y las de Supabase se quedan vacías en esta etapa.
+Ninguna variable es obligatoria: sin ellas se usan datos mock y MapLibre. `NEXT_PUBLIC_GOOGLE_MAPS_KEY` y las de Supabase se quedan vacías en esta etapa.
 
 ### Dominio `mercados.cineticastudio.xyz` (Cloudflare → Vercel)
 

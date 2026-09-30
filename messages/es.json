@@ -691,18 +691,13 @@
     "titulo": "Marchanta",
     "subtitulo": "Tu guía de mercados 24/7",
     "saludo": "¡Pásele! Soy Marchanta, tu guía de mercados 24/7. ¿Qué se le antoja hoy?",
-    "placeholder": "Pregúntale a Marchanta…",
-    "enviar": "Enviar",
-    "microfono": "Dictar por voz",
-    "escuchando": "Te escucho…",
     "escribiendo": "Marchanta está escribiendo…",
     "limite": "20 preguntas al día · ilimitado con Pase Turista",
     "restantes": "{n, plural, one {Te queda # pregunta hoy} other {Te quedan # preguntas hoy}}",
     "ilimitado": "Preguntas ilimitadas con tu plan",
     "agotado": "Ya usaste tus 20 preguntas de hoy. Con el Pase Turista o Mercado+ son ilimitadas.",
     "verPlanes": "Ver planes",
-    "error": "No pude responder. Intenta de nuevo.",
-    "sugerencias": "Sugerencias",
+    "sugerencias": "Toca una pregunta",
     "chips": [
       "¿Dónde como pancita?",
       "¿Qué mercado está abierto ahora?",
@@ -729,7 +724,6 @@
       "evento": "Evento",
       "ruta": "Ruta"
     },
-    "fuenteIA": "Respuesta con IA",
     "tu": "Tú"
   },
   "locatario": {
