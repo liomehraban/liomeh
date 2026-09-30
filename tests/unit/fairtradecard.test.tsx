@@ -18,7 +18,7 @@ const render = (p: (typeof huertos.productores)[number], locale: "es" | "en" = "
 describe("<FairTradeCard>", () => {
   it("copy del guion con los valores de comercio_justo", () => {
     const html = render(jurado);
-    expect(html).toContain("Por cada $150 que pagas (ciento de nopal), $70 se quedan con Familia Jurado Nopaleros (antes $35).");
+    expect(html).toContain("Por cada $150 que se paga en el mercado (ciento de nopal), $70 se quedan con Familia Jurado Nopaleros (antes $35).");
     expect(html).toContain("¡El doble!");
     expect(html).toContain("29.7 km");
   });

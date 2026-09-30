@@ -1,8 +1,9 @@
 "use client";
 
-import { BellRing } from "lucide-react";
+import { ArrowRight, BellRing } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { formatRangoFechas } from "@/lib/eventos";
 import { enIdioma } from "@/lib/idioma";
@@ -21,12 +22,15 @@ export function Recordatorios({ eventos }: { eventos: Evento[] }) {
         {t("recordatorios")}
       </h2>
       {lista.length === 0 ? (
-        <p className="text-tinta-2">
-          {t("sinRecordatorios")}{" "}
-          <Link href="/agenda" aria-label={t("irAgenda")} className="font-semibold text-morado underline">
-            →
-          </Link>
-        </p>
+        <div className="flex flex-col items-start gap-2">
+          <p className="text-tinta-2">{t("sinRecordatorios")}</p>
+          <Button asChild variant="secondary" size="sm">
+            <Link href="/agenda">
+              {t("irAgenda")}
+              <ArrowRight aria-hidden />
+            </Link>
+          </Button>
+        </div>
       ) : (
         <ul className="flex flex-col gap-2">
           {lista.map((e) => (

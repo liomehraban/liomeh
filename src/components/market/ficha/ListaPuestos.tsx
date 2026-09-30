@@ -40,16 +40,26 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
                   <Icono className="size-[18px]" strokeWidth={2} />
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col">
-                  <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 font-semibold">
-                    {p.nombre}
-                    {p.real_segun_guia && <BadgeCheck className="size-4 shrink-0 text-dorado" aria-label={t("realGuia")} />}
-                    {!p.num_resenas && (
-                      <span className="rounded-pill bg-dorado-200 px-1.5 py-px text-[11px] leading-tight font-bold text-morado-900">{tp("nuevo")}</span>
+                  {/* La palomita va pegada a la última palabra del nombre: nunca queda sola en un renglón. */}
+                  <span className="font-semibold">
+                    {p.real_segun_guia ? (
+                      <>
+                        {p.nombre.slice(0, p.nombre.lastIndexOf(" ") + 1)}
+                        <span className="whitespace-nowrap">
+                          {p.nombre.slice(p.nombre.lastIndexOf(" ") + 1)}
+                          <BadgeCheck className="ml-1 inline size-4 align-[-3px] text-dorado" aria-label={t("realGuia")} />
+                        </span>
+                      </>
+                    ) : (
+                      p.nombre
                     )}
                   </span>
                   <span className="text-[13px] leading-snug text-tinta-2">
                     {v("girosPuesto", p.giro)} · {t("productos", { n: p.productos.length })}
                   </span>
+                  {!p.num_resenas && (
+                    <span className="mt-1 w-fit rounded-pill bg-dorado-200 px-2 py-px text-[12px] leading-tight font-bold text-morado-900">{tp("nuevo")}</span>
+                  )}
                   {a && a.pedidosHoy > 0 && <span className="text-[12px] font-semibold text-nopal-700">{t("pedidosHoy", { n: a.pedidosHoy })}</span>}
                 </span>
                 {p.num_resenas ? <Estrellas rating={p.rating} className="shrink-0" /> : null}

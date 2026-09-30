@@ -36,7 +36,7 @@ describe("M6 · Ficha de productor", () => {
   });
   it("Familia Jurado: precio justo y compra al mayoreo", async () => {
     const html = await render("prod-milpa-01");
-    expect(html).toContain("Por cada $150 que pagas (ciento de nopal), $70 se quedan con Familia Jurado Nopaleros (antes $35).");
+    expect(html).toContain("Por cada $150 que se paga en el mercado (ciento de nopal), $70 se quedan con Familia Jurado Nopaleros (antes $35).");
     expect(html).toContain("Comprar al mayoreo");
     expect(html).toContain("Este huerto no recibe visitas por ahora.");
   });

@@ -77,7 +77,12 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
   useEffect(() => {
     if (!tam.w || listo.current) return;
     listo.current = true;
-    const e = escalaAjuste({ w: LW, h: LH }, tam, MARGEN_TODO);
+    // El plano es mucho más ancho que alto: ajustarlo completo al ancho deja etiquetas diminutas y mucho vacío.
+    // Arranca más cerca (hasta 1.5× el ajuste, sin pasarse del alto disponible); «Ver todo» muestra el plano entero.
+    const todo = escalaAjuste({ w: LW, h: LH }, tam, MARGEN_TODO);
+    // Escala (relativa al ancho) con la que el plano llenaría todo el alto libre.
+    const alto = (tam.h - (MARGEN_TODO.top ?? 0) - (MARGEN_TODO.bottom ?? 0)) / (LH * (tam.w / LW));
+    const e = Math.max(todo, Math.min(todo * 1.5, alto * 0.95));
     const tr = transformacionCentrada({ x: LW / 2, y: LH / 2 }, { w: LW, h: LH }, tam, e, MARGEN_TODO);
     zp.current?.setTransform(tr.x, tr.y, tr.escala, 0);
   }, [tam, LW, LH]);

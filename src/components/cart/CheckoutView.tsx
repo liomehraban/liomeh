@@ -130,9 +130,13 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
               className={cn(opcion, tipo === op ? "border-morado bg-morado-50" : "border-border bg-white")}
             >
               {op === "recoger" ? <Store className="size-5 text-morado" aria-hidden /> : <Bike className="size-5 text-morado" aria-hidden />}
-              <span className="flex flex-col">
+              <span className="flex min-w-0 flex-1 flex-col">
                 <span className="font-semibold">{op === "recoger" ? (puesto.tipo === "productor" ? t("recogerProductor") : t("recoger")) : t("envio")}</span>
                 <span className="text-[13px] text-tinta-2">{op === "recoger" ? (puesto.recogida ?? t("recogerTiempo")) : t("envioTexto")}</span>
+              </span>
+              {/* Indicador de selección tipo radio (no solo el tinte del fondo). */}
+              <span aria-hidden className={cn("grid size-6 shrink-0 place-items-center rounded-full border-2", tipo === op ? "border-morado bg-morado" : "border-gris/60 bg-white")}>
+                {tipo === op && <span className="size-2.5 rounded-full bg-white" />}
               </span>
             </button>
           ))}
