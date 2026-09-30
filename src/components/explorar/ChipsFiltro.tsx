@@ -42,7 +42,7 @@ export function ChipsFiltro({
 }) {
   const t = useTranslations("explorar");
   return (
-    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+    <div className="-mx-4 fila-chips gap-2 px-4 pb-1">
       <button type="button" onClick={onFiltros} className={cn(base, "border-morado bg-white text-morado", nFiltros > 0 && "bg-morado text-crema")}>
         <SlidersHorizontal className="size-4" aria-hidden />
         {t("filtros")}

@@ -67,7 +67,7 @@ export function AgendaView({ eventos, rutas, paradas, mercados }: { eventos: Eve
               ))}
             </div>
           </div>
-          <div className="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none]">
+          <div className="-mx-5 fila-chips gap-2 px-5">
             {CATEGORIAS_AGENDA.map((c) => {
               const on = cats.includes(c);
               return (

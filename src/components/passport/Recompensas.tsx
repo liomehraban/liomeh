@@ -55,7 +55,7 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
       {hydrated && cupones.length > 0 && (
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-morado-700">{t("cupones")}</h3>
-          <ul className="flex snap-x gap-3 overflow-x-auto pb-1">
+          <ul className="carrusel gap-3 pb-1">
             {cupones.map((c) => (
               <li key={c.id} className="flex w-44 shrink-0 snap-start flex-col items-center gap-1 rounded-card border-2 border-dashed border-dorado bg-dorado-200/40 p-3 text-center">
                 <QRCodeSVG value={c.codigo} size={96} fgColor="#3E1C3C" bgColor="transparent" title={t("cuponEtiqueta", { codigo: c.codigo })} />

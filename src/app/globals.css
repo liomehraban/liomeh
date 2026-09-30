@@ -164,6 +164,39 @@
   }
 }
 
+/* Carrusel horizontal: solo se desliza de izquierda a derecha (nunca en vertical dentro de sí mismo), cada
+   tarjeta se ancla al soltar y el gesto no arrastra la página ni la hoja hacia los lados. El gesto vertical
+   sigue pasando a la página/hoja que lo contiene. */
+@utility carrusel {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+/* Fila de chips con desplazamiento horizontal: igual que el carrusel, pero sin anclar. */
+@utility fila-chips {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Retroalimentación táctil: todo lo tocable se hunde un poco al presionar. */
 @utility pressable {
   transition-property: transform, background-color, color, border-color, box-shadow;

@@ -192,7 +192,7 @@ export function Explorador({
                 </Button>
               </div>
             )}
-            <ul data-revelar className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+            <ul data-revelar className="carrusel scroll-px-4 gap-3 px-4 pb-2">
               {cercanos.map((m) => (
                 <li key={m.id} className="w-64 shrink-0 snap-start">
                   <MarketCard m={{ ...m, distancia: m.distancia }} compacta />

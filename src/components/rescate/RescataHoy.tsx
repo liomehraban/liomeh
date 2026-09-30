@@ -56,7 +56,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
           {kg > 0 && <span className="text-[12px]">{t("tuyo", { kg: nf(kg) })}</span>}
         </span>
       </div>
-      <ul className="flex snap-x gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+      <ul className="carrusel scroll-px-4 gap-3 px-4 pb-1">
         {ofertas.map((o) => {
           const hecho = hecha(o.id);
           const pendiente = !hecho && enCarrito(o.id);

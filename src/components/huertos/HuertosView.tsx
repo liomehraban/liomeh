@@ -95,7 +95,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
           <Leaf className="mt-0.5 size-5 shrink-0" aria-hidden />
           <p className="text-[13px] leading-snug font-semibold">{t("banner")}</p>
         </div>
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+        <div className="-mx-4 fila-chips gap-2 px-4 pb-1">
           <button
             type="button"
             aria-pressed={temporada}
@@ -140,7 +140,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
             onToggle={() => setLista((v) => !v)}
             extra={<span className="text-[13px] text-tinta-2">· {t("simulado")}</span>}
           >
-            <ul className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+            <ul className="carrusel scroll-px-4 gap-3 px-4 pb-2">
               {visibles.map((p) => (
                 <li key={p.id} className="w-72 shrink-0 snap-start">
                   <TarjetaProductor p={p} />

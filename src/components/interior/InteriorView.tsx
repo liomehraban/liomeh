@@ -218,7 +218,7 @@ export function InteriorView({ interior, nombreMercado }: { interior: Interior; 
             </ul>
           )}
         </form>
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
+        <div className="-mx-4 fila-chips gap-2 px-4">
           {categorias.map((c) => {
             const on = cats.includes(c);
             return (
