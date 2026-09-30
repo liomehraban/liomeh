@@ -14,6 +14,7 @@ import { Conductor } from "@/components/presentacion/Conductor";
 import { RegistroSW } from "@/components/pwa/RegistroSW";
 import { MotorAvisos } from "@/components/avisos/MotorAvisos";
 import { RevelarAutomatico } from "@/components/motion/RevelarAutomatico";
+import { HistorialInterno } from "@/components/shell/HistorialInterno";
 import { VigilantePlan } from "@/components/planes/VigilantePlan";
 import { SincroniaPestanas } from "@/components/shell/SincroniaPestanas";
 import { datosAvisos } from "@/data/avisos";
@@ -63,6 +64,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
                 <Conductor />
                 <MotorAvisos datos={await datosAvisos()} />
                 <RevelarAutomatico />
+                <HistorialInterno />
                 <VigilantePlan />
                 <SincroniaPestanas />
                 <Toaster />

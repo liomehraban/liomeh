@@ -30,11 +30,11 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
   // Momento de apertura: la celebración solo sale si el pedido se acaba de pagar.
   const [ahora] = useState(() => Date.now());
 
-  if (!hydrated) return <EncabezadoSimple titulo={t("pedido.titulo")} />;
+  if (!hydrated) return <EncabezadoSimple titulo={t("pedido.titulo")} destino="/yo" />;
   if (!pedido) {
     return (
       <div className="flex min-h-full flex-col">
-        <EncabezadoSimple titulo={t("pedido.titulo")} />
+        <EncabezadoSimple titulo={t("pedido.titulo")} destino="/yo" />
         <div className="flex flex-col items-center gap-3 p-8 text-center">
           <p className="text-tinta-2">{t("pedido.noEncontrado")}</p>
           <Button asChild variant="secondary">
@@ -54,7 +54,7 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
   return (
     <div className="relative flex min-h-full flex-col">
       {recienPagado && <Celebracion />}
-      <EncabezadoSimple titulo={t("pedido.titulo")} />
+      <EncabezadoSimple titulo={t("pedido.titulo")} destino="/yo" />
       <div className="flex flex-col gap-5 p-5">
         <div className="flex flex-col gap-1">
           <p className="text-sm font-semibold text-tinta-2">{t("pedido.folio")}</p>

@@ -44,7 +44,7 @@ export function MiHuertoView({ productor: p, plan }: { productor: Productor; pla
             ))}
           </ul>
           <Button asChild variant="secondary" className="mt-1">
-            <Link href={`/huertos/${p.id}`}>
+            <Link href="/productor/huerto/publico">
               <Eye aria-hidden />
               {t("verPerfil")}
             </Link>
