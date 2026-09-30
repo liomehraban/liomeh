@@ -23,8 +23,11 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
 
   if (ancho) {
     return (
-      <div id={PHONE_ROOT_ID} className="relative min-h-dvh w-full bg-background">
+      <div className="relative min-h-dvh w-full bg-background">
         {children}
+        {/* El panel ancho se desplaza con la ventana: hojas y diálogos se montan en una capa fija del tamaño de
+            la pantalla para que siempre aparezcan a la vista, aunque se haya bajado por el panel. */}
+        <div id={PHONE_ROOT_ID} className="pointer-events-none fixed inset-0 z-50 [&>*]:pointer-events-auto" />
       </div>
     );
   }
