@@ -6,38 +6,45 @@ import { ArrowLeft } from "lucide-react";
 import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
+/** Franja superior que ocupan los controles flotantes (campana y perfil): 12 px + 44 px + aire. */
+const FRANJA_CONTROLES = 64;
+
 /**
- * Barra superior compacta (como el «large title» de iOS): cuando el <h1> de la pantalla sale de vista al
- * hacer scroll, aparece fija arriba con el mismo título. El título es un duplicado visual del h1 (oculto a
- * lectores); el botón de volver delega en el de la pantalla.
+ * Barra superior compacta (como el «large title» de iOS): en cuanto el <h1> de la pantalla empieza a pasar
+ * por debajo de los controles flotantes al hacer scroll, aparece fija arriba con el mismo título. El título es
+ * un duplicado visual del h1 (oculto a lectores); el botón de volver delega en el de la pantalla (data-volver).
+ * Vuelve a buscar el h1 cuando la pantalla cambia sin navegar (p. ej. Cobrar → QR).
  */
 export function EncabezadoCompacto({ contenedorId }: { contenedorId: string }) {
   const pathname = usePathname();
   const [titulo, setTitulo] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
-  // Si la pantalla tiene botón de volver (data-volver), la barra compacta ofrece el suyo, como en nativo.
   const [volver, setVolver] = useState<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const cont = document.getElementById(contenedorId);
     if (!cont) return;
-    let io: IntersectionObserver | undefined;
-    // Espera un cuadro a que la pantalla nueva pinte su h1.
-    const raf = requestAnimationFrame(() => {
+    let raf = 0;
+    const medir = () => {
+      raf = 0;
       const h1 = cont.querySelector("h1");
       setTitulo(h1?.textContent?.trim() || null);
       setVolver(cont.querySelector<HTMLButtonElement>("button[data-volver]"));
-      setVisible(false);
-      if (!h1) return;
-      io = new IntersectionObserver(([e]) => setVisible(!e.isIntersecting && e.boundingClientRect.top < (e.rootBounds?.top ?? 0)), {
-        root: cont,
-        rootMargin: "-56px 0px 0px 0px",
-      });
-      io.observe(h1);
-    });
+      if (!h1 || cont.scrollTop <= 0) return setVisible(false);
+      const tope = cont.getBoundingClientRect().top + FRANJA_CONTROLES;
+      setVisible(h1.getBoundingClientRect().top < tope);
+    };
+    const programar = () => {
+      if (!raf) raf = requestAnimationFrame(medir);
+    };
+    programar();
+    cont.addEventListener("scroll", programar, { passive: true });
+    const mo = new MutationObserver(programar);
+    mo.observe(cont, { childList: true, subtree: true });
     return () => {
       cancelAnimationFrame(raf);
-      io?.disconnect();
+      cont.removeEventListener("scroll", programar);
+      mo.disconnect();
     };
   }, [contenedorId, pathname]);
 

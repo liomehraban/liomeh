@@ -126,7 +126,7 @@ export function Explorador({
   };
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div data-pantalla-completa className="relative h-full overflow-hidden">
       <MapView
         center={CENTRO_CDMX}
         zoom={11}
@@ -164,7 +164,7 @@ export function Explorador({
 
       {/* Carruseles inferiores */}
       {!actual && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-[calc(var(--asoma,0px)+0.5rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           <Plegable
             titulo={t("explorar.cercaDeTi")}
             icono={<MapPin className="size-5 text-morado" aria-hidden />}
@@ -197,7 +197,7 @@ export function Explorador({
         etiqueta={actual?.nombre ?? ""}
         etiquetaCerrar={t("explorar.cerrarFicha")}
         etiquetaExpandir={t("explorar.expandir")}
-        alturas={{ peek: 250, mitad: 0.5, completa: 0.9 }}
+        alturas={{ peek: 300, mitad: 0.5, completa: 0.9 }}
       >
         {actual && <FichaRapida m={actual} distancia={haversine(origen, actual)} desdeZocalo={origen.fuente === "zocalo"} />}
       </BottomSheet>

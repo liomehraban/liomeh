@@ -9,7 +9,7 @@ import { TabBar } from "./TabBar";
  */
 export function AppShell({ perfil, children, extra }: { perfil: "consumidor" | "locatario" | "productor"; children: ReactNode; extra?: ReactNode }) {
   return (
-    <div className="relative flex h-full flex-col">
+    <div data-shell data-perfil={perfil} className="relative flex h-full flex-col">
       <main id="contenido" className="relative flex-1 overflow-x-hidden overflow-y-auto overscroll-contain">
         <ViewTransition default="pantalla">{children}</ViewTransition>
       </main>

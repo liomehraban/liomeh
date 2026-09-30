@@ -74,7 +74,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
   const prod = sel?.tipo === "productor" ? productores.find((p) => p.id === sel.id) : undefined;
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div data-pantalla-completa className="relative h-full overflow-hidden">
       <MapView
         center={CENTRO}
         zoom={10}
@@ -128,7 +128,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
       </div>
 
       {!sel && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-[calc(var(--asoma,0px)+0.5rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           <Plegable
             titulo={t("productores")}
             icono={<Sprout className="size-5 text-nopal-700" aria-hidden />}

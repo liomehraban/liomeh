@@ -72,9 +72,9 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
                   href={tab.href}
                   onClick={vibrar}
                   aria-current={on ? "page" : undefined}
-                  className="pressable group -mt-6 flex flex-col items-center gap-0.5 rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                  className="pressable group -mt-4 flex flex-col items-center gap-0.5 rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
-                  <MarchantaPersonaje activo={on} />
+                  <MarchantaPersonaje activo={on} className="size-14" />
                   <span className={cn("text-[11px] font-semibold text-tinta-2", on && "font-bold text-morado")}>{label}</span>
                 </Link>
               </li>

@@ -92,6 +92,10 @@
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
+  /* Los navegadores dan a <fieldset> un min-width: min-content que lo hace desbordar la pantalla. */
+  fieldset {
+    min-width: 0;
+  }
   /* Controles: sin menú de «copiar/abrir enlace» al mantener presionado y sin seleccionar texto por accidente. */
   button,
   a[href],
@@ -101,6 +105,38 @@
     -webkit-user-select: none;
     user-select: none;
   }
+}
+
+/* Espacio inferior del shell (AppShell): lo que sobresale el personaje de la tab bar (--asoma) y el carrito
+   flotante (--fab) se reserva al final del contenido para que nunca tapen el último elemento. Las pantallas de
+   alto completo (mapa, interior, chat) usan --asoma en sus propios paneles. */
+[data-shell] {
+  --asoma: 0px;
+  --fab: 0px;
+}
+[data-shell][data-perfil="consumidor"] {
+  --asoma: 1.75rem;
+}
+[data-shell]:has([data-cart-fab]) {
+  --fab: 4.5rem;
+}
+[data-shell] > main {
+  padding-bottom: calc(max(var(--asoma), var(--fab)) + 0.5rem);
+  scroll-padding-bottom: calc(max(var(--asoma), var(--fab)) + 0.5rem);
+}
+[data-shell] > main:has(> [data-pantalla-completa]) {
+  padding-bottom: 0;
+}
+[data-cart-fab] {
+  transition:
+    opacity 200ms ease-out,
+    scale 200ms ease-out,
+    transform 160ms var(--ease-out);
+}
+[data-shell]:has([data-hoja-abierta]) [data-cart-fab] {
+  opacity: 0;
+  scale: 0.85;
+  pointer-events: none;
 }
 
 /* Retroalimentación táctil: todo lo tocable se hunde un poco al presionar. */

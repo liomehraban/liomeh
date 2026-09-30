@@ -92,6 +92,7 @@ export function BottomSheet({
       aria-modal={false}
       aria-label={etiqueta}
       aria-hidden={!abierto}
+      data-hoja-abierta={abierto || undefined}
       inert={!abierto}
       style={{ y, height: alto || undefined }}
       drag="y"
@@ -124,7 +125,7 @@ export function BottomSheet({
       >
         <XIcon className="size-5" />
       </button>
-      <div className={cn("min-h-0 flex-1 px-5 pb-8", altura === "completa" ? "overflow-y-auto" : "overflow-hidden")}>{children}</div>
+      <div className={cn("min-h-0 flex-1 px-5 pb-[calc(var(--asoma,0px)+1.5rem)]", altura === "completa" ? "overflow-y-auto" : "overflow-hidden")}>{children}</div>
     </motion.section>
   );
 }
