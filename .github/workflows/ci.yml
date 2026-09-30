@@ -5,6 +5,10 @@ on:
     branches: [claude/new-session-qesrxe, main]
   pull_request:
 
+# Mínimo privilegio: el CI solo lee el código.
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
