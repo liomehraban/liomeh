@@ -30,9 +30,10 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
   const params = useSearchParams();
   const puestoId = params.get("puesto") ?? "";
   const linea = useAppStore((s) => s.carrito.find((l) => l.puestoId === puestoId));
+  const vendedores = useAppStore((s) => s.vendedores);
   const plan = useAppStore((s) => s.plan);
   const registrar = useAppStore((s) => s.registrarPedido);
-  const puesto = puestos[puestoId];
+  const puesto = puestos[puestoId] ?? vendedores[puestoId];
 
   const [tipo, setTipo] = useState<"recoger" | "envio">("recoger");
   const [alcaldia, setAlcaldia] = useState("");

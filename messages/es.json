@@ -244,7 +244,10 @@
       "anios": "años",
       "restaurantes": "restaurantes",
       "pct_consumo_nacional": "% del consumo nacional"
-    }
+    },
+    "productos": "{n, plural, one {# producto} other {# productos}}",
+    "pedidosHoy": "{n, plural, one {# pedido hoy} other {# pedidos hoy}}",
+    "verMasPuestos": "Ver los {n} puestos"
   },
   "giros": {
     "comida": "Comida",
@@ -314,7 +317,20 @@
     "otroPedidoNo": "Mejor no",
     "resenas": "Reseñas",
     "sinResenas": "Aún no hay reseñas de este puesto.",
-    "noEncontrado": "No encontramos ese puesto"
+    "noEncontrado": "No encontramos ese puesto",
+    "actividad": "{n} pedidos hoy · el último hace {min} min",
+    "actividadVacia": "Recién abierto: sé el primero en pedir hoy",
+    "horarioMercado": "Según el horario del mercado",
+    "comoLlegar": "Cómo llegar a {mercado}",
+    "simulado": "Catálogo simulado",
+    "stock": {
+      "surtido": "Recién surtido · {n} {u} disponibles",
+      "ok": "{n} {u} disponibles",
+      "pocas": "¡Quedan {n} {u}!",
+      "agotado": "Agotado por hoy",
+      "agotadoBoton": "Agotado"
+    },
+    "actividadDia": "{n} pedidos por la app hoy"
   },
   "carrito": {
     "titulo": "Tu carrito",
@@ -692,18 +708,13 @@
     "titulo": "Marchanta",
     "subtitulo": "Tu guía de mercados 24/7",
     "saludo": "¡Pásele! Soy Marchanta, tu guía de mercados 24/7. ¿Qué se le antoja hoy?",
-    "placeholder": "Pregúntale a Marchanta…",
-    "enviar": "Enviar",
-    "microfono": "Dictar por voz",
-    "escuchando": "Te escucho…",
     "escribiendo": "Marchanta está escribiendo…",
     "limite": "20 preguntas al día · ilimitado con Pase Turista",
     "restantes": "{n, plural, one {Te queda # pregunta hoy} other {Te quedan # preguntas hoy}}",
     "ilimitado": "Preguntas ilimitadas con tu plan",
     "agotado": "Ya usaste tus 20 preguntas de hoy. Con el Pase Turista o Mercado+ son ilimitadas.",
     "verPlanes": "Ver planes",
-    "error": "No pude responder. Intenta de nuevo.",
-    "sugerencias": "Sugerencias",
+    "sugerencias": "Toca una pregunta",
     "chips": [
       "¿Dónde como pancita?",
       "¿Qué mercado está abierto ahora?",
@@ -730,7 +741,6 @@
       "evento": "Evento",
       "ruta": "Ruta"
     },
-    "fuenteIA": "Respuesta con IA",
     "tu": "Tú"
   },
   "locatario": {
@@ -963,5 +973,110 @@
     "pedidos": "Mis pedidos",
     "reintentar": "Reintentar",
     "resumen": "{sellos, plural, one {# sello} other {# sellos}} · {puntos} puntos · {pedidos, plural, one {# pedido} other {# pedidos}}"
+  },
+  "notificaciones": {
+    "titulo": "Notificaciones",
+    "descripcion": "Avisos de tus pedidos, tus mercados y la ciudad",
+    "sistema": "Avisos en este teléfono",
+    "sistemaTexto": "Te avisamos aunque la app esté cerrada",
+    "vacio": "Todavía no tienes avisos.",
+    "nueva": "(nueva)",
+    "abrir": "Notificaciones",
+    "abrirConNuevas": "Notificaciones: {n, plural, one {# nueva} other {# nuevas}}",
+    "ver": "Ver",
+    "avisos": {
+      "pedido_preparando": {
+        "titulo": "Tu pedido ya se está preparando",
+        "texto": "{folio}: el puesto recibió tu pago y ya está en ello."
+      },
+      "pedido_listo": {
+        "titulo": "¡Tu pedido está listo!",
+        "texto": "{folio}: pásale a recogerlo al puesto."
+      },
+      "pedido_en_ruta": {
+        "titulo": "Tu pedido va en camino",
+        "texto": "{folio}: el repartidor ya salió del mercado."
+      },
+      "pedido_entregado": {
+        "titulo": "Pedido entregado",
+        "texto": "{folio}: ¡buen provecho! Cuéntanos qué tal con una reseña."
+      },
+      "eventoHoy": {
+        "titulo": "Hoy: {titulo}",
+        "texto": "Tu recordatorio: el evento ya está en curso."
+      },
+      "eventoPronto": {
+        "titulo": "{titulo} en {dias, plural, one {# día} other {# días}}",
+        "texto": "Te lo recordamos porque lo marcaste en la agenda."
+      },
+      "eventoNuevo": {
+        "titulo": "Viene: {titulo}",
+        "texto": "{dias, plural, =0 {Empieza hoy} one {Empieza mañana} other {Empieza en # días}}. Toca «Recordarme» en la agenda."
+      },
+      "rescate": {
+        "titulo": "Rescata hoy: {producto}",
+        "texto": "En {mercado} a ${precio}/{unidad} (antes ${antes}). Quedan pocas horas."
+      },
+      "surtido": {
+        "titulo": "Recién surtido: {producto}",
+        "texto": "{puesto}, en {mercado}, acaba de recibir mercancía fresca."
+      },
+      "checkin": {
+        "titulo": "¿Pagaste en efectivo?",
+        "texto": "Escanea el QR del puesto y suma 10 puntos a tu pasaporte."
+      },
+      "nuevoPedido": {
+        "titulo": "Nuevo pedido {folio}",
+        "texto": "{items} · ${total}. Revísalo en Pedidos."
+      },
+      "cobro": {
+        "titulo": "Cobro QR recibido",
+        "texto": "Te pagaron ${monto} con CoDi. Ya suma a tus ventas de hoy."
+      },
+      "stockBajo": {
+        "titulo": "Se está acabando: {producto}",
+        "texto": "Te quedan {n} {unidad}. Actualiza tu catálogo si ya no hay."
+      },
+      "mayoreo": {
+        "titulo": "Nuevo pedido de mayoreo",
+        "texto": "{cliente} quiere {cantidad} de {producto}."
+      },
+      "loteVisto": {
+        "titulo": "Tu cosecha llama la atención",
+        "texto": "{n} locatarios vieron tu lote de {producto} hoy."
+      },
+      "impactoCheckins": {
+        "titulo": "Check-ins en efectivo hoy: {n}",
+        "texto": "Ventas en efectivo que ya quedan registradas en los mercados."
+      },
+      "impactoRescate": {
+        "titulo": "{kg} kg de alimento rescatado hoy",
+        "texto": "Se suman al indicador de SEDEMA."
+      },
+      "impactoTransacciones": {
+        "titulo": "{n} transacciones hoy",
+        "texto": "Actividad de los mercados en la app al corte de esta hora."
+      },
+      "bienvenida_consumidor": {
+        "titulo": "¡Pásele! Ya estás en Bara Bara",
+        "texto": "Aquí verás tus pedidos, ofertas de «Rescata hoy» y eventos de tus mercados."
+      },
+      "bienvenida_locatario": {
+        "titulo": "Tu puesto ya está en línea",
+        "texto": "Aquí te avisamos de pedidos nuevos, cobros y productos por acabarse."
+      },
+      "bienvenida_productor": {
+        "titulo": "Tu huerto ya está en línea",
+        "texto": "Aquí te avisamos de pedidos de mayoreo y de quién ve tu cosecha."
+      },
+      "bienvenida_gobierno": {
+        "titulo": "Panel de impacto en vivo",
+        "texto": "Aquí verás los cortes del día de SECTUR, SEDEMA y SE."
+      },
+      "resumenDia": {
+        "titulo": "Buen día: el mercado ya abrió",
+        "texto": "Revisa tus pedidos de la app y tu inventario antes de la hora pico."
+      }
+    }
   }
 }

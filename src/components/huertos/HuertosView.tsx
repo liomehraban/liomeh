@@ -85,7 +85,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
       />
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
-        <div className="mr-14 flex items-start gap-2 rounded-card bg-nopal-700 p-3 text-white shadow-md">
+        <div className="mr-28 flex items-start gap-2 rounded-card bg-nopal-700 p-3 text-white shadow-md">
           <Leaf className="mt-0.5 size-5 shrink-0" aria-hidden />
           <p className="text-[13px] leading-snug font-semibold">{t("banner")}</p>
         </div>

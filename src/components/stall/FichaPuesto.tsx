@@ -12,20 +12,24 @@ import { Seccion } from "@/components/market/ficha/Seccion";
 import { categoriaGiro } from "@/lib/giros";
 import type { Productor, Puesto, Resena } from "@/lib/schemas";
 import { FairTradeCard } from "@/components/fairtrade/FairTradeCard";
+import { comoLlegarUrl } from "@/lib/geo";
+import type { PuestoResumen } from "@/data/comercio";
+import { ActividadEnVivo } from "./ActividadEnVivo";
 import { CatalogoPuesto } from "./CatalogoPuesto";
 import { SelloComercioJusto } from "./SelloComercioJusto";
 import { SoloQA } from "./SoloQA";
 
 export type FichaPuestoProps = {
   puesto: Puesto;
-  mercado: { id: string; nombre: string };
+  mercado: { id: string; nombre: string; interior?: boolean; lat?: number; lng?: number };
   resenas: Resena[];
   productores: Productor[];
   nombresPuestos: Record<string, string>;
+  vendedor?: PuestoResumen;
 };
 
 /** M4 · Puesto. */
-export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresPuestos }: FichaPuestoProps) {
+export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresPuestos, vendedor }: FichaPuestoProps) {
   const t = useTranslations();
   const productorDe = (id: string | null) => (id ? productores.find((x) => x.id === id) : undefined);
 
@@ -35,7 +39,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
         <PhotoPlaceholder categoria={categoriaGiro(p.giro)} className="aspect-auto h-48 rounded-none" iconClassName="size-14" />
         <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
         <BotonVolver fallback={`/mercado/${mercado.id}`} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3" />
-        <BotonCompartir titulo={p.nombre} texto={mercado.nombre} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-16" />
+        <BotonCompartir titulo={p.nombre} texto={mercado.nombre} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-[6.75rem]" />
       </header>
 
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">
@@ -52,6 +56,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
             <MapPin className="size-4" aria-hidden />
             {p.ubicacion_texto}
           </p>
+          <ActividadEnVivo puestoId={p.id} />
           <div className="flex flex-wrap items-center gap-2 pt-1">
             <RatingCombinado objetivoId={p.id} base={{ promedio: p.rating, total: p.num_resenas }} />
             {p.sello_comercio_justo && <SelloComercioJusto />}
@@ -59,6 +64,9 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
               <span className="rounded-pill border border-dashed border-gris px-2.5 py-0.5 text-xs font-semibold text-tinta-2">
                 {t("puesto.plan", { plan: p.plan })}
               </span>
+              {p.simulado && (
+                <span className="rounded-pill border border-dashed border-gris px-2.5 py-0.5 text-xs font-semibold text-tinta-2">{t("puesto.simulado")}</span>
+              )}
             </SoloQA>
           </div>
         </div>
@@ -69,7 +77,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
               <Clock className="size-4 text-morado" aria-hidden />
               {t("puesto.horario")}
             </dt>
-            <dd className="text-tinta-2">{p.horario}</dd>
+            <dd className="text-tinta-2">{p.horario || t("puesto.horarioMercado")}</dd>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <dt className="flex items-center gap-2 font-semibold">
@@ -85,16 +93,25 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
         </dl>
 
         <div className="flex flex-col gap-3">
-          <Button asChild variant="secondary">
-            <Link href={`/mercado/${mercado.id}/interior?puesto=${p.id}`}>
-              <Navigation aria-hidden />
-              {t("puesto.llegarDentro")}
-            </Link>
-          </Button>
+          {mercado.interior !== false ? (
+            <Button asChild variant="secondary">
+              <Link href={`/mercado/${mercado.id}/interior?puesto=${p.id}`}>
+                <Navigation aria-hidden />
+                {t("puesto.llegarDentro")}
+              </Link>
+            </Button>
+          ) : mercado.lat !== undefined && mercado.lng !== undefined ? (
+            <Button asChild variant="secondary">
+              <a href={comoLlegarUrl({ lat: mercado.lat, lng: mercado.lng })} target="_blank" rel="noopener noreferrer">
+                <Navigation aria-hidden />
+                {t("puesto.comoLlegar", { mercado: mercado.nombre })}
+              </a>
+            </Button>
+          ) : null}
         </div>
 
         <Seccion titulo={t("puesto.catalogo")}>
-          <CatalogoPuesto puesto={p} nombresPuestos={nombresPuestos} />
+          <CatalogoPuesto puesto={p} nombresPuestos={nombresPuestos} vendedor={vendedor} />
         </Seccion>
 
         {p.origen?.length ? (

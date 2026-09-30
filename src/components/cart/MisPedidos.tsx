@@ -14,6 +14,7 @@ export function MisPedidos({ puestos }: { puestos: Record<string, PuestoResumen>
   const locale = useLocale();
   const hydrated = useHydrated();
   const pedidos = useAppStore((s) => s.pedidos);
+  const vendedores = useAppStore((s) => s.vendedores);
   if (!hydrated) return null;
   return (
     <section aria-labelledby="mis-pedidos" className="flex flex-col gap-3 rounded-card border border-border bg-white p-5">
@@ -31,7 +32,7 @@ export function MisPedidos({ puestos }: { puestos: Record<string, PuestoResumen>
                 <span className="flex min-w-0 flex-1 flex-col">
                   <span className="font-semibold">{p.folio}</span>
                   <span className="truncate text-[13px] text-tinta-2">
-                    {puestos[p.puestoId]?.nombre ?? p.puestoId} ·{" "}
+                    {(puestos[p.puestoId] ?? vendedores[p.puestoId])?.nombre ?? p.puestoId} ·{" "}
                     {new Date(p.fecha).toLocaleDateString(locale === "en" ? "en-US" : "es-MX", { day: "numeric", month: "short", timeZone: "America/Mexico_City" })}
                   </span>
                 </span>

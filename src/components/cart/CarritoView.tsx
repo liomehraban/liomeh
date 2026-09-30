@@ -16,6 +16,7 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
   const t = useTranslations("carrito");
   const hydrated = useHydrated();
   const carrito = useAppStore((s) => s.carrito);
+  const vendedores = useAppStore((s) => s.vendedores);
   const cambiar = useAppStore((s) => s.cambiarCantidad);
   const quitarGrupo = useAppStore((s) => s.quitarGrupo);
 
@@ -35,7 +36,7 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
         <div className="flex flex-col gap-5 p-5">
           {carrito.length > 1 && <p className="rounded-2xl bg-morado-50 p-3 text-sm text-tinta-2">{t("variosPedidos")}</p>}
           {carrito.map((grupo) => {
-            const p = puestos[grupo.puestoId];
+            const p = puestos[grupo.puestoId] ?? vendedores[grupo.puestoId];
             const nombre = p?.nombre ?? grupo.puestoId;
             return (
               <section key={grupo.puestoId} aria-label={t("pedidoDe", { puesto: nombre })} className="flex flex-col gap-3 rounded-card border border-border bg-white p-4">

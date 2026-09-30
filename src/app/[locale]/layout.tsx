@@ -12,6 +12,8 @@ import { MotionProvider } from "@/components/shell/MotionProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { Conductor } from "@/components/presentacion/Conductor";
 import { RegistroSW } from "@/components/pwa/RegistroSW";
+import { MotorAvisos } from "@/components/avisos/MotorAvisos";
+import { datosAvisos } from "@/data/avisos";
 import "../globals.css";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas", display: "swap" });
@@ -56,6 +58,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
                 <TopControls />
                 {children}
                 <Conductor />
+                <MotorAvisos datos={await datosAvisos()} />
                 <Toaster />
               </PhoneFrame>
             </MotionProvider>

@@ -1,3 +1,5 @@
+import type { PuestoResumen } from "./comercio";
+import { esPuestoSimulado, mercadoDePuestoSimulado } from "@/lib/catalogo-simulado";
 import { getRepository } from "./repository";
 
 /** Todos los puestos en línea (hoy, los de mercados con interior) con su mercado. */
@@ -12,21 +14,34 @@ export async function puestosEnLinea() {
   return out;
 }
 
-/** Datos de la pantalla de puesto (M4) desde el repositorio. */
+/** Datos de la pantalla de puesto (M4) desde el repositorio. Incluye los puestos del catálogo simulado. */
 export async function datosPuesto(id: string) {
   const repo = getRepository();
-  const ref = (await puestosEnLinea()).find((x) => x.puestoId === id);
-  if (!ref) return null;
-  const [mercado, interior, resenas] = await Promise.all([repo.mercado(ref.mercadoId), repo.interior(ref.mercadoId), repo.resenas(id)]);
-  const puesto = interior?.puestos.find((p) => p.id === id);
-  if (!mercado || !interior || !puesto) return null;
+  const puesto = await repo.puesto(id);
+  if (!puesto) return null;
+  const mercadoId = esPuestoSimulado(id) ? mercadoDePuestoSimulado(id) : (await puestosEnLinea()).find((x) => x.puestoId === id)?.mercadoId;
+  if (!mercadoId) return null;
+  const [mercado, hermanos, resenas] = await Promise.all([repo.mercado(mercadoId), repo.puestosDeMercado(mercadoId), repo.resenas(id)]);
+  if (!mercado) return null;
   const huertos = [...new Set((puesto.origen ?? []).map((o) => o.huerto_id).filter((h): h is string => !!h))];
   const productores = (await Promise.all(huertos.map((h) => repo.productor(h)))).filter((p) => p !== null);
   return {
     puesto,
-    mercado: { id: mercado.id, nombre: mercado.nombre_display },
+    mercado: { id: mercado.id, nombre: mercado.nombre_display, interior: !!mercado.interior_disponible, lat: mercado.lat, lng: mercado.lng },
     resenas,
     productores,
-    nombresPuestos: Object.fromEntries(interior.puestos.map((p) => [p.id, p.nombre])),
+    nombresPuestos: Object.fromEntries(hermanos.map((p) => [p.id, p.nombre])),
+    vendedor: {
+      id: puesto.id,
+      tipo: "puesto",
+      nombre: puesto.nombre,
+      plan: puesto.plan,
+      giro: puesto.giro,
+      ubicacion: puesto.ubicacion_texto,
+      mercadoId: mercado.id,
+      mercadoNombre: mercado.nombre_display,
+      lat: mercado.lat,
+      lng: mercado.lng,
+    } satisfies PuestoResumen,
   };
 }

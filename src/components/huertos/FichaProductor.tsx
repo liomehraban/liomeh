@@ -28,7 +28,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
         <PhotoPlaceholder categoria={esFlor ? "flores" : "frutas"} className="aspect-auto h-48 rounded-none" iconClassName="size-14" />
         <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
         <BotonVolver fallback="/huertos" className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3" />
-        <BotonCompartir titulo={p.nombre} texto={p.producto_principal} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-16" />
+        <BotonCompartir titulo={p.nombre} texto={p.producto_principal} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-[6.75rem]" />
       </header>
 
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">

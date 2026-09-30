@@ -154,7 +154,7 @@ export function InteriorView({ interior, nombreMercado }: { interior: Interior; 
     <div className="flex h-full flex-col">
       {/* Encabezado: volver, título, buscador y chips */}
       <div className="relative z-20 flex flex-col gap-2 border-b border-border bg-crema px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-2">
-        <div className="flex items-center gap-2 pr-14">
+        <div className="flex items-center gap-2 pr-28">
           <BotonVolver fallback={`/mercado/${interior.mercado_id}`} className="shrink-0 bg-morado-50 shadow-none" />
           <div className="flex min-w-0 flex-col">
             <p className="truncate text-[13px] font-semibold text-tinta-2">{nombreMercado}</p>

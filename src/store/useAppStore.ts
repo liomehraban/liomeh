@@ -24,6 +24,10 @@ import { consumirPregunta } from "@/lib/planes";
 import { puedeAgregarProducto, siguienteEstadoLocatario, type EstadoLocatario, type PlanLocatario } from "@/lib/locatario";
 import { normalizarEstadoMayoreo, type EstadoMayoreo } from "@/lib/productor";
 import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
+import { hoyCDMX } from "@/lib/eventos";
+import { claveVenta } from "@/lib/inventario";
+import type { PuestoResumen } from "@/data/comercio";
+import type { Aviso, EfectoAviso } from "@/lib/notificaciones";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -41,6 +45,10 @@ type DatosDemo = {
   plan: PlanConsumidor;
   onboardingVisto: boolean;
   carrito: LineaCarrito[];
+  /** Ficha de cada vendedor agregado al carrito (puestos del catálogo simulado incluidos). */
+  vendedores: Record<string, PuestoResumen>;
+  /** Unidades compradas hoy por la persona: `AAAA-MM-DD|puesto::producto` → cantidad (se descuentan del inventario). */
+  vendidos: Record<string, number>;
   pedidos: Pedido[];
   puntos: number;
   sellos: string[];
@@ -67,6 +75,12 @@ type DatosDemo = {
   };
   productor: { lotes: Lote[]; pedidos: PedidoMayoreo[] };
   reservasVisita: ReservaVisita[];
+  /** Bandeja de notificaciones simuladas (más reciente primero, máx. 40). */
+  avisos: Aviso[];
+  /** Ids de avisos ya entregados (no se repiten). */
+  avisosEntregados: string[];
+  /** La persona activó los avisos del sistema (Notification API). */
+  avisosSistema: boolean;
   /** Modo presentación: paso actual (−1 = sin empezar). */
   presentacion: { activa: boolean; paso: number };
 };
@@ -84,7 +98,7 @@ type Acciones = {
   setLocale: (locale: Locale) => void;
   setPlan: (plan: PlanConsumidor) => void;
   marcarOnboarding: () => void;
-  agregarAlCarrito: (puestoId: string, item: ItemCarrito) => void;
+  agregarAlCarrito: (puestoId: string, item: ItemCarrito, vendedor?: PuestoResumen) => void;
   cambiarCantidad: (puestoId: string, nombre: string, qty: number) => void;
   quitarGrupo: (puestoId: string) => void;
   /** Crea el pedido pagado: lo guarda, vacía ese grupo, suma puntos (una sola vez) y el sello del mercado. */
@@ -110,6 +124,12 @@ type Acciones = {
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
   setPresentacion: (p: Partial<DatosDemo["presentacion"]>) => void;
+  /** Entrega un aviso (y aplica su efecto: pedido nuevo, cobro…). */
+  recibirAviso: (aviso: Aviso, efecto?: EfectoAviso) => void;
+  /** Agrega avisos iniciales que aún no estén en la bandeja. */
+  sembrarAvisos: (avisos: Aviso[]) => void;
+  marcarAvisosLeidos: () => void;
+  setAvisosSistema: (v: boolean) => void;
 };
 
 export type AppState = DatosDemo & Acciones;
@@ -121,6 +141,8 @@ export function estadoInicial(): DatosDemo {
     plan: "Gratis",
     onboardingVisto: false,
     carrito: [],
+    vendedores: {},
+    vendidos: {},
     pedidos: [],
     puntos: demoSeed.usuario.puntos,
     sellos: [...demoSeed.usuario.sellos],
@@ -132,6 +154,9 @@ export function estadoInicial(): DatosDemo {
     cupones: [],
     rescates: [],
     presentacion: { activa: false, paso: -1 },
+    avisos: [],
+    avisosEntregados: [],
+    avisosSistema: false,
     rutasIniciadas: {},
     reservasTour: [],
     asistente: { fecha: "", usados: 0 },
@@ -159,7 +184,11 @@ export const useAppStore = create<AppState>()(
       setLocale: (locale) => set({ locale }),
       setPlan: (plan) => set({ plan }),
       marcarOnboarding: () => set({ onboardingVisto: true }),
-      agregarAlCarrito: (puestoId, item) => set((s) => ({ carrito: agregarItem(s.carrito, puestoId, item) })),
+      agregarAlCarrito: (puestoId, item, vendedor) =>
+        set((s) => ({
+          carrito: agregarItem(s.carrito, puestoId, item),
+          vendedores: vendedor ? { ...s.vendedores, [puestoId]: vendedor } : s.vendedores,
+        })),
       cambiarCantidad: (puestoId, nombre, qty) => set((s) => ({ carrito: cambiarCantidad(s.carrito, puestoId, nombre, qty) })),
       quitarGrupo: (puestoId) => set((s) => ({ carrito: s.carrito.filter((l) => l.puestoId !== puestoId) })),
       registrarPedido: (input) => {
@@ -168,7 +197,15 @@ export const useAppStore = create<AppState>()(
         const hora = new Date(pedido.fecha).toLocaleTimeString("es-MX", { timeZone: "America/Mexico_City", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
         const paraLocatario = pedido.puestoId === demoSeed.locatario.puesto_id;
         const paraProductor = pedido.puestoId === demoSeed.productor.productor_id;
+        const dia = hoyCDMX(new Date(pedido.fecha));
+        // Solo se conservan las ventas de hoy: el inventario se resurte cada día.
+        const vendidos = Object.fromEntries(Object.entries(s.vendidos).filter(([k]) => k.startsWith(`${dia}|`)));
+        for (const i of pedido.items) {
+          const k = claveVenta(dia, pedido.puestoId, i.nombre);
+          vendidos[k] = (vendidos[k] ?? 0) + i.qty;
+        }
         set({
+          vendidos,
           pedidos: [pedido, ...s.pedidos],
           carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
           puntos: s.puntos + pedido.puntos,
@@ -298,6 +335,33 @@ export const useAppStore = create<AppState>()(
       },
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
       setPresentacion: (p) => set((s) => ({ presentacion: { ...s.presentacion, ...p } })),
+      recibirAviso: (aviso, efecto) =>
+        set((s) => {
+          if (s.avisosEntregados.includes(aviso.id)) return s;
+          const cambios: Partial<AppState> = {
+            avisos: [aviso, ...s.avisos].slice(0, 40),
+            avisosEntregados: [aviso.id, ...s.avisosEntregados].slice(0, 300),
+          };
+          if (efecto?.tipo === "pedidoLocatario") cambios.locatario = { ...s.locatario, pedidos: [efecto.pedido, ...s.locatario.pedidos] };
+          if (efecto?.tipo === "cobro")
+            cambios.locatario = {
+              ...s.locatario,
+              cobros: [{ id: `COB-${aviso.id.slice(-4)}`, monto: efecto.monto, metodo: "qr", fecha: aviso.fecha }, ...s.locatario.cobros],
+            };
+          if (efecto?.tipo === "pedidoMayoreo") cambios.productor = { ...s.productor, pedidos: [efecto.pedido, ...s.productor.pedidos] };
+          return cambios;
+        }),
+      sembrarAvisos: (avisos) =>
+        set((s) => {
+          const nuevos = avisos.filter((a) => !s.avisosEntregados.includes(a.id));
+          if (!nuevos.length) return s;
+          return {
+            avisos: [...s.avisos, ...nuevos].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 40),
+            avisosEntregados: [...nuevos.map((a) => a.id), ...s.avisosEntregados].slice(0, 300),
+          };
+        }),
+      marcarAvisosLeidos: () => set((s) => ({ avisos: s.avisos.map((a) => (a.leida ? a : { ...a, leida: true })) })),
+      setAvisosSistema: (v) => set({ avisosSistema: v }),
     }),
     {
       name: "pasele-demo",
@@ -307,7 +371,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, salirDePerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, ...datos } = s;
+        const { setPerfil, salirDePerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, recibirAviso, sembrarAvisos, marcarAvisosLeidos, setAvisosSistema, ...datos } = s;
         return datos;
       },
     },

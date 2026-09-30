@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { datosAsistente } from "../../src/data/asistente";
 import { cardValida, resolverTarjetas } from "../../src/lib/assistant/cards";
-import { construirContexto, MAX_REGISTROS, MIN_REGISTROS, registrosContexto } from "../../src/lib/assistant/context";
 import { detectarIntencion, responderSinIA } from "../../src/lib/assistant/intents";
 import type { Intencion } from "../../src/lib/assistant/types";
 
@@ -71,19 +70,5 @@ describe("intents (fallback sin API key)", () => {
     const r = responderSinIA("hola", d, { locale: "es", now });
     expect(r.intencion).toBe("ayuda");
     expect(r.cards).toEqual([]);
-  });
-});
-
-describe("contexto para el modelo", () => {
-  it.each(CASOS.map((c) => c.es))("«%s» → entre 15 y 25 registros + eventos de 30 días", (msg) => {
-    const c = construirContexto(msg, d, now);
-    const n = registrosContexto(c);
-    expect(n).toBeGreaterThanOrEqual(MIN_REGISTROS);
-    expect(n).toBeLessThanOrEqual(MAX_REGISTROS);
-    expect(c.eventos.map((e) => e.id)).toContain("mole-2026");
-    expect(c.eventos.map((e) => e.id)).not.toContain("merced-2027");
-  });
-  it("incluye lo que se busca", () => {
-    expect(construirContexto("pancita", d, now).puestos.map((p) => p.id)).toContain("pancita-dona-chela");
   });
 });

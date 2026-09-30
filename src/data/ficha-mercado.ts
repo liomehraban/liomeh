@@ -5,15 +5,15 @@ export async function datosFicha(id: string) {
   const repo = getRepository();
   const mercado = await repo.mercado(id);
   if (!mercado) return null;
-  const [interior, resenas, eventos, rutas] = await Promise.all([
-    mercado.interior_disponible ? repo.interior(id) : Promise.resolve(null),
+  const [puestos, resenas, eventos, rutas] = await Promise.all([
+    repo.puestosDeMercado(id),
     repo.resenas(id),
     repo.eventos(),
     repo.rutas(),
   ]);
   return {
     mercado,
-    puestos: interior?.puestos ?? [],
+    puestos,
     resenas,
     eventos: eventos.filter((e) => e.mercado_id === id),
     rutas: rutas.filter((r) => r.paradas.includes(id)),

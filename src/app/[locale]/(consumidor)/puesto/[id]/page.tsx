@@ -10,7 +10,9 @@ export async function generateStaticParams() {
   return (await puestosEnLinea()).map((p) => ({ id: p.puestoId }));
 }
 
-export const dynamicParams = false;
+// Los puestos reales se generan en el build; los del catálogo simulado (~3,000), al primer acceso.
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/puesto/[id]">): Promise<Metadata> {
   const { id } = await params;
