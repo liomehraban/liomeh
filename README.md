@@ -28,7 +28,7 @@ pnpm dev              # http://localhost:3000/es
 | `pnpm test` | Vitest: lógica pura de `src/lib` y del store |
 | `pnpm e2e` | Playwright a 390×844: el guion de demo (normal y con «reducir movimiento»), tarjeta que no sale a la red, recarga a mitad de paso, 404, cabeceras, migración del almacenamiento, avisos y sin conexión (levanta build + start si no hay servidor en :3100) |
 | `pnpm validate:data` | Valida `/data` contra `src/lib/schemas.ts` |
-| `pnpm icons` | Regenera los íconos de la PWA desde `scripts/generar-iconos.mjs` |
+| `pnpm icons` | Regenera íconos de la PWA, favicon y logotipo web desde los originales de `scripts/assets/marca/` |
 
 ## Perfiles y pantallas
 
@@ -45,7 +45,7 @@ Todo lo transaccional persiste en `localStorage` (Zustand, clave `bara-bara-demo
 
 ## PWA
 
-- `src/app/manifest.ts`: «Bara Bara · Mercados CDMX», `theme_color #93408F`, `background_color #FEFAEB`, íconos 192/512 + maskable.
+- `src/app/manifest.ts`: «Bara Bara · Mercados CDMX», `background_color #FEFAEB`, íconos 192/512 + maskable con el ícono oficial (toldo + «BARA BARA»).
 - `src/sw.ts` + `serwist.config.mjs`: Serwist en **modo configurator** (`@serwist/next/config` + `@serwist/cli`). El service worker se compila después de `next build`, así que funciona con Turbopack (el plugin de webpack de Serwist no aplica en Next 16).
   - Precache del shell y de los chunks estáticos (los JSON de `/data` viajan dentro de los chunks). No se precachean las ~1,600 páginas prerenderizadas: se cachean al visitarlas.
   - Teselas de CARTO: `StaleWhileRevalidate`, máx. 500 entradas.

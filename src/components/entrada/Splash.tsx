@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 
+import { MarchantaIlustracion } from "@/components/assistant/MarchantaIlustracion";
 import { Logo } from "@/components/shell/Logo";
 
 export function Splash({ onSkip }: { onSkip: () => void }) {
@@ -22,8 +23,9 @@ export function Splash({ onSkip }: { onSkip: () => void }) {
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="flex flex-col items-center gap-2"
       >
-        <Logo className="text-7xl" />
+        <Logo priority className="w-64 drop-shadow-lg" />
         <span className="text-base font-semibold text-dorado-200">{t("eslogan")}</span>
+        <MarchantaIlustracion className="mt-4 w-40 drop-shadow-xl" />
       </motion.div>
     </button>
   );

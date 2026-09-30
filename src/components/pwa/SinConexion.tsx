@@ -3,6 +3,7 @@
 import { RefreshCw, WifiOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { MarchantaIlustracion } from "@/components/assistant/MarchantaIlustracion";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
@@ -17,8 +18,11 @@ export function SinConexion() {
   return (
     <main id="contenido" className="flex h-full flex-col items-center justify-center gap-5 overflow-y-auto bg-crema px-6 text-center">
       <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
-      <span className="grid size-20 place-items-center rounded-full bg-morado text-crema">
-        <WifiOff className="size-9" aria-hidden />
+      <span className="relative" aria-hidden>
+        <MarchantaIlustracion className="w-40" />
+        <span className="absolute right-0 bottom-1 grid size-12 place-items-center rounded-full bg-morado text-crema ring-4 ring-crema">
+          <WifiOff className="size-6" />
+        </span>
       </span>
       <h1 className="font-display text-4xl text-morado-700">{t("titulo")}</h1>
       <p className="text-lg font-semibold">{t("texto")}</p>
