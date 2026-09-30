@@ -68,3 +68,13 @@ export function teclear(monto: string, tecla: string): string {
   if (!monto && tecla === "0") return "";
   return (monto + tecla).slice(0, 6);
 }
+
+export type ItemCatalogo = { n: string; p: number; u: string; disponible?: boolean; origen?: string; fotoUrl?: string };
+
+/** Catálogo visible: el del puesto + lo agregado, con precio y disponibilidad editados. */
+export function catalogoEfectivo(base: ItemCatalogo[], extra: ItemCatalogo[], ediciones: Record<string, { p?: number; disponible?: boolean }> = {}) {
+  return [...base, ...extra].map((x) => {
+    const e = ediciones[x.n] ?? {};
+    return { ...x, p: e.p ?? x.p, disponible: e.disponible ?? x.disponible ?? true, extra: extra.includes(x) };
+  });
+}

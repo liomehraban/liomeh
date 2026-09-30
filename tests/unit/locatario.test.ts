@@ -60,3 +60,14 @@ describe("productor", () => {
     expect(difPrecio(20, 18)).toBe(11);
   });
 });
+
+import { catalogoEfectivo } from "../../src/lib/locatario";
+describe("catálogo efectivo", () => {
+  it("aplica ediciones y suma los productos agregados", () => {
+    const c = catalogoEfectivo([{ n: "Sope", p: 35, u: "pieza" }], [{ n: "Tlacoyo", p: 30, u: "pieza" }], { Sope: { p: 40, disponible: false } });
+    expect(c).toEqual([
+      { n: "Sope", p: 40, u: "pieza", disponible: false, extra: false },
+      { n: "Tlacoyo", p: 30, u: "pieza", disponible: true, extra: true },
+    ]);
+  });
+});

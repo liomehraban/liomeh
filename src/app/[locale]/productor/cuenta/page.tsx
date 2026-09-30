@@ -2,7 +2,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import type { Locale } from "@/i18n/routing";
 import { AjustesDemo } from "@/components/shell/AjustesDemo";
-import { Proximamente } from "@/components/shell/Proximamente";
 
 export default async function CuentaPage({ params }: PageProps<"/[locale]/productor/cuenta">) {
   const { locale } = await params;
@@ -18,7 +17,6 @@ export default async function CuentaPage({ params }: PageProps<"/[locale]/produc
       <div className="p-5">
         <AjustesDemo />
       </div>
-      <Proximamente pagina="productorCuenta" fase="7" sinEncabezado />
     </div>
   );
 }
