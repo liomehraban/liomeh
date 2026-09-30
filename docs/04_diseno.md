@@ -70,7 +70,7 @@ Colores muestreados de la *Guía de Mercados CDMX 2026*: morado institucional y 
 ## Iconografía e ilustración
 
 - **lucide-react**, trazo de 1.75 px y extremos redondeados.
-- **Avatar de «Marchanta»:** ilustración SVG simple de una marchanta con mandil y canasta. Plana, 3 colores (morado, dorado, crema). **No es un robot.**
+- **Marchanta (personaje):** ajolote rosa con sombrero de palma, blusa bordada, mandil morado y canasta de verduras (`public/marchanta/`). En la tab bar y el encabezado del chat sale de un disco dorado (`<MarchantaPersonaje>`); en las burbujas se usa el recorte de la cara (`<MarchantaAvatar>`). **No es un robot.**
 
 ## Motion
 
