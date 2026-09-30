@@ -59,14 +59,19 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
   const visitas = [...m.por_alcaldia].sort((a, b) => b.visitas_turistas_mes - a.visitas_turistas_mes).slice(0, 8);
   const pctApp = Math.round((k.mercados_en_app / k.mercados_totales) * 100);
   const ultimoMes = m.serie_mensual.find((s) => s.usuarios_activos === k.usuarios_activos_mes) ?? m.serie_mensual.at(-1)!;
+  // Mes de los KPI dentro del escenario de 12 meses: las gráficas lo marcan como «Hoy».
+  const indiceHoy = m.serie_mensual.indexOf(ultimoMes);
   const pctExtranjeros = Math.round((ultimoMes.turistas_extranjeros / ultimoMes.usuarios_activos) * 1000) / 10;
 
   const exportar = () => {
     const blob = new Blob([csvMetricas(m, nombres)], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = Object.assign(document.createElement("a"), { href: url, download: "bara-bara-impacto.csv" });
+    // Safari y Firefox solo descargan si el enlace está en el documento; la URL se libera después.
+    document.body.append(a);
     a.click();
-    URL.revokeObjectURL(url);
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast.success(t("exportado"));
   };
 
@@ -86,7 +91,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               ))}
             </ul>
           </div>
-          <Button onClick={exportar} variant="secondary" className="w-fit">
+          <Button onClick={exportar} variant="secondary" className="w-fit border-white bg-white text-morado hover:bg-crema">
             <Download aria-hidden />
             {t("exportar")}
           </Button>
@@ -114,7 +119,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               subtitulo={t("serie.texto")}
               datos={serie}
               x="etiqueta"
-              encabezadoX={t("serie.mes")}
+              encabezadoX={t("serie.mes")} hoy={indiceHoy}
               series={[{ clave: "gmv_mxn", nombre: t("serie.gmv"), color: "#9B2694" }]}
               formato={mxnCompacto}
             />
@@ -123,7 +128,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               subtitulo={t("serie.texto")}
               datos={serie}
               x="etiqueta"
-              encabezadoX={t("serie.mes")}
+              encabezadoX={t("serie.mes")} hoy={indiceHoy}
               series={[{ clave: "usuarios_activos", nombre: t("serie.usuarios"), color: "#9B2694" }]}
               formato={compacto}
             />
@@ -167,7 +172,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               <KpiTile etiqueta={t("sectur.idiomas")} valor="—" detalle={t("sectur.sinDato")} className="col-span-2" />
             </div>
             <div className="grid gap-5 lg:grid-cols-2">
-              <GraficaLinea titulo={t("sectur.turistas")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} series={[{ clave: "turistas_extranjeros", nombre: t("sectur.turistas"), color: "#1F4E9A" }]} formato={compacto} />
+              <GraficaLinea titulo={t("sectur.turistas")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} hoy={indiceHoy} series={[{ clave: "turistas_extranjeros", nombre: t("sectur.turistas"), color: "#1F4E9A" }]} formato={compacto} />
               <GraficaBarras titulo={t("sectur.visitas")} encabezado={t("adopcion.alcaldia")} color="#1F4E9A" datos={visitas.map((a) => ({ nombre: a.alcaldia, valor: a.visitas_turistas_mes }))} formato={compacto} />
             </div>
           </TabsContent>
@@ -188,7 +193,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               subtitulo={t("serie.texto")}
               datos={serie}
               x="etiqueta"
-              encabezadoX={t("serie.mes")}
+              encabezadoX={t("serie.mes")} hoy={indiceHoy}
               series={[
                 { clave: "co2_evitado_ton", nombre: t("sedema.co2"), color: "#3C8D2F" },
                 { clave: "alimento_rescatado_ton", nombre: t("sedema.alimento"), color: "#1F4E9A" },
@@ -203,7 +208,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
               <KpiTile etiqueta={t("kpis.locatarios_activos")} valor={nf(k.locatarios_activos)} />
               <KpiTile etiqueta={t("kpis.pct_ventas_efectivo_registradas")} valor={t("pct", { n: k.pct_ventas_efectivo_registradas })} className="col-span-2" detalle={t("se.creditoTexto", { pct: k.pct_ventas_efectivo_registradas })} />
             </div>
-            <GraficaLinea titulo={t("se.checkins")} subtitulo={t("se.credito")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} series={[{ clave: "checkins_efectivo", nombre: t("se.checkins"), color: "#9B2694" }]} formato={compacto} />
+            <GraficaLinea titulo={t("se.checkins")} subtitulo={t("se.credito")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} hoy={indiceHoy} series={[{ clave: "checkins_efectivo", nombre: t("se.checkins"), color: "#9B2694" }]} formato={compacto} />
           </TabsContent>
         </Tabs>
       </div>
