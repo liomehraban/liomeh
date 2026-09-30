@@ -2,6 +2,7 @@
  {
   "id": "mole-2026",
   "titulo": "49ª Feria Nacional del Mole",
+  "titulo_en": "49th National Mole Fair",
   "inicio": "2026-10-03",
   "fin": "2026-10-25",
   "lugar": "San Pedro Atocpan, Milpa Alta",
@@ -9,12 +10,14 @@
   "lng": -99.0487,
   "categoria": "feria productores",
   "descripcion": "23 restaurantes tradicionales y 17 productores de mole; enmolada gigante de ~80 m.",
+  "descripcion_en": "23 traditional restaurants and 17 mole makers; a giant ~80 m enmolada.",
   "fecha_confirmada": true,
   "mercado_id": "centro-acopio-nopal-milpa-alta"
  },
  {
   "id": "alebrijes-2026",
   "titulo": "Desfile de Alebrijes Monumentales",
+  "titulo_en": "Monumental Alebrijes Parade",
   "inicio": "2026-10-17",
   "fin": "2026-10-17",
   "lugar": "Zócalo → Reforma",
@@ -22,12 +25,14 @@
   "lng": -99.1332,
   "categoria": "ciudad",
   "descripcion": "18ª edición.",
+  "descripcion_en": "18th edition.",
   "fecha_confirmada": true,
   "mercado_id": null
  },
  {
   "id": "cempasuchil-reforma",
   "titulo": "Festival Flores de Cempasúchil",
+  "titulo_en": "Cempasúchil Flower Festival",
   "inicio": "2026-10-18",
   "fin": "2026-11-01",
   "lugar": "Paseo de la Reforma",
@@ -35,12 +40,14 @@
   "lng": -99.1677,
   "categoria": "productores",
   "descripcion": "140 floricultores y productores agrícolas.",
+  "descripcion_en": "140 flower and farm growers.",
   "fecha_confirmada": true,
   "mercado_id": null
  },
  {
   "id": "cempasuchil-jamaica",
   "titulo": "Temporada de cempasúchil en el Mercado de Jamaica",
+  "titulo_en": "Cempasúchil season at Mercado de Jamaica",
   "inicio": "2026-10-15",
   "fin": "2026-11-02",
   "lugar": "Mercado de Jamaica",
@@ -48,12 +55,14 @@
   "lng": -99.1216,
   "categoria": "mercado",
   "descripcion": "Venta de flor de temporada 24 horas; fechas aproximadas de temporada.",
+  "descripcion_en": "Seasonal flowers sold 24 hours a day; season dates are approximate.",
   "fecha_confirmada": false,
   "mercado_id": "235-jamaica-nuevo"
  },
  {
   "id": "ofrendas-mercados",
   "titulo": "Ofrendas de locatarios en mercados públicos",
+  "titulo_en": "Stallholders' ofrendas in public markets",
   "inicio": "2026-10-28",
   "fin": "2026-11-02",
   "lugar": "Mercados de las 16 alcaldías",
@@ -61,12 +70,14 @@
   "lng": -99.1227,
   "categoria": "mercado",
   "descripcion": "Tradición de altares en pasillos; la app invita a votar por la mejor ofrenda.",
+  "descripcion_en": "Altars set up along the aisles; the app invites you to vote for the best ofrenda.",
   "fecha_confirmada": false,
   "mercado_id": "la-merced"
  },
  {
   "id": "desfile-muertos-2026",
   "titulo": "Gran Desfile de Día de Muertos",
+  "titulo_en": "Day of the Dead Grand Parade",
   "inicio": "2026-10-31",
   "fin": "2026-10-31",
   "lugar": "Paseo de la Reforma → Zócalo",
@@ -74,12 +85,14 @@
   "lng": -99.1332,
   "categoria": "ciudad",
   "descripcion": "Sábado 31 de octubre, 14:00 h.",
+  "descripcion_en": "Saturday, October 31, 2:00 p.m.",
   "fecha_confirmada": true,
   "mercado_id": null
  },
  {
   "id": "mixquic-2026",
   "titulo": "Día de Muertos en San Andrés Mixquic · La Alumbrada",
+  "titulo_en": "Day of the Dead in San Andrés Mixquic · La Alumbrada",
   "inicio": "2026-10-31",
   "fin": "2026-11-02",
   "lugar": "San Andrés Mixquic, Tláhuac",
@@ -87,12 +100,14 @@
   "lng": -98.9648,
   "categoria": "tradición",
   "descripcion": "La Alumbrada (velación con velas en el panteón) el 2 de noviembre.",
+  "descripcion_en": "La Alumbrada (candlelit vigil in the cemetery) on November 2.",
   "fecha_confirmada": true,
   "mercado_id": "178-mixquic"
  },
  {
   "id": "guadalupe-2026",
   "titulo": "Fiesta de la Virgen de Guadalupe",
+  "titulo_en": "Feast of the Virgin of Guadalupe",
   "inicio": "2026-12-11",
   "fin": "2026-12-12",
   "lugar": "Mercado Villa Zona / Basílica",
@@ -100,12 +115,14 @@
   "lng": -99.1172,
   "categoria": "tradición",
   "descripcion": "Millones de peregrinos; el mercado de La Villa vive su temporada más alta.",
+  "descripcion_en": "Millions of pilgrims; the La Villa market has its busiest season.",
   "fecha_confirmada": true,
   "mercado_id": "34-villa-zona"
  },
  {
   "id": "posadas-mercados",
   "titulo": "Posadas y romerías navideñas en mercados",
+  "titulo_en": "Christmas posadas and romerías in markets",
   "inicio": "2026-12-16",
   "fin": "2026-12-24",
   "lugar": "Mercados de la ciudad",
@@ -113,12 +130,14 @@
   "lng": -99.1227,
   "categoria": "mercado",
   "descripcion": "Piñatas, ponche y romeritos de chinampa.",
+  "descripcion_en": "Piñatas, ponche and chinampa romeritos.",
   "fecha_confirmada": false,
   "mercado_id": "la-merced"
  },
  {
   "id": "romeria-reyes",
   "titulo": "Romería de juguetes de Reyes · Río Blanco",
+  "titulo_en": "Three Kings toy romería · Río Blanco",
   "inicio": "2026-12-15",
   "fin": "2027-01-06",
   "lugar": "Mercado Río Blanco, GAM",
@@ -126,12 +145,14 @@
   "lng": -99.1113,
   "categoria": "mercado",
   "descripcion": "Los pasillos exteriores no duermen la víspera de Reyes (según la guía).",
+  "descripcion_en": "The outdoor aisles stay open all night on the eve of Three Kings Day (according to the guide).",
   "fecha_confirmada": false,
   "mercado_id": "53-rio-blanco"
  },
  {
   "id": "alegria-2027",
   "titulo": "54ª Feria de la Alegría y el Olivo",
+  "titulo_en": "54th Alegría and Olive Fair",
   "inicio": "2027-01-30",
   "fin": "2027-02-14",
   "lugar": "Santiago Tulyehualco, Xochimilco",
@@ -139,12 +160,14 @@
   "lng": -99.011,
   "categoria": "feria productores",
   "descripcion": "Fechas por confirmar (en 2026 fue del 31 ene al 15 feb, con más de 100 productores).",
+  "descripcion_en": "Dates to be confirmed (in 2026 it ran Jan 31 – Feb 15, with more than 100 growers).",
   "fecha_confirmada": false,
   "mercado_id": null
  },
  {
   "id": "candelaria-2027",
   "titulo": "Día de la Candelaria",
+  "titulo_en": "Candlemas (Día de la Candelaria)",
   "inicio": "2027-02-02",
   "fin": "2027-02-02",
   "lugar": "Mercados de la ciudad",
@@ -152,12 +175,14 @@
   "lng": -99.1227,
   "categoria": "tradición",
   "descripcion": "Temporada alta de tamales, hoja de maíz y masa de molino.",
+  "descripcion_en": "Peak season for tamales, corn husks and fresh masa.",
   "fecha_confirmada": true,
   "mercado_id": "la-merced"
  },
  {
   "id": "san-valentin-jamaica",
   "titulo": "San Valentín en Jamaica",
+  "titulo_en": "Valentine's Day at Jamaica",
   "inicio": "2027-02-12",
   "fin": "2027-02-14",
   "lugar": "Mercado de Jamaica",
@@ -165,12 +190,14 @@
   "lng": -99.1216,
   "categoria": "mercado",
   "descripcion": "Pico de venta de rosas.",
+  "descripcion_en": "Peak season for rose sales.",
   "fecha_confirmada": false,
   "mercado_id": "235-jamaica-nuevo"
  },
  {
   "id": "flor-bella-2027",
   "titulo": "La Flor más Bella del Ejido",
+  "titulo_en": "La Flor más Bella del Ejido",
   "inicio": "2027-03-14",
   "fin": "2027-03-21",
   "lugar": "Xochimilco",
@@ -178,12 +205,14 @@
   "lng": -99.1045,
   "categoria": "tradición",
   "descripcion": "Fechas por confirmar (en 2026: 22–29 de marzo, 239ª edición).",
+  "descripcion_en": "Dates to be confirmed (in 2026: March 22–29, 239th edition).",
   "fecha_confirmada": false,
   "mercado_id": "44-xochimilco-zona-xochitl"
  },
  {
   "id": "nieve-2027",
   "titulo": "Feria Nacional de la Nieve",
+  "titulo_en": "National Nieve (Sorbet) Fair",
   "inicio": "2027-03-20",
   "fin": "2027-04-04",
   "lugar": "Santiago Tulyehualco, Xochimilco",
@@ -191,12 +220,14 @@
   "lng": -99.011,
   "categoria": "feria productores",
   "descripcion": "Se celebra en Semana Santa; fechas por confirmar.",
+  "descripcion_en": "Held during Holy Week; dates to be confirmed.",
   "fecha_confirmada": false,
   "mercado_id": null
  },
  {
   "id": "madres-jamaica",
   "titulo": "Día de las Madres en Jamaica",
+  "titulo_en": "Mother's Day at Jamaica",
   "inicio": "2027-05-08",
   "fin": "2027-05-10",
   "lugar": "Mercado de Jamaica",
@@ -204,12 +235,14 @@
   "lng": -99.1216,
   "categoria": "mercado",
   "descripcion": "Mayor pico de venta de flor del año.",
+  "descripcion_en": "The biggest flower-selling peak of the year.",
   "fecha_confirmada": false,
   "mercado_id": "235-jamaica-nuevo"
  },
  {
   "id": "merced-2027",
   "titulo": "Fiesta de la Virgen de La Merced",
+  "titulo_en": "Feast of the Virgin of La Merced",
   "inicio": "2027-09-24",
   "fin": "2027-09-24",
   "lugar": "Mercado de La Merced",
@@ -217,12 +250,14 @@
   "lng": -99.1227,
   "categoria": "tradición",
   "descripcion": "Verbena: altares, música en vivo, sonideros y locatarios que regalan carnitas, mole y tacos (según la guía).",
+  "descripcion_en": "Street fair: altars, live music, sonideros and stallholders giving away carnitas, mole and tacos (according to the guide).",
   "fecha_confirmada": true,
   "mercado_id": "la-merced"
  },
  {
   "id": "puerto-ciudad",
   "titulo": "Tour \"El Puerto en la Ciudad\"",
+  "titulo_en": "“El Puerto en la Ciudad” tour",
   "inicio": "recurrente",
   "fin": null,
   "lugar": "La Nueva Viga, Iztapalapa",
@@ -230,6 +265,7 @@
   "lng": -99.0902,
   "categoria": "experiencia",
   "descripcion": "Tour oficial por andenes y restaurantes; horarios por confirmar con el mercado.",
+  "descripcion_en": "Official tour of the loading docks and restaurants; schedule to be confirmed with the market.",
   "fecha_confirmada": true,
   "mercado_id": "la-nueva-viga"
  }
