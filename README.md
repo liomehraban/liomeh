@@ -4,7 +4,7 @@ PWA que organiza, concentra y visibiliza los mercados públicos de la Ciudad de 
 
 Impulsan SECTUR CDMX, SEDEMA y la Secretaría de Economía. Desarrolla Cinética Studio.
 
-- **Producción (planeada):** https://mercados.cineticastudio.xyz
+- **Producción:** https://mercados.cineticastudio.xyz (Vercel, proyecto `bara-bara`; también https://bara-bara-lovat.vercel.app)
 - **Modo presentación:** `/es/presentacion` (guion de 10 pasos de `docs/06_demo.md`)
 
 > Esta etapa es un frontend completo con **datos mock** (`/data`). Pagos, envíos, escaneo de QR y métricas son simulados; nunca se piden datos reales de tarjeta (tarjeta de prueba `4242 4242 4242 4242`). La arquitectura está lista para conectar Supabase (`supabase/migrations/`) sin reescribir pantallas.

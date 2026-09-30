@@ -50,7 +50,7 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] PWA (Serwist, manifest, íconos, offline)
 - [x] e2e Playwright del guion completo
 - [ ] Lighthouse móvil: PWA ok, Performance ≥ 80, Accessibility ≥ 95 — instalable ✓, accesibilidad 96–100 ✓; performance 85–95 salvo las pantallas con mapa (71–75, por MapLibre)
-- [ ] Deploy a Vercel (preview) y README con la URL — README con pasos ✓; falta el deploy (requiere la cuenta de Vercel)
-- [ ] Dominio `mercados.cineticastudio.xyz`: dominio en el proyecto de Vercel + registro CNAME en Cloudflare (DNS only)
+- [x] Deploy a Vercel y README con la URL — proyecto `bara-bara` (https://bara-bara-lovat.vercel.app)
+- [x] Dominio `mercados.cineticastudio.xyz`: dominio en el proyecto de Vercel + registro CNAME en Cloudflare (DNS only)
 
 Después de cualquier fase se puede correr **`/revisar-demo`**, que ejecuta el guion y reporta lo que falle.
