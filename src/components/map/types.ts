@@ -27,7 +27,16 @@ export type CapaZonas = {
   color: string;
 };
 
-export type CapaMapa = CapaPuntos | CapaZonas;
+/** Recorrido: línea que une las paradas en orden + marcadores numerados. */
+export type CapaRuta = {
+  tipo: "ruta";
+  id: string;
+  puntos: PuntoMapa[];
+  /** Ids de paradas ya visitadas (se pintan en verde). */
+  hechas?: string[];
+};
+
+export type CapaMapa = CapaPuntos | CapaZonas | CapaRuta;
 
 /** Movimiento de cámara pedido desde fuera; `key` distinto fuerza el movimiento aunque el destino se repita. */
 export type Enfoque = LatLng & { zoom?: number; key: number };

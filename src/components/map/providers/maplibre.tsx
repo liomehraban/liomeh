@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { cargarEstilo } from "../estiloBase";
 import { idsInteractivos, MarketLayer } from "../MarketLayer";
 import { idsZonas, ZoneLayer } from "../ZoneLayer";
+import { RouteLayer } from "../RouteLayer";
 import type { MapViewProps } from "../types";
 
 // Ver scripts/copy-maplibre-worker.mjs
@@ -64,7 +65,7 @@ export default function MapLibreView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encuadre?.key]);
 
-  const interactivos = useMemo(() => layers.flatMap((c) => (c.tipo === "zonas" ? idsZonas(c) : idsInteractivos(c))), [layers]);
+  const interactivos = useMemo(() => layers.flatMap((c) => (c.tipo === "zonas" ? idsZonas(c) : c.tipo === "ruta" ? [] : idsInteractivos(c))), [layers]);
 
   const onClick = async (e: MapLayerMouseEvent) => {
     // Si el toque cae en un pin y en una zona, gana el pin.
@@ -92,6 +93,13 @@ export default function MapLibreView({
           style={{ width: "100%", height: "100%" }}
           interactiveLayerIds={interactivos}
           onClick={onClick}
+          onLoad={() => {
+            // Encuadre pedido antes de que el mapa existiera (p. ej. al abrir una ruta).
+            if (encuadre && ref.current) {
+              const [a, b, c, d] = encuadre.bbox;
+              ref.current.fitBounds([a, b, c, d], { padding: { top: 60, bottom: paddingInferior + 20, left: 40, right: 40 }, maxZoom: 15, duration: 0 });
+            }
+          }}
           onMouseEnter={() => setCursor("pointer")}
           onMouseLeave={() => setCursor("")}
           cursor={cursor}
@@ -105,6 +113,8 @@ export default function MapLibreView({
           {layers.map((capa) =>
             capa.tipo === "zonas" ? (
               <ZoneLayer key={capa.id} capa={capa} seleccionado={seleccionado} />
+            ) : capa.tipo === "ruta" ? (
+              <RouteLayer key={capa.id} capa={capa} onSelect={onSelect} />
             ) : (
               <MarketLayer key={capa.id} capa={capa} seleccionado={seleccionado} conGlifos={estilo.remoto} />
             ),
