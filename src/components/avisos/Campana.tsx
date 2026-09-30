@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
-import { useRouter } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { usePhoneContainer } from "@/hooks/usePhoneContainer";
 import { useAhora } from "@/hooks/useAhora";
 import { haceTiempo, type TipoAviso } from "@/lib/notificaciones";
@@ -46,6 +46,13 @@ export function Campana() {
   const setSistema = useAppStore((s) => s.setAvisosSistema);
   const marcarLeidos = useAppStore((s) => s.marcarAvisosLeidos);
   const [abierta, setAbierta] = useState(false);
+  // Al cambiar de pantalla (incluido el «atrás» del sistema) la hoja se cierra.
+  const ruta = usePathname();
+  const [rutaPrevia, setRutaPrevia] = useState(ruta);
+  if (ruta !== rutaPrevia) {
+    setRutaPrevia(ruta);
+    if (abierta) setAbierta(false);
+  }
   const noLeidos = hydrated ? avisos.filter((a) => !a.leida).length : 0;
   const soportaSistema = typeof window !== "undefined" && "Notification" in window;
 

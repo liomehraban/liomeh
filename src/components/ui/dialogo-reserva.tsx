@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -38,10 +38,15 @@ export function DialogoReserva({
   const [procesando, setProcesando] = useState(false);
   const total = precioPorPersona * personas;
 
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
+
   const pagar = () => {
-    if (!fecha) return;
+    if (!fecha || procesando) return;
     setProcesando(true);
-    setTimeout(() => {
+    timer.current = setTimeout(() => {
       onConfirmar({ fecha, personas, total });
       setProcesando(false);
       setAbierto(false);
@@ -50,9 +55,9 @@ export function DialogoReserva({
   };
 
   return (
-    <Dialog open={abierto} onOpenChange={setAbierto}>
+    <Dialog open={abierto} onOpenChange={(v) => !procesando && setAbierto(v)}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="max-h-[85%] overflow-y-auto">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>{titulo}</DialogTitle>
           <DialogDescription>{descripcion ?? t("porPersona", { precio: formatMXN(precioPorPersona, locale) })}</DialogDescription>

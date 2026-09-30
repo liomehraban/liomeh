@@ -85,7 +85,7 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
       </div>
 
       <Dialog open={abierto} onOpenChange={setAbierto}>
-        <DialogContent className="max-h-[88%] overflow-y-auto">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>{t("agregar")}</DialogTitle>
           </DialogHeader>

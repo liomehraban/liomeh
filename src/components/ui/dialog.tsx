@@ -48,12 +48,13 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "absolute top-1/2 left-1/2 z-50 grid w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 gap-4 rounded-card border bg-background p-6 shadow-lg max-[374px]:p-4",
+          "absolute top-1/2 left-1/2 z-50 flex max-h-[88%] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 flex-col rounded-card border bg-background shadow-lg",
           className,
         )}
         {...props}
       >
-        {children}
+        {/* El contenido se desplaza por dentro; la X queda fija arriba a la derecha aunque se baje. */}
+        <div className="grid min-h-0 gap-4 overflow-y-auto overscroll-contain p-6 max-[374px]:p-4">{children}</div>
         <DialogPrimitive.Close
           aria-label={closeLabel ?? t("cerrar")}
           className="absolute top-3 right-3 grid size-11 place-items-center rounded-pill text-tinta-2 hover:bg-morado-50 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"

@@ -41,7 +41,7 @@ export function EscribirResena({ objetivoId }: { objetivoId: string }) {
           {t("escribir")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[85%] overflow-y-auto">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("tuResena")}</DialogTitle>
         </DialogHeader>
@@ -79,7 +79,7 @@ export function EscribirResena({ objetivoId }: { objetivoId: string }) {
             <div className="relative w-fit">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={foto} alt="" className="h-28 rounded-2xl object-cover" />
-              <button type="button" onClick={() => setFoto(undefined)} aria-label={t("quitarFoto")} className="absolute -top-2 -right-2 grid size-9 place-items-center rounded-full bg-tinta text-white">
+              <button type="button" onClick={() => setFoto(undefined)} aria-label={t("quitarFoto")} className="absolute -top-3 -right-3 grid size-11 place-items-center border-2 border-white rounded-full bg-tinta text-white">
                 <X className="size-4" aria-hidden />
               </button>
             </div>

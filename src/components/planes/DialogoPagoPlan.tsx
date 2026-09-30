@@ -32,7 +32,7 @@ export function DialogoPagoPlan({
   const total = formatMXN(monto, locale);
   return (
     <Dialog open={abierto} onOpenChange={onAbierto}>
-      <DialogContent className="max-h-[90%] overflow-y-auto">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>{tp("pagarTitulo", { plan: nombre })}</DialogTitle>
           <DialogDescription>{tp("pagarTexto", { total })}</DialogDescription>

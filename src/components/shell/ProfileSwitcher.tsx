@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { useRouter } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { HOME_PERFIL, useAppStore, useHydrated, type Perfil } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 import { ICONO_PERFIL, PERFILES } from "./perfiles";
@@ -23,6 +23,13 @@ export function ProfileSwitcher({ className }: { className?: string }) {
   const setPerfil = useAppStore((s) => s.setPerfil);
   const salirDePerfil = useAppStore((s) => s.salirDePerfil);
   const [abierto, setAbierto] = useState(false);
+  // Al cambiar de pantalla (incluido el «atrás» del sistema) la hoja se cierra.
+  const ruta = usePathname();
+  const [rutaPrevia, setRutaPrevia] = useState(ruta);
+  if (ruta !== rutaPrevia) {
+    setRutaPrevia(ruta);
+    if (abierto) setAbierto(false);
+  }
   const actual = hydrated ? perfil : null;
   const Icono = actual ? ICONO_PERFIL[actual] : UserRound;
 
