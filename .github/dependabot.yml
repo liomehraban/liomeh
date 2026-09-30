@@ -1,0 +1,17 @@
+# Avisos y PRs de actualizaciones de seguridad (dependencias npm y acciones de GitHub).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: claude/new-session-qesrxe
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      menores:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: claude/new-session-qesrxe
+    schedule:
+      interval: monthly
