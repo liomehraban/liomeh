@@ -11,7 +11,7 @@ El modo presentación (`/presentacion`) muestra una barra inferior con el paso a
 | 3 | Turista | «Take me there» desde Metro Merced | Ruta animada, 636 m · 9 min, 6 pasos en inglés; avanzar hasta «You've arrived» |
 | 4 | Turista | Agregar 2 pancitas + 2 sopes → pagar con QR CoDi → recoger en puesto | QR de pago → «Payment received» → folio BB-XXXX + sello y +30 puntos |
 | 5 | Consumidora, ES (Sofía) | Huertos → Familia Jurado Nopaleros | Barra de precio justo: $70 vs $35 de $150, «el doble» |
-| 6 | Consumidora | Asistente: «¿Qué eventos hay este mes?» | Tarjeta de la Feria Nacional del Mole (3–25 oct) + «Recordarme» |
+| 6 | Consumidora | Asistente: «¿Qué eventos hay este mes?» | Tarjetas de los eventos que vienen (en octubre, la Feria Nacional del Mole) + «Recordarme» sobre la primera |
 | 7 | Consumidora | Yo → Escanear QR del puesto (pagó en efectivo en Jugos Moreno) | +10 puntos y toast «Funciona aunque pagues en efectivo» |
 | 8 | Locatario (Doña Chela) | Hoy → aparece el pedido del paso 4 → Cobrar $250 con QR | KPIs actualizados; «Pago recibido $250» |
 | 9 | Productor (Lucía) | Publicar cosecha: 200 lechugas a $12 | Lote nuevo visible en la vista previa |

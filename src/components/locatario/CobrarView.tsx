@@ -92,7 +92,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
           <p className="animate-pulse font-semibold">{t("esperando")}</p>
         ) : (
           <>
-            <p className="font-display text-4xl text-dorado-200" role="status">
+            <p className="font-display text-4xl text-dorado-200" role="status" data-demo="cobro-recibido">
               {t("recibido", { monto: $(valor) })}
             </p>
             <div className="flex w-full max-w-xs flex-col gap-2">

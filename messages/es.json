@@ -944,7 +944,7 @@
       },
       "asistente": {
         "titulo": "Marchanta: «¿Qué eventos hay este mes?»",
-        "espera": "Tarjeta de la Feria Nacional del Mole + «Recordarme»"
+        "espera": "Tarjetas de los eventos que vienen + «Recordarme»"
       },
       "checkin": {
         "titulo": "Check-in QR en Jugos Moreno (pagó en efectivo)",
@@ -962,7 +962,9 @@
         "titulo": "Panel de gobierno → SEDEMA",
         "espera": "KPIs, adopción, CO₂ y toneladas rescatadas"
       }
-    }
+    },
+    "interrumpido": "Este paso no terminó. Puedes reintentarlo.",
+    "reintentar": "Reintentar paso"
   },
   "offline": {
     "titulo": "Sin conexión",
@@ -1077,5 +1079,15 @@
         "texto": "Revisa tus pedidos de la app y tu inventario antes de la hora pico."
       }
     }
+  },
+  "errores": {
+    "noEncontradoTitulo": "No encontramos esta página",
+    "noEncontradoTexto": "Puede que el mercado, el puesto o la ruta ya no esté en la app. ¿Buscamos otro?",
+    "irExplorar": "Explorar mercados",
+    "inicio": "Ir al inicio",
+    "errorTitulo": "Algo salió mal",
+    "errorTexto": "Tuvimos un problema al mostrar esta pantalla. Tus pedidos y tu pasaporte siguen guardados.",
+    "reintentar": "Reintentar",
+    "reiniciarDemo": "Reiniciar la demo"
   }
 }

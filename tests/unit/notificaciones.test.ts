@@ -74,3 +74,35 @@ describe("notificaciones simuladas", () => {
     expect(haceTiempo(new Date(now.getTime() - 2 * 3600_000).toISOString(), now, "en")).toBe("2 hours ago");
   });
 });
+
+describe("folios simulados", () => {
+  it("siguen la numeración y no repiten ninguno existente", async () => {
+    const { siguienteFolio, pedidoLocatarioSimulado } = await import("@/lib/notificaciones");
+    expect(siguienteFolio("PED", ["PED-4821", "PED-4822"], 4830)).toBe("PED-4830");
+    expect(siguienteFolio("PED", ["PED-4830", "PED-4899", "BB-AB12"], 4830)).toBe("PED-4900");
+    const p = pedidoLocatarioSimulado([{ n: "Sope", p: 35, u: "pieza" }], 1, new Date("2026-10-01T12:00:00-06:00"), ["PED-4830"]);
+    expect(p.folio).toBe("PED-4831");
+    expect(p.fecha).toBe("2026-10-01T18:00:00.000Z");
+  });
+});
+
+describe("avisos por perfil", () => {
+  it("cada aviso lleva el perfil al que va dirigido", async () => {
+    const { siguienteAviso, bandejaInicial, avisosDePedidos } = await import("@/lib/notificaciones");
+    const d = {
+      eventos: [],
+      ofertas: [],
+      surtidos: [],
+      puestoDemo: { id: "p", nombre: "P", productos: [{ n: "Sope", p: 35, u: "pieza" }] },
+      productor: { nombre: "C", catalogo: ["Lechuga (pieza)"] },
+      impacto: { transaccionesDia: 1000, checkinsDia: 500, kgRescatadosDia: 100 },
+    };
+    const e = { pedidos: [], recordatorios: [], lotes: [], entregados: [] };
+    expect(siguienteAviso("locatario", d, e, new Date(), 1)?.aviso.perfil).toBe("locatario");
+    expect(siguienteAviso("gobierno", d, e, new Date(), 1)?.aviso.perfil).toBe("gobierno");
+    expect(bandejaInicial("productor", d, new Date()).every((a) => a.perfil === "productor")).toBe(true);
+    const ahora = new Date();
+    const p = { folio: "BB-1", fecha: new Date(ahora.getTime() - 20_000).toISOString(), entrega: "recoger" as const };
+    expect(avisosDePedidos([p], ahora, [])[0].perfil).toBe("consumidor");
+  });
+});

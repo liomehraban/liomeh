@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Bell, BellRing, CalendarHeart, Coins, Leaf, Package, Recycle, ShoppingBag, Sparkles, Sprout, Store, TrendingUp, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -38,7 +38,10 @@ export function Campana() {
   const ahora = useAhora();
   const container = usePhoneContainer();
   const texto = useTextoAviso();
-  const avisos = useAppStore((s) => s.avisos);
+  const todos = useAppStore((s) => s.avisos);
+  const perfil = useAppStore((s) => s.perfil);
+  // Solo los avisos del perfil activo (los antiguos sin perfil se muestran siempre).
+  const avisos = useMemo(() => todos.filter((a) => !a.perfil || a.perfil === perfil), [todos, perfil]);
   const sistema = useAppStore((s) => s.avisosSistema);
   const setSistema = useAppStore((s) => s.setAvisosSistema);
   const marcarLeidos = useAppStore((s) => s.marcarAvisosLeidos);
@@ -57,7 +60,7 @@ export function Campana() {
       open={abierta}
       onOpenChange={(v) => {
         setAbierta(v);
-        if (!v) marcarLeidos();
+        if (!v) marcarLeidos(perfil);
       }}
     >
       <button
@@ -102,7 +105,7 @@ export function Campana() {
                     disabled={!a.href}
                     onClick={() => {
                       setAbierta(false);
-                      marcarLeidos();
+                      marcarLeidos(perfil);
                       if (a.href) router.push(a.href);
                     }}
                     className={cn("flex w-full items-start gap-3 rounded-2xl bg-white p-3 text-left", !a.leida && "ring-2 ring-morado/30")}

@@ -32,10 +32,10 @@ import type { Aviso, EfectoAviso } from "@/lib/notificaciones";
 export type { ItemCarrito, LineaCarrito };
 
 export type { Pedido };
-export type PedidoLocatario = (typeof demoSeed.locatario.pedidos_pendientes)[number] & { folio?: string; estado?: EstadoLocatario };
+export type PedidoLocatario = (typeof demoSeed.locatario.pedidos_pendientes)[number] & { folio?: string; estado?: EstadoLocatario; fecha?: string };
 export type Cobro = { id: string; monto: number; metodo: "qr" | "tarjeta"; fecha: string };
 export type Lote = (typeof demoSeed.productor.lotes)[number] & { id?: string; fotoUrl?: string; publicado?: string };
-export type PedidoMayoreo = (typeof demoSeed.productor.pedidos_mayoreo)[number] & { id?: string; estadoId?: EstadoMayoreo; folio?: string };
+export type PedidoMayoreo = (typeof demoSeed.productor.pedidos_mayoreo)[number] & { id?: string; estadoId?: EstadoMayoreo; folio?: string; fecha?: string };
 export type ProductoLocatario = Producto & { disponible?: boolean; origen?: string; fotoUrl?: string };
 export type EdicionProducto = { p?: number; disponible?: boolean };
 
@@ -82,7 +82,7 @@ type DatosDemo = {
   /** La persona activó los avisos del sistema (Notification API). */
   avisosSistema: boolean;
   /** Modo presentación: paso actual (−1 = sin empezar). */
-  presentacion: { activa: boolean; paso: number };
+  presentacion: { activa: boolean; paso: number; completado?: boolean };
 };
 
 export type ResenaPropia = Resena & { fotoUrl?: string };
@@ -126,7 +126,8 @@ type Acciones = {
   recibirAviso: (aviso: Aviso, efecto?: EfectoAviso) => void;
   /** Agrega avisos iniciales que aún no estén en la bandeja. */
   sembrarAvisos: (avisos: Aviso[]) => void;
-  marcarAvisosLeidos: () => void;
+  /** Marca como leídos los avisos de un perfil (o todos). */
+  marcarAvisosLeidos: (perfil?: Perfil | null) => void;
   setAvisosSistema: (v: boolean) => void;
 };
 
@@ -151,7 +152,7 @@ export function estadoInicial(): DatosDemo {
     sellosFechas: {},
     cupones: [],
     rescates: [],
-    presentacion: { activa: false, paso: -1 },
+    presentacion: { activa: false, paso: -1, completado: true },
     avisos: [],
     avisosEntregados: [],
     avisosSistema: false,
@@ -193,6 +194,8 @@ export const useAppStore = create<AppState>()(
         const pedido = construirPedido({ ...input, planMercadoMas: s.plan === "Mercado+" }, s.pedidos.map((p) => p.folio));
         const hora = new Date(pedido.fecha).toLocaleTimeString("es-MX", { timeZone: "America/Mexico_City", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
         const paraLocatario = pedido.puestoId === demoSeed.locatario.puesto_id;
+        const cliente = s.locale === "en" ? demoSeed.turista.nombre : demoSeed.consumidora.nombre;
+        const ventaPuesto = pedido.resumen.subtotal - pedido.resumen.descuento;
         const paraProductor = pedido.puestoId === demoSeed.productor.productor_id;
         const dia = hoyCDMX(new Date(pedido.fecha));
         // Solo se conservan las ventas de hoy: el inventario se resurte cada día.
@@ -216,9 +219,11 @@ export const useAppStore = create<AppState>()(
                   {
                     id: pedido.folio,
                     folio: pedido.folio,
-                    cliente: "Bara Bara",
+                    cliente,
                     items: pedido.items.map((i) => `${i.qty} × ${i.nombre}`).join(", "),
-                    total: pedido.total,
+                    // Lo que vende el puesto: sin el cargo de servicio ni el envío de la plataforma.
+                    total: ventaPuesto,
+                    fecha: pedido.fecha,
                     tipo: pedido.entrega === "recoger" ? "Recoger en puesto" : "Envío (terceros)",
                     hora,
                     estado: "nuevo",
@@ -234,10 +239,11 @@ export const useAppStore = create<AppState>()(
                   {
                     id: pedido.folio,
                     folio: pedido.folio,
-                    cliente: "Bara Bara",
+                    cliente,
                     producto: pedido.items.map((i) => i.nombre).join(", "),
                     cantidad: pedido.items.map((i) => `${i.qty} ${i.unidad}`).join(", "),
-                    total: pedido.total,
+                    total: ventaPuesto,
+                    fecha: pedido.fecha,
                     estado: "Nuevo",
                     estadoId: "nuevo",
                   },
@@ -339,13 +345,14 @@ export const useAppStore = create<AppState>()(
             avisos: [aviso, ...s.avisos].slice(0, 40),
             avisosEntregados: [aviso.id, ...s.avisosEntregados].slice(0, 300),
           };
-          if (efecto?.tipo === "pedidoLocatario") cambios.locatario = { ...s.locatario, pedidos: [efecto.pedido, ...s.locatario.pedidos] };
+          // Topes: los pedidos simulados no crecen sin fin durante una demo larga.
+          if (efecto?.tipo === "pedidoLocatario") cambios.locatario = { ...s.locatario, pedidos: [efecto.pedido, ...s.locatario.pedidos].slice(0, 30) };
           if (efecto?.tipo === "cobro")
             cambios.locatario = {
               ...s.locatario,
-              cobros: [{ id: `COB-${aviso.id.slice(-4)}`, monto: efecto.monto, metodo: "qr", fecha: aviso.fecha }, ...s.locatario.cobros],
+              cobros: [{ id: `COB-${aviso.id.replace(/\D/g, "").slice(-6)}`, monto: efecto.monto, metodo: "qr" as const, fecha: aviso.fecha }, ...s.locatario.cobros].slice(0, 100),
             };
-          if (efecto?.tipo === "pedidoMayoreo") cambios.productor = { ...s.productor, pedidos: [efecto.pedido, ...s.productor.pedidos] };
+          if (efecto?.tipo === "pedidoMayoreo") cambios.productor = { ...s.productor, pedidos: [efecto.pedido, ...s.productor.pedidos].slice(0, 30) };
           return cambios;
         }),
       sembrarAvisos: (avisos) =>
@@ -357,7 +364,8 @@ export const useAppStore = create<AppState>()(
             avisosEntregados: [...nuevos.map((a) => a.id), ...s.avisosEntregados].slice(0, 300),
           };
         }),
-      marcarAvisosLeidos: () => set((s) => ({ avisos: s.avisos.map((a) => (a.leida ? a : { ...a, leida: true })) })),
+      marcarAvisosLeidos: (perfil) =>
+        set((s) => ({ avisos: s.avisos.map((a) => (a.leida || (perfil && a.perfil && a.perfil !== perfil) ? a : { ...a, leida: true })) })),
       setAvisosSistema: (v) => set({ avisosSistema: v }),
     }),
     {

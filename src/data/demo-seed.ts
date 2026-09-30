@@ -13,6 +13,9 @@ const demo = demoJson as unknown as UsuariosDemo;
 
 export const demoSeed = {
   usuario: lealtad.usuario_demo,
+  // Personas del guion (usuarios_demo.json): Emily (turista, en) y Sofía (consumidora, es).
+  turista: demo.turista as { nombre: string },
+  consumidora: demo.consumidora as { nombre: string },
   locatario: demo.locatario,
   productor: demo.productor,
 };

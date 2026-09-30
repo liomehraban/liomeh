@@ -9,7 +9,7 @@ export type KpisBase = { ventas_mxn: number; pedidos_app: number; cobros_qr: num
  * KPIs de hoy = los de usuarios_demo + lo que pasó en la demo (cobros, pedidos nuevos de la app, check-ins).
  * El ticket promedio se recalcula con las transacciones implícitas de la base (ventas / ticket).
  */
-export function kpisHoy(base: KpisBase, extra: { cobros: number[]; pedidosApp: number[]; checkins: number }) {
+export function kpisHoy(base: KpisBase, extra: { cobros: number[]; pedidosApp: number[]; checkins: number; cobrosQr?: number }) {
   const sumaCobros = extra.cobros.reduce((a, b) => a + b, 0);
   const sumaPedidos = extra.pedidosApp.reduce((a, b) => a + b, 0);
   const ventas = base.ventas_mxn + sumaCobros + sumaPedidos;
@@ -18,7 +18,8 @@ export function kpisHoy(base: KpisBase, extra: { cobros: number[]; pedidosApp: n
   return {
     ventas_mxn: ventas,
     pedidos_app: base.pedidos_app + extra.pedidosApp.length,
-    cobros_qr: base.cobros_qr + extra.cobros.length,
+    // Solo los cobros con QR (los de tarjeta suman a ventas pero no a «Cobros QR»).
+    cobros_qr: base.cobros_qr + (extra.cobrosQr ?? extra.cobros.length),
     checkins_efectivo: base.checkins_efectivo + extra.checkins,
     ticket_promedio: tx ? Math.round(ventas / tx) : 0,
   };

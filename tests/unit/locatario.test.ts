@@ -7,9 +7,9 @@ const base = demo.locatario.hoy;
 
 describe("locatario", () => {
   it("sin actividad, los KPIs son los de usuarios_demo", () => expect(kpisHoy(base, { cobros: [], pedidosApp: [], checkins: 0 })).toEqual(base));
-  it("paso 8: cobrar $250 con QR suma a ventas y cobros; el pedido de $309 suma a pedidos app", () => {
-    const k = kpisHoy(base, { cobros: [250], pedidosApp: [309], checkins: 1 });
-    expect(k.ventas_mxn).toBe(8420 + 250 + 309);
+  it("paso 8: cobrar $250 con QR suma a ventas y cobros; el pedido del paso 4 suma $300 (sin el servicio de $9)", () => {
+    const k = kpisHoy(base, { cobros: [250], pedidosApp: [300], checkins: 1 });
+    expect(k.ventas_mxn).toBe(8420 + 250 + 300);
     expect(k.cobros_qr).toBe(42);
     expect(k.pedidos_app).toBe(24);
     expect(k.checkins_efectivo).toBe(38);
@@ -69,5 +69,10 @@ describe("catálogo efectivo", () => {
       { n: "Sope", p: 40, u: "pieza", disponible: false, extra: false },
       { n: "Tlacoyo", p: 30, u: "pieza", disponible: true, extra: true },
     ]);
+  });
+  it("un cobro con tarjeta suma a ventas pero no a «Cobros QR»", () => {
+    const k = kpisHoy(base, { cobros: [250, 100], cobrosQr: 1, pedidosApp: [], checkins: 0 });
+    expect(k.ventas_mxn).toBe(8420 + 350);
+    expect(k.cobros_qr).toBe(base.cobros_qr + 1);
   });
 });

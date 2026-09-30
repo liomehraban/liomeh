@@ -18,13 +18,21 @@ export type AccionDemo =
   | { tipo: "esperarRuta"; contiene: string }
   | { tipo: "esperarElemento"; demo: string };
 
-export type PasoDemo = { id: string; perfil: PerfilDemo; locale: Locale; acciones: AccionDemo[] };
+export type PasoDemo = {
+  id: string;
+  perfil: PerfilDemo;
+  locale: Locale;
+  acciones: AccionDemo[];
+  /** Puesto cuyo grupo del carrito se vacía antes de correr (o reintentar) el paso. */
+  vaciarCarrito?: string;
+};
 
 export const PUESTO_DEMO = "pancita-dona-chela";
 export const RUTA_DEMO = "metro-merced__pancita-dona-chela";
 export const PRODUCTOR_FAIRTRADE = "prod-milpa-01";
 export const PUESTO_CHECKIN = "jugos-moreno";
-export const EVENTO_DEMO = "mole-2026";
+/** El paso 6 recuerda la primera tarjeta de evento que ofrezca Marchanta: no depende de la fecha. */
+export const EVENTO_DEMO = "recordar:*";
 
 export const PASOS: PasoDemo[] = [
   {
@@ -70,6 +78,7 @@ export const PASOS: PasoDemo[] = [
     id: "pagar",
     perfil: "consumidor",
     locale: "en",
+    vaciarCarrito: PUESTO_DEMO,
     acciones: [
       { tipo: "ir", ruta: `/puesto/${PUESTO_DEMO}` },
       { tipo: "clic", demo: "mas", dentro: "producto:Pancita (pata, libro y cuaderno)" },
@@ -101,8 +110,8 @@ export const PASOS: PasoDemo[] = [
     acciones: [
       { tipo: "ir", ruta: "/asistente" },
       { tipo: "clic", demo: "pregunta:eventos" },
-      { tipo: "esperarElemento", demo: `recordar:${EVENTO_DEMO}` },
-      { tipo: "clic", demo: `recordar:${EVENTO_DEMO}` },
+      { tipo: "esperarElemento", demo: EVENTO_DEMO },
+      { tipo: "clic", demo: EVENTO_DEMO },
     ],
   },
   {
@@ -127,7 +136,8 @@ export const PASOS: PasoDemo[] = [
       { tipo: "clic", demo: "tecla-5" },
       { tipo: "clic", demo: "tecla-0" },
       { tipo: "clic", demo: "generar-cobro" },
-      { tipo: "esperar", ms: 5000 },
+      { tipo: "esperarElemento", demo: "cobro-recibido" },
+      { tipo: "esperar", ms: 1800 },
       { tipo: "ir", ruta: "/locatario" },
     ],
   },

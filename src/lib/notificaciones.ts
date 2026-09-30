@@ -21,6 +21,8 @@ export type Aviso = {
   href?: string;
   fecha: string;
   leida: boolean;
+  /** Perfil al que va dirigido: la bandeja solo muestra los del perfil activo. */
+  perfil?: PerfilAviso;
 };
 
 export type PerfilAviso = "consumidor" | "locatario" | "productor" | "gobierno";
@@ -37,6 +39,8 @@ export type DatosAvisos = {
 
 export type EstadoAvisos = {
   pedidos: Pick<Pedido, "folio" | "fecha" | "entrega">[];
+  /** Folios ya usados en los tableros de locatario y productor (los simulados siguen la numeración). */
+  folios?: string[];
   recordatorios: string[];
   lotes: { producto: string }[];
   entregados: string[];
@@ -44,8 +48,8 @@ export type EstadoAvisos = {
 
 /** Efecto en la demo que acompaña al aviso (un pedido nuevo que llega de verdad al tablero). */
 export type EfectoAviso =
-  | { tipo: "pedidoLocatario"; pedido: { id: string; folio: string; cliente: string; items: string; total: number; tipo: string; hora: string; estado: "nuevo" } }
-  | { tipo: "pedidoMayoreo"; pedido: { id: string; folio: string; cliente: string; producto: string; cantidad: string; total: number; estado: string; estadoId: "nuevo" } }
+  | { tipo: "pedidoLocatario"; pedido: { id: string; folio: string; cliente: string; items: string; total: number; tipo: string; hora: string; estado: "nuevo"; fecha: string } }
+  | { tipo: "pedidoMayoreo"; pedido: { id: string; folio: string; cliente: string; producto: string; cantidad: string; total: number; estado: string; estadoId: "nuevo"; fecha: string } }
   | { tipo: "cobro"; monto: number };
 
 type Candidato = { peso: number; aviso: Omit<Aviso, "fecha" | "leida">; efecto?: EfectoAviso };
@@ -66,16 +70,27 @@ export function avisosDePedidos(pedidos: EstadoAvisos["pedidos"], now: Date, ent
     if (i === 0) continue;
     const etapa = etapas(p.entrega)[i];
     const id = `pedido:${p.folio}:${etapa}`;
-    if (!ya.has(id)) out.push({ id, tipo: "pedido", clave: `pedido_${etapa.replace(" ", "_")}`, params: { folio: p.folio }, href: `/pedido/${p.folio}` });
+    if (!ya.has(id)) out.push({ id, tipo: "pedido", clave: `pedido_${etapa.replace(" ", "_")}`, params: { folio: p.folio }, href: `/pedido/${p.folio}`, perfil: "consumidor" });
   }
   return out;
 }
 
+/** Siguiente folio de la serie (`PED-4823` → `PED-4824`), sin repetir ninguno existente. */
+export function siguienteFolio(prefijo: string, existentes: string[], desde: number): string {
+  const nums = existentes.filter((f) => f.startsWith(`${prefijo}-`)).map((f) => Number(f.slice(prefijo.length + 1))).filter(Number.isFinite);
+  return `${prefijo}-${Math.max(desde - 1, ...nums) + 1}`;
+}
+
 /** Pedido simulado que llega al puesto de la demo. */
-export function pedidoLocatarioSimulado(productos: DatosAvisos["puestoDemo"]["productos"], semilla: number, now: Date): Extract<EfectoAviso, { tipo: "pedidoLocatario" }>["pedido"] {
+export function pedidoLocatarioSimulado(
+  productos: DatosAvisos["puestoDemo"]["productos"],
+  semilla: number,
+  now: Date,
+  folios: string[] = [],
+): Extract<EfectoAviso, { tipo: "pedidoLocatario" }>["pedido"] {
   const r = azar(semilla);
   const items = r.muestra(productos, r.entero(1, Math.min(3, productos.length))).map((x) => ({ ...x, q: r.entero(1, 3) }));
-  const folio = `PED-${4830 + (semilla % 9000)}`;
+  const folio = siguienteFolio("PED", folios, 4830);
   return {
     id: folio,
     folio,
@@ -85,17 +100,18 @@ export function pedidoLocatarioSimulado(productos: DatosAvisos["puestoDemo"]["pr
     tipo: r.sig() < 0.7 ? "Recoger en puesto" : "Envío (terceros)",
     hora: horaCDMX(new Date(now.getTime() + r.entero(20, 60) * 60_000)),
     estado: "nuevo",
+    fecha: now.toISOString(),
   };
 }
 
 /** Pedido de mayoreo simulado para la productora de la demo. */
-export function pedidoMayoreoSimulado(catalogo: string[], semilla: number): Extract<EfectoAviso, { tipo: "pedidoMayoreo" }>["pedido"] {
+export function pedidoMayoreoSimulado(catalogo: string[], semilla: number, folios: string[] = [], now = new Date()): Extract<EfectoAviso, { tipo: "pedidoMayoreo" }>["pedido"] {
   const r = azar(semilla);
   const producto = r.elegir(catalogo).split(" (")[0];
   const unidad = /\((pieza|manojo)/.test(catalogo.find((c) => c.startsWith(producto)) ?? "") ? "piezas" : "kg";
   const n = r.entero(3, 12) * 5;
-  const folio = `MAY-${1200 + (semilla % 9000)}`;
-  return { id: folio, folio, cliente: r.elegir(COMPRADORES), producto, cantidad: `${n} ${unidad}`, total: n * r.entero(10, 22), estado: "Nuevo", estadoId: "nuevo" };
+  const folio = siguienteFolio("MAY", folios, 1200);
+  return { id: folio, folio, cliente: r.elegir(COMPRADORES), producto, cantidad: `${n} ${unidad}`, total: n * r.entero(10, 22), estado: "Nuevo", estadoId: "nuevo", fecha: now.toISOString() };
 }
 
 function candidatos(perfil: PerfilAviso, d: DatosAvisos, e: EstadoAvisos, now: Date, semilla: number): Candidato[] {
@@ -123,8 +139,8 @@ function candidatos(perfil: PerfilAviso, d: DatosAvisos, e: EstadoAvisos, now: D
   }
   // Sin límite de hora: la demo se presenta a cualquier hora (los pedidos quedan para la siguiente hora).
   if (perfil === "locatario") {
-    const pedido = pedidoLocatarioSimulado(d.puestoDemo.productos, semilla, now);
-    c.push({ peso: 4, aviso: { id: `nuevoPedido:${pedido.folio}:${dia}`, tipo: "nuevoPedido", clave: "nuevoPedido", params: { folio: pedido.folio, items: pedido.items, total: pedido.total }, href: "/locatario/pedidos" }, efecto: { tipo: "pedidoLocatario", pedido } });
+    const pedido = pedidoLocatarioSimulado(d.puestoDemo.productos, semilla, now, e.folios);
+    c.push({ peso: 4, aviso: { id: `nuevoPedido:${pedido.folio}`, tipo: "nuevoPedido", clave: "nuevoPedido", params: { folio: pedido.folio, items: pedido.items, total: pedido.total }, href: "/locatario/pedidos" }, efecto: { tipo: "pedidoLocatario", pedido } });
     const monto = r.entero(6, 40) * 10;
     c.push({ peso: 2, aviso: { id: `cobro:${semilla}`, tipo: "cobro", clave: "cobro", params: { monto }, href: "/locatario" }, efecto: { tipo: "cobro", monto } });
     for (const p of d.puestoDemo.productos) {
@@ -134,8 +150,8 @@ function candidatos(perfil: PerfilAviso, d: DatosAvisos, e: EstadoAvisos, now: D
     }
   }
   if (perfil === "productor") {
-    const pedido = pedidoMayoreoSimulado(d.productor.catalogo, semilla);
-    c.push({ peso: 3, aviso: { id: `mayoreo:${pedido.folio}:${dia}`, tipo: "mayoreo", clave: "mayoreo", params: { cliente: pedido.cliente, producto: pedido.producto, cantidad: pedido.cantidad }, href: "/productor/pedidos" }, efecto: { tipo: "pedidoMayoreo", pedido } });
+    const pedido = pedidoMayoreoSimulado(d.productor.catalogo, semilla, e.folios, now);
+    c.push({ peso: 3, aviso: { id: `mayoreo:${pedido.folio}`, tipo: "mayoreo", clave: "mayoreo", params: { cliente: pedido.cliente, producto: pedido.producto, cantidad: pedido.cantidad }, href: "/productor/pedidos" }, efecto: { tipo: "pedidoMayoreo", pedido } });
     for (const l of e.lotes)
       c.push({ peso: 1, aviso: { id: `lote:${l.producto}:${dia}`, tipo: "lote", clave: "loteVisto", params: { producto: l.producto, n: r.entero(6, 24) }, href: "/productor" } });
   }
@@ -157,7 +173,7 @@ export function siguienteAviso(perfil: PerfilAviso, d: DatosAvisos, e: EstadoAvi
   const total = libres.reduce((s, x) => s + x.peso, 0);
   let t = azar(semilla ^ 0x9e3779b9).sig() * total;
   const elegido = libres.find((x) => (t -= x.peso) < 0) ?? libres[libres.length - 1];
-  return { aviso: { ...elegido.aviso, fecha: now.toISOString(), leida: false }, efecto: elegido.efecto };
+  return { aviso: { ...elegido.aviso, perfil, fecha: now.toISOString(), leida: false }, efecto: elegido.efecto };
 }
 
 /** Bandeja con la que arranca cada perfil, para que no se vea vacía. */
@@ -170,7 +186,7 @@ export function bandejaInicial(perfil: PerfilAviso, d: DatosAvisos, now: Date): 
     if (ev) base.unshift({ id: `eventoNuevo:${ev.id}`, tipo: "evento", clave: "eventoNuevo", params: { titulo: ev.titulo, dias: Math.max(0, diasEntre(dia, ev.inicio)) }, href: "/agenda", fecha: hace(40), leida: false });
   }
   if (perfil === "locatario") base.unshift({ id: `inicio:locatario:${dia}`, tipo: "cobro", clave: "resumenDia", params: {}, href: "/locatario", fecha: hace(30), leida: false });
-  return base;
+  return base.map((a) => ({ ...a, perfil }));
 }
 
 /** «hace un momento», «hace 5 min», «hace 2 h», «hace 3 días» para marcas de tiempo ISO. */

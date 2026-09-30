@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import { LocaleToggle } from "./LocaleToggle";
+import { cancelarPresentacion } from "@/components/presentacion/Conductor";
 
 /** Bloque de Ajustes: idioma y «Reiniciar demo». Se usa en Yo, Locatario › Cuenta y Productor › Cuenta. */
 export function AjustesDemo() {
@@ -16,6 +17,7 @@ export function AjustesDemo() {
   const resetDemo = useAppStore((s) => s.resetDemo);
 
   const reiniciar = () => {
+    cancelarPresentacion();
     resetDemo();
     toast.success(t("comun.demoReiniciada"));
     router.push("/");

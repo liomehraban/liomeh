@@ -29,12 +29,19 @@ const useEjecucion = create<{ ejecutando: boolean; dedo: EstadoDedo }>(() => ({
 const setEjecutando = (ejecutando: boolean) => useEjecucion.setState({ ejecutando });
 const setDedo = (f: (d: EstadoDedo) => EstadoDedo) => useEjecucion.setState((s) => ({ dedo: f(s.dedo) }));
 
+/** Cancela el paso en curso (también lo usa «Reiniciar demo» de Ajustes). */
+export function cancelarPresentacion() {
+  corrida++;
+  setEjecutando(false);
+  setDedo((d) => ({ ...d, visible: false }));
+}
+
 /** Monta la barra y ejecuta el guion. Vive en el layout, así sobrevive a la navegación. */
 export function Conductor() {
   const t = useTranslations("presentacion");
   const router = useRouter();
   const hydrated = useHydrated();
-  const { activa, paso } = useAppStore((s) => s.presentacion);
+  const { activa, paso, completado = true } = useAppStore((s) => s.presentacion);
   const ejecutando = useEjecucion((s) => s.ejecutando);
   const dedo = useEjecucion((s) => s.dedo);
   const reducido = useRef(false);
@@ -46,7 +53,8 @@ export function Conductor() {
       const id = ++corrida;
       const vivo = () => id === corrida;
       const st = useAppStore.getState();
-      st.setPresentacion({ activa: true, paso: i });
+      st.setPresentacion({ activa: true, paso: i, completado: false });
+      if (paso.vaciarCarrito) st.quitarGrupo(paso.vaciarCarrito);
       st.setPerfil(paso.perfil);
       st.marcarOnboarding();
       reducido.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -62,6 +70,7 @@ export function Conductor() {
             await new Promise((ok) => setTimeout(ok, reducido.current ? 60 : 550));
           },
         });
+        if (vivo()) useAppStore.getState().setPresentacion({ completado: true });
       } catch (e) {
         if (!(e instanceof Cancelado)) console.warn(e);
       } finally {
@@ -78,7 +87,7 @@ export function Conductor() {
     const { paso } = useAppStore.getState().presentacion;
     if (paso >= PASOS.length - 1) {
       corrida++;
-      useAppStore.getState().setPresentacion({ activa: false, paso: -1 });
+      useAppStore.getState().setPresentacion({ activa: false, paso: -1, completado: true });
       router.push("/presentacion", { locale: "es" });
       return;
     }
@@ -86,22 +95,23 @@ export function Conductor() {
   }, [correr, router]);
 
   const reiniciar = useCallback(() => {
-    corrida++;
-    setEjecutando(false);
-    setDedo((d) => ({ ...d, visible: false }));
+    cancelarPresentacion();
     const st = useAppStore.getState();
     st.resetDemo();
-    st.setPresentacion({ activa: true, paso: -1 });
+    st.setPresentacion({ activa: true, paso: -1, completado: true });
     toast.success(t("reiniciado"));
     router.push("/presentacion", { locale: "es" });
   }, [router, t]);
 
   const salir = useCallback(() => {
-    corrida++;
-    setEjecutando(false);
-    setDedo((d) => ({ ...d, visible: false }));
-    useAppStore.getState().setPresentacion({ activa: false, paso: -1 });
+    cancelarPresentacion();
+    useAppStore.getState().setPresentacion({ activa: false, paso: -1, completado: true });
   }, []);
+
+  const reintentar = useCallback(() => {
+    const { paso } = useAppStore.getState().presentacion;
+    void correr(Math.max(0, paso));
+  }, [correr]);
 
   useEffect(() => {
     const h = () => siguiente();
@@ -112,7 +122,16 @@ export function Conductor() {
   if (!hydrated || !activa) return null;
   return (
     <>
-      <BarraPresentacion paso={paso} ejecutando={ejecutando} onSiguiente={siguiente} onReiniciar={reiniciar} onSalir={salir} />
+      <BarraPresentacion
+        paso={paso}
+        ejecutando={ejecutando}
+        // Un paso que no terminó (falló, se canceló o se recargó a la mitad) se ofrece para reintentar.
+        interrumpido={paso >= 0 && !completado && !ejecutando}
+        onSiguiente={siguiente}
+        onReintentar={reintentar}
+        onReiniciar={reiniciar}
+        onSalir={salir}
+      />
       <DedoDemo estado={dedo} />
     </>
   );

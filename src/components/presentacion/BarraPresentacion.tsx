@@ -12,13 +12,17 @@ export const persona = (p: PasoDemo) =>
 export function BarraPresentacion({
   paso,
   ejecutando,
+  interrumpido,
   onSiguiente,
+  onReintentar,
   onReiniciar,
   onSalir,
 }: {
   paso: number;
   ejecutando: boolean;
+  interrumpido: boolean;
   onSiguiente: () => void;
+  onReintentar: () => void;
   onReiniciar: () => void;
   onSalir: () => void;
 }) {
@@ -50,7 +54,9 @@ export function BarraPresentacion({
               <span className="truncate text-[11px] font-bold tracking-wide text-dorado uppercase">
                 {t("pasoDe", { n: paso + 1, total: PASOS.length })} · {t(`perfiles.${persona(actual)}`)}
               </span>
-              <span className="line-clamp-2 text-[13px] leading-tight font-semibold">{t(`pasos.${actual.id}.titulo` as "pasos.buscar.titulo")}</span>
+              <span className="line-clamp-2 text-[13px] leading-tight font-semibold">
+                {interrumpido ? t("interrumpido") : t(`pasos.${actual.id}.titulo` as "pasos.buscar.titulo")}
+              </span>
             </>
           ) : (
             <span className="text-[13px] font-semibold">{t("titulo")}</span>
@@ -58,7 +64,7 @@ export function BarraPresentacion({
         </div>
         <button
           type="button"
-          onClick={onSiguiente}
+          onClick={interrumpido ? onReintentar : onSiguiente}
           disabled={ejecutando}
           data-demo-siguiente
           className="flex min-h-11 shrink-0 items-center gap-1 rounded-pill bg-dorado px-4 text-sm font-bold text-morado-900 disabled:opacity-70"
@@ -70,8 +76,8 @@ export function BarraPresentacion({
             </>
           ) : (
             <>
-              {paso < 0 ? t("comenzar") : ultimo ? t("terminar") : t("siguiente")}
-              <ChevronRight className="size-4" aria-hidden />
+              {interrumpido ? t("reintentar") : paso < 0 ? t("comenzar") : ultimo ? t("terminar") : t("siguiente")}
+              {interrumpido ? <RotateCcw className="size-4" aria-hidden /> : <ChevronRight className="size-4" aria-hidden />}
             </>
           )}
         </button>
