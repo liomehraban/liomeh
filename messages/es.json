@@ -391,7 +391,8 @@
     "procesando": "Procesando pago…",
     "seguro": "Pago simulado · sin backend",
     "planActual": "Tu plan: {plan}",
-    "recogerProductor": "Recoger directo del productor"
+    "recogerProductor": "Recoger directo del productor",
+    "confirmando": "Confirmando tu pago…"
   },
   "pedido": {
     "titulo": "Tu pedido",
@@ -763,7 +764,7 @@
       "ticket_promedio": "Ticket promedio"
     },
     "semana": "Ventas de la semana",
-    "semanaTexto": "Ventas diarias de lunes a domingo; hoy incluye lo cobrado en la demo.",
+    "semanaTexto": "Últimos 7 días; hoy incluye lo cobrado en la demo.",
     "top": "Lo más vendido",
     "resenas": "Últimas reseñas",
     "banner": "Tus clientes en efectivo ya suman puntos: {n} check-ins hoy",
@@ -883,7 +884,9 @@
       "gmv": "Derrama digital por mes",
       "usuarios": "Usuarios activos por mes",
       "texto": "Escenario conservador, año 1",
-      "mes": "Mes"
+      "mes": "Mes",
+      "hoy": "Hoy",
+      "proyeccion": "Punteado: proyección del escenario piloto"
     },
     "ventas": {
       "titulo": "Ventas del mes por alcaldía",

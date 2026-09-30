@@ -39,11 +39,15 @@ export function Entrada() {
     return () => clearTimeout(id);
   }, []);
 
+  // Al elegir, el selector se queda en pantalla hasta que llega el home del perfil (sin destello del splash).
+  const [eligiendo, setEligiendo] = useState(false);
   const elegir = (p: Perfil) => {
+    setEligiendo(true);
     marcarOnboarding();
     setPerfil(p);
   };
 
+  if (eligiendo) return <SelectorPerfil onElegir={elegir} />;
   if (splash || !hydrated || perfil) return <Splash onSkip={saltarSplash} />;
   if (!onboardingVisto) return <Onboarding onDone={marcarOnboarding} />;
   return <SelectorPerfil onElegir={elegir} />;

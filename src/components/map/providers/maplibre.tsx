@@ -94,8 +94,10 @@ export default function MapLibreView({
           interactiveLayerIds={interactivos}
           onClick={onClick}
           onLoad={() => {
-            // Encuadre pedido antes de que el mapa existiera (p. ej. al abrir una ruta).
-            if (encuadre && ref.current) {
+            // Enfoque o encuadre pedidos antes de que el mapa existiera (p. ej. una búsqueda rápida o una ruta).
+            if (enfoque && ref.current) {
+              ref.current.jumpTo({ center: [enfoque.lng, enfoque.lat], zoom: enfoque.zoom ?? 15, padding: { top: 120, bottom: paddingInferior, left: 0, right: 0 } });
+            } else if (encuadre && ref.current) {
               const [a, b, c, d] = encuadre.bbox;
               ref.current.fitBounds([a, b, c, d], { padding: { top: 60, bottom: paddingInferior + 20, left: 40, right: 40 }, maxZoom: 15, duration: 0 });
             }

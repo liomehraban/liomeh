@@ -391,7 +391,8 @@
     "procesando": "Processing payment…",
     "seguro": "Simulated payment · no backend",
     "planActual": "Your plan: {plan}",
-    "recogerProductor": "Pick up from the grower"
+    "recogerProductor": "Pick up from the grower",
+    "confirmando": "Confirming your payment…"
   },
   "pedido": {
     "titulo": "Your order",
@@ -763,7 +764,7 @@
       "ticket_promedio": "Average ticket"
     },
     "semana": "Sales this week",
-    "semanaTexto": "Daily sales Monday to Sunday; today includes what was charged in the demo.",
+    "semanaTexto": "Last 7 days; today includes what was charged in the demo.",
     "top": "Best sellers",
     "resenas": "Latest reviews",
     "banner": "Your cash customers are earning points too: {n} check-ins today",
@@ -883,7 +884,9 @@
       "gmv": "Digital spend per month",
       "usuarios": "Active users per month",
       "texto": "Conservative scenario, year 1",
-      "mes": "Month"
+      "mes": "Month",
+      "hoy": "Today",
+      "proyeccion": "Dotted: pilot scenario projection"
     },
     "ventas": {
       "titulo": "Sales this month by borough",

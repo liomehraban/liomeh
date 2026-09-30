@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Bike, CreditCard, QrCode, Store } from "lucide-react";
+import { Bike, CreditCard, Loader2, QrCode, Store } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,9 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
   const router = useRouter();
   const hydrated = useHydrated();
   const params = useSearchParams();
-  const puestoId = params.get("puesto") ?? "";
+  // Sin ?puesto (enlace directo) se paga el primer pedido del carrito en vez de mostrar un callejón sin salida.
+  const primero = useAppStore((s) => s.carrito[0]?.puestoId ?? "");
+  const puestoId = params.get("puesto") ?? primero;
   const linea = useAppStore((s) => s.carrito.find((l) => l.puestoId === puestoId));
   const vendedores = useAppStore((s) => s.vendedores);
   const plan = useAppStore((s) => s.plan);
@@ -42,6 +44,8 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
   const [colonia, setColonia] = useState("");
   const [proveedor, setProveedor] = useState<ProveedorId>("rappi");
   const pagado = useRef(false);
+  // Al pagar, el grupo sale del carrito antes de que llegue la pantalla del pedido: se muestra «Confirmando…».
+  const [confirmando, setConfirmando] = useState(false);
   const [refPago] = useState(() => `REF-${Math.floor(100000 + Math.random() * 900000)}`);
 
   const alcaldias = useMemo(() => [...new Set(colonias.map((c) => c.alcaldia))], [colonias]);
@@ -59,6 +63,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
     (metodo: "qr" | "tarjeta", ultimos4?: string) => {
       if (pagado.current || !linea || !puesto || !resumen || !entrega) return;
       pagado.current = true;
+      setConfirmando(true);
       const pedido = registrar({
         puestoId: linea.puestoId,
         mercadoId: puesto.mercadoId,
@@ -75,6 +80,17 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
   );
 
   if (!hydrated) return <EncabezadoSimple titulo={t("titulo")} fallback="/carrito" />;
+  if (confirmando) {
+    return (
+      <div className="flex min-h-full flex-col">
+        <EncabezadoSimple titulo={t("titulo")} fallback="/carrito" />
+        <p className="flex items-center justify-center gap-2 p-10 font-semibold text-morado-700" role="status">
+          <Loader2 className="size-5 animate-spin" aria-hidden />
+          {t("confirmando")}
+        </p>
+      </div>
+    );
+  }
   if (!linea || !puesto) {
     return (
       <div className="flex min-h-full flex-col">
