@@ -26,11 +26,13 @@ const ESTILO = {
   destacado: { fill: "#C8A96A", r: 10, rSel: 14, stroke: 4, opacidad: 1 },
   productor: { fill: "#3C8D2F", r: 9, rSel: 13, stroke: 3, opacidad: 1 },
   atenuado: { fill: "#FEFAEB", r: 4.5, rSel: 4.5, stroke: 2, opacidad: 0.55 },
-} as const;
+  /** Coropleta por punto: el color va de relleno con anillo blanco (panel de gobierno). */
+  relleno: { fill: ["get", "color"], r: 6, rSel: 9, stroke: 1.5, opacidad: 1, anillo: "#FFFFFF" },
+} as const satisfies Record<string, { fill: string | unknown[]; r: number; rSel: number; stroke: number; opacidad: number; anillo?: string }>;
 
 /** Pines de mercados: clusters morados; pin crema con anillo del giro, o dorado más grande si es destacado. */
 export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPuntos; seleccionado?: string | null; conGlifos: boolean }) {
-  const e = ESTILO[capa.estilo];
+  const e: { fill: string | unknown[]; r: number; rSel: number; stroke: number; opacidad: number; anillo?: string } = ESTILO[capa.estilo];
   const sel = seleccionado ?? "";
   return (
     <Source
@@ -70,10 +72,10 @@ export function MarketLayer({ capa, seleccionado, conGlifos }: { capa: CapaPunto
         type="circle"
         filter={["!", ["has", "point_count"]]}
         paint={{
-          "circle-color": e.fill,
+          "circle-color": e.fill as string,
           "circle-radius": ["case", ["==", ["get", "id"], sel], e.rSel, e.r],
           "circle-stroke-width": e.stroke,
-          "circle-stroke-color": ["get", "color"],
+          "circle-stroke-color": e.anillo ?? ["get", "color"],
           "circle-opacity": e.opacidad,
           "circle-stroke-opacity": e.opacidad,
         }}

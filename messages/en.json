@@ -816,5 +816,79 @@
       "qr": "QR payments: 0% fee",
       "pagoSimulado": "Simulated payment · no backend"
     }
+  },
+  "gobierno": {
+    "titulo": "Impact dashboard",
+    "subtitulo": "Mexico City Public Markets",
+    "simulados": "Simulated data · pilot scenario",
+    "exportar": "Export CSV",
+    "exportado": "CSV downloaded",
+    "secretarias": "View by agency",
+    "general": "Overview",
+    "kpis": {
+      "mercados_en_app": "Markets on the app",
+      "mercados_de": "of {total} ({pct}%)",
+      "usuarios_activos_mes": "Monthly active users",
+      "transacciones_mes": "Transactions per month",
+      "derrama_digital_mes_mxn": "Digital spend this month",
+      "rating_promedio": "Average rating",
+      "locatarios_activos": "Active stallholders",
+      "productores_suelo_conservacion": "Conservation-land growers",
+      "turistas_mes": "Tourists per month",
+      "extranjeros": "Foreign users",
+      "extranjerosTexto": "{n} of {total} active users",
+      "pct_ventas_efectivo_registradas": "Cash sales recorded",
+      "km_intermediacion_evitados_mes": "Middleman km avoided",
+      "co2_evitado_mes_ton": "CO₂ avoided",
+      "alimento_rescatado_mes_ton": "Food rescued"
+    },
+    "ton": "{n} t",
+    "km": "{n} km",
+    "pct": "{n}%",
+    "adopcion": {
+      "titulo": "Adoption by borough",
+      "texto": "Each dot is a market, colored by the share of markets in its borough already on the app.",
+      "aria": "Map of markets colored by their borough's adoption",
+      "p0": "under 20%",
+      "p1": "20–35%",
+      "p2": "35–50%",
+      "p3": "50–65%",
+      "p4": "65% or more",
+      "alcaldia": "Borough",
+      "activos": "On the app",
+      "pctCol": "Adoption"
+    },
+    "serie": {
+      "gmv": "Digital spend per month",
+      "usuarios": "Active users per month",
+      "texto": "Conservative scenario, year 1",
+      "mes": "Month"
+    },
+    "ventas": {
+      "titulo": "Sales this month by borough",
+      "texto": "Top 8 boroughs"
+    },
+    "top": {
+      "titulo": "Most visited markets",
+      "visitas": "{n} visits per month"
+    },
+    "sectur": {
+      "turistas": "Foreign tourists per month",
+      "visitas": "Tourist visits by borough",
+      "idiomas": "User languages",
+      "sinDato": "This metric has no pilot data yet."
+    },
+    "sedema": {
+      "serie": "CO₂ avoided and food rescued per month (t)",
+      "co2": "CO₂ avoided",
+      "alimento": "Food rescued",
+      "demo": "Includes {kg} kg rescued in this demo (Rescue today).",
+      "sinDemo": "Whatever you rescue in “Rescue today” adds up here."
+    },
+    "se": {
+      "credito": "Sales history for credit",
+      "creditoTexto": "{pct}% of cash sales are already recorded via check-in: a sales history stallholders can show to apply for credit.",
+      "checkins": "Cash check-ins per month"
+    }
   }
 }

@@ -816,5 +816,79 @@
       "qr": "Cobro con QR: 0% de comisión",
       "pagoSimulado": "Pago simulado · sin backend"
     }
+  },
+  "gobierno": {
+    "titulo": "Panel de impacto",
+    "subtitulo": "Mercados Públicos CDMX",
+    "simulados": "Datos simulados · escenario piloto",
+    "exportar": "Exportar CSV",
+    "exportado": "CSV descargado",
+    "secretarias": "Vista por secretaría",
+    "general": "General",
+    "kpis": {
+      "mercados_en_app": "Mercados en la app",
+      "mercados_de": "de {total} ({pct}%)",
+      "usuarios_activos_mes": "Usuarios activos al mes",
+      "transacciones_mes": "Transacciones al mes",
+      "derrama_digital_mes_mxn": "Derrama digital del mes",
+      "rating_promedio": "Calificación promedio",
+      "locatarios_activos": "Locatarios activos",
+      "productores_suelo_conservacion": "Productores del suelo de conservación",
+      "turistas_mes": "Turistas al mes",
+      "extranjeros": "Usuarios extranjeros",
+      "extranjerosTexto": "{n} de {total} usuarios activos",
+      "pct_ventas_efectivo_registradas": "Ventas en efectivo registradas",
+      "km_intermediacion_evitados_mes": "Km de intermediación evitados",
+      "co2_evitado_mes_ton": "CO₂ evitado",
+      "alimento_rescatado_mes_ton": "Alimento rescatado"
+    },
+    "ton": "{n} t",
+    "km": "{n} km",
+    "pct": "{n}%",
+    "adopcion": {
+      "titulo": "Adopción por alcaldía",
+      "texto": "Cada punto es un mercado, coloreado según el % de mercados de su alcaldía que ya usan la app.",
+      "aria": "Mapa de mercados coloreados por adopción de su alcaldía",
+      "p0": "menos de 20%",
+      "p1": "20–35%",
+      "p2": "35–50%",
+      "p3": "50–65%",
+      "p4": "65% o más",
+      "alcaldia": "Alcaldía",
+      "activos": "En la app",
+      "pctCol": "Adopción"
+    },
+    "serie": {
+      "gmv": "Derrama digital por mes",
+      "usuarios": "Usuarios activos por mes",
+      "texto": "Escenario conservador, año 1",
+      "mes": "Mes"
+    },
+    "ventas": {
+      "titulo": "Ventas del mes por alcaldía",
+      "texto": "Top 8 alcaldías"
+    },
+    "top": {
+      "titulo": "Mercados más visitados",
+      "visitas": "{n} visitas al mes"
+    },
+    "sectur": {
+      "turistas": "Turistas extranjeros por mes",
+      "visitas": "Visitas de turistas por alcaldía",
+      "idiomas": "Idioma de los usuarios",
+      "sinDato": "Este indicador aún no tiene datos en el piloto."
+    },
+    "sedema": {
+      "serie": "CO₂ evitado y alimento rescatado por mes (t)",
+      "co2": "CO₂ evitado",
+      "alimento": "Alimento rescatado",
+      "demo": "Incluye {kg} kg rescatados en esta demo (Rescata hoy).",
+      "sinDemo": "Lo que rescates en «Rescata hoy» se suma aquí."
+    },
+    "se": {
+      "credito": "Historial para acceso a crédito",
+      "creditoTexto": "El {pct}% de las ventas en efectivo ya queda registrado con check-in: es historial de ventas que el locatario puede presentar para pedir crédito.",
+      "checkins": "Check-ins en efectivo por mes"
+    }
   }
 }

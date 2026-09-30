@@ -14,7 +14,7 @@ export type CapaPuntos = {
   puntos: PuntoMapa[];
   /** Agrupa en clusters (se separan al hacer zoom; desde zoom 15 no hay clusters). */
   cluster?: boolean;
-  estilo: "normal" | "destacado" | "productor" | "atenuado";
+  estilo: "normal" | "destacado" | "productor" | "atenuado" | "relleno";
   /** false = solo decorativa (no responde a toques). Default true. */
   interactiva?: boolean;
 };
