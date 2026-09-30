@@ -20,10 +20,13 @@ describe("locatario", () => {
     expect(saludoPorHora(new Date("2026-10-01T20:00:00Z"))).toBe("tardes"); // 14:00
     expect(saludoPorHora(new Date("2026-10-02T02:00:00Z"))).toBe("noches"); // 20:00
   });
-  it("semana: suma lo de hoy a la barra del día (jueves = índice 3)", () => {
+  it("semana: últimos 7 días terminando en hoy, con la barra de hoy igual a «Ventas de hoy»", () => {
     const jueves = new Date("2026-10-01T18:00:00Z");
     expect(indiceSemana(jueves)).toBe(3);
-    expect(semanaConHoy(demo.locatario.semana, 250, jueves)[3].v).toBe(7250);
+    const s = semanaConHoy(demo.locatario.semana, 8670, jueves);
+    expect(s.map((x) => x.d)).toEqual(["Vie", "Sáb", "Dom", "Lun", "Mar", "Mié", "Jue"]);
+    expect(s[6].v).toBe(8670);
+    expect(s[0].v).toBe(demo.locatario.semana[4].v);
   });
   it("estados de pedido", () => {
     expect(siguienteEstadoLocatario(undefined)).toBe("preparando");

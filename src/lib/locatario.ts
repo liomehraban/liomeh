@@ -38,9 +38,14 @@ export function indiceSemana(now = new Date()): number {
 }
 
 /** Suma lo vendido hoy a la barra del día actual. */
-export function semanaConHoy<T extends { d: string; v: number }>(semana: T[], extraHoy: number, now = new Date()): T[] {
+/**
+ * Últimos 7 días terminando en hoy (hora CDMX), para no mostrar ventas en días que aún no pasan.
+ * La barra de hoy es exactamente «Ventas de hoy», así la gráfica y la tarjeta siempre cuadran.
+ */
+export function semanaConHoy<T extends { d: string; v: number }>(semana: T[], ventasHoy: number, now = new Date()): T[] {
   const i = indiceSemana(now);
-  return semana.map((x, j) => (j === i ? { ...x, v: x.v + extraHoy } : x));
+  const ultimos = [...semana.slice(i + 1), ...semana.slice(0, i + 1)];
+  return ultimos.map((x, j) => (j === ultimos.length - 1 ? { ...x, v: ventasHoy } : x));
 }
 
 // ---------- pedidos del locatario ----------

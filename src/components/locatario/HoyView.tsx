@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
-import { indiceSemana, saludoPorHora, semanaConHoy, type KpisBase } from "@/lib/locatario";
+import { saludoPorHora, semanaConHoy, type KpisBase } from "@/lib/locatario";
 import { formatMXN } from "@/lib/money";
 import type { Resena, UsuariosDemo } from "@/lib/schemas";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
@@ -21,7 +21,7 @@ export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: 
   const locale = useLocale();
   const ahora = useAhora();
   const hydrated = useHydrated();
-  const { kpis, extraHoy } = useKpisLocatario(demo.hoy as KpisBase, demo.puesto_id);
+  const { kpis } = useKpisLocatario(demo.hoy as KpisBase, demo.puesto_id);
   const pedidos = useAppStore((s) => s.locatario.pedidos);
   const propias = useAppStore((s) => s.resenasPropias);
   const pendientes = hydrated ? pedidos.filter((p) => p.estado !== "entregado").length : demo.pedidos_pendientes.length;
@@ -72,7 +72,7 @@ export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: 
           </span>
         </Link>
 
-        <VentasSemana datos={semanaConHoy(demo.semana, extraHoy, ahora ?? undefined)} hoy={indiceSemana(ahora ?? undefined)} />
+        <VentasSemana datos={semanaConHoy(demo.semana, kpis.ventas_mxn, ahora ?? undefined)} hoy={demo.semana.length - 1} />
 
         <section aria-labelledby="top" className="flex flex-col gap-2">
           <h2 id="top" className="text-xl font-bold text-morado-700">
