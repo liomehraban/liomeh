@@ -393,7 +393,7 @@
     "errCvv": "CVV de 3 o 4 dígitos",
     "errNombre": "Escribe el nombre",
     "procesando": "Procesando pago…",
-    "seguro": "Pago simulado · sin backend",
+    "seguro": "Pago de prueba: no se cobra dinero real",
     "planActual": "Tu plan: {plan}",
     "recogerProductor": "Recoger directo del productor",
     "confirmando": "Confirmando tu pago…",
@@ -506,7 +506,7 @@
     "sinVisitas": "Este huerto no recibe visitas por ahora.",
     "resenas": "Reseñas",
     "sinResenas": "Aún no hay reseñas de este productor.",
-    "pagoSimulado": "Pago simulado · sin backend",
+    "pagoSimulado": "Pago de prueba: no se cobra dinero real",
     "hola": "¡Hola, {nombre}!",
     "cosecha": {
       "titulo": "Cosecha",
@@ -722,7 +722,7 @@
     "precio0": "$0",
     "porSemana": "{precio} · 7 días",
     "porMes": "{precio}/mes",
-    "pagoSimulado": "Pago simulado · sin backend",
+    "pagoSimulado": "Pago de prueba: no se cobra dinero real",
     "efectos": "Con tu plan",
     "efTarifa": "Tarifa de servicio: {valor}",
     "efDescuento": "Descuento en puestos Pro y Plus: {valor}",
@@ -922,7 +922,7 @@
       "gratis": "$0 · subsidiado por el gobierno",
       "comision": "Pedidos en línea: Bara Bara 4% vs apps de delivery 18–30% + IVA",
       "qr": "Cobro con QR: 0% de comisión",
-      "pagoSimulado": "Pago simulado · sin backend",
+      "pagoSimulado": "Pago de prueba: no se cobra dinero real",
       "beneficiosEn": {
         "Gratis": [
           "Ficha del puesto en mapa e interior",

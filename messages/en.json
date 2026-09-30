@@ -393,7 +393,7 @@
     "errCvv": "3 or 4 digit CVV",
     "errNombre": "Enter the name",
     "procesando": "Processing payment…",
-    "seguro": "Simulated payment · no backend",
+    "seguro": "Test payment: no real money is charged",
     "planActual": "Your plan: {plan}",
     "recogerProductor": "Pick up from the grower",
     "confirmando": "Confirming your payment…",
@@ -506,7 +506,7 @@
     "sinVisitas": "This farm doesn't take visitors for now.",
     "resenas": "Reviews",
     "sinResenas": "No reviews for this grower yet.",
-    "pagoSimulado": "Simulated payment · no backend",
+    "pagoSimulado": "Test payment: no real money is charged",
     "hola": "Hi, {nombre}!",
     "cosecha": {
       "titulo": "Harvest",
@@ -722,7 +722,7 @@
     "precio0": "$0",
     "porSemana": "{precio} · 7 days",
     "porMes": "{precio}/month",
-    "pagoSimulado": "Simulated payment · no backend",
+    "pagoSimulado": "Test payment: no real money is charged",
     "efectos": "With your plan",
     "efTarifa": "Service fee: {valor}",
     "efDescuento": "Discount at Pro and Plus stalls: {valor}",
@@ -922,7 +922,7 @@
       "gratis": "$0 · subsidized by the government",
       "comision": "Online orders: Bara Bara 4% vs delivery apps 18–30% + VAT",
       "qr": "QR payments: 0% fee",
-      "pagoSimulado": "Simulated payment · no backend",
+      "pagoSimulado": "Test payment: no real money is charged",
       "beneficiosEn": {
         "Gratis": [
           "Stall page on the map and indoor map",

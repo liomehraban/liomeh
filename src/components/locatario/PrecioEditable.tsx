@@ -28,7 +28,7 @@ export function PrecioEditable({ valor, etiqueta, onGuardar }: { valor: number; 
         onChange={(e) => setBorrador(e.target.value)}
         onBlur={guardar}
         onKeyDown={(e) => e.key === "Enter" && (e.currentTarget as HTMLInputElement).blur()}
-        className="h-11 w-[76px] [appearance:textfield] rounded-xl border border-input bg-white pr-2.5 pl-6 text-right text-base font-semibold tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="h-11 w-[76px] [appearance:textfield] rounded-xl border border-input bg-white pr-2.5 pl-6 text-right text-base font-semibold [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
     </label>
   );

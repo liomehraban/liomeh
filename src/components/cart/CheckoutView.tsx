@@ -267,7 +267,12 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
 
         {/* Pago */}
         {resumen && (
-          <section aria-labelledby="pago" className="flex flex-col gap-3">
+          // Barra de pago fija abajo (arriba de la tab bar y del personaje), como el pie de pago de una app nativa:
+          // «Generar QR de pago» siempre está a la vista aunque el resumen sea largo.
+          <section
+            aria-labelledby="pago"
+            className="sticky bottom-0 z-10 -mx-5 -mb-5 flex flex-col gap-3 rounded-t-card border-t border-border bg-crema px-5 pt-4 pb-[calc(var(--asoma,0px)+1.25rem)] shadow-[0_-10px_24px_rgba(62,28,60,0.08)]"
+          >
             <h2 id="pago" className="text-xl font-bold text-morado-700">
               {t("pago")}
             </h2>
