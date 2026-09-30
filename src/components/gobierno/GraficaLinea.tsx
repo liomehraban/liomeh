@@ -2,6 +2,8 @@
 
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+import { AlVerse } from "./AlVerse";
+
 export type SerieLinea = { clave: string; nombre: string; color: string };
 
 /**
@@ -42,9 +44,9 @@ export function GraficaLinea({
           ))}
         </ul>
       )}
-      <div className="h-52" aria-hidden>
+      <AlVerse className="h-52">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={datos} margin={{ top: 22, right: 40, bottom: 0, left: 4 }}>
+          <LineChart accessibilityLayer={false} data={datos} margin={{ top: 22, right: 40, bottom: 0, left: 4 }}>
             <CartesianGrid vertical={false} stroke="#EFE6EE" />
             <XAxis dataKey={x} tickLine={false} axisLine={{ stroke: "#EADFE8" }} tick={{ fill: "#4A3848", fontSize: 11 }} interval="preserveStartEnd" minTickGap={12} />
             <YAxis tickLine={false} axisLine={false} tick={{ fill: "#4A3848", fontSize: 11 }} tickFormatter={(v) => formato(Number(v))} width={52} />
@@ -75,7 +77,7 @@ export function GraficaLinea({
             ))}
           </LineChart>
         </ResponsiveContainer>
-      </div>
+      </AlVerse>
       <table className="sr-only">
         <caption>{titulo}</caption>
         <thead>

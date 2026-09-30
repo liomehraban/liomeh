@@ -17,7 +17,7 @@ export function FichaProductorRapida({ p }: { p: Productor }) {
   return (
     <div className="flex flex-col gap-3 pt-1">
       <div className="pr-10">
-        <p className="text-[13px] font-semibold text-nopal">
+        <p className="text-[13px] font-semibold text-nopal-700">
           {p.pueblo}, {p.alcaldia}
         </p>
         <h2 className="font-display text-[30px] text-morado-700">{p.nombre}</h2>

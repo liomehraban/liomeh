@@ -21,7 +21,7 @@ export function RouteLayer({ capa, onSelect }: { capa: CapaRuta; onSelect?: (id:
             aria-label={`${i + 1}. ${p.etiqueta ?? p.id}`}
             className={cn(
               "grid size-9 place-items-center rounded-full border-[3px] border-white text-sm font-bold shadow-md",
-              hechas.has(p.id) ? "bg-nopal text-white" : i === 0 ? "bg-dorado text-morado-900" : "bg-morado text-crema",
+              hechas.has(p.id) ? "bg-nopal-700 text-white" : i === 0 ? "bg-dorado text-morado-900" : "bg-morado text-crema",
             )}
           >
             {i + 1}

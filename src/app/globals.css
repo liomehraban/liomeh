@@ -17,6 +17,8 @@
   --color-gris: #8a7888;
   --color-chile: #c8102e;
   --color-nopal: #3c8d2f;
+  /* Mismo tono, más oscuro: relleno para texto blanco/crema (AA 5.1:1). Nopal base con blanco da 4.2. */
+  --color-nopal-700: #347d29;
   --color-cempasuchil: #f29f05;
   --color-rosa: #e4007c;
   --color-anil: #1f4e9a;

@@ -37,7 +37,7 @@ export function TimelinePedido({ pedido }: { pedido: Pick<Pedido, "fecha" | "ent
                 <span
                   className={cn(
                     "grid size-8 place-items-center rounded-full border-2 transition-colors duration-300",
-                    hecho ? "border-nopal bg-nopal text-white" : "border-gris/40 bg-white text-transparent",
+                    hecho ? "border-nopal-700 bg-nopal-700 text-white" : "border-gris/40 bg-white text-transparent",
                   )}
                 >
                   <Check className="size-4" aria-hidden />

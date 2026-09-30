@@ -80,7 +80,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
             <p className="mt-1 text-crema/90">{t("subtitulo")}</p>
             <ul className="mt-3 flex gap-2" aria-label={t("secretarias")}>
               {SECRETARIAS.map((s) => (
-                <li key={s} className="rounded-pill bg-crema/15 px-3 py-1 text-[13px] font-bold">
+                <li key={s} className="rounded-pill bg-morado-900/50 px-3 py-1 text-[13px] font-bold">
                   {ETIQUETA[s]}
                 </li>
               ))}

@@ -191,7 +191,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
                 <dd>{$(resumen.subtotal)}</dd>
               </div>
               {resumen.descuento > 0 && (
-                <div className="flex justify-between text-nopal">
+                <div className="flex justify-between text-nopal-700">
                   <dt>{t("descuento")}</dt>
                   <dd>−{$(resumen.descuento)}</dd>
                 </div>
@@ -202,7 +202,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
                   {resumen.servicio === 0 ? (
                     <span className="flex items-center gap-2">
                       <s className="text-gris">{$(resumen.servicioOriginal)}</s>
-                      <span className="text-nopal">{t("servicioMercadoMas")}</span>
+                      <span className="text-nopal-700">{t("servicioMercadoMas")}</span>
                     </span>
                   ) : (
                     $(resumen.servicio)

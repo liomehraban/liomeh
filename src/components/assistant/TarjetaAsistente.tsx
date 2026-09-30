@@ -54,7 +54,7 @@ export function TarjetaAsistente({ c }: { c: TarjetaResuelta }) {
           </Link>
         )}
         {c.tipo === "productor" && (
-          <Link href={`/huertos/${c.id}`} className={cn(accion, "bg-nopal text-white")}>
+          <Link href={`/huertos/${c.id}`} className={cn(accion, "bg-nopal-700 text-white")}>
             <ShoppingBasket className="size-4" aria-hidden />
             {t("acciones.comprar")}
           </Link>

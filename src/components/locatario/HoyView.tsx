@@ -56,7 +56,7 @@ export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: 
           ))}
         </dl>
 
-        <p className="flex items-start gap-2 rounded-card bg-nopal p-4 text-sm font-semibold text-white" role="status">
+        <p className="flex items-start gap-2 rounded-card bg-nopal-700 p-4 text-sm font-semibold text-white" role="status">
           <Coins className="mt-0.5 size-5 shrink-0" aria-hidden />
           {t("banner", { n: kpis.checkins_efectivo })}
         </p>
@@ -103,7 +103,7 @@ export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: 
                   </span>
                 </span>
                 <span lang={r.idioma}>{r.texto}</span>
-                <span className="flex items-center gap-1 text-[12px] text-nopal">
+                <span className="flex items-center gap-1 text-[12px] text-nopal-700">
                   <BadgeCheck className="size-3.5" aria-hidden />
                   {r.verificada === "compra" ? tm("verificadaCompra") : tm("verificadaCheckin")}
                 </span>

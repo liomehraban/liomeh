@@ -70,7 +70,7 @@ export function DialogoReserva({
                 onClick={() => setFecha(d)}
                 className={cn(
                   "flex min-h-14 flex-col items-center justify-center rounded-2xl border text-xs focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
-                  fecha === d ? "border-nopal bg-nopal text-white" : "border-border bg-white",
+                  fecha === d ? "border-nopal-700 bg-nopal-700 text-white" : "border-border bg-white",
                 )}
               >
                 <span className="uppercase">{fmtDia(d, locale, { weekday: "short" }).replace(".", "")}</span>

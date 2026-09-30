@@ -28,7 +28,7 @@ export function EventosRelacionados({ eventos }: { eventos: Evento[] }) {
               <span
                 className={cn(
                   "w-fit rounded-pill px-2.5 py-0.5 text-[13px] font-semibold",
-                  estado === "en curso" ? "bg-nopal text-white" : !e.fecha_confirmada ? "bg-cempasuchil text-morado-900" : "bg-morado-50 text-morado-700",
+                  estado === "en curso" ? "bg-nopal-700 text-white" : !e.fecha_confirmada ? "bg-cempasuchil text-morado-900" : "bg-morado-50 text-morado-700",
                 )}
               >
                 {etiqueta}

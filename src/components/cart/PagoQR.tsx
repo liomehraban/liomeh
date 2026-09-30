@@ -52,7 +52,7 @@ export function PagoQR({ payload, totalTexto, onPagado }: { payload: string; tot
             animate={{ scale: 1, opacity: 1 }}
             className="absolute inset-0 grid place-items-center rounded-xl bg-white/90"
           >
-            <CheckCircle2 className="size-20 text-nopal" aria-hidden />
+            <CheckCircle2 className="size-20 text-nopal-700" aria-hidden />
           </motion.div>
         )}
       </div>
@@ -63,7 +63,7 @@ export function PagoQR({ payload, totalTexto, onPagado }: { payload: string; tot
           <p className="font-semibold text-morado">{t("esperando", { s: restante })}</p>
         </>
       ) : (
-        <p role="status" className="text-lg font-bold text-nopal">
+        <p role="status" className="text-lg font-bold text-nopal-700">
           {t("pagoRecibido")}
         </p>
       )}

@@ -87,7 +87,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
           nombre: p.nombre,
           antes: $(f.antes),
         })}{" "}
-        <strong className="text-nopal">{f.esDoble ? t("doble") : t("mejora", { pct: f.mejoraPct })}</strong>
+        <strong className="text-nopal-700">{f.esDoble ? t("doble") : t("mejora", { pct: f.mejoraPct })}</strong>
       </p>
     </section>
   );

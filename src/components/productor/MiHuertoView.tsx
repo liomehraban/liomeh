@@ -17,7 +17,7 @@ export function MiHuertoView({ productor: p, plan }: { productor: Productor; pla
     <div className="flex flex-col">
       <EncabezadoPerfil titulo={t("titulo")} subtitulo={p.nombre} />
       <div className="flex flex-col gap-5 p-5">
-        <p className="rounded-card bg-nopal p-4 font-bold text-white" role="status">
+        <p className="rounded-card bg-nopal-700 p-4 font-bold text-white" role="status">
           {t("mes", { veces: f.esDoble ? t("doble") : t("masPct", { pct: f.mejoraPct }) })}
         </p>
         <FairTradeCard productor={p} />
@@ -33,7 +33,7 @@ export function MiHuertoView({ productor: p, plan }: { productor: Productor; pla
           <Estrellas rating={p.rating} total={p.num_resenas} />
           <ul className="flex flex-wrap gap-1.5">
             {p.practicas.map((x) => (
-              <li key={x} className="flex items-center gap-1 rounded-pill bg-nopal/10 px-2.5 py-0.5 text-[13px] font-semibold text-nopal">
+              <li key={x} className="flex items-center gap-1 rounded-pill bg-nopal/10 px-2.5 py-0.5 text-[13px] font-semibold text-nopal-700">
                 <Leaf className="size-3.5" aria-hidden />
                 {x}
               </li>

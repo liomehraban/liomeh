@@ -13,7 +13,7 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 const COLOR: Record<EstadoMayoreo, string> = {
   nuevo: "bg-cempasuchil text-morado-900",
   confirmado: "bg-morado-50 text-morado-700",
-  listo: "bg-nopal text-white",
+  listo: "bg-nopal-700 text-white",
   enviado: "bg-anil text-white",
   entregado: "bg-gris/20 text-tinta-2",
 };

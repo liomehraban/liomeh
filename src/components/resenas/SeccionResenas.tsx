@@ -100,7 +100,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
                   ))}
                 </div>
               ) : null}
-              <p className="flex items-center gap-1.5 text-[13px] text-nopal">
+              <p className="flex items-center gap-1.5 text-[13px] text-nopal-700">
                 <BadgeCheck className="size-4" aria-hidden />
                 {r.verificada === "compra" ? tm("verificadaCompra") : tm("verificadaCheckin")}
               </p>

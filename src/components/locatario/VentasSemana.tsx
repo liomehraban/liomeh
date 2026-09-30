@@ -22,7 +22,7 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
       </figcaption>
       <div className="h-48" aria-hidden>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={conEtiqueta} margin={{ top: 22, right: 4, bottom: 0, left: 4 }} barCategoryGap="28%">
+          <BarChart accessibilityLayer={false} data={conEtiqueta} margin={{ top: 22, right: 4, bottom: 0, left: 4 }} barCategoryGap="28%">
             <XAxis dataKey="d" tickLine={false} axisLine={{ stroke: "#EADFE8" }} tick={{ fill: "#4A3848", fontSize: 12 }} />
             <YAxis hide />
             <Tooltip

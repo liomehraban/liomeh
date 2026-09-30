@@ -10,7 +10,7 @@ export function FichaZona({ zona, productores }: { zona: ZonaHuerto; productores
   return (
     <div className="flex flex-col gap-3 pt-1">
       <div className="pr-10">
-        <p className="text-[13px] font-semibold text-nopal">
+        <p className="text-[13px] font-semibold text-nopal-700">
           {t("zona")} · {zona.alcaldia}
         </p>
         <h2 className="font-display text-[30px] text-morado-700">{zona.nombre}</h2>
@@ -20,7 +20,7 @@ export function FichaZona({ zona, productores }: { zona: ZonaHuerto; productores
         <h3 className="mb-1.5 text-sm font-bold text-morado-700">{t("cultivos")}</h3>
         <ul className="flex flex-wrap gap-1.5">
           {zona.cultivos.map((c) => (
-            <li key={c} className="rounded-pill bg-nopal/10 px-2.5 py-1 text-[13px] font-semibold text-nopal">
+            <li key={c} className="rounded-pill bg-nopal/10 px-2.5 py-1 text-[13px] font-semibold text-nopal-700">
               {c}
             </li>
           ))}

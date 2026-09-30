@@ -105,7 +105,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
                 return (
                   <li key={o.producto + o.lugar} className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
                     <p className="flex items-center gap-2">
-                      <Sprout className="size-5 shrink-0 text-nopal" aria-hidden />
+                      <Sprout className="size-5 shrink-0 text-nopal-700" aria-hidden />
                       <span>
                         <span className="font-semibold capitalize">{o.producto}</span> · {o.lugar}
                       </span>
@@ -114,7 +114,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
                     {prod && (
                       <Link
                         href={`/huertos/${prod.id}`}
-                        className="flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-nopal/10 px-3 py-2 text-sm font-semibold text-nopal hover:bg-nopal/15"
+                        className="flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-nopal/10 px-3 py-2 text-sm font-semibold text-nopal-700 hover:bg-nopal/15"
                       >
                         <span>
                           {t("puesto.verProductor")}: {prod.nombre}

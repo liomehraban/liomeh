@@ -83,7 +83,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
           <QRCodeSVG value={payload} size={230} fgColor="#3E1C3C" title={t("qrEtiqueta", { monto: $(valor), puesto: puestoNombre })} />
           {fase === "recibido" && (
             <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 300, damping: 14 }} className="absolute inset-0 grid place-items-center rounded-card bg-white/95">
-              <CheckCircle2 className="size-28 text-nopal" aria-hidden />
+              <CheckCircle2 className="size-28 text-nopal-700" aria-hidden />
             </motion.div>
           )}
         </div>
@@ -133,7 +133,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
             </button>
           ))}
         </div>
-        <p className="text-center text-[13px] font-semibold text-nopal">{metodo === "qr" ? t("sinComision") : t("tarjetaNota")}</p>
+        <p className="text-center text-[13px] font-semibold text-nopal-700">{metodo === "qr" ? t("sinComision") : t("tarjetaNota")}</p>
         <div className="grid grid-cols-3 gap-2">
           {TECLAS.map((k) => (
             <button

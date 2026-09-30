@@ -48,7 +48,7 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
         <span className="text-[12px] text-tinta-2">
           {productor.nombre} · {productor.pueblo}
         </span>
-        {l.disponible && <span className="text-[12px] font-semibold text-nopal">{t("disponible", { fecha: fmtDia(l.disponible, locale, { weekday: "short", day: "numeric", month: "short" }) })}</span>}
+        {l.disponible && <span className="text-[12px] font-semibold text-nopal-700">{t("disponible", { fecha: fmtDia(l.disponible, locale, { weekday: "short", day: "numeric", month: "short" }) })}</span>}
       </div>
     </article>
   );
@@ -133,7 +133,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
               ))}
             </select>
           </label>
-          <label className="flex min-h-11 w-fit cursor-pointer items-center gap-2 rounded-pill border border-dashed border-nopal px-4 text-sm font-semibold text-nopal focus-within:ring-[3px] focus-within:ring-ring/50">
+          <label className="flex min-h-11 w-fit cursor-pointer items-center gap-2 rounded-pill border border-dashed border-nopal px-4 text-sm font-semibold text-nopal-700 focus-within:ring-[3px] focus-within:ring-ring/50">
             <Camera className="size-4" aria-hidden />
             {t("foto")}
             <input
@@ -150,7 +150,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
             <span className="text-[13px] font-bold text-tinta-2">{t("vistaPrevia")}</span>
             <TarjetaLote l={form} productor={productor} nuevo />
           </div>
-          <Button onClick={enviar} disabled={!valido} className="bg-nopal hover:bg-nopal/90" data-demo="publicar-lote">
+          <Button onClick={enviar} disabled={!valido} className="bg-nopal-700 hover:bg-nopal-700/90" data-demo="publicar-lote">
             {t("publicar")}
           </Button>
         </section>

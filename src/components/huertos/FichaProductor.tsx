@@ -33,7 +33,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
 
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold text-nopal">{p.producto_principal}</p>
+          <p className="text-sm font-semibold text-nopal-700">{p.producto_principal}</p>
           <h1 className="font-display text-5xl text-morado-700">{p.nombre}</h1>
           <p className="text-tinta-2">{t("productor.titular", { titular: p.titular })}</p>
           <p className="flex items-center gap-1.5 text-sm text-tinta-2">
@@ -53,13 +53,13 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
             </div>
           </div>
           <div className="flex gap-3">
-            <Leaf className="size-5 shrink-0 text-nopal" aria-hidden />
+            <Leaf className="size-5 shrink-0 text-nopal-700" aria-hidden />
             <div>
               <p className="font-semibold">{t("productor.practicas")}</p>
               <div>
                 <ul className="flex flex-wrap gap-1.5 pt-1">
                   {p.practicas.map((x) => (
-                    <li key={x} className="rounded-pill bg-nopal/10 px-2.5 py-0.5 text-[13px] font-semibold text-nopal">
+                    <li key={x} className="rounded-pill bg-nopal/10 px-2.5 py-0.5 text-[13px] font-semibold text-nopal-700">
                       {x}
                     </li>
                   ))}

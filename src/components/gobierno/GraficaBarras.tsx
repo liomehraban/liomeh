@@ -2,6 +2,8 @@
 
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+import { AlVerse } from "./AlVerse";
+
 /** Barras horizontales de una serie (sin leyenda), con el valor como etiqueta directa y tabla accesible. */
 export function GraficaBarras({
   titulo,
@@ -24,9 +26,9 @@ export function GraficaBarras({
         <span className="font-bold text-morado-700">{titulo}</span>
         {subtitulo && <span className="text-[12px] text-tinta-2">{subtitulo}</span>}
       </figcaption>
-      <div style={{ height: datos.length * 34 + 8 }} aria-hidden>
+      <AlVerse style={{ height: datos.length * 34 + 8 }}>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={datos} layout="vertical" margin={{ top: 0, right: 56, bottom: 0, left: 0 }} barCategoryGap={6}>
+          <BarChart accessibilityLayer={false} data={datos} layout="vertical" margin={{ top: 0, right: 56, bottom: 0, left: 0 }} barCategoryGap={6}>
             <XAxis type="number" hide />
             <YAxis type="category" dataKey="nombre" width={128} tickLine={false} axisLine={false} tick={{ fill: "#2B1A2A", fontSize: 12 }} />
             <Tooltip cursor={{ fill: "#F6ECF5" }} formatter={(v) => [formato(Number(v)), titulo]} contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }} />
@@ -35,7 +37,7 @@ export function GraficaBarras({
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </div>
+      </AlVerse>
       <table className="sr-only">
         <caption>{titulo}</caption>
         <thead>

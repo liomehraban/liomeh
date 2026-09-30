@@ -13,7 +13,7 @@ const badgeVariants = cva(
         secondary: "border-transparent bg-morado-50 text-morado-700",
         premium: "border-transparent bg-dorado text-morado-900",
         outline: "border-border text-foreground",
-        abierto: "border-transparent bg-nopal text-white",
+        abierto: "border-transparent bg-nopal-700 text-white",
         cerrado: "border-transparent bg-gris/20 text-tinta-2",
         pendiente: "border-transparent bg-cempasuchil text-morado-900",
       },

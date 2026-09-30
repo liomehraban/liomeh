@@ -93,7 +93,7 @@ export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoChec
             )}
             {fase === "resultado" && resultado && (
               <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="absolute inset-0 grid place-items-center">
-                {resultado.tipo === "ok" ? <CheckCircle2 className="size-20 text-nopal" aria-hidden /> : <XCircle className="size-20 text-cempasuchil" aria-hidden />}
+                {resultado.tipo === "ok" ? <CheckCircle2 className="size-20 text-nopal-700" aria-hidden /> : <XCircle className="size-20 text-cempasuchil" aria-hidden />}
               </motion.div>
             )}
           </motion.div>
@@ -110,7 +110,7 @@ export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoChec
         {fase === "resultado" && resultado ? (
           <div className="flex flex-col gap-3" role="status">
             {resultado.tipo === "ok" ? (
-              <div className="rounded-card bg-nopal p-4 text-center text-white">
+              <div className="rounded-card bg-nopal-700 p-4 text-center text-white">
                 <p className="font-display text-4xl">+{resultado.puntos}</p>
                 <p>{t("ok", { n: resultado.puntos })}</p>
                 {resultado.selloNuevo && <p className="mt-1 font-bold">{t("selloNuevo", { mercado: resultado.mercado })}</p>}

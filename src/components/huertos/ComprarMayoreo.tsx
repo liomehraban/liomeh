@@ -43,7 +43,7 @@ export function ComprarMayoreo({ p, nombres }: { p: Productor; nombres: Record<s
           {t("agregar")}
         </Button>
       </div>
-      <p className="text-[13px] font-semibold text-nopal">{t("comprarTexto")}</p>
+      <p className="text-[13px] font-semibold text-nopal-700">{t("comprarTexto")}</p>
       {dialogo}
     </div>
   );

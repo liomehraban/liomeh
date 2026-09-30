@@ -182,7 +182,7 @@ export function Explorador({
           </Plegable>
           <Plegable
             titulo={t("explorar.rescataHoy")}
-            icono={<Recycle className="size-5 text-nopal" aria-hidden />}
+            icono={<Recycle className="size-5 text-nopal-700" aria-hidden />}
             abierto={plegables.rescata}
             onToggle={() => setPlegables((p) => ({ ...p, rescata: !p.rescata }))}
           >

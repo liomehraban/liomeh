@@ -69,7 +69,7 @@ export function EscribirResena({ objetivoId }: { objetivoId: string }) {
             maxLength={600}
             className="rounded-2xl border border-input bg-white p-3 text-base font-normal outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40"
           />
-          <span className={cn("text-[13px] font-normal", texto.trim().length >= MIN_CARACTERES_RESENA ? "text-nopal" : "text-tinta-2")}>
+          <span className={cn("text-[13px] font-normal", texto.trim().length >= MIN_CARACTERES_RESENA ? "text-nopal-700" : "text-tinta-2")}>
             {t("minimo", { n: MIN_CARACTERES_RESENA, actual: texto.trim().length })}
           </span>
         </label>

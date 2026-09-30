@@ -60,7 +60,7 @@ export function ProfileSwitcher({ className }: { className?: string }) {
               >
                 <I className="size-5 text-morado" strokeWidth={1.75} aria-hidden />
                 <span className="flex-1">{t(`perfiles.${p}`)}</span>
-                {activo && <Check className="size-4 text-nopal" aria-hidden />}
+                {activo && <Check className="size-4 text-nopal-700" aria-hidden />}
               </DropdownMenu.Item>
             );
           })}

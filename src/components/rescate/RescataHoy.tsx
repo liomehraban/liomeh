@@ -27,7 +27,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
 
   return (
     <div className="flex flex-col gap-2 pb-1">
-      <div className="mx-4 flex items-center justify-between rounded-2xl bg-nopal px-3 py-2 text-white" aria-live="polite">
+      <div className="mx-4 flex items-center justify-between rounded-2xl bg-nopal-700 px-3 py-2 text-white" aria-live="polite">
         <span className="text-[13px] font-semibold">{t("contador")}</span>
         <span className="flex items-baseline gap-2">
           <span className="text-xl font-bold">{nf(toneladasRescatadas(kpiTon, kg), 3)} t</span>
@@ -54,7 +54,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
                 </div>
               </div>
               {hecho ? (
-                <p className="flex min-h-11 items-center justify-center gap-1.5 rounded-pill bg-nopal/10 text-[13px] font-bold text-nopal">
+                <p className="flex min-h-11 items-center justify-center gap-1.5 rounded-pill bg-nopal/10 text-[13px] font-bold text-nopal-700">
                   <Check className="size-4" aria-hidden />
                   {t("hecho")} · {t("kg", { kg: nf(o.kg) })}
                 </p>
@@ -73,7 +73,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
                   </button>
                   <button
                     type="button"
-                    className={cn(boton, "border border-nopal text-nopal")}
+                    className={cn(boton, "border border-nopal text-nopal-700")}
                     aria-label={t("donar")}
                     onClick={() => {
                       rescatar(o.id, "donacion", o.kg);

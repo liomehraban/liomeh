@@ -13,6 +13,10 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "public/maplibre/**",
+    // Service worker generado por `serwist build`
+    "public/sw.js",
+    "test-results/**",
+    "playwright-report/**",
   ]),
 ]);
 

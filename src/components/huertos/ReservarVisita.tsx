@@ -31,7 +31,7 @@ export function ReservarVisita({ p }: { p: Productor }) {
         precioPorPersona={p.precio_visita}
         onConfirmar={(r) => toast.success(texto(reservar({ productorId: p.id, ...r })))}
         trigger={
-          <Button variant="secondary" className="border-nopal text-nopal hover:bg-nopal/10">
+          <Button variant="secondary" className="border-nopal text-nopal-700 hover:bg-nopal/10">
             <CalendarHeart aria-hidden />
             {t("reservar")}
           </Button>

@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoPerfil } from "./EncabezadoPerfil";
 
-const COLOR = { nuevo: "bg-cempasuchil text-morado-900", preparando: "bg-morado-50 text-morado-700", listo: "bg-nopal text-white", entregado: "bg-gris/20 text-tinta-2" } as const;
+const COLOR = { nuevo: "bg-cempasuchil text-morado-900", preparando: "bg-morado-50 text-morado-700", listo: "bg-nopal-700 text-white", entregado: "bg-gris/20 text-tinta-2" } as const;
 
 /** Locatario › Pedidos: incluye los creados por consumidores (M5) con folio; cada uno avanza de estado. */
 export function PedidosView() {

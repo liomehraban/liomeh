@@ -69,7 +69,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
               {t("premium")}
             </span>
           ) : (
-            <span className="w-fit rounded-pill bg-nopal/15 px-2.5 py-0.5 text-[13px] font-bold text-nopal">{t("gratis")}</span>
+            <span className="w-fit rounded-pill bg-nopal/15 px-2.5 py-0.5 text-[13px] font-bold text-nopal-700">{t("gratis")}</span>
           )}
           <h1 className="font-display text-4xl text-morado-700">{ruta.titulo}</h1>
           <p className="flex flex-wrap gap-x-4 text-sm text-tinta-2">
@@ -109,7 +109,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
             return (
               <li key={p.id}>
                 <Link href={p.href} className="flex min-h-11 items-center gap-3 rounded-2xl border border-border bg-white p-3 hover:border-morado">
-                  <span className={cn("grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold", ok ? "bg-nopal text-white" : i === 0 ? "bg-dorado text-morado-900" : "bg-morado text-crema")}>
+                  <span className={cn("grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold", ok ? "bg-nopal-700 text-white" : i === 0 ? "bg-dorado text-morado-900" : "bg-morado text-crema")}>
                     {ok ? <CheckCircle2 className="size-4" aria-label={t("hecha")} /> : i + 1}
                   </span>
                   <span className="flex flex-col">

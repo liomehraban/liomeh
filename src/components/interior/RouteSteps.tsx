@@ -53,7 +53,7 @@ export function RouteSteps({
       </div>
 
       {llegaste ? (
-        <div className="flex flex-col items-center gap-2 rounded-card bg-nopal p-4 text-center text-white" role="status">
+        <div className="flex flex-col items-center gap-2 rounded-card bg-nopal-700 p-4 text-center text-white" role="status">
           <PartyPopper className="size-8" aria-hidden />
           <p className="font-display text-4xl">{t("llegaste")}</p>
           <p>{t("llegasteTexto", { nombre: nombrePuesto })}</p>

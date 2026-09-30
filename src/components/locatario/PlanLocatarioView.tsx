@@ -37,7 +37,7 @@ export function PlanLocatarioView({ planes }: { planes: PlanModelo[] }) {
     <div className="flex flex-col">
       <EncabezadoPerfil titulo={t("titulo")} />
       <div className="flex flex-col gap-4 p-5">
-        <section className="flex flex-col gap-1 rounded-card bg-nopal p-4 text-white">
+        <section className="flex flex-col gap-1 rounded-card bg-nopal-700 p-4 text-white">
           <p className="font-bold">{t("comision")}</p>
           <p className="text-sm">{t("qr")}</p>
         </section>
@@ -59,7 +59,7 @@ export function PlanLocatarioView({ planes }: { planes: PlanModelo[] }) {
               <ul className="flex flex-col gap-1.5 text-sm">
                 {m.incluye.map((x) => (
                   <li key={x} className="flex gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-nopal" aria-hidden />
+                    <Check className="mt-0.5 size-4 shrink-0 text-nopal-700" aria-hidden />
                     {x}
                   </li>
                 ))}

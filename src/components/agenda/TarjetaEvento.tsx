@@ -25,7 +25,7 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
 
   const chip =
     etiqueta === "en curso"
-      ? { txt: t("enCurso"), cls: "bg-nopal text-white" }
+      ? { txt: t("enCurso"), cls: "bg-nopal-700 text-white" }
       : etiqueta === "por confirmar"
         ? { txt: t("porConfirmar"), cls: "bg-cempasuchil text-morado-900" }
         : etiqueta === "siempre"

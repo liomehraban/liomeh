@@ -43,7 +43,7 @@ export function EstadoHorario({ horario, className, corto = false }: { horario?:
   }
   const abierto = e.estado === "abierto";
   return (
-    <span className={cn("inline-flex items-center gap-1.5 text-sm font-semibold", abierto ? "text-nopal" : "text-tinta-2", className)}>
+    <span className={cn("inline-flex items-center gap-1.5 text-sm font-semibold", abierto ? "text-nopal-700" : "text-tinta-2", className)}>
       <span aria-hidden className={cn("size-2 rounded-full", abierto ? "bg-nopal" : "bg-gris")} />
       {texto}
     </span>
