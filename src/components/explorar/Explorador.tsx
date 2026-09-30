@@ -14,6 +14,8 @@ import { filtrarMercados, FILTROS_VACIOS, type Chip, type FiltrosMapa } from "@/
 import { bbox, CENTRO_CDMX, haversine, masCercanos, ZOCALO, type LatLng } from "@/lib/geo";
 import { HEX_GIRO } from "@/lib/giros";
 import type { DocBusqueda } from "@/lib/search";
+import type { OfertaRescate } from "@/lib/rescate";
+import { RescataHoy } from "@/components/rescate/RescataHoy";
 import { BarraBusqueda } from "./BarraBusqueda";
 import { ChipsFiltro } from "./ChipsFiltro";
 import { FichaRapida } from "./FichaRapida";
@@ -24,7 +26,15 @@ import type { MercadoMapa } from "./tipos";
 type Origen = LatLng & { fuente: "gps" | "zocalo" };
 
 /** M1 · Mapa de la ciudad. */
-export function Explorador({ mercados, docs }: { mercados: MercadoMapa[]; docs: DocBusqueda[] }) {
+export function Explorador({
+  mercados,
+  docs,
+  rescate,
+}: {
+  mercados: MercadoMapa[];
+  docs: DocBusqueda[];
+  rescate: { ofertas: OfertaRescate[]; kpiTon: number };
+}) {
   const t = useTranslations();
   const router = useRouter();
   const ahora = useAhora();
@@ -176,7 +186,7 @@ export function Explorador({ mercados, docs }: { mercados: MercadoMapa[]; docs: 
             abierto={plegables.rescata}
             onToggle={() => setPlegables((p) => ({ ...p, rescata: !p.rescata }))}
           >
-            <p className="mx-4 mb-2 rounded-2xl bg-morado-50 p-3 text-sm text-tinta-2">{t("explorar.rescataPronto")}</p>
+            <RescataHoy ofertas={rescate.ofertas} kpiTon={rescate.kpiTon} />
           </Plegable>
         </div>
       )}

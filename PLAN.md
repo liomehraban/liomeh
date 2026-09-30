@@ -34,7 +34,7 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] **M6** Mapa de zonas y productores, compra al mayoreo, reserva de visita
 
 ## Fase 5 · Volver al mercado `/fase-5`
-- [ ] **M8** Reseñas · **M9** Pasaporte y check-in · **M10** Agenda · **M11** Rutas · **M12** Planes · **M20** Rescata hoy
+- [x] **M8** Reseñas · **M9** Pasaporte y check-in · **M10** Agenda · **M11** Rutas · **M12** Planes · **M20** Rescata hoy
 
 ## Fase 6 · Marchanta `/fase-6`
 - [ ] **M22** Chat, tarjetas accionables, `/api/asistente` (Anthropic + fallback), límite freemium

@@ -6,6 +6,7 @@ import { categoriaMercado } from "@/lib/giros";
 import { ratingPromedio } from "@/lib/resenas";
 import { documentosBusqueda } from "@/lib/search";
 import { Explorador } from "@/components/explorar/Explorador";
+import { ofertasRescate } from "@/data/rescate";
 import type { MercadoMapa } from "@/components/explorar/tipos";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/explorar">) {
@@ -40,5 +41,7 @@ export default async function ExplorarPage({ params }: PageProps<"/[locale]/expl
 
   const docs = documentosBusqueda(mercados, interior ? { [interior.mercado_id]: interior.puestos } : {}, productores);
 
-  return <Explorador mercados={datos} docs={docs} />;
+  const [ofertas, metricas] = await Promise.all([ofertasRescate(), repo.metricas()]);
+
+  return <Explorador mercados={datos} docs={docs} rescate={{ ofertas, kpiTon: metricas.kpis_hoy.alimento_rescatado_mes_ton ?? 0 }} />;
 }

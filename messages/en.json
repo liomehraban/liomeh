@@ -184,7 +184,6 @@
     "expandir": "Resize card",
     "cercaDeTi": "Near you",
     "rescataHoy": "Rescue today",
-    "rescataPronto": "Discounted food about to go to waste. Coming in Phase 5.",
     "mostrar": "Show {seccion}",
     "ocultar": "Hide {seccion}",
     "resenas": "{n, plural, one {# review} other {# reviews}}",
@@ -638,6 +637,7 @@
     "contador": "Tons rescued this month",
     "tuyo": "+{kg} kg from you",
     "kg": "{kg} kg",
-    "simulado": "Simulated offers for the demo"
+    "simulado": "Simulated offers for the demo",
+    "donarCorto": "Donate"
   }
 }

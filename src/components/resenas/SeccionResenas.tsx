@@ -2,12 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { BadgeCheck, ImageIcon } from "lucide-react";
-import { formatDistanceStrict } from "date-fns";
-import { enUS, es } from "date-fns/locale";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Estrellas } from "@/components/market/Estrellas";
 import { useAhora } from "@/hooks/useAhora";
+import { fechaRelativa } from "@/lib/eventos";
 import { combinarRating, type Rating } from "@/lib/resenas";
 import type { Resena } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -36,7 +35,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
 
   const fecha = (iso: string) =>
     ahora
-      ? formatDistanceStrict(new Date(`${iso}T12:00:00Z`), ahora, { addSuffix: true, locale: locale === "en" ? enUS : es })
+      ? fechaRelativa(iso, ahora, locale)
       : new Date(`${iso}T12:00:00Z`).toLocaleDateString(locale === "en" ? "en-US" : "es-MX", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 
   return (

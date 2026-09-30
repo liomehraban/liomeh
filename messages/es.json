@@ -184,7 +184,6 @@
     "expandir": "Cambiar tamaño de la ficha",
     "cercaDeTi": "Cerca de ti",
     "rescataHoy": "Rescata hoy",
-    "rescataPronto": "Productos a punto de perderse con descuento. Llega en la Fase 5.",
     "mostrar": "Mostrar {seccion}",
     "ocultar": "Ocultar {seccion}",
     "resenas": "{n, plural, one {# reseña} other {# reseñas}}",
@@ -638,6 +637,7 @@
     "contador": "Toneladas rescatadas este mes",
     "tuyo": "+{kg} kg tuyos",
     "kg": "{kg} kg",
-    "simulado": "Ofertas simuladas para la demo"
+    "simulado": "Ofertas simuladas para la demo",
+    "donarCorto": "Donar"
   }
 }

@@ -41,3 +41,15 @@ describe("agenda", () => {
     expect(eventosDelDia(ev, "2026-10-17").map((x) => x.id).sort()).toEqual(["alebrijes-2026", "cempasuchil-jamaica", "mole-2026"]);
   });
 });
+
+import { fechaRelativa } from "../../src/lib/eventos";
+describe("fechaRelativa", () => {
+  const now = new Date("2026-09-30T04:00:00Z"); // 29 sep 22:00 CDMX
+  it("usa el día de la CDMX", () => {
+    expect(fechaRelativa("2026-09-29", now)).toBe("hoy");
+    expect(fechaRelativa("2026-09-28", now)).toBe("ayer");
+    expect(fechaRelativa("2026-09-25", now)).toBe("hace 4 días");
+    expect(fechaRelativa("2026-07-29", now)).toBe("hace 2 meses");
+    expect(fechaRelativa("2026-09-28", now, "en")).toBe("yesterday");
+  });
+});

@@ -99,3 +99,12 @@ export function celdasMes(anio: number, mes0: number): (string | null)[] {
 /** Eventos (no recurrentes) que ocurren en el día ISO. */
 export const eventosDelDia = <T extends Pick<Evento, "inicio" | "fin">>(eventos: T[], dia: string) =>
   eventos.filter((e) => e.inicio !== "recurrente" && e.inicio <= dia && (e.fin ?? e.inicio) >= dia);
+
+/** «hoy», «ayer», «hace 4 días», «hace 2 meses» para una fecha ISO (YYYY-MM-DD) respecto a hoy en CDMX. */
+export function fechaRelativa(iso: string, now = new Date(), locale = "es"): string {
+  const dias = Math.round((Date.parse(`${hoyCDMX(now)}T12:00:00Z`) - Date.parse(`${iso.slice(0, 10)}T12:00:00Z`)) / 86_400_000);
+  const rtf = new Intl.RelativeTimeFormat(locale === "en" ? "en" : "es", { numeric: "auto" });
+  if (Math.abs(dias) < 30) return rtf.format(-dias, "day");
+  if (Math.abs(dias) < 365) return rtf.format(-Math.round(dias / 30), "month");
+  return rtf.format(-Math.round(dias / 365), "year");
+}

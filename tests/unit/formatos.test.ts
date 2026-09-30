@@ -59,3 +59,14 @@ describe("reseñas propias y rescate", () => {
     expect(toneladasRescatadas(37, 12)).toBe(37.012);
   });
 });
+
+import { ofertasRescate } from "../../src/data/rescate";
+describe("ofertas de rescate", () => {
+  it("4 ofertas de La Merced, CEDA y Jamaica con −40%", async () => {
+    const o = await ofertasRescate();
+    expect(o).toHaveLength(4);
+    expect(new Set(o.map((x) => x.mercadoId))).toEqual(new Set(["la-merced", "central-de-abasto", "235-jamaica-nuevo"]));
+    for (const x of o) expect(x.precio).toBe(Math.round(x.precioOriginal * 0.6));
+    expect(o[0].vence).toBe("18:00");
+  });
+});

@@ -17,7 +17,8 @@ export function Calendario({ eventos, ahora, mercados }: { eventos: Evento[]; ah
   const [mes, setMes] = useState(() => ({ anio: Number(hoy.slice(0, 4)), m: Number(hoy.slice(5, 7)) - 1 }));
   const [dia, setDia] = useState<string>(hoy);
   const loc = locale === "en" ? "en-US" : "es-MX";
-  const titulo = new Intl.DateTimeFormat(loc, { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(mes.anio, mes.m, 15)));
+  const tituloRaw = new Intl.DateTimeFormat(loc, { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(mes.anio, mes.m, 15)));
+  const titulo = tituloRaw.charAt(0).toUpperCase() + tituloRaw.slice(1);
   const semana = Array.from({ length: 7 }, (_, i) => new Intl.DateTimeFormat(loc, { weekday: "narrow", timeZone: "UTC" }).format(new Date(Date.UTC(2026, 9, 5 + i))));
   const mover = (d: number) => setMes(({ anio, m }) => ({ anio: anio + Math.floor((m + d) / 12), m: (((m + d) % 12) + 12) % 12 }));
   const delDia = eventosDelDia(eventos, dia);
@@ -29,7 +30,7 @@ export function Calendario({ eventos, ahora, mercados }: { eventos: Evento[]; ah
           <button type="button" onClick={() => mover(-1)} aria-label={t("mesAnterior")} className="grid size-11 place-items-center rounded-pill text-morado hover:bg-morado-50">
             <ChevronLeft className="size-5" aria-hidden />
           </button>
-          <h3 className="font-bold capitalize" aria-live="polite">
+          <h3 className="font-bold" aria-live="polite">
             {titulo}
           </h3>
           <button type="button" onClick={() => mover(1)} aria-label={t("mesSiguiente")} className="grid size-11 place-items-center rounded-pill text-morado hover:bg-morado-50">

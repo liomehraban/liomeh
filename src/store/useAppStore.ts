@@ -189,7 +189,7 @@ export const useAppStore = create<AppState>()(
           id: `propia-${Date.now()}`,
           autor: "Tú",
           origen: "",
-          fecha: new Date().toISOString().slice(0, 10),
+          fecha: new Date().toLocaleDateString("en-CA", { timeZone: "America/Mexico_City" }),
           verificada: "check-in QR",
           fotos: r.fotoUrl ? 1 : 0,
           simulado: false,
