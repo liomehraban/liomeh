@@ -84,3 +84,23 @@ describe("recompensas y planes", () => {
     expect(planDesdeModelo("Gratis")).toBe("Gratis");
   });
 });
+
+import { consumirPregunta, preguntasRestantes } from "../../src/lib/planes";
+describe("límite del asistente", () => {
+  const now = new Date("2026-10-01T18:00:00Z");
+  it("20 al día en Gratis; la 21 se bloquea", () => {
+    let c = { fecha: "", usados: 0 };
+    for (let i = 0; i < 20; i++) {
+      const r = consumirPregunta(c, "Gratis", now);
+      expect(r.ok).toBe(true);
+      c = r.contador;
+    }
+    expect(consumirPregunta(c, "Gratis", now).ok).toBe(false);
+    expect(preguntasRestantes(c, "Gratis", now)).toBe(0);
+  });
+  it("se reinicia al día siguiente (CDMX) y es ilimitado con plan de pago", () => {
+    const lleno = { fecha: "2026-10-01", usados: 20 };
+    expect(consumirPregunta(lleno, "Gratis", new Date("2026-10-02T15:00:00Z")).ok).toBe(true);
+    expect(consumirPregunta(lleno, "Pase Turista", now)).toMatchObject({ ok: true, restantes: Infinity });
+  });
+});

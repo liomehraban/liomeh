@@ -37,8 +37,8 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] **M8** Reseñas · **M9** Pasaporte y check-in · **M10** Agenda · **M11** Rutas · **M12** Planes · **M20** Rescata hoy
 
 ## Fase 6 · Marchanta `/fase-6`
-- [ ] **M22** Chat, tarjetas accionables, `/api/asistente` (Anthropic + fallback), límite freemium
-- [ ] Tests de `intents.ts` (8 intenciones × ES/EN)
+- [x] **M22** Chat, tarjetas accionables, `/api/asistente` (Anthropic + fallback), límite freemium
+- [x] Tests de `intents.ts` (8 intenciones × ES/EN)
 
 ## Fase 7 · Vender y cosechar `/fase-7`
 - [ ] **M13–M16** Locatario

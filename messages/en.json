@@ -639,5 +639,50 @@
     "kg": "{kg} kg",
     "simulado": "Simulated offers for the demo",
     "donarCorto": "Donate"
+  },
+  "asistente": {
+    "titulo": "Marchanta",
+    "subtitulo": "Your 24/7 market guide",
+    "saludo": "Come on in! I'm Marchanta, your 24/7 market guide. What are you craving today?",
+    "placeholder": "Ask Marchanta…",
+    "enviar": "Send",
+    "microfono": "Voice input",
+    "escuchando": "Listening…",
+    "escribiendo": "Marchanta is typing…",
+    "limite": "20 questions a day · unlimited with the Tourist Pass",
+    "restantes": "{n, plural, one {# question left today} other {# questions left today}}",
+    "ilimitado": "Unlimited questions with your plan",
+    "agotado": "You've used your 20 questions for today. They're unlimited with the Tourist Pass or Mercado+.",
+    "verPlanes": "See plans",
+    "error": "I couldn't answer. Please try again.",
+    "sugerencias": "Suggestions",
+    "chips": [
+      "Where can I eat pancita?",
+      "Which market is open now?",
+      "How do I get to Doña Tere?",
+      "I want to buy nopal directly",
+      "What events are on this month?",
+      "Where can I find talavera crafts?",
+      "What is fair trade here?",
+      "How do points work?"
+    ],
+    "acciones": {
+      "ver": "See",
+      "comoLlegar": "Directions",
+      "llevame": "Take me",
+      "comprar": "Buy",
+      "recordarme": "Remind me",
+      "recordando": "Reminder set",
+      "iniciar": "Start"
+    },
+    "tipos": {
+      "mercado": "Market",
+      "puesto": "Stall",
+      "productor": "Grower",
+      "evento": "Event",
+      "ruta": "Route"
+    },
+    "fuenteIA": "AI answer",
+    "tu": "You"
   }
 }

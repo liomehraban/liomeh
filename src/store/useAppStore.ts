@@ -20,6 +20,7 @@ export const HOME_PERFIL: Record<Perfil, string> = {
 
 import { agregarItem, cambiarCantidad, type ItemCarrito, type LineaCarrito } from "@/lib/carrito";
 import { construirPedido, type NuevoPedido, type Pedido } from "@/lib/pedidos";
+import { consumirPregunta } from "@/lib/planes";
 import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
 
 export type { ItemCarrito, LineaCarrito };
@@ -81,6 +82,8 @@ type Acciones = {
   toggleRecordatorio: (eventoId: string) => boolean;
   iniciarRuta: (rutaId: string) => void;
   reservarTour: (r: Omit<ReservaTour, "id" | "creada">) => ReservaTour;
+  /** Consume una pregunta del límite diario del asistente; false si ya se agotó. */
+  preguntarAsistente: () => boolean;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
 };
@@ -205,6 +208,12 @@ export const useAppStore = create<AppState>()(
         return activo;
       },
       iniciarRuta: (rutaId) => set((s) => (s.rutasIniciadas[rutaId] ? s : { rutasIniciadas: { ...s.rutasIniciadas, [rutaId]: new Date().toISOString() } })),
+      preguntarAsistente: () => {
+        const s = get();
+        const r = consumirPregunta(s.asistente ?? { fecha: "", usados: 0 }, s.plan);
+        set({ asistente: r.contador });
+        return r.ok;
+      },
       reservarTour: (r) => {
         const reserva = { ...r, id: `TOUR-${Math.floor(1000 + Math.random() * 9000)}`, creada: new Date().toISOString() };
         set((s) => ({ reservasTour: [reserva, ...s.reservasTour] }));
@@ -220,7 +229,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, resetDemo, ...datos } = s;
         return datos;
       },
     },

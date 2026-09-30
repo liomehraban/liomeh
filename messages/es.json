@@ -639,5 +639,50 @@
     "kg": "{kg} kg",
     "simulado": "Ofertas simuladas para la demo",
     "donarCorto": "Donar"
+  },
+  "asistente": {
+    "titulo": "Marchanta",
+    "subtitulo": "Tu guía de mercados 24/7",
+    "saludo": "¡Pásele! Soy Marchanta, tu guía de mercados 24/7. ¿Qué se le antoja hoy?",
+    "placeholder": "Pregúntale a Marchanta…",
+    "enviar": "Enviar",
+    "microfono": "Dictar por voz",
+    "escuchando": "Te escucho…",
+    "escribiendo": "Marchanta está escribiendo…",
+    "limite": "20 preguntas al día · ilimitado con Pase Turista",
+    "restantes": "{n, plural, one {Te queda # pregunta hoy} other {Te quedan # preguntas hoy}}",
+    "ilimitado": "Preguntas ilimitadas con tu plan",
+    "agotado": "Ya usaste tus 20 preguntas de hoy. Con el Pase Turista o Mercado+ son ilimitadas.",
+    "verPlanes": "Ver planes",
+    "error": "No pude responder. Intenta de nuevo.",
+    "sugerencias": "Sugerencias",
+    "chips": [
+      "¿Dónde como pancita?",
+      "¿Qué mercado está abierto ahora?",
+      "¿Cómo llego con Doña Tere?",
+      "Quiero comprar nopal directo",
+      "¿Qué eventos hay este mes?",
+      "Busco artesanías de talavera",
+      "¿Qué es el comercio justo?",
+      "¿Cómo funcionan los puntos?"
+    ],
+    "acciones": {
+      "ver": "Ver",
+      "comoLlegar": "Cómo llegar",
+      "llevame": "Llévame",
+      "comprar": "Comprar",
+      "recordarme": "Recordarme",
+      "recordando": "Te lo recordamos",
+      "iniciar": "Iniciar"
+    },
+    "tipos": {
+      "mercado": "Mercado",
+      "puesto": "Puesto",
+      "productor": "Productor",
+      "evento": "Evento",
+      "ruta": "Ruta"
+    },
+    "fuenteIA": "Respuesta con IA",
+    "tu": "Tú"
   }
 }
