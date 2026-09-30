@@ -7,8 +7,6 @@ import { useTranslations } from "next-intl";
 import { ICONO_PERFIL, PERFILES } from "@/components/shell/perfiles";
 import type { Perfil } from "@/store/useAppStore";
 
-const INSTITUCIONES = ["SECTUR", "SEDEMA", "SE", "CDMX"];
-
 export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) {
   const t = useTranslations();
   return (
@@ -32,7 +30,7 @@ export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) 
               <button
                 type="button"
                 onClick={() => onElegir(p)}
-                className="flex w-full items-center gap-4 rounded-card border border-border bg-white p-4 text-left shadow-sm transition-colors hover:border-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                className="pressable flex w-full items-center gap-4 rounded-card border border-border bg-white p-4 text-left shadow-sm hover:border-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               >
                 <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-morado-50 text-morado">
                   <Icono className="size-6" strokeWidth={1.75} aria-hidden />
@@ -47,21 +45,6 @@ export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) 
           );
         })}
       </ul>
-
-      <footer className="mt-auto flex flex-col gap-3 border-t border-border bg-papel px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <p className="text-center text-[13px] text-tinta-2">{t("entrada.creditos")}</p>
-        <ul className="flex justify-center gap-2">
-          {INSTITUCIONES.map((inst) => (
-            <li
-              key={inst}
-              aria-label={t("entrada.logoPlaceholder", { institucion: inst })}
-              className="grid h-10 min-w-16 place-items-center rounded-xl border border-dashed border-gris/60 px-2 text-xs font-bold text-tinta-2"
-            >
-              {inst}
-            </li>
-          ))}
-        </ul>
-      </footer>
     </div>
   );
 }

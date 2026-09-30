@@ -17,7 +17,8 @@
     "actualizando": "Refreshing…",
     "soltar": "Release to refresh",
     "nuevaVersion": "A new version of Bara Bara is ready",
-    "recargar": "Reload"
+    "recargar": "Reload",
+    "cancelar": "Cancel"
   },
   "perfiles": {
     "consumidor": "Visitor / Shopper",
@@ -30,13 +31,16 @@
     "escaneaQR": "Scan to try Bara Bara on your phone",
     "cambiarPerfil": "Switch profile",
     "perfilActual": "Current profile: {perfil}",
+    "cambiarPerfilTexto": "Walk through the demo from another point of view.",
+    "volverInicio": "Back to the start screen",
+    "estasAqui": "You're here",
     "cambiarIdioma": "Change language",
     "navegacion": "Main navigation",
     "carrito": "Cart",
     "tabs": {
       "explorar": "Explore",
       "huertos": "Farms",
-      "asistente": "Assistant",
+      "asistente": "Marchanta",
       "agenda": "Events",
       "yo": "Me",
       "hoy": "Today",
@@ -74,8 +78,6 @@
       "productor": "Sell your harvest wholesale at a fair price",
       "gobierno": "Measure impact by agency"
     },
-    "creditos": "An initiative of SECTUR · SEDEMA · Ministry of Economy · Mexico City Government",
-    "logoPlaceholder": "{institucion} logo",
     "paso": "Step {actual} of {total}"
   },
   "paginas": {
@@ -114,16 +116,18 @@
     "reiniciarTexto": "Clears orders, points, stamps and local changes and goes back to the original data.",
     "perfil": "Demo profile",
     "hola": "Hi, {nombre}!",
-    "puntos": "{puntos} points · {nivel} level"
+    "puntos": "{puntos} points · {nivel} level",
+    "confirmarReinicioTitulo": "Reset the demo?",
+    "confirmarReinicio": "Yes, reset"
   },
   "horario": {
     "abierto": "Open",
     "cerrado": "Closed",
     "abierto24": "Open 24 h",
     "cierraEn": "Open now · closes in {tiempo}",
-    "abreHoy": "Closed · opens today {hora}",
-    "abreManana": "Closed · opens tomorrow {hora}",
-    "abreDia": "Closed · opens {dia} {hora}",
+    "abreHoy": "Closed · opens today at {hora}",
+    "abreManana": "Closed · opens tomorrow at {hora}",
+    "abreDia": "Closed · opens {dia} at {hora}",
     "desconocido": "Hours not available · Ask at the market",
     "desconocidoCorto": "Hours not available"
   },
@@ -139,7 +143,10 @@
     "etiqueta": "Map of Mexico City's public markets",
     "sinMapaBase": "Base map offline",
     "cargando": "Loading map…",
-    "atribucion": "© OpenStreetMap · © CARTO"
+    "atribucion": "© OpenStreetMap · © CARTO",
+    "titulo": "Map",
+    "marcador": "Map marker",
+    "creditos": "Show or hide map credits"
   },
   "explorar": {
     "buscar": "Search a market, dish or product",
@@ -181,7 +188,9 @@
     "ocultar": "Hide {seccion}",
     "resenas": "{n, plural, one {# review} other {# reviews}}",
     "sinResenas": "No reviews yet",
-    "calificacion": "Rated {rating} out of 5"
+    "calificacion": "Rated {rating} out of 5",
+    "sinFiltro": "No market matches these filters.",
+    "quitarFiltros": "Clear filters"
   },
   "mercado": {
     "volver": "Back",
@@ -223,7 +232,7 @@
     "noEncontrado": "We couldn't find that market",
     "irExplorar": "Go to the map",
     "cifrasEtiquetas": {
-      "locatarios": "vendors",
+      "locatarios": "stallholders",
       "visitantes_dia": "visitors a day",
       "toneladas_dia": "tons a day",
       "hectareas": "hectares",
@@ -382,13 +391,14 @@
     "seguro": "Simulated payment · no backend",
     "planActual": "Your plan: {plan}",
     "recogerProductor": "Pick up from the grower",
+    "confirmando": "Confirming your payment…",
     "eligeColonia": "Pick your borough and neighborhood to calculate delivery and pay.",
     "eligeColoniaCorto": "Pick neighborhood",
     "errSoloPrueba": "The demo only accepts the test card 4242 4242 4242 4242"
   },
   "pedido": {
     "titulo": "Your order",
-    "folio": "Order",
+    "folio": "Order no.",
     "gracias": "Thanks for shopping at the market!",
     "noEncontrado": "We couldn't find that order",
     "puntos": "+{n} points",
@@ -422,7 +432,7 @@
     "conIntermediarios": "With middlemen",
     "conApp": "With Bara Bara",
     "barra": "{etiqueta}: the grower gets {monto} ({pct}%) of {precio}",
-    "copy": "Of every {precio} for a {unidad} of {producto}, {recibe} goes to {nombre} (previously {antes}).",
+    "copy": "Of every {precio} you pay ({unidad} of {producto}), {recibe} goes to {nombre} (previously {antes}).",
     "doble": "Twice as much!",
     "mejora": "{pct}% more for the grower"
   },
@@ -469,8 +479,8 @@
     "comprar": "Buy wholesale",
     "comprarTexto": "Buy straight from the farm: double points.",
     "agregar": "Add to cart",
-    "cantidad": "Quantity in {unidad}",
-    "agregado": "Added: {qty} {unidad} of {producto}",
+    "cantidad": "Quantity ({unidad})",
+    "agregado": "Added: {qty} × {unidad} of {producto}",
     "verCarrito": "View cart",
     "visita": "Farm visit",
     "visitaTexto": "Visit the chinampa or milpa with the people who work it.",
@@ -539,7 +549,7 @@
       "titulo": "My farm",
       "perfil": "Your public profile",
       "verPerfil": "View as shopper",
-      "mes": "This month you earned {veces} per kilo than with middlemen",
+      "mes": "This month you earned {veces} per kilo compared with selling through middlemen",
       "doble": "twice as much",
       "masPct": "{pct}% more",
       "comision": "{plan} plan: 3% only on wholesale sales paid in the app"
@@ -579,7 +589,7 @@
     "selloDe": "{mercado} stamp",
     "nivel": "{nivel} level",
     "puntos": "{n} points",
-    "faltan": "{n} points to {nivel}",
+    "faltan": "{n} more points to reach {nivel}",
     "maximo": "You've reached the top level!",
     "beneficio": "Perk: {beneficio}",
     "insignias": "Badges",
@@ -592,12 +602,16 @@
     "cupones": "Your coupons",
     "cuponEtiqueta": "QR code for coupon {codigo}",
     "escanear": "Scan the stall's QR",
-    "escanearTexto": "Works even if you pay cash",
+    "escanearTexto": "Works even if you pay in cash",
     "recordatorios": "Reminders",
     "sinRecordatorios": "No reminders yet. Add them from Events.",
     "plan": "Your plan",
     "cambiarPlan": "See plans",
-    "comoSeGana": "How to earn"
+    "comoSeGana": "How to earn",
+    "irAgenda": "Go to Events",
+    "confirmarCanjeTitulo": "Redeem “{titulo}”?",
+    "confirmarCanjeTexto": "{n} points will be deducted and you'll have {resto} left. The coupon shows up under “Your coupons”.",
+    "confirmarCanje": "Redeem {n} points"
   },
   "escanear": {
     "titulo": "Scan QR",
@@ -609,7 +623,7 @@
     "mostrador": "Main counter · {mercado}",
     "escaneando": "Scanning…",
     "detectado": "Detected: {nombre}",
-    "ok": "+{n} points · Works even if you pay cash",
+    "ok": "+{n} points · Works even if you pay in cash",
     "selloNuevo": "New {mercado} stamp! +50 points",
     "yaHoy": "You already checked in at {nombre} today",
     "insignia": "Badge unlocked: {nombre}!",
@@ -645,7 +659,7 @@
     "sinEventos": "No events match these filters.",
     "mesAnterior": "Previous month",
     "mesSiguiente": "Next month",
-    "eventosDia": "Events on {dia}",
+    "eventosDia": "{n, plural, one {# event} other {# events}}",
     "sinEventosDia": "No events this day",
     "hoy": "Today"
   },
@@ -728,12 +742,15 @@
         "Unlimited AI assistant",
         "Price and season alerts"
       ]
-    }
+    },
+    "confirmarGratisTitulo": "Switch back to Free?",
+    "confirmarGratisTexto": "You lose the {plan} benefits right away. You can turn it back on anytime.",
+    "confirmarGratis": "Switch to Free"
   },
   "rescate": {
     "titulo": "Rescue today",
     "descuento": "−40%",
-    "vence": "Expires today {hora}",
+    "vence": "Expires today at {hora}",
     "comprar": "Buy",
     "donar": "Donate to a community kitchen",
     "comprado": "Reserved: pick it up today before {hora}. You rescued {kg} kg",
@@ -771,7 +788,7 @@
     "acciones": {
       "ver": "See",
       "comoLlegar": "Directions",
-      "llevame": "Take me",
+      "llevame": "Take me there",
       "comprar": "Buy",
       "recordarme": "Remind me",
       "recordando": "Reminder set",
@@ -802,7 +819,7 @@
       "ticket_promedio": "Average ticket"
     },
     "semana": "Sales this week",
-    "semanaTexto": "Daily sales Monday to Sunday; today includes what was charged in the demo.",
+    "semanaTexto": "Last 7 days; today includes what was charged in the demo.",
     "top": "Best sellers",
     "resenas": "Latest reviews",
     "banner": "Your cash customers are earning points too: {n} check-ins today",
@@ -826,13 +843,13 @@
       "nuevo": "New charge",
       "comprobante": "Bara Bara receipt · {puesto} · {monto} · {fecha} · {id}",
       "copiado": "Receipt copied",
-      "linkPago": "Card payment link"
+      "linkPago": "Card payment link",
+      "cancelar": "Cancel charge"
     },
     "pedidos": {
       "titulo": "Orders",
-      "vacio": "No orders.",
+      "vacio": "No orders yet.",
       "app": "App order",
-      "avanzar": "Mark as {estado}",
       "estados": {
         "nuevo": "New",
         "preparando": "Preparing",
@@ -840,6 +857,11 @@
         "entregado": "Delivered"
       },
       "hora": "For {hora}",
+      "acciones": {
+        "preparando": "Start preparing",
+        "listo": "Mark as ready",
+        "entregado": "Mark as delivered"
+      },
       "tipoRecoger": "Pickup at stall",
       "tipoEnvio": "Third-party delivery"
     },
@@ -860,7 +882,8 @@
       "agregado": "Product added: {producto}",
       "upsellTitulo": "You've reached 20 products",
       "upsellTexto": "The Free plan includes up to 20 products. With Pro your catalog is unlimited.",
-      "verPlan": "See plans"
+      "verPlan": "See plans",
+      "duplicado": "“{producto}” is already in your catalog. Edit its price in the list."
     },
     "plan": {
       "titulo": "Your plan",
@@ -896,7 +919,8 @@
           "Automatic catalog translation"
         ]
       }
-    }
+    },
+    "ventasDia": "Sales"
   },
   "gobierno": {
     "titulo": "Impact dashboard",
@@ -919,7 +943,7 @@
       "extranjeros": "Foreign users",
       "extranjerosTexto": "{n} of {total} active users",
       "pct_ventas_efectivo_registradas": "Cash sales recorded",
-      "km_intermediacion_evitados_mes": "Middleman km avoided",
+      "km_intermediacion_evitados_mes": "Middleman kilometers avoided",
       "co2_evitado_mes_ton": "CO₂ avoided",
       "alimento_rescatado_mes_ton": "Food rescued"
     },
@@ -943,7 +967,9 @@
       "gmv": "Digital spend per month",
       "usuarios": "Active users per month",
       "texto": "Conservative scenario, year 1",
-      "mes": "Month"
+      "mes": "Month",
+      "hoy": "Today",
+      "proyeccion": "Dotted: pilot scenario projection"
     },
     "ventas": {
       "titulo": "Sales this month by borough",
@@ -994,7 +1020,7 @@
     "pasos": {
       "buscar": {
         "titulo": "Search “pancita” in Explore",
-        "espera": "The map centers La Merced and the sheet says if it's open"
+        "espera": "The map centers on La Merced and the card shows whether it's open"
       },
       "interior": {
         "titulo": "La Merced → indoor map",
@@ -1006,7 +1032,7 @@
       },
       "pagar": {
         "titulo": "2 pancitas + 2 sopes, paid with CoDi QR",
-        "espera": "Payment received, BB-XXXX ref, stamp and +30 points"
+        "espera": "Payment received, order BB-XXXX, stamp and +30 points"
       },
       "huerto": {
         "titulo": "Farms → Familia Jurado Nopaleros",
@@ -1017,8 +1043,8 @@
         "espera": "Cards for upcoming events + “Remind me”"
       },
       "checkin": {
-        "titulo": "QR check-in at Jugos Moreno (paid cash)",
-        "espera": "+10 points even when paying cash"
+        "titulo": "QR check-in at Jugos Moreno (paid in cash)",
+        "espera": "+10 points even when paying in cash"
       },
       "cobrar": {
         "titulo": "Stallholder: app order and a $250 charge",
@@ -1148,6 +1174,110 @@
         "titulo": "Good morning: the market is open",
         "texto": "Check your app orders and stock before the rush."
       }
+    }
+  },
+  "datos": {
+    "unidades": {
+      "pieza": "piece",
+      "piezas": "pieces",
+      "plato": "plate",
+      "vaso": "glass",
+      "vaso 1/2 L": "½ L glass",
+      "kg": "kg",
+      "docena": "dozen",
+      "tira": "strip",
+      "juego": "set",
+      "kit": "kit",
+      "caja": "box",
+      "menú": "set menu",
+      "taza": "cup",
+      "ciento": "100 pcs",
+      "maceta": "pot",
+      "manojo": "bunch",
+      "manojos": "bunches",
+      "ramo": "bouquet",
+      "paca": "bale",
+      "cajas": "boxes",
+      "cientos": "× 100 pcs",
+      "macetas": "pots",
+      "docenas": "dozen"
+    },
+    "giros": {
+      "abasto general": "general supplies",
+      "comida": "food",
+      "flores": "flowers",
+      "plantas": "plants",
+      "arte": "art",
+      "artesanías": "crafts",
+      "pescados y mariscos": "fish & seafood",
+      "ropa y calzado": "clothing & shoes",
+      "internacional": "international",
+      "gourmet": "gourmet",
+      "religioso": "religious goods",
+      "muebles": "furniture",
+      "dulces": "sweets",
+      "hierbas y esotérico": "herbs & esoteric",
+      "productores locales": "local growers",
+      "mayoreo": "wholesale",
+      "frutas y legumbres": "fruit & vegetables",
+      "abarrotes": "groceries",
+      "cárnicos": "meat",
+      "nopal": "nopal",
+      "verdura": "vegetables"
+    },
+    "girosPuesto": {
+      "Fonda / desayunos": "Fonda / breakfast",
+      "Fonda / pancita": "Fonda / pancita",
+      "Taquería": "Taquería",
+      "Jugos / postres": "Juices / desserts",
+      "Molino / masa": "Corn mill / masa",
+      "Frutas y verduras": "Fruit & vegetables",
+      "Chiles secos y semillas": "Dried chiles & seeds",
+      "Pollería": "Poultry",
+      "Carnicería": "Butcher",
+      "Pescadería": "Fishmonger",
+      "Jarcería y decoración": "Household goods & décor",
+      "Hogar y cocina": "Home & kitchen",
+      "Flores artificiales y fiesta": "Artificial flowers & party supplies",
+      "Dulces mexicanos": "Mexican sweets",
+      "Dulces y confitería": "Sweets & confectionery",
+      "Comida corrida": "Set lunch (comida corrida)",
+      "Carnitas": "Carnitas",
+      "Quesadillas": "Quesadillas",
+      "Caldos": "Soups (caldos)",
+      "Migas": "Migas"
+    },
+    "pagos": {
+      "QR CoDi/SPEI": "QR CoDi/SPEI",
+      "Tarjeta": "Card",
+      "Efectivo": "Cash"
+    },
+    "planes": {
+      "Gratis": "Free",
+      "Pro": "Pro",
+      "Plus": "Plus",
+      "Pase Turista 7 días": "7-day Tourist Pass",
+      "Mercado+ (residentes)": "Mercado+ (residents)",
+      "Gratis (subsidiado por gobierno)": "Free (government-subsidized)",
+      "Pase Turista": "Tourist Pass",
+      "Mercado+": "Mercado+"
+    },
+    "dias": {
+      "Lun": "Mon",
+      "Mar": "Tue",
+      "Mié": "Wed",
+      "Jue": "Thu",
+      "Vie": "Fri",
+      "Sáb": "Sat",
+      "Dom": "Sun"
+    },
+    "entregas": {
+      "Recoger en puesto": "Pickup at the stall",
+      "Envío (terceros)": "Third-party delivery"
+    },
+    "productos": {
+      "Caja surtida de frutas y legumbres": "Mixed box of fruit and vegetables",
+      "Ramo de flores del día": "Bouquet of today's flowers"
     }
   },
   "errores": {

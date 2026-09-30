@@ -7,6 +7,8 @@ import { toast } from "sonner";
 
 import { MapView, type CapaMapa, type Encuadre, type Enfoque } from "@/components/map/MapView";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { Button } from "@/components/ui/button";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { MarketCard } from "@/components/market/MarketCard";
 import { useRouter } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
@@ -134,7 +136,7 @@ export function Explorador({
   };
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div data-pantalla-completa className="relative h-full overflow-hidden">
       <h1 className="sr-only">{t("paginas.explorar")}</h1>
       <MapView
         center={CENTRO_CDMX}
@@ -142,6 +144,7 @@ export function Explorador({
         layers={layers}
         seleccionado={seleccionado}
         onSelect={seleccionar}
+        onVacio={() => setSeleccionado(null)}
         enfoque={enfoque}
         encuadre={encuadre}
         ubicacion={origen.fuente === "gps" ? origen : null}
@@ -150,13 +153,13 @@ export function Explorador({
       />
 
       {/* Buscador + chips */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 bg-gradient-to-b from-crema/90 via-crema/60 to-transparent px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
         <div className="mr-28">
           <BarraBusqueda onElegir={onBuscar} />
         </div>
         <ChipsFiltro activos={filtros.chips} onToggle={toggleChip} onFiltros={() => setSheetFiltros(true)} nFiltros={filtros.alcaldias.length + filtros.tipos.length} />
-        <p className="self-start rounded-pill bg-crema/90 px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
-          {t("explorar.conteo", { n: visibles.length })}
+        <p className="self-start rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
+          <NumeroAnimado valor={visibles.length} formato={(n) => t("explorar.conteo", { n })} desde={visibles.length} />
         </p>
       </div>
 
@@ -173,7 +176,7 @@ export function Explorador({
 
       {/* Carruseles inferiores */}
       {!actual && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-crema/95 pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)] backdrop-blur">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-[calc(var(--asoma,0px)+0.5rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           <Plegable
             titulo={t("explorar.cercaDeTi")}
             icono={<MapPin className="size-5 text-morado" aria-hidden />}
@@ -181,7 +184,15 @@ export function Explorador({
             onToggle={() => setPlegables((p) => ({ ...p, cerca: !p.cerca }))}
             extra={origen.fuente === "zocalo" && <span className="text-[13px] text-tinta-2">· {t("explorar.desdeZocalo")}</span>}
           >
-            <ul className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+            {cercanos.length === 0 && (
+              <div className="flex items-center justify-between gap-3 px-4 pb-2" role="status">
+                <p className="text-sm text-tinta-2">{t("explorar.sinFiltro")}</p>
+                <Button size="sm" variant="secondary" className="shrink-0" onClick={() => setFiltros(FILTROS_VACIOS)}>
+                  {t("explorar.quitarFiltros")}
+                </Button>
+              </div>
+            )}
+            <ul data-revelar className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
               {cercanos.map((m) => (
                 <li key={m.id} className="w-64 shrink-0 snap-start">
                   <MarketCard m={{ ...m, distancia: m.distancia }} compacta />
@@ -206,7 +217,7 @@ export function Explorador({
         etiqueta={actual?.nombre ?? ""}
         etiquetaCerrar={t("explorar.cerrarFicha")}
         etiquetaExpandir={t("explorar.expandir")}
-        alturas={{ peek: 250, mitad: 0.5, completa: 0.9 }}
+        alturas={{ peek: 300, mitad: 0.5, completa: 0.9 }}
       >
         {actual && <FichaRapida m={actual} distancia={haversine(origen, actual)} desdeZocalo={origen.fuente === "zocalo"} />}
       </BottomSheet>

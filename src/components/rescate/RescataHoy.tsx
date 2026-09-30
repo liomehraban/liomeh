@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { formatMXN } from "@/lib/money";
 import { rescatadaHoy, toneladasRescatadas, type OfertaRescate } from "@/lib/rescate";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,7 @@ const boton =
 /** M20 · Rescata hoy: carrusel de 4 ofertas −40% y contador de toneladas rescatadas. */
 export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiTon: number }) {
   const t = useTranslations("rescate");
+  const voc = useVocabulario();
   const locale = useLocale();
   const hydrated = useHydrated();
   const router = useRouter();
@@ -63,7 +65,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
               <div className="flex gap-2">
                 <div className="relative">
                   <PhotoPlaceholder giro={o.giro} className="aspect-square w-16 rounded-2xl" iconClassName="size-6" />
-                  <span className="absolute -top-1 -left-1 rounded-pill bg-chile px-1.5 text-[11px] font-bold text-white">{t("descuento")}</span>
+                  <span className="absolute -top-1 -left-1 rounded-pill bg-chile px-1.5 text-xs font-bold text-white">{t("descuento")}</span>
                 </div>
                 <div className="flex min-w-0 flex-col">
                   <span className="line-clamp-2 text-[13px] leading-tight font-bold">{nombre(o)}</span>
@@ -93,7 +95,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
                   <button
                     type="button"
                     className={cn(boton, "border border-nopal text-nopal-700")}
-                    aria-label={t("donar")}
+                    aria-label={`${t("donar")}: ${voc("productos", o.producto)}`}
                     onClick={() => {
                       rescatar(o.id, "donacion", o.kg);
                       toast.success(t("donado", { kg: nf(o.kg) }));
@@ -108,7 +110,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
           );
         })}
       </ul>
-      <p className="px-4 text-[11px] text-tinta-2">{t("simulado")}</p>
+      <p className="px-4 text-xs text-tinta-2">{t("simulado")}</p>
     </div>
   );
 }

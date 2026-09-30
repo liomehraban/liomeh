@@ -16,7 +16,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import { Link, usePathname } from "@/i18n/navigation";
-import { MarchantaAvatar } from "@/components/assistant/MarchantaAvatar";
+import { MarchantaPersonaje } from "@/components/assistant/MarchantaPersonaje";
 import { cn } from "@/lib/utils";
 
 type TabKey = "explorar" | "huertos" | "asistente" | "agenda" | "yo" | "hoy" | "cobrar" | "pedidos" | "catalogo" | "cuenta" | "cosecha" | "huerto";
@@ -45,6 +45,9 @@ const TABS: Record<"consumidor" | "locatario" | "productor", Tab[]> = {
   ],
 };
 
+/** Vibración corta al cambiar de pestaña (Android; iOS no expone la API y se ignora). */
+const vibrar = () => navigator.vibrate?.(8);
+
 export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
   const t = useTranslations("shell");
   const pathname = usePathname();
@@ -54,7 +57,9 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
   return (
     <nav
       aria-label={t("navegacion")}
-      className="relative z-30 shrink-0 border-t border-border bg-crema/95 pb-[env(safe-area-inset-bottom)] backdrop-blur"
+      data-nav-tab
+      style={{ viewTransitionName: "tab-bar" }}
+      className="relative z-30 shrink-0 border-t border-border bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-2px_12px_rgba(62,28,60,0.06)]"
     >
       <ul className="flex h-16 items-stretch justify-around px-1">
         {TABS[perfil].map((tab) => {
@@ -65,18 +70,12 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
               <li key={tab.key} className="flex flex-1 justify-center">
                 <Link
                   href={tab.href}
+                  onClick={vibrar}
                   aria-current={on ? "page" : undefined}
-                  className="group -mt-6 flex flex-col items-center gap-0.5 rounded-pill focus-visible:outline-none"
+                  className="pressable group -mt-4 flex flex-col items-center gap-0.5 rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
-                  <span
-                    className={cn(
-                      "grid size-16 place-items-center rounded-full bg-dorado shadow-lg ring-4 ring-crema transition-transform group-hover:scale-105 group-focus-visible:ring-morado/60",
-                      on && "ring-morado/30",
-                    )}
-                  >
-                    <MarchantaAvatar className="size-12" />
-                  </span>
-                  <span className={cn("text-xs font-semibold text-tinta-2", on && "text-morado")}>{label}</span>
+                  <MarchantaPersonaje activo={on} className="size-14" />
+                  <span className={cn("text-xs font-semibold text-tinta-2", on && "font-bold text-morado")}>{label}</span>
                 </Link>
               </li>
             );
@@ -86,13 +85,17 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
             <li key={tab.key} className="flex flex-1">
               <Link
                 href={tab.href}
+                onClick={vibrar}
                 aria-current={on ? "page" : undefined}
                 className={cn(
-                  "flex w-full flex-col items-center justify-center gap-1 rounded-2xl text-xs font-semibold text-tinta-2 transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
-                  on && "text-morado",
+                  "pressable flex w-full flex-col items-center justify-center gap-1 rounded-2xl text-xs font-semibold text-tinta-2 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+                  on && "font-bold text-morado",
                 )}
               >
-                <Icon className="size-6" strokeWidth={on ? 2.25 : 1.75} aria-hidden />
+                {/* Indicador de pestaña activa: píldora sólida detrás del ícono (Material 3 / iOS). */}
+                <span className={cn("grid h-8 w-14 place-items-center rounded-pill transition-colors duration-200", on && "bg-morado text-white")}>
+                  <Icon className="size-[22px]" strokeWidth={on ? 2.25 : 1.75} aria-hidden />
+                </span>
                 {label}
               </Link>
             </li>

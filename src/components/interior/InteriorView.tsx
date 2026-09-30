@@ -151,7 +151,7 @@ export function InteriorView({ interior, nombreMercado }: { interior: Interior; 
     "flex h-11 shrink-0 items-center gap-1.5 rounded-pill border px-3.5 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none";
 
   return (
-    <div className="flex h-full flex-col">
+    <div data-pantalla-completa className="flex h-full flex-col">
       {/* Encabezado: volver, título, buscador y chips */}
       <div className="relative z-20 flex flex-col gap-2 border-b border-border bg-crema px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-2">
         <div className="flex items-center gap-2 pr-28">
@@ -253,7 +253,7 @@ export function InteriorView({ interior, nombreMercado }: { interior: Interior; 
 
       {/* Panel inferior: controles al alcance del pulgar */}
       {(puesto || ruta) && (
-        <div className="relative z-20 shrink-0 rounded-t-card border-t border-border bg-crema px-5 pt-4 pb-8 shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
+        <div className="relative z-20 shrink-0 rounded-t-card border-t border-border bg-crema px-5 pt-4 pb-[calc(var(--asoma,0px)+1rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           {modo === "ruta" && ruta && puesto ? (
             <RouteSteps ruta={ruta} paso={paso} onPaso={moverPaso} onTerminar={terminar} nombrePuesto={puesto.nombre} />
           ) : modo === "origen" && puesto ? (

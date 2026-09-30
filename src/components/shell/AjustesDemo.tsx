@@ -1,20 +1,24 @@
 "use client";
 
-import { RotateCcw } from "lucide-react";
+import { useState } from "react";
+import { House, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Confirmar } from "@/components/ui/confirmar";
 import { useRouter } from "@/i18n/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import { LocaleToggle } from "./LocaleToggle";
 import { cancelarPresentacion } from "@/components/presentacion/Conductor";
 
-/** Bloque de Ajustes: idioma y «Reiniciar demo». Se usa en Yo, Locatario › Cuenta y Productor › Cuenta. */
+/** Bloque de Ajustes: idioma, volver al selector de perfil y «Reiniciar demo». Se usa en Yo, Locatario › Cuenta y Productor › Cuenta. */
 export function AjustesDemo() {
   const t = useTranslations();
   const router = useRouter();
   const resetDemo = useAppStore((s) => s.resetDemo);
+  const salirDePerfil = useAppStore((s) => s.salirDePerfil);
+  const [confirmando, setConfirmando] = useState(false);
 
   const reiniciar = () => {
     cancelarPresentacion();
@@ -30,13 +34,32 @@ export function AjustesDemo() {
         <span className="font-semibold">{t("yo.idioma")}</span>
         <LocaleToggle />
       </div>
+      <Button
+        onClick={() => {
+          salirDePerfil();
+          router.push("/");
+        }}
+      >
+        <House aria-hidden />
+        {t("shell.volverInicio")}
+      </Button>
       <div className="flex flex-col gap-2 border-t border-border pt-4">
         <p className="text-sm text-tinta-2">{t("yo.reiniciarTexto")}</p>
-        <Button variant="secondary" onClick={reiniciar}>
+        <Button variant="secondary" onClick={() => setConfirmando(true)}>
           <RotateCcw aria-hidden />
           {t("comun.reiniciarDemo")}
         </Button>
       </div>
+      <Confirmar
+        abierto={confirmando}
+        onCambio={setConfirmando}
+        peligro
+        icono={<RotateCcw className="size-5" aria-hidden />}
+        titulo={t("yo.confirmarReinicioTitulo")}
+        texto={t("yo.reiniciarTexto")}
+        confirmar={t("yo.confirmarReinicio")}
+        onConfirmar={reiniciar}
+      />
     </section>
   );
 }

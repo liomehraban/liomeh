@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import { XIcon } from "lucide-react";
 
@@ -37,9 +38,10 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<typeof Dial
 function DialogContent({
   className,
   children,
-  closeLabel = "Cerrar",
+  closeLabel,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & { closeLabel?: string }) {
+  const t = useTranslations("comun");
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -53,7 +55,7 @@ function DialogContent({
       >
         {children}
         <DialogPrimitive.Close
-          aria-label={closeLabel}
+          aria-label={closeLabel ?? t("cerrar")}
           className="absolute top-3 right-3 grid size-11 place-items-center rounded-pill text-tinta-2 hover:bg-morado-50 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <XIcon className="size-5" />

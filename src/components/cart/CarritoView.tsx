@@ -4,9 +4,11 @@ import { Minus, Plus, ShoppingBasket, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { Link } from "@/i18n/navigation";
 import { Precio } from "@/components/stall/Precio";
 import type { PuestoResumen } from "@/data/comercio";
+import { Esqueleto } from "@/components/motion/Esqueleto";
 import { subtotalGrupo } from "@/lib/carrito";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "./EncabezadoSimple";
@@ -18,6 +20,7 @@ import { claveVenta, stockActual } from "@/lib/inventario";
 /** M5 · Carrito agrupado por puesto (un pedido por puesto). */
 export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen> }) {
   const t = useTranslations("carrito");
+  const voc = useVocabulario();
   const hydrated = useHydrated();
   const carrito = useAppStore((s) => s.carrito);
   const vendedores = useAppStore((s) => s.vendedores);
@@ -41,7 +44,11 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
   return (
     <div className="flex min-h-full flex-col">
       <EncabezadoSimple titulo={t("titulo")} />
-      {!hydrated ? null : carrito.length === 0 ? (
+      {!hydrated ? (
+        <div className="flex flex-col gap-3 p-5">
+          <Esqueleto className="h-56 rounded-card" />
+        </div>
+      ) : carrito.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
           <ShoppingBasket className="size-12 text-morado" strokeWidth={1.5} aria-hidden />
           <h2 className="text-xl font-bold text-morado-700">{t("vacio")}</h2>
@@ -77,7 +84,7 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
                     <li key={i.nombre} className="flex items-center gap-3 py-2">
                       <div className="flex min-w-0 flex-1 flex-col">
                         <span className="font-semibold">{i.nombre}</span>
-                        <span className="text-[13px] text-tinta-2">/ {i.unidad}</span>
+                        <span className="text-[13px] text-tinta-2">/ {voc("unidades", i.unidad)}</span>
                       </div>
                       <div className="flex items-center rounded-pill border border-border">
                         <button type="button" aria-label={i.qty > 1 ? `−1 ${i.nombre}` : t("quitar", { producto: i.nombre })} onClick={() => cambiar(grupo.puestoId, i.nombre, i.qty - 1)} className="grid size-11 place-items-center text-morado">

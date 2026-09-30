@@ -27,7 +27,7 @@ export function LocaleToggle({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={t("cambiarIdioma")}
-      className={cn("flex h-11 items-center rounded-pill bg-crema/80 p-1 shadow-sm backdrop-blur", pending && "opacity-70", className)}
+      className={cn("flex h-11 items-center rounded-pill bg-white p-1 shadow-sm", pending && "opacity-70", className)}
     >
       {(["es", "en"] as const).map((l) => (
         <button

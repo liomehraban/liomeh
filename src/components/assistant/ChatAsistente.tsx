@@ -12,6 +12,7 @@ import type { PreguntaRapida } from "@/data/respuestas-asistente";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { MarchantaAvatar } from "./MarchantaAvatar";
+import { MarchantaPersonaje } from "./MarchantaPersonaje";
 import { TarjetaAsistente } from "./TarjetaAsistente";
 
 type Mensaje = { id: number; role: "user" | "assistant"; content: string; respuesta?: RespuestaAsistente; aviso?: "agotado" };
@@ -58,12 +59,10 @@ export function ChatAsistente({ preguntas }: { preguntas: PreguntaRapida[] }) {
   };
 
   return (
-    <div className="flex h-full flex-col bg-papel">
-      <header className="relative flex items-center gap-3 bg-morado px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pr-28 pb-3 text-crema">
+    <div data-pantalla-completa className="flex h-full flex-col bg-papel">
+      <header className="relative flex items-end gap-3 bg-morado px-4 pt-[max(2rem,env(safe-area-inset-top))] pr-28 pb-3 text-crema">
         <div className="papel-picado absolute inset-x-0 top-0 h-5 opacity-50" aria-hidden />
-        <span className="relative grid size-14 shrink-0 place-items-center rounded-full bg-dorado ring-4 ring-crema/40">
-          <MarchantaAvatar className="size-12" />
-        </span>
+        <MarchantaPersonaje className="shrink-0" />
         <div className="relative flex min-w-0 flex-col">
           <h1 className="font-display text-3xl">{t("titulo")}</h1>
           <p className="text-[13px] text-crema/90">{t("subtitulo")}</p>
@@ -75,13 +74,11 @@ export function ChatAsistente({ preguntas }: { preguntas: PreguntaRapida[] }) {
       </p>
 
       <div className="flex-1 overflow-y-auto px-4 py-4" role="log" aria-live="polite" aria-relevant="additions">
-        <ul className="flex flex-col gap-3">
+        <ul data-revelar className="flex flex-col gap-3">
           {mensajes.map((m) => (
             <li key={m.id} className={cn("flex gap-2", m.role === "user" ? "justify-end" : "justify-start")}>
               {m.role === "assistant" && (
-                <span className="mt-1 grid size-8 shrink-0 place-items-center rounded-full bg-dorado" aria-hidden>
-                  <MarchantaAvatar className="size-7" />
-                </span>
+                <MarchantaAvatar className="mt-1 size-9 shrink-0 bg-dorado ring-2 ring-white" />
               )}
               <div className={cn("flex max-w-[85%] flex-col gap-2", m.role === "user" && "items-end")}>
                 <p
@@ -107,9 +104,7 @@ export function ChatAsistente({ preguntas }: { preguntas: PreguntaRapida[] }) {
           ))}
           {cargando && (
             <li className="flex items-center gap-2 text-sm text-tinta-2" role="status">
-              <span className="grid size-8 place-items-center rounded-full bg-dorado" aria-hidden>
-                <MarchantaAvatar className="size-7" />
-              </span>
+              <MarchantaAvatar className="size-9 shrink-0 bg-dorado ring-2 ring-white" />
               <span className="flex gap-1 rounded-card bg-white px-4 py-3 shadow-sm" aria-hidden>
                 {[0, 1, 2].map((i) => (
                   <span key={i} className="size-2 animate-bounce rounded-full bg-morado/60" style={{ animationDelay: `${i * 150}ms` }} />
@@ -122,7 +117,7 @@ export function ChatAsistente({ preguntas }: { preguntas: PreguntaRapida[] }) {
         <div ref={fin} />
       </div>
 
-      <div className="border-t border-border bg-crema px-3 pt-2 pb-3">
+      <div className="border-t border-border bg-crema px-3 pt-2 pb-[calc(var(--asoma,0px)+0.75rem)]">
         <p className="mb-1.5 flex items-center gap-1.5 text-[12px] font-semibold text-tinta-2">
           <MessageCircleQuestion className="size-4" aria-hidden />
           {t("sugerencias")}

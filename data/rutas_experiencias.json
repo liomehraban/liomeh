@@ -2,6 +2,7 @@
  {
   "id": "ruta-centro",
   "titulo": "Centro Histórico: murales, artesanías y sabores",
+  "titulo_en": "Historic Center: murals, crafts and flavors",
   "paradas": [
    "16-abelardo-l-rodriguez-zona",
    "86-san-juan-curiosidades",
@@ -17,6 +18,7 @@
  {
   "id": "ruta-antojitos",
   "titulo": "Ruta de los antojitos chilangos",
+  "titulo_en": "The chilango antojitos route",
   "paradas": [
    "53-rio-blanco",
    "65-jamaica-comidas",
@@ -31,6 +33,7 @@
  {
   "id": "ruta-chinampera",
   "titulo": "Del lago a tu mesa: ruta chinampera",
+  "titulo_en": "From the lake to your table: the chinampa route",
   "paradas": [
    "44-xochimilco-zona-xochitl",
    "prod-xochi-01",
@@ -40,11 +43,13 @@
   "km": 12,
   "tipo": "premium",
   "precio_guiada": 1200,
-  "incluye": "Visita a chinampa en trajinera + degustación"
+  "incluye": "Visita a chinampa en trajinera + degustación",
+  "incluye_en": "Trajinera ride to a chinampa + tasting"
  },
  {
   "id": "ruta-nopal-mole",
   "titulo": "Oro verde: nopal y mole de Milpa Alta",
+  "titulo_en": "Green gold: nopal and mole from Milpa Alta",
   "paradas": [
    "centro-acopio-nopal-milpa-alta",
    "prod-milpa-01",
@@ -58,6 +63,7 @@
  {
   "id": "ruta-flores",
   "titulo": "Ciudad de flores",
+  "titulo_en": "City of flowers",
   "paradas": [
    "235-jamaica-nuevo",
    "74-palacio-de-las-flores",
@@ -71,6 +77,7 @@
  {
   "id": "ruta-puerto",
   "titulo": "El estómago de la ciudad: CEDA y La Nueva Viga al amanecer",
+  "titulo_en": "The city's stomach: CEDA and La Nueva Viga at dawn",
   "paradas": [
    "central-de-abasto",
    "la-nueva-viga"
@@ -79,6 +86,7 @@
   "km": 4,
   "tipo": "premium",
   "precio_guiada": 950,
-  "incluye": "Salida 5:30 a.m., desayuno de mariscos"
+  "incluye": "Salida 5:30 a.m., desayuno de mariscos",
+  "incluye_en": "5:30 a.m. departure, seafood breakfast"
  }
 ]

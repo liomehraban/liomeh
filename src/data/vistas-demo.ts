@@ -13,7 +13,7 @@ export async function datosLocatario() {
     mercado: ficha.mercado,
     resenas: ficha.resenas,
     productores: productores.map((p) => ({ id: p.id, nombre: p.nombre })),
-    planes: (modelo.precios.locatario ?? []) as { plan: string; precio: number; moneda?: string; incluye: string[] }[],
+    planes: (modelo.precios.locatario ?? []) as { plan: string; precio: number; moneda?: string; incluye: string[]; incluye_en?: string[] }[],
   };
 }
 

@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Bike, CreditCard, QrCode, Store } from "lucide-react";
+import { Bike, CreditCard, Loader2, QrCode, Store } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { ColoniaEntrega, PuestoResumen } from "@/data/comercio";
 import { payloadCoDi, PROVEEDORES, resumenPedido, costoEnvio, type Entrega, type ProveedorId } from "@/lib/checkout";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { haversine } from "@/lib/geo";
 import { formatMXN, formatUSDaprox } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "./EncabezadoSimple";
 import { PagoQR } from "./PagoQR";
 import { PagoTarjeta } from "./PagoTarjeta";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 
 const opcion =
   "flex min-h-11 w-full items-center gap-3 rounded-2xl border p-3 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none";
@@ -24,12 +26,14 @@ const opcion =
 /** M5 · Checkout de un pedido (un grupo del carrito). */
 export function CheckoutView({ puestos, colonias }: { puestos: Record<string, PuestoResumen>; colonias: ColoniaEntrega[] }) {
   const t = useTranslations("checkout");
-  const tpl = useTranslations("planes");
+  const voc = useVocabulario();
   const locale = useLocale();
   const router = useRouter();
   const hydrated = useHydrated();
   const params = useSearchParams();
-  const puestoId = params.get("puesto") ?? "";
+  // Sin ?puesto (enlace directo) se paga el primer pedido del carrito en vez de mostrar un callejón sin salida.
+  const primero = useAppStore((s) => s.carrito[0]?.puestoId ?? "");
+  const puestoId = params.get("puesto") ?? primero;
   const linea = useAppStore((s) => s.carrito.find((l) => l.puestoId === puestoId));
   const vendedores = useAppStore((s) => s.vendedores);
   const plan = useAppStore((s) => s.plan);
@@ -41,6 +45,8 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
   const [colonia, setColonia] = useState("");
   const [proveedor, setProveedor] = useState<ProveedorId>("rappi");
   const pagado = useRef(false);
+  // Al pagar, el grupo sale del carrito antes de que llegue la pantalla del pedido: se muestra «Confirmando…».
+  const [confirmando, setConfirmando] = useState(false);
   const [refPago] = useState(() => `REF-${Math.floor(100000 + Math.random() * 900000)}`);
 
   const alcaldias = useMemo(() => [...new Set(colonias.map((c) => c.alcaldia))], [colonias]);
@@ -60,6 +66,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
     (metodo: "qr" | "tarjeta", ultimos4?: string) => {
       if (pagado.current || !linea || !puesto || !resumen || !entrega) return;
       pagado.current = true;
+      setConfirmando(true);
       const pedido = registrar({
         puestoId: linea.puestoId,
         mercadoId: puesto.mercadoId,
@@ -76,6 +83,17 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
   );
 
   if (!hydrated) return <EncabezadoSimple titulo={t("titulo")} fallback="/carrito" />;
+  if (confirmando) {
+    return (
+      <div className="flex min-h-full flex-col">
+        <EncabezadoSimple titulo={t("titulo")} fallback="/carrito" />
+        <p className="flex items-center justify-center gap-2 p-10 font-semibold text-morado-700" role="status">
+          <Loader2 className="size-5 animate-spin" aria-hidden />
+          {t("confirmando")}
+        </p>
+      </div>
+    );
+  }
   if (!linea || !puesto) {
     return (
       <div className="flex min-h-full flex-col">
@@ -228,12 +246,12 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
               <div className="mt-1 flex items-baseline justify-between border-t border-border pt-2 text-lg font-bold">
                 <dt>{t("total")}</dt>
                 <dd className="text-right">
-                  {$(vista.total)}
+                  <NumeroAnimado valor={vista.total} formato={$} duracion={0.6} desde={vista.total} />
                   {locale === "en" && <span className="block text-xs font-normal text-tinta-2">{formatUSDaprox(vista.total)}</span>}
                 </dd>
               </div>
             </dl>
-            <p className="text-[13px] text-tinta-2">{t("planActual", { plan: plan === "Gratis" ? tpl("gratis") : plan === "Pase Turista" ? tpl("pase") : tpl("mercadoMas") })}</p>
+            <p className="text-[13px] text-tinta-2">{t("planActual", { plan: voc("planes", plan) })}</p>
           </section>
         )}
 

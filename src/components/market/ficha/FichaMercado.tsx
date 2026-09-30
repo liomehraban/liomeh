@@ -1,3 +1,5 @@
+import { CifraAnimada } from "./CifraAnimada";
+import { Revelar } from "@/components/motion/Revelar";
 import { ArrowRight, Bus, Clock, Lock, MapPin, Navigation, PartyPopper, Route, Store, Timer } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -6,10 +8,11 @@ import { Link } from "@/i18n/navigation";
 import { EstadoHorario } from "@/components/market/EstadoHorario";
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { TIPO_KEY } from "@/components/market/tipos";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { comoLlegarUrl } from "@/lib/geo";
+import { enIdioma } from "@/lib/idioma";
 import { categoriaGiro, categoriaMercado, COLOR_GIRO } from "@/lib/giros";
 import { describirHorario, formatMinutos } from "@/lib/horarioTexto";
-import { formatCompacto, formatMXN } from "@/lib/money";
 import { ratingPromedio } from "@/lib/resenas";
 import type { Evento, Mercado, Puesto, Resena, Ruta } from "@/lib/schemas";
 import type messages from "../../../../messages/es.json";
@@ -42,16 +45,12 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
   const t = useTranslations();
   const locale = useLocale();
   const en = locale === "en";
+  const v = useVocabulario();
   const lema = en ? (m.lema_en ?? m.lema) : m.lema;
   const resumen = en ? (m.resumen_en ?? m.resumen) : m.resumen;
   const cat = categoriaMercado(m);
   const rating = ratingPromedio(resenas);
 
-  const formatoCifra = (k: string, v: number | string) => {
-    if (typeof v === "string") return v;
-    if (k.endsWith("_mxn")) return formatMXN(v, locale).replace(/[\d,.]+/, formatCompacto(v, locale));
-    return v >= 10000 ? formatCompacto(v, locale) : new Intl.NumberFormat(en ? "en-US" : "es-MX").format(v);
-  };
 
   return (
     <article className="flex flex-col pb-10">
@@ -76,7 +75,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
             {m.giros.map((g) => (
               <li key={g} className="flex items-center gap-1.5 rounded-pill border border-border px-3 py-1 text-[13px] font-semibold">
                 <span aria-hidden className="size-2 rounded-full" style={{ background: COLOR_GIRO[categoriaGiro(g)] }} />
-                {g}
+                {v("giros", g)}
               </li>
             ))}
           </ul>
@@ -143,7 +142,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
 
         {m.imperdibles?.length ? (
           <Seccion titulo={t("mercado.imperdibles")}>
-            <ul className="flex flex-col gap-2">
+            <ul data-revelar className="flex flex-col gap-2">
               {m.imperdibles.map((x) => (
                 <li key={x} className="flex gap-3 rounded-2xl bg-dorado-200/60 p-3">
                   <span aria-hidden className="text-dorado">★</span>
@@ -157,11 +156,13 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
         {m.cifras && (
           <Seccion titulo={t("mercado.cifras")}>
             <dl className="grid grid-cols-2 gap-3">
-              {Object.entries(m.cifras).map(([k, v]) => (
-                <div key={k} className="flex flex-col gap-1 rounded-card bg-morado p-4 text-crema">
-                  <dd className="font-display text-4xl text-dorado-200">{formatoCifra(k, v)}</dd>
+              {Object.entries(m.cifras).map(([k, v], i) => (
+                <Revelar key={k} orden={i} className="flex flex-col gap-1 rounded-card bg-morado p-4 text-crema">
+                  <dd className="font-display text-4xl text-dorado-200">
+                    <CifraAnimada clave={k} valor={v} />
+                  </dd>
                   <dt className="text-sm">{CIFRAS.has(k) ? t(`mercado.cifrasEtiquetas.${k as ClaveCifra}`) : k.replaceAll("_", " ")}</dt>
-                </div>
+                </Revelar>
               ))}
             </dl>
           </Seccion>
@@ -260,7 +261,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
                   >
                     <Route className="size-5 shrink-0 text-morado" aria-hidden />
                     <span className="flex flex-1 flex-col">
-                      <span className="font-semibold">{r.titulo}</span>
+                      <span className="font-semibold">{enIdioma(r, "titulo", locale)}</span>
                       <span className="text-[13px] text-tinta-2">
                         {t("mercado.paradas", { n: r.paradas.length })} · {t("mercado.horas", { h: r.duracion_h })} · {r.km} km
                       </span>

@@ -6,6 +6,7 @@ import { etiquetaEvento, eventosVigentes, formatRangoFechas, hoyCDMX } from "../
 import { precioJusto } from "../fairtrade";
 import { formatDistance, haversine, ZOCALO } from "../geo";
 import { estadoHorario } from "../horario";
+import { enIdioma } from "../idioma";
 import { formatMXN } from "../money";
 import { levenshtein, normalizar, tokenizar } from "../search";
 import type { Mercado } from "../schemas";
@@ -46,6 +47,11 @@ export function detectarIntencion(mensaje: string): Intencion {
 
 const origen = (o: Opciones) => o.ubicacion ?? ZOCALO;
 const desde = (o: Opciones) => (o.ubicacion ? "" : o.locale === "en" ? " from the Zócalo" : " desde el Zócalo");
+/** Aclaración de distancias cuando no hay ubicación: « (distancias desde el Zócalo)». */
+const distanciasDesde = (o: Opciones) => (o.ubicacion ? "" : o.locale === "en" ? " (distances from the Zócalo)" : " (distancias desde el Zócalo)");
+/** Unidades de /data en inglés para las respuestas (las pantallas usan messages › datos.unidades). */
+const UNIDAD_EN: Record<string, string> = { ciento: "100 pcs", maceta: "pot", pieza: "piece", manojo: "bunch", caja: "box" };
+const unidad = (u: string, o: Opciones) => (o.locale === "en" ? (UNIDAD_EN[u] ?? u) : u);
 const dist = (o: Opciones, p: { lat: number; lng: number }) => formatDistance(haversine(origen(o), p), o.locale);
 
 function estadoTexto(m: Mercado, o: Opciones): string {
@@ -81,8 +87,8 @@ function comida(msg: string, d: DatosAsistente, o: Opciones): ResultadoIntencion
     return {
       intencion: "comida",
       text: en
-        ? `Hungry? These food markets are close${desde(o)}: ${lista(ms.map((m) => `${m.nombre_display} (${estadoTexto(m, o)}, ${dist(o, m)})`), "en")}.`
-        : `¿Qué se le antoja? Estos mercados de comida te quedan cerca${desde(o)}: ${lista(ms.map((m) => `${m.nombre_display} (${estadoTexto(m, o)}, ${dist(o, m)})`), "es")}.`,
+        ? `Hungry? These food markets are nearby${distanciasDesde(o)}: ${lista(ms.map((m) => `${m.nombre_display} (${estadoTexto(m, o)}, ${dist(o, m)})`), "en")}.`
+        : `¿Qué se le antoja? Estos mercados de comida te quedan cerca${distanciasDesde(o)}: ${lista(ms.map((m) => `${m.nombre_display} (${estadoTexto(m, o)}, ${dist(o, m)})`), "es")}.`,
       cards: ms.map((m) => ({ tipo: "mercado", id: m.id })),
     };
   }
@@ -101,7 +107,7 @@ function comida(msg: string, d: DatosAsistente, o: Opciones): ResultadoIntencion
   return {
     intencion: "comida",
     text: en
-      ? `For ${plat.clave}, my picks${desde(o)}: ${lista(partes, "en")}. ¡Buen provecho!`
+      ? `For ${plat.clave}, my picks${distanciasDesde(o)}: ${lista(partes, "en")}. ¡Buen provecho! (Enjoy your meal!)`
       : `¡Para ${plat.clave}, pásele a ${lista(partes, "es")}! Distancias${desde(o) || " desde donde estás"}. ¡Buen provecho!`,
     cards,
   };
@@ -134,8 +140,8 @@ function abiertoAhora(msg: string, d: DatosAsistente, o: Opciones): ResultadoInt
         ? `Open 24 hours: ${lista(partes, "en")}.`
         : `Abiertos las 24 horas: ${lista(partes, "es")}.`
       : en
-        ? `Open right now${desde(o)}: ${lista(partes, "en")}. Only markets with published hours are included.`
-        : `Abiertos ahorita${desde(o)}: ${lista(partes, "es")}. Solo cuento mercados con horario publicado.`,
+        ? `Open right now${distanciasDesde(o)}: ${lista(partes, "en")}. Only markets with published hours are included.`
+        : `Abiertos ahorita${distanciasDesde(o)}: ${lista(partes, "es")}. Solo cuento mercados con horario publicado.`,
     cards: ms.map((m) => ({ tipo: "mercado", id: m.id })),
   };
 }
@@ -153,8 +159,8 @@ function llegar(msg: string, d: DatosAsistente, o: Opciones): ResultadoIntencion
     return {
       intencion: "llegar",
       text: en
-        ? `${puesto.nombre} is at ${m.nombre_display}: ${puesto.ubicacion_texto}. Tap «Take me» for step-by-step directions from Metro Merced.`
-        : `${puesto.nombre} está en ${m.nombre_display}: ${puesto.ubicacion_texto}. Toca «Llévame» y te guío paso a paso desde el Metro Merced.`,
+        ? `${puesto.nombre} is at ${m.nombre_display}: ${puesto.ubicacion_texto}. Tap “Take me there” for step-by-step directions from Metro Merced.`
+        : `${puesto.nombre} está en ${/^Mercado\b/.test(m.nombre_display) ? "el " : ""}${m.nombre_display}: ${puesto.ubicacion_texto}. Toca «Llévame» y te guío paso a paso desde el Metro Merced.`,
       cards: [{ tipo: "puesto", id: puesto.id }],
     };
   }
@@ -163,7 +169,7 @@ function llegar(msg: string, d: DatosAsistente, o: Opciones): ResultadoIntencion
     return {
       intencion: "llegar",
       text: en
-        ? `${mercado.nombre_display} is at ${mercado.direccion} (${dist(o, mercado)}${desde(o)}). «Directions» opens Google Maps by public transport.`
+        ? `${mercado.nombre_display} is at ${mercado.direccion} (${dist(o, mercado)}${desde(o)}). “Directions” opens Google Maps with public transit.`
         : `${mercado.nombre_display} está en ${mercado.direccion} (${dist(o, mercado)}${desde(o)}). «Cómo llegar» abre Google Maps en transporte público.`,
       cards: [{ tipo: "mercado", id: mercado.id }],
     };
@@ -188,7 +194,7 @@ function productor(msg: string, d: DatosAsistente, o: Opciones): ResultadoIntenc
     .filter((p) => !c || c.buscar.test(normalizar([p.producto_principal, ...p.catalogo].join(" "))))
     .sort((a, b) => b.comercio_justo.mejora_pct - a.comercio_justo.mejora_pct || b.rating - a.rating)
     .slice(0, 3);
-  const partes = ps.map((p) => `${p.nombre} (${p.pueblo}, ${formatMXN(p.precio_mayoreo_app.precio, o.locale)}/${p.precio_mayoreo_app.unidad})`);
+  const partes = ps.map((p) => `${p.nombre} (${p.pueblo}, ${formatMXN(p.precio_mayoreo_app.precio, o.locale)}/${unidad(p.precio_mayoreo_app.unidad, o)})`);
   return {
     intencion: "productor",
     text: en
@@ -209,10 +215,10 @@ function eventos(_msg: string, d: DatosAsistente, o: Opciones): ResultadoIntenci
     const et = etiquetaEvento(e, now);
     return et === "en curso" ? (en ? "happening now" : "en curso") : et === "por confirmar" ? (en ? "date TBC" : "fecha por confirmar") : "";
   };
-  const partes = evs.map((e) => `${e.titulo} (${e.inicio === "recurrente" ? (en ? "always on" : "siempre") : formatRangoFechas(e.inicio, e.fin, o.locale)}${etiqueta(e) ? `, ${etiqueta(e)}` : ""})`);
+  const partes = evs.map((e) => `${enIdioma(e, "titulo", o.locale)} (${e.inicio === "recurrente" ? (en ? "always on" : "siempre") : formatRangoFechas(e.inicio, e.fin, o.locale)}${etiqueta(e) ? `, ${etiqueta(e)}` : ""})`);
   return {
     intencion: "eventos",
-    text: en ? `Coming up in the next 30 days: ${lista(partes, "en")}. Tap «Remind me» so you don't miss them.` : `En los próximos 30 días: ${lista(partes, "es")}. Toca «Recordarme» para no perdértelos.`,
+    text: en ? `Coming up in the next 30 days: ${lista(partes, "en")}. Tap “Remind me” so you don't miss them.` : `En los próximos 30 días: ${lista(partes, "es")}. Toca «Recordarme» para no perdértelos.`,
     cards: evs.map((e) => ({ tipo: "evento", id: e.id })),
   };
 }
@@ -243,7 +249,7 @@ function comercioJusto(_msg: string, d: DatosAsistente, o: Opciones): ResultadoI
   return {
     intencion: "comercioJusto",
     text: en
-      ? `In Bara Bara you buy closer to the field, with fewer middlemen. Example: of every ${$(f.precio)} for a ${f.unidad} of ${p.producto_principal.toLowerCase()}, ${p.nombre} now keeps ${$(f.recibe)} (${f.pctApp}%) instead of ${$(f.antes)} (${f.pctIntermediarios}%). QR payments carry no fee.`
+      ? `In Bara Bara you buy closer to the field, with fewer middlemen. Example: of every ${$(f.precio)} you pay per ${unidad(f.unidad, o)} of ${p.producto_principal.toLowerCase()}, ${p.nombre} now keeps ${$(f.recibe)} (${f.pctApp}%) instead of ${$(f.antes)} (${f.pctIntermediarios}%). QR payments carry no fee.`
       : `En Bara Bara compras más cerca del campo y con menos intermediarios. Ejemplo: de cada ${$(f.precio)} del ${f.unidad} de ${p.producto_principal.toLowerCase()}, ${p.nombre} ahora recibe ${$(f.recibe)} (${f.pctApp}%) en vez de ${$(f.antes)} (${f.pctIntermediarios}%). El cobro con QR no tiene comisión.`,
     cards: [{ tipo: "productor", id: p.id }],
   };
@@ -255,7 +261,7 @@ function puntos(_msg: string, d: DatosAsistente, o: Opciones): ResultadoIntencio
   return {
     intencion: "puntos",
     text: en
-      ? `Your Market Passport earns points even if you pay cash: scan the stall's QR for +10 (once per stall per day); your first check-in at a new market adds +50 and a stamp. Paying in the app gives 1 point per $10. Try a route to collect stamps!`
+      ? `Your Market Passport earns points even if you pay in cash: scan the stall's QR for +10 (once per stall per day); your first check-in at a new market adds +50 and a stamp. Paying in the app gives 1 point per $10. Try a route to collect stamps!`
       : `Tu Pasaporte suma aunque pagues en efectivo: escanea el QR del puesto y ganas +10 (1 vez por puesto al día); tu primer check-in en un mercado nuevo da +50 y un sello. Si pagas en la app, 1 punto por cada $10. ¡Sigue una ruta y junta sellos!`,
     cards: ruta ? [{ tipo: "ruta", id: ruta.id }] : [],
   };

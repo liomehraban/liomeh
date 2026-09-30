@@ -46,8 +46,8 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
         </h2>
         {rating && <Estrellas rating={rating.promedio} total={rating.total} />}
       </div>
-      <div className="flex items-center gap-2">
-        <div role="radiogroup" aria-label={t("filtro")} className="flex rounded-pill bg-morado-50 p-1">
+      <div className="flex flex-col gap-2">
+        <div role="radiogroup" aria-label={t("filtro")} className="grid grid-cols-3 rounded-pill bg-morado-50 p-1">
           {(["todas", "es", "en"] as const).map((f) => (
             <button
               key={f}
@@ -55,20 +55,18 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
               role="radio"
               aria-checked={filtro === f}
               onClick={() => setFiltro(f)}
-              className={cn("h-11 rounded-pill px-3 text-[13px] font-semibold", filtro === f ? "bg-primary text-primary-foreground" : "text-morado-700")}
+              className={cn("pressable h-11 min-w-0 truncate rounded-pill px-3 text-[13px] font-semibold", filtro === f ? "bg-primary text-primary-foreground" : "text-morado-700")}
             >
               {f === "todas" ? t("todas") : f === "es" ? t("espanol") : t("english")}
             </button>
           ))}
         </div>
-        <div className="ml-auto">
-          <EscribirResena objetivoId={objetivoId} />
-        </div>
+        <EscribirResena objetivoId={objetivoId} />
       </div>
       {lista.length === 0 ? (
         <p className="rounded-2xl bg-papel p-4 text-tinta-2">{resenas.length + propias.length ? t("sinFiltro") : t("vacio")}</p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul data-revelar className="flex flex-col gap-3">
           {lista.slice(0, 8).map((r) => (
             <li key={r.id} className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
               <div className="flex items-start justify-between gap-2">
@@ -78,7 +76,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
                     {r.origen && <span className="font-normal text-tinta-2"> · {r.origen}</span>}
                   </span>
                   <span className="flex items-center gap-2 text-[13px] text-tinta-2">
-                    <span className="rounded bg-morado-50 px-1.5 text-[11px] font-bold text-morado-700">{r.idioma === "es" ? t("idiomaEs") : t("idiomaEn")}</span>
+                    <span className="rounded bg-morado-50 px-1.5 text-xs font-bold text-morado-700">{r.idioma === "es" ? t("idiomaEs") : t("idiomaEn")}</span>
                     {fecha(r.fecha)}
                   </span>
                 </div>
@@ -94,7 +92,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
               ) : r.fotos > 0 ? (
                 <div className="flex gap-2" role="group" aria-label={t("fotos", { n: r.fotos })}>
                   {Array.from({ length: Math.min(r.fotos, 3) }, (_, i) => (
-                    <span key={i} className="grid size-16 place-items-center rounded-xl bg-gradient-to-br from-dorado-200 to-morado-50 text-morado/60" aria-hidden>
+                    <span key={i} className="grid size-16 place-items-center rounded-xl bg-morado-50 text-morado" aria-hidden>
                       <ImageIcon className="size-5" />
                     </span>
                   ))}

@@ -67,11 +67,11 @@ export function Campana() {
         type="button"
         onClick={() => setAbierta(true)}
         aria-label={noLeidos ? t("abrirConNuevas", { n: noLeidos }) : t("abrir")}
-        className="relative grid size-11 place-items-center rounded-pill bg-morado/70 text-crema shadow-md backdrop-blur transition-colors hover:bg-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+        className="pressable relative grid size-11 place-items-center rounded-pill bg-white text-morado shadow-md ring-1 ring-black/5 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
       >
-        {noLeidos ? <BellRing className="size-5" strokeWidth={1.75} aria-hidden /> : <Bell className="size-5" strokeWidth={1.75} aria-hidden />}
+        {noLeidos ? <BellRing className="size-5" strokeWidth={2} aria-hidden /> : <Bell className="size-5" strokeWidth={2} aria-hidden />}
         {noLeidos > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-chile px-1 text-[11px] leading-5 font-bold text-white" aria-hidden>
+          <span className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-chile px-1 text-xs leading-5 font-bold text-white" aria-hidden>
             {noLeidos > 9 ? "9+" : noLeidos}
           </span>
         )}
@@ -119,7 +119,7 @@ export function Campana() {
                         {!a.leida && <span className="sr-only">{t("nueva")}</span>}
                       </span>
                       <span className="text-[13px] text-tinta-2">{cuerpo}</span>
-                      {ahora && <span className="mt-0.5 text-[11px] text-tinta-2">{haceTiempo(a.fecha, ahora, locale)}</span>}
+                      {ahora && <span className="mt-0.5 text-xs text-tinta-2">{haceTiempo(a.fecha, ahora, locale)}</span>}
                     </span>
                   </button>
                 </li>

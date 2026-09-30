@@ -5,9 +5,11 @@ import { Camera, PackagePlus, Sprout } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { Celebracion } from "@/components/motion/Celebracion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EncabezadoPerfil } from "@/components/locatario/EncabezadoPerfil";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { reducirFoto } from "@/components/resenas/foto";
 import { fmtDia } from "@/components/ui/dialogo-reserva";
 import { proximosDias } from "@/lib/huertos";
@@ -16,6 +18,7 @@ import { difPrecio } from "@/lib/productor";
 import type { Productor } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated, type Lote } from "@/store/useAppStore";
+import { Esqueleto } from "@/components/motion/Esqueleto";
 
 const UNIDADES = ["piezas", "kg", "manojos", "caja", "ciento"];
 /** «piezas» → «pieza» (las unidades del catálogo vienen en español, como los datos). */
@@ -43,7 +46,7 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
       <div className="flex min-w-0 flex-col">
         <span className="flex items-center gap-2 font-bold text-morado-700">
           {l.producto || "—"}
-          {nuevo && <span className="rounded-pill bg-dorado px-2 text-[11px] text-morado-900">{t("nuevo")}</span>}
+          {nuevo && <span className="rounded-pill bg-dorado px-2 text-xs text-morado-900">{t("nuevo")}</span>}
         </span>
         <span className="text-sm">
           {l.cantidad} {nombreUnidad(l.unidad)} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{nombreUnidad(singular(l.unidad))}
@@ -63,9 +66,11 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
   const nombreUnidad = (u: string) => (t.has(`unidades.${u}` as "unidades.kg") ? t(`unidades.${u}` as "unidades.kg") : u);
   const tp = useTranslations("productor");
   const locale = useLocale();
+  const voc = useVocabulario();
   const hydrated = useHydrated();
   const lotes = useAppStore((s) => s.productor.lotes);
   const publicar = useAppStore((s) => s.publicarLote);
+  const [celebrar, setCelebrar] = useState(0);
   const dias = useMemo(() => proximosDias(14), []);
   const opciones = productor.catalogo.map(partir);
   const [form, setForm] = useState<Omit<Lote, "id" | "publicado">>({ producto: opciones[0]?.producto ?? "", cantidad: 0, unidad: "piezas", precio: 0, disponible: dias[0] });
@@ -82,12 +87,14 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
   const enviar = () => {
     if (!valido) return;
     publicar(form);
-    toast.success(t("publicado", { cantidad: form.cantidad, unidad: form.unidad, producto: form.producto }));
+    setCelebrar((n) => n + 1);
+    toast.success(t("publicado", { cantidad: form.cantidad, unidad: voc("unidades", form.unidad), producto: form.producto }));
     setForm({ ...form, cantidad: 0, precio: 0, fotoUrl: undefined });
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
+      {celebrar > 0 && <Celebracion key={celebrar} />}
       <EncabezadoPerfil titulo={tp("hola", { nombre })} subtitulo={`${productor.nombre} · ${t("mayoreo")}`} />
       <div className="flex flex-col gap-5 p-5">
         <section aria-labelledby="publicar" className="flex flex-col gap-3 rounded-card border border-border bg-white p-4">
@@ -167,10 +174,11 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
           </Button>
         </section>
 
-        <section aria-labelledby="lotes" className="flex flex-col gap-2">
+        <section aria-labelledby="lotes" data-revelar className="flex flex-col gap-2">
           <h2 id="lotes" className="text-xl font-bold text-morado-700">
             {t("lotes")}
           </h2>
+          {!hydrated && <Esqueleto className="h-24 rounded-card" />}
           {hydrated && lotes.length === 0 && <p className="text-tinta-2">{t("sinLotes")}</p>}
           {hydrated && lotes.map((l) => <TarjetaLote key={l.id} l={l} productor={productor} nuevo={!!l.publicado} />)}
         </section>

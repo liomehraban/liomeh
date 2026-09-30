@@ -6,15 +6,17 @@ import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Confirmar } from "@/components/ui/confirmar";
 import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
 import { TARIFA_SERVICIO, type PlanConsumidor } from "@/lib/checkout";
+import { enIdioma } from "@/lib/idioma";
 import { formatMXN } from "@/lib/money";
 import { accesoRutaPremium, limiteAsistente, planDesdeModelo, venceEn } from "@/lib/planes";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { DialogoPagoPlan } from "./DialogoPagoPlan";
 
-type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[] };
+type PlanModelo = { plan: string; precio: number; moneda?: string; incluye: string[]; incluye_en?: string[] };
 
 /** M12 · Planes: tabla comparativa desde modelo_negocio.precios.consumidor; «Activar» simula el pago. */
 export function PlanesView({ planes }: { planes: PlanModelo[] }) {
@@ -24,6 +26,7 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
   const actual = useAppStore((s) => s.plan);
   const setPlan = useAppStore((s) => s.setPlan);
   const vence = useAppStore((s) => s.planVence);
+  const [bajarAGratis, setBajarAGratis] = useState(false);
   const [pagando, setPagando] = useState<{ id: PlanConsumidor; monto: number } | null>(null);
   const [referencia] = useState(() => `PLAN-${Math.floor(100000 + Math.random() * 900000)}`);
 
@@ -34,6 +37,8 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
   /** Gratis se activa al momento; los planes de pago pasan por el pago simulado (QR o tarjeta 4242). */
   const activar = (p: PlanConsumidor, monto: number) => {
     if (p === "Gratis") {
+      // Bajar de un plan de pago pierde beneficios: se confirma primero.
+      if (actual !== "Gratis") return setBajarAGratis(true);
       setPlan("Gratis");
       toast(t("activado", { plan: nombre(p) }));
       return;
@@ -48,7 +53,6 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
     setPagando(null);
   };
   const fecha = (iso: string) => new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : "es-MX", { timeZone: "America/Mexico_City", day: "numeric", month: "long" });
-  const beneficiosEn = (id: PlanConsumidor) => t.raw(`beneficiosEn.${id === "Gratis" ? "gratis" : id === "Pase Turista" ? "pase" : "mercadoMas"}`) as string[];
 
   const lim = limiteAsistente(actual);
   const efectos = [
@@ -88,7 +92,7 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
                 )}
               </div>
               <ul className="flex flex-col gap-1.5 text-sm">
-                {(locale === "en" ? beneficiosEn(id) : m.incluye).map((x) => (
+                {enIdioma(m, "incluye", locale).map((x) => (
                   <li key={x} className="flex gap-2">
                     <Check className="mt-0.5 size-4 shrink-0 text-nopal-700" aria-hidden />
                     {x}
@@ -125,6 +129,17 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
           onPagado={pagado}
         />
       </div>
+      <Confirmar
+        abierto={bajarAGratis}
+        onCambio={setBajarAGratis}
+        titulo={t("confirmarGratisTitulo")}
+        texto={t("confirmarGratisTexto", { plan: nombre(actual) })}
+        confirmar={t("confirmarGratis")}
+        onConfirmar={() => {
+          setPlan("Gratis");
+          toast(t("activado", { plan: nombre("Gratis") }));
+        }}
+      />
     </div>
   );
 }

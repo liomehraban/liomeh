@@ -13,6 +13,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { Conductor } from "@/components/presentacion/Conductor";
 import { RegistroSW } from "@/components/pwa/RegistroSW";
 import { MotorAvisos } from "@/components/avisos/MotorAvisos";
+import { RevelarAutomatico } from "@/components/motion/RevelarAutomatico";
+import { HistorialInterno } from "@/components/shell/HistorialInterno";
 import { VigilantePlan } from "@/components/planes/VigilantePlan";
 import { SincroniaPestanas } from "@/components/shell/SincroniaPestanas";
 import { datosAvisos } from "@/data/avisos";
@@ -38,7 +40,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 }
 
 export const viewport: Viewport = {
-  themeColor: "#93408F",
+  themeColor: "#9B2694",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -61,6 +63,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
                 {children}
                 <Conductor />
                 <MotorAvisos datos={await datosAvisos()} />
+                <RevelarAutomatico />
+                <HistorialInterno />
                 <VigilantePlan />
                 <SincroniaPestanas />
                 <Toaster />

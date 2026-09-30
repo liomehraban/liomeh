@@ -7,7 +7,9 @@ import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { Celebracion } from "@/components/motion/Celebracion";
 import { Button } from "@/components/ui/button";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { Link } from "@/i18n/navigation";
 import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
 import type { ObjetivoCheckin } from "@/data/pasaporte";
@@ -86,11 +88,12 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
   };
 
   return (
-    <div className="flex min-h-full flex-col">
+    <div className="relative flex min-h-full flex-col">
+      {fase === "resultado" && resultado?.tipo === "ok" && <Celebracion />}
       <EncabezadoSimple titulo={t("titulo")} fallback="/yo" />
       <div className="flex flex-col gap-4 p-5">
         {/* Cámara simulada */}
-        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-card bg-gradient-to-br from-tinta to-morado-900" aria-label={t("camara")} role="img">
+        <div className="relative grid aspect-square place-items-center overflow-hidden rounded-card bg-morado-900" aria-label={t("camara")} role="img">
           <motion.div
             className="relative size-3/5"
             animate={fase === "escaneando" ? { scale: [1, 0.94, 1] } : { scale: 1 }}
@@ -101,7 +104,7 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
             ))}
             {fase === "escaneando" && (
               <motion.span
-                className="absolute inset-x-2 h-0.5 bg-dorado shadow-[0_0_12px_#C8A96A]"
+                className="absolute inset-x-2 h-0.5 bg-dorado shadow-[0_0_12px_#F2B01E]"
                 animate={{ top: ["8%", "92%", "8%"] }}
                 transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -126,25 +129,27 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
           <div className="flex flex-col gap-3" role="status">
             {resultado.tipo === "ok" ? (
               <div className="rounded-card bg-nopal-700 p-4 text-center text-white">
-                <p className="font-display text-4xl">+{resultado.puntos}</p>
+                <p className="font-display text-4xl">
+                  <NumeroAnimado valor={resultado.puntos} formato={(n) => `+${n}`} />
+                </p>
                 <p>{t("ok", { n: resultado.puntos })}</p>
                 {resultado.selloNuevo && <p className="mt-1 font-bold">{t("selloNuevo", { mercado: resultado.mercado })}</p>}
               </div>
             ) : (
               <div className="rounded-card bg-cempasuchil p-4 text-center font-semibold text-morado-900">{t("yaHoy", { nombre: resultado.nombre })}</div>
             )}
-            <div className="flex gap-3">
-              <Button variant="secondary" className="flex-1" onClick={() => setFase("listo")}>
+            <div className="flex flex-col gap-2">
+              <Button variant="secondary" onClick={() => setFase("listo")}>
                 {t("otra")}
               </Button>
-              <Button asChild className="flex-1">
+              <Button asChild>
                 <Link href="/yo">{t("volverYo")}</Link>
               </Button>
             </div>
           </div>
         ) : (
           <>
-            <fieldset className="flex flex-col gap-2" disabled={fase === "escaneando"}>
+            <fieldset className="flex min-w-0 flex-col gap-2" disabled={fase === "escaneando"}>
               <legend className="mb-1 text-sm text-tinta-2">{t("demo")}</legend>
               <label className="flex h-12 items-center gap-2 rounded-pill border border-border bg-white px-4 focus-within:ring-[3px] focus-within:ring-ring/40">
                 <Search className="size-5 text-morado" aria-hidden />

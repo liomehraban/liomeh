@@ -15,6 +15,7 @@ import type { Evento, Ruta } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { Calendario } from "./Calendario";
 import { TarjetaEvento } from "./TarjetaEvento";
+import { Esqueleto } from "@/components/motion/Esqueleto";
 
 const chip =
   "flex h-11 shrink-0 items-center rounded-pill border px-3.5 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none";
@@ -77,14 +78,20 @@ export function AgendaView({ eventos, rutas, paradas, mercados }: { eventos: Eve
             })}
           </div>
 
-          {!ahora || !grupos ? null : vista === "calendario" ? (
+          {!ahora || !grupos ? (
+            <div className="flex flex-col gap-3">
+              <Esqueleto className="h-8 w-48" />
+              <Esqueleto className="h-52 rounded-card" />
+              <Esqueleto className="h-52 rounded-card" />
+            </div>
+          ) : vista === "calendario" ? (
             <Calendario eventos={filtrados} ahora={ahora} mercados={setMercados} />
           ) : grupos.meses.length + grupos.siempre.length === 0 ? (
             <p className="rounded-2xl bg-papel p-4 text-tinta-2">{t("sinEventos")}</p>
           ) : (
             <>
               {grupos.meses.map(([mes, lista]) => (
-                <section key={mes} className="flex flex-col gap-3" aria-label={nombreMes(mes)}>
+                <section key={mes} data-revelar className="flex flex-col gap-3" aria-label={nombreMes(mes)}>
                   <h2 className="font-display text-3xl text-morado-700 capitalize">{nombreMes(mes)}</h2>
                   {lista.map((e) => (
                     <TarjetaEvento key={e.id} e={e} ahora={ahora} mercadoExiste={!!e.mercado_id && setMercados.has(e.mercado_id)} />

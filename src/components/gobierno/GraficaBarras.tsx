@@ -1,6 +1,7 @@
 "use client";
 
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useReducedMotion } from "motion/react";
 
 import { AlVerse } from "./AlVerse";
 
@@ -10,7 +11,7 @@ export function GraficaBarras({
   subtitulo,
   datos,
   formato,
-  color = "#93408F",
+  color = "#9B2694",
   encabezado,
 }: {
   titulo: string;
@@ -20,6 +21,7 @@ export function GraficaBarras({
   color?: string;
   encabezado: string;
 }) {
+  const animar = !useReducedMotion();
   return (
     <figure className="flex min-w-0 flex-col gap-2 rounded-card border border-border bg-white p-4">
       <figcaption className="flex flex-col">
@@ -31,8 +33,8 @@ export function GraficaBarras({
           <BarChart accessibilityLayer={false} data={datos} layout="vertical" margin={{ top: 0, right: 56, bottom: 0, left: 0 }} barCategoryGap={6}>
             <XAxis type="number" hide />
             <YAxis type="category" dataKey="nombre" width={128} tickLine={false} axisLine={false} tick={{ fill: "#2B1A2A", fontSize: 12 }} />
-            <Tooltip cursor={{ fill: "#F6ECF5" }} formatter={(v) => [formato(Number(v)), titulo]} contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }} />
-            <Bar dataKey="valor" fill={color} radius={[0, 4, 4, 0]} isAnimationActive={false}>
+            <Tooltip cursor={{ fill: "#F8E9F6" }} formatter={(v) => [formato(Number(v)), titulo]} contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }} />
+            <Bar dataKey="valor" fill={color} radius={[0, 4, 4, 0]} isAnimationActive={animar} animationDuration={900} animationEasing="ease-out">
               <LabelList dataKey="valor" position="right" fill="#4A3848" fontSize={11} fontWeight={700} formatter={(v) => formato(Number(v))} />
             </Bar>
           </BarChart>

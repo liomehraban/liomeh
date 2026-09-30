@@ -22,6 +22,7 @@ export default function MapLibreView({
   zoom,
   layers,
   onSelect,
+  onVacio,
   seleccionado,
   ubicacion,
   enfoque,
@@ -71,7 +72,8 @@ export default function MapLibreView({
     // Si el toque cae en un pin y en una zona, gana el pin.
     const f = e.features?.find((x) => x.geometry.type === "Point") ?? e.features?.[0];
     const map = ref.current;
-    if (!f || !map) return;
+    if (!map) return;
+    if (!f) return onVacio?.();
     const props = f.properties as { id?: string; capa?: string; cluster_id?: number };
     if (props.cluster_id !== undefined) {
       const src = map.getSource(f.source) as GeoJSONSource;
@@ -94,8 +96,10 @@ export default function MapLibreView({
           interactiveLayerIds={interactivos}
           onClick={onClick}
           onLoad={() => {
-            // Encuadre pedido antes de que el mapa existiera (p. ej. al abrir una ruta).
-            if (encuadre && ref.current) {
+            // Enfoque o encuadre pedidos antes de que el mapa existiera (p. ej. una búsqueda rápida o una ruta).
+            if (enfoque && ref.current) {
+              ref.current.jumpTo({ center: [enfoque.lng, enfoque.lat], zoom: enfoque.zoom ?? 15, padding: { top: 120, bottom: paddingInferior, left: 0, right: 0 } });
+            } else if (encuadre && ref.current) {
               const [a, b, c, d] = encuadre.bbox;
               ref.current.fitBounds([a, b, c, d], { padding: { top: 60, bottom: paddingInferior + 20, left: 40, right: 40 }, maxZoom: 15, duration: 0 });
             }
@@ -104,6 +108,7 @@ export default function MapLibreView({
           onMouseLeave={() => setCursor("")}
           cursor={cursor}
           attributionControl={false}
+          locale={{ "Map.Title": t("titulo"), "Marker.Title": t("marcador"), "AttributionControl.ToggleAttribution": t("creditos") }}
           dragRotate={false}
           touchPitch={false}
           maxZoom={18}
@@ -129,7 +134,7 @@ export default function MapLibreView({
         <p className="absolute inset-0 grid place-items-center text-sm text-tinta-2">{t("cargando")}</p>
       )}
       {estilo && !estilo.remoto && (
-        <p className="absolute bottom-2 left-2 rounded-pill bg-crema/90 px-3 py-1 text-xs font-semibold text-tinta-2 shadow-sm">
+        <p className="absolute bottom-2 left-2 rounded-pill bg-white px-3 py-1 text-xs font-semibold text-tinta-2 shadow-sm">
           {t("sinMapaBase")}
         </p>
       )}

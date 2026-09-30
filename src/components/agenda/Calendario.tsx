@@ -20,7 +20,14 @@ export function Calendario({ eventos, ahora, mercados }: { eventos: Evento[]; ah
   const tituloRaw = new Intl.DateTimeFormat(loc, { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(mes.anio, mes.m, 15)));
   const titulo = tituloRaw.charAt(0).toUpperCase() + tituloRaw.slice(1);
   const semana = Array.from({ length: 7 }, (_, i) => new Intl.DateTimeFormat(loc, { weekday: "narrow", timeZone: "UTC" }).format(new Date(Date.UTC(2026, 9, 5 + i))));
-  const mover = (d: number) => setMes(({ anio, m }) => ({ anio: anio + Math.floor((m + d) / 12), m: (((m + d) % 12) + 12) % 12 }));
+  // Al cambiar de mes, el día elegido pasa al 1.º de ese mes (o a hoy si es el mes actual).
+  const mover = (d: number) => {
+    const anio = mes.anio + Math.floor((mes.m + d) / 12);
+    const m = (((mes.m + d) % 12) + 12) % 12;
+    setMes({ anio, m });
+    const primero = `${anio}-${String(m + 1).padStart(2, "0")}-01`;
+    setDia(hoy.startsWith(primero.slice(0, 8)) ? hoy : primero);
+  };
   const delDia = eventosDelDia(eventos, dia);
 
   return (
@@ -55,7 +62,7 @@ export function Calendario({ eventos, ahora, mercados }: { eventos: Evento[]; ah
                 type="button"
                 onClick={() => setDia(c)}
                 aria-pressed={dia === c}
-                aria-label={`${new Intl.DateTimeFormat(loc, { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${c}T12:00:00Z`))}${n ? ` · ${n}` : ""}`}
+                aria-label={`${new Intl.DateTimeFormat(loc, { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${c}T12:00:00Z`))}${n ? ` · ${t("eventosDia", { n })}` : ""}`}
                 className={cn(
                   "relative flex h-11 flex-col items-center justify-center rounded-xl text-sm",
                   dia === c ? "bg-morado text-crema" : esHoy ? "border border-morado text-morado" : "hover:bg-morado-50",

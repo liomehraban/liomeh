@@ -1,17 +1,21 @@
 import { Eye, Leaf, MapPin } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { EncabezadoPerfil } from "@/components/locatario/EncabezadoPerfil";
 import { Estrellas } from "@/components/market/Estrellas";
 import { FairTradeCard } from "@/components/fairtrade/FairTradeCard";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { precioJusto } from "@/lib/fairtrade";
+import { enIdioma } from "@/lib/idioma";
 import type { Productor } from "@/lib/schemas";
 
 /** M18 · Productor › Mi huerto: perfil público y su <FairTradeCard>. */
 export function MiHuertoView({ productor: p, plan }: { productor: Productor; plan: string }) {
   const t = useTranslations("productor.huerto");
+  const locale = useLocale();
+  const v = useVocabulario();
   const f = precioJusto(p);
   return (
     <div className="flex flex-col">
@@ -32,7 +36,7 @@ export function MiHuertoView({ productor: p, plan }: { productor: Productor; pla
           </p>
           <Estrellas rating={p.rating} total={p.num_resenas} />
           <ul className="flex flex-wrap gap-1.5">
-            {p.practicas.map((x) => (
+            {enIdioma(p, "practicas", locale).map((x) => (
               <li key={x} className="flex items-center gap-1 rounded-pill bg-nopal/10 px-2.5 py-0.5 text-[13px] font-semibold text-nopal-700">
                 <Leaf className="size-3.5" aria-hidden />
                 {x}
@@ -40,13 +44,13 @@ export function MiHuertoView({ productor: p, plan }: { productor: Productor; pla
             ))}
           </ul>
           <Button asChild variant="secondary" className="mt-1">
-            <Link href={`/huertos/${p.id}`}>
+            <Link href="/productor/huerto/publico">
               <Eye aria-hidden />
               {t("verPerfil")}
             </Link>
           </Button>
         </section>
-        <p className="text-[13px] text-tinta-2">{t("comision", { plan })}</p>
+        <p className="text-[13px] text-tinta-2">{t("comision", { plan: v("planes", plan) })}</p>
       </div>
     </div>
   );

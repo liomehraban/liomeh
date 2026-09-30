@@ -1,8 +1,10 @@
 "use client";
 
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { formatMXN } from "@/lib/money";
 
 /**
@@ -10,10 +12,13 @@ import { formatMXN } from "@/lib/money";
  * el día de hoy lleva etiqueta directa. Incluye tabla equivalente para lector de pantalla.
  */
 export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]; hoy: number }) {
+  const animar = !useReducedMotion();
   const t = useTranslations("locatario");
   const locale = useLocale();
+  const voc = useVocabulario();
   const $ = (n: number) => formatMXN(n, locale);
-  const conEtiqueta = datos.map((x, i) => ({ ...x, etiqueta: i === hoy ? `${t("hoy")} ${$(x.v)}` : "" }));
+  const dias = datos.map((x) => ({ ...x, d: voc("dias", x.d) }));
+  const conEtiqueta = dias.map((x, i) => ({ ...x, etiqueta: i === hoy ? `${t("hoy")} ${$(x.v)}` : "" }));
   return (
     <figure className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
       <figcaption className="flex flex-col">
@@ -22,15 +27,15 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
       </figcaption>
       <div className="h-48" aria-hidden>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart accessibilityLayer={false} data={conEtiqueta} margin={{ top: 22, right: 4, bottom: 0, left: 4 }} barCategoryGap="28%">
+          <BarChart accessibilityLayer={false} data={conEtiqueta} margin={{ top: 22, right: 24, bottom: 0, left: 4 }} barCategoryGap="28%">
             <XAxis dataKey="d" tickLine={false} axisLine={{ stroke: "#EADFE8" }} tick={{ fill: "#4A3848", fontSize: 12 }} />
             <YAxis hide />
             <Tooltip
-              cursor={{ fill: "#F6ECF5" }}
-              formatter={(v) => [$(Number(v)), t("kpis.ventas_mxn")]}
+              cursor={{ fill: "#F8E9F6" }}
+              formatter={(v) => [$(Number(v)), t("ventasDia")]}
               contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }}
             />
-            <Bar dataKey="v" fill="#93408F" radius={[4, 4, 0, 0]} isAnimationActive={false}>
+            <Bar dataKey="v" fill="#9B2694" radius={[4, 4, 0, 0]} isAnimationActive={animar} animationDuration={900} animationEasing="ease-out">
               <LabelList dataKey="etiqueta" position="top" fill="#2B1A2A" fontSize={11} fontWeight={700} />
             </Bar>
           </BarChart>
@@ -39,7 +44,7 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
       <table className="sr-only">
         <caption>{t("semana")}</caption>
         <tbody>
-          {datos.map((x, i) => (
+          {dias.map((x, i) => (
             <tr key={x.d}>
               <th scope="row">{i === hoy ? `${x.d} (${t("hoy")})` : x.d}</th>
               <td>{$(x.v)}</td>

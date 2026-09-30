@@ -21,7 +21,7 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
   const lista = todos ? orden : orden.slice(0, visibles);
   return (
     <>
-      <ul className="flex flex-col gap-2">
+      <ul data-revelar className="flex flex-col gap-2">
         {lista.map((p) => {
           const a = ahora ? actividadPuesto(p.id, ahora) : null;
           return (
@@ -44,7 +44,7 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
                 {p.num_resenas ? (
                   <Estrellas rating={p.rating} />
                 ) : (
-                  <span className="shrink-0 rounded-pill bg-dorado-200 px-2 py-0.5 text-[11px] font-bold text-morado-900">{tp("nuevo")}</span>
+                  <span className="shrink-0 rounded-pill bg-dorado-200 px-2 py-0.5 text-xs font-bold text-morado-900">{tp("nuevo")}</span>
                 )}
               </Link>
             </li>

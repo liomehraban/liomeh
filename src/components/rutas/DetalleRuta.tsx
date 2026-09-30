@@ -13,6 +13,7 @@ import { BotonVolver } from "@/components/market/ficha/BotonVolver";
 import { Link } from "@/i18n/navigation";
 import type { Parada } from "@/data/rutas";
 import { bbox } from "@/lib/geo";
+import { enIdioma } from "@/lib/idioma";
 import { formatMXN } from "@/lib/money";
 import { accesoRutaPremium } from "@/lib/planes";
 import { paradasHechas } from "@/lib/rutas";
@@ -24,6 +25,7 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }) {
   const t = useTranslations("rutas");
   const locale = useLocale();
+  const titulo = enIdioma(ruta, "titulo", locale);
   const hydrated = useHydrated();
   const plan = useAppStore((s) => s.plan);
   const inicio = useAppStore((s) => s.rutasIniciadas?.[ruta.id]);
@@ -53,10 +55,10 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
         <MapView
           center={centro}
           zoom={12}
-          layers={[{ tipo: "ruta", id: "ruta", puntos: paradas.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#93408F", etiqueta: p.nombre })), hechas: [...hechas] }]}
+          layers={[{ tipo: "ruta", id: "ruta", puntos: paradas.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#9B2694", etiqueta: p.nombre })), hechas: [...hechas] }]}
           encuadre={caja ? { bbox: caja, key: 1 } : null}
           paddingInferior={0}
-          ariaLabel={t("mapa", { titulo: ruta.titulo })}
+          ariaLabel={t("mapa", { titulo })}
         />
         <BotonVolver fallback="/agenda?tab=rutas" className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3 z-10" />
       </div>
@@ -71,7 +73,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
           ) : (
             <span className="w-fit rounded-pill bg-nopal-700 px-2.5 py-0.5 text-[13px] font-bold text-white">{t("gratis")}</span>
           )}
-          <h1 className="font-display text-4xl text-morado-700">{ruta.titulo}</h1>
+          <h1 className="font-display text-4xl text-morado-700">{titulo}</h1>
           <p className="flex flex-wrap gap-x-4 text-sm text-tinta-2">
             <span className="flex items-center gap-1">
               <Clock className="size-4" aria-hidden />
@@ -83,7 +85,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
             </span>
             <span>{t("paradas", { n: ruta.paradas.length })}</span>
           </p>
-          {ruta.incluye && <p className="text-sm">{t("incluye", { incluye: ruta.incluye })}</p>}
+          {ruta.incluye && <p className="text-sm">{t("incluye", { incluye: enIdioma(ruta, "incluye", locale) ?? ruta.incluye })}</p>}
         </div>
 
         {hydrated && inicio ? (
@@ -103,7 +105,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
           </Button>
         )}
 
-        <ol className="flex flex-col gap-2">
+        <ol data-revelar className="flex flex-col gap-2">
           {paradas.map((p, i) => {
             const ok = hechas.has(p.id);
             return (
@@ -123,7 +125,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
         </ol>
 
         <DialogoReserva
-          titulo={t("guiadaTitulo", { titulo: ruta.titulo })}
+          titulo={t("guiadaTitulo", { titulo })}
           precioPorPersona={ruta.precio_guiada}
           onConfirmar={(r) => {
             const res = reservarTour({ rutaId: ruta.id, ...r });

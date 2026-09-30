@@ -51,7 +51,7 @@ export function BarraPresentacion({
         <div className="flex min-w-0 flex-1 flex-col px-1" aria-live="polite">
           {actual ? (
             <>
-              <span className="truncate text-[11px] font-bold tracking-wide text-dorado uppercase">
+              <span className="truncate text-xs font-bold tracking-wide text-dorado uppercase">
                 {t("pasoDe", { n: paso + 1, total: PASOS.length })} · {t(`perfiles.${persona(actual)}`)}
               </span>
               <span className="line-clamp-2 text-[13px] leading-tight font-semibold">

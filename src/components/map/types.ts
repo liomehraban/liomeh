@@ -49,6 +49,8 @@ export type MapViewProps = {
   zoom: number;
   layers: CapaMapa[];
   onSelect?: (id: string, capa: string) => void;
+  /** Toque en una zona del mapa sin pines ni zonas (p. ej. para cerrar la ficha abierta). */
+  onVacio?: () => void;
   seleccionado?: string | null;
   ubicacion?: LatLng | null;
   enfoque?: Enfoque | null;

@@ -9,6 +9,7 @@ import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { BotonCompartir } from "@/components/market/ficha/BotonCompartir";
 import { BotonVolver } from "@/components/market/ficha/BotonVolver";
 import { Seccion } from "@/components/market/ficha/Seccion";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { categoriaGiro } from "@/lib/giros";
 import type { Productor, Puesto, Resena } from "@/lib/schemas";
 import { FairTradeCard } from "@/components/fairtrade/FairTradeCard";
@@ -31,6 +32,7 @@ export type FichaPuestoProps = {
 /** M4 · Puesto. */
 export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresPuestos, vendedor }: FichaPuestoProps) {
   const t = useTranslations();
+  const v = useVocabulario();
   const productorDe = (id: string | null) => (id ? productores.find((x) => x.id === id) : undefined);
   // Puestos del catálogo simulado: «Pasillo A · Local A-087» se muestra en el idioma de la app.
   const partes = /^Pasillo (\S+) · Local (\S+)$/.exec(p.ubicacion_texto);
@@ -47,12 +49,12 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
 
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold text-morado">{p.giro}</p>
+          <p className="text-sm font-semibold text-morado">{v("girosPuesto", p.giro)}</p>
           <h1 className="flex items-start gap-2 font-display text-5xl text-morado-700">
             {p.nombre}
             {p.real_segun_guia && <BadgeCheck className="mt-1 size-6 shrink-0 text-dorado" aria-label={t("mercado.realGuia")} />}
           </h1>
-          <Link href={`/mercado/${mercado.id}`} className="w-fit text-sm font-semibold text-morado underline-offset-4 hover:underline">
+          <Link href={`/mercado/${mercado.id}`} className="inline-flex min-h-11 w-fit items-center text-sm font-semibold text-morado underline-offset-4 hover:underline">
             {t("puesto.enMercado", { mercado: mercado.nombre })}
           </Link>
           <p className="flex items-center gap-1.5 text-sm text-tinta-2">
@@ -71,7 +73,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
             {p.sello_comercio_justo && <SelloComercioJusto />}
             <SoloQA>
               <span className="rounded-pill border border-dashed border-gris px-2.5 py-0.5 text-xs font-semibold text-tinta-2">
-                {t("puesto.plan", { plan: p.plan })}
+                {t("puesto.plan", { plan: v("planes", p.plan) })}
               </span>
               {p.simulado && (
                 <span className="rounded-pill border border-dashed border-gris px-2.5 py-0.5 text-xs font-semibold text-tinta-2">{t("puesto.simulado")}</span>
@@ -95,7 +97,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
             </dt>
             {p.acepta.map((a) => (
               <dd key={a} className="rounded-pill bg-morado-50 px-2.5 py-0.5 text-[13px] font-semibold text-morado-700">
-                {a}
+                {v("pagos", a)}
               </dd>
             ))}
           </div>

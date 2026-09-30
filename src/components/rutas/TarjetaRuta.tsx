@@ -1,13 +1,15 @@
 import { Clock, Lock, Route } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import type { Parada } from "@/data/rutas";
+import { enIdioma } from "@/lib/idioma";
 import type { Ruta } from "@/lib/schemas";
 import { MiniMapaRuta } from "./MiniMapaRuta";
 
 export function TarjetaRuta({ r, paradas }: { r: Ruta; paradas: Record<string, Parada> }) {
   const t = useTranslations("rutas");
+  const locale = useLocale();
   const pts = r.paradas.map((id) => paradas[id]).filter(Boolean);
   return (
     <Link
@@ -18,15 +20,15 @@ export function TarjetaRuta({ r, paradas }: { r: Ruta; paradas: Record<string, P
       <div className="flex min-w-0 flex-col gap-1">
         <div className="flex items-center gap-2">
           {r.tipo === "premium" ? (
-            <span className="flex items-center gap-1 rounded-pill bg-dorado px-2 py-0.5 text-[11px] font-bold text-morado-900">
+            <span className="flex items-center gap-1 rounded-pill bg-dorado px-2 py-0.5 text-xs font-bold text-morado-900">
               <Lock className="size-3" aria-hidden />
               {t("premium")}
             </span>
           ) : (
-            <span className="rounded-pill bg-nopal-700 px-2 py-0.5 text-[11px] font-bold text-white">{t("gratis")}</span>
+            <span className="rounded-pill bg-nopal-700 px-2 py-0.5 text-xs font-bold text-white">{t("gratis")}</span>
           )}
         </div>
-        <h3 className="leading-snug font-bold text-morado-700">{r.titulo}</h3>
+        <h3 className="leading-snug font-bold text-morado-700">{enIdioma(r, "titulo", locale)}</h3>
         <p className="flex flex-wrap items-center gap-x-2 text-[13px] text-tinta-2">
           <span className="flex items-center gap-1">
             <Clock className="size-3.5" aria-hidden />

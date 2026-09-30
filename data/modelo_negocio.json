@@ -13,9 +13,21 @@
      "Calendario cultural",
      "Reseñas",
      "Pasaporte de Mercados (lealtad)",
-     "Asistente AI 24/7 (20 preguntas al día)",
+     "Asistente IA 24/7 (20 preguntas al día)",
      "Pago con QR y tarjeta",
      "Recoger en el puesto"
+    ],
+    "incluye_en": [
+     "340+ markets on the map",
+     "Market profiles, hours and directions",
+     "Indoor map with step-by-step directions",
+     "Farm map",
+     "Cultural calendar",
+     "Reviews",
+     "Market Passport (loyalty)",
+     "24/7 AI assistant (20 questions a day)",
+     "Pay by QR or card",
+     "Pick up at the stall"
     ]
    },
    {
@@ -27,9 +39,18 @@
      "Rutas premium con audioguía ES/EN",
      "Traductor en vivo con el locatario",
      "Mapas sin conexión",
-     "Asistente AI ilimitado",
+     "Asistente IA ilimitado",
      "10% en puestos adheridos",
      "Prioridad en tours"
+    ],
+    "incluye_en": [
+     "Everything in Free",
+     "Premium routes with ES/EN audio guide",
+     "Live translation with stallholders",
+     "Offline maps",
+     "Unlimited AI assistant",
+     "10% off at participating stalls",
+     "Priority booking for tours"
     ]
    },
    {
@@ -39,8 +60,14 @@
     "incluye": [
      "Sin tarifa de servicio en pedidos",
      "Puntos dobles",
-     "Asistente AI ilimitado",
+     "Asistente IA ilimitado",
      "Alertas de precio y temporada"
+    ],
+    "incluye_en": [
+     "No service fee on orders",
+     "Double points",
+     "Unlimited AI assistant",
+     "Price and season alerts"
     ]
    }
   ],
@@ -55,6 +82,14 @@
      "Pedidos para recoger",
      "Reseñas y lealtad",
      "Panel básico de ventas"
+    ],
+    "incluye_en": [
+     "Stall profile on the city and indoor maps",
+     "Catalog of up to 20 products",
+     "Fee-free CoDi/SPEI QR payments",
+     "Pickup orders",
+     "Reviews and loyalty",
+     "Basic sales dashboard"
     ]
    },
    {
@@ -67,6 +102,13 @@
      "Promociones y cupones",
      "Analítica de clientes y horarios",
      "Aparecer en rutas turísticas"
+    ],
+    "incluye_en": [
+     "Unlimited catalog",
+     "Third-party delivery",
+     "Promotions and coupons",
+     "Customer and peak-hour analytics",
+     "Listing on tourist routes"
     ]
    },
    {
@@ -79,6 +121,13 @@
      "Multiusuario (empleados)",
      "Reporte de historial de ventas para crédito",
      "Traducción automática del catálogo"
+    ],
+    "incluye_en": [
+     "Everything in Pro",
+     "Featured on the map and in search",
+     "Multi-user (staff accounts)",
+     "Sales history report for credit applications",
+     "Automatic catalog translation"
     ]
    }
   ],
@@ -91,7 +140,13 @@
      "Venta de mayoreo a locatarios y restaurantes",
      "Visitas al huerto"
     ],
-    "comision": "3% en ventas de mayoreo pagadas en la app"
+    "incluye_en": [
+     "Farm profile and harvest lots",
+     "Wholesale to stallholders and restaurants",
+     "Farm visits"
+    ],
+    "comision": "3% en ventas de mayoreo pagadas en la app",
+    "comision_en": "3% on wholesale sales paid in the app"
    }
   ]
  },

@@ -2,14 +2,16 @@
 
 import { useMemo, useState } from "react";
 import { CalendarCheck, Leaf, Sprout } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { MapView, type CapaMapa, type Enfoque } from "@/components/map/MapView";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { Switch } from "@/components/ui/switch";
 import { Plegable } from "@/components/explorar/Plegable";
 import { useAhora } from "@/hooks/useAhora";
 import { HEX_GIRO, type CategoriaGiro } from "@/lib/giros";
+import { enIdioma } from "@/lib/idioma";
 import { anilloGeoJSON, CULTIVOS, filtrarProductores, mesCDMX, type Cultivo } from "@/lib/huertos";
 import type { Productor, ZonaHuerto } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -27,6 +29,7 @@ const chip =
 /** M6 · Mapa de huertos. */
 export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuerto[]; productores: Productor[]; mercados: MercadoPunto[] }) {
   const t = useTranslations("huertos");
+  const locale = useLocale();
   const tp = useTranslations("paginas");
   const ahora = useAhora();
   const [cultivos, setCultivos] = useState<Cultivo[]>([]);
@@ -41,7 +44,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
 
   const layers = useMemo<CapaMapa[]>(() => {
     const capas: CapaMapa[] = [
-      { tipo: "zonas", id: "zonas", color: "#3C8D2F", zonas: zonas.map((z) => ({ id: z.id, nombre: z.nombre, anillo: anilloGeoJSON(z.poligono_ilustrativo) })) },
+      { tipo: "zonas", id: "zonas", color: "#3C8D2F", zonas: zonas.map((z) => ({ id: z.id, nombre: enIdioma(z, "nombre", locale), anillo: anilloGeoJSON(z.poligono_ilustrativo) })) },
     ];
     if (conMercados) {
       capas.push({
@@ -55,7 +58,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
     }
     capas.push({ tipo: "puntos", id: "productores", estilo: "productor", puntos: visibles.map((p) => ({ id: p.id, lat: p.lat, lng: p.lng, color: "#FEFAEB", etiqueta: p.nombre })) });
     return capas;
-  }, [zonas, visibles, conMercados, mercados]);
+  }, [zonas, visibles, conMercados, mercados, locale]);
 
   const onSelect = (id: string, capa: string) => {
     if (capa === "zonas") {
@@ -73,7 +76,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
   const prod = sel?.tipo === "productor" ? productores.find((p) => p.id === sel.id) : undefined;
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div data-pantalla-completa className="relative h-full overflow-hidden">
       <h1 className="sr-only">{tp("huertos")}</h1>
       <MapView
         center={CENTRO}
@@ -81,12 +84,13 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
         layers={layers}
         seleccionado={sel?.id ?? null}
         onSelect={onSelect}
+        onVacio={() => setSel(null)}
         enfoque={enfoque}
         paddingInferior={240}
         ariaLabel={t("mapa")}
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 bg-gradient-to-b from-crema/95 via-crema/70 to-transparent px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
         <div className="mr-28 flex items-start gap-2 rounded-card bg-nopal-700 p-3 text-white shadow-md">
           <Leaf className="mt-0.5 size-5 shrink-0" aria-hidden />
           <p className="text-[13px] leading-snug font-semibold">{t("banner")}</p>
@@ -117,10 +121,10 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
           })}
         </div>
         <div className="flex items-center gap-3">
-          <p className="rounded-pill bg-crema/90 px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
-            {t("conteo", { n: visibles.length })}
+          <p className="rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
+            <NumeroAnimado valor={visibles.length} formato={(n) => t("conteo", { n })} desde={visibles.length} />
           </p>
-          <label className="ml-auto flex items-center gap-2 rounded-pill bg-crema/90 py-1 pr-1 pl-3 text-[13px] font-semibold shadow-sm">
+          <label className="ml-auto flex items-center gap-2 rounded-pill bg-white py-1 pr-1 pl-3 text-[13px] font-semibold shadow-sm">
             {t("mostrarMercados")}
             <Switch checked={conMercados} onCheckedChange={setConMercados} />
           </label>
@@ -128,7 +132,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
       </div>
 
       {!sel && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-crema/95 pb-2 shadow-[0_-8px_24px_rgba(62,28,60,0.12)] backdrop-blur">
+        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-[calc(var(--asoma,0px)+0.5rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
           <Plegable
             titulo={t("productores")}
             icono={<Sprout className="size-5 text-nopal-700" aria-hidden />}
@@ -150,7 +154,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
       <BottomSheet
         abierto={!!sel}
         onCerrar={() => setSel(null)}
-        etiqueta={zona?.nombre ?? prod?.nombre ?? ""}
+        etiqueta={(zona && enIdioma(zona, "nombre", locale)) ?? prod?.nombre ?? ""}
         etiquetaCerrar={t("cerrar")}
         etiquetaExpandir={t("expandir")}
         alturas={{ peek: 300, mitad: 0.55, completa: 0.9 }}

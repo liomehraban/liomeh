@@ -156,7 +156,7 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
                   <motion.polyline
                     key={ruta.id}
                     points={str(pts)}
-                    stroke="#93408F"
+                    stroke="#9B2694"
                     strokeWidth={8}
                     initial={{ pathLength: reducir ? 1 : 0 }}
                     animate={{ pathLength: 1 }}
@@ -221,7 +221,7 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
         </TransformWrapper>
       )}
 
-      <p className="pointer-events-none absolute top-2 left-2 rounded-pill bg-crema/90 px-3 py-1 text-xs font-semibold text-tinta-2 shadow-sm">
+      <p className="pointer-events-none absolute top-2 left-2 rounded-pill bg-white px-3 py-1 text-xs font-semibold text-tinta-2 shadow-sm">
         {t("esquematico")}
       </p>
       <div className="absolute top-2 right-2 flex flex-col gap-2">
