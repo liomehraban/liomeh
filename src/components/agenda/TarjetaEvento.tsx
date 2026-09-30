@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, BellRing, CalendarDays, MapPin, Navigation } from "lucide-react";
+import { Bell, BellRing, CalendarDays, ChevronRight, MapPin, Navigation } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -46,12 +46,25 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
           {formatRangoFechas(e.inicio, e.fin, locale)}
         </p>
       )}
-      <p className="flex items-center gap-1.5 text-sm text-tinta-2">
-        <MapPin className="size-4 shrink-0" aria-hidden />
-        {e.lugar}
-      </p>
+      {/* Con mercado en la app, el lugar es el enlace a su ficha (como en una app nativa): así las acciones caben en una fila. */}
+      {e.mercado_id && mercadoExiste ? (
+        <Link
+          href={`/mercado/${e.mercado_id}`}
+          aria-label={`${t("verMercado")}: ${e.lugar}`}
+          className="-mx-1 flex min-h-11 items-center gap-1.5 rounded-xl px-1 text-sm font-semibold text-morado hover:bg-morado-50"
+        >
+          <MapPin className="size-4 shrink-0" aria-hidden />
+          <span className="min-w-0 flex-1">{e.lugar}</span>
+          <ChevronRight className="size-4 shrink-0" aria-hidden />
+        </Link>
+      ) : (
+        <p className="flex items-center gap-1.5 text-sm text-tinta-2">
+          <MapPin className="size-4 shrink-0" aria-hidden />
+          {e.lugar}
+        </p>
+      )}
       <p className="text-sm text-tinta-2">{enIdioma(e, "descripcion", locale)}</p>
-      <div className="flex flex-wrap gap-2 pt-1">
+      <div className="grid grid-cols-2 gap-2 pt-1">
         <button
           type="button"
           aria-pressed={hydrated && activo}
@@ -60,20 +73,15 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
             if (on) toast.success(t("recordatorioCreado", { titulo }));
             else toast(t("recordatorioQuitado"));
           }}
-          className={cn(accion, hydrated && activo ? "border-dorado bg-dorado text-morado-900" : "border-morado text-morado")}
+          className={cn(accion, "justify-center", hydrated && activo ? "border-dorado bg-dorado text-morado-900" : "border-morado text-morado")}
         >
           {hydrated && activo ? <BellRing className="size-4" aria-hidden /> : <Bell className="size-4" aria-hidden />}
           {hydrated && activo ? t("recordando") : t("recordarme")}
         </button>
-        <a href={comoLlegarUrl(e)} target="_blank" rel="noopener noreferrer" className={cn(accion, "border-border")}>
+        <a href={comoLlegarUrl(e)} target="_blank" rel="noopener noreferrer" className={cn(accion, "justify-center border-border")}>
           <Navigation className="size-4" aria-hidden />
           {t("comoLlegar")}
         </a>
-        {e.mercado_id && mercadoExiste && (
-          <Link href={`/mercado/${e.mercado_id}`} className={cn(accion, "border-border")}>
-            {t("verMercado")}
-          </Link>
-        )}
       </div>
     </article>
   );

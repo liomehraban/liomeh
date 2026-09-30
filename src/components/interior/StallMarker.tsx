@@ -18,12 +18,15 @@ export function StallMarker({
   seleccionado,
   atenuado,
   etiqueta,
+  radioToque = 16,
   onSelect,
 }: {
   puesto: Puesto;
   seleccionado: boolean;
   atenuado: boolean;
   etiqueta: string;
+  /** Radio del área táctil en unidades del plano (crece al alejarse para medir siempre ~44 px en pantalla). */
+  radioToque?: number;
   onSelect: (id: string) => void;
 }) {
   const color = HEX_GIRO[categoriaGiro(puesto.giro)];
@@ -50,7 +53,7 @@ export function StallMarker({
       opacity={atenuado ? 0.25 : 1}
     >
       {/* área táctil generosa */}
-      <circle cx={x} cy={y} r={16} fill="transparent" />
+      <circle cx={x} cy={y} r={radioToque} fill="transparent" />
       <circle className="foco opacity-0" cx={x} cy={y} r={15} fill="none" stroke="#9B2694" strokeWidth={3} />
       {seleccionado && <circle cx={x} cy={y} r={14} fill="none" stroke="#3E1C3C" strokeWidth={2.5} />}
       {puesto.real_segun_guia ? (

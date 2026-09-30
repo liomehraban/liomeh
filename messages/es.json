@@ -146,7 +146,10 @@
     "atribucion": "© OpenStreetMap · © CARTO",
     "titulo": "Mapa",
     "marcador": "Marcador del mapa",
-    "creditos": "Mostrar u ocultar los créditos del mapa"
+    "creditos": "Mostrar u ocultar los créditos del mapa",
+    "gestoWindows": "Usa Ctrl + rueda para acercar el mapa",
+    "gestoMac": "Usa ⌘ + rueda para acercar el mapa",
+    "gestoMovil": "Usa dos dedos para mover el mapa"
   },
   "explorar": {
     "buscar": "Busca mercado, platillo o producto",
@@ -290,7 +293,8 @@
     "parada": "Parada",
     "proximamente": "Mapa interior próximamente",
     "proximamenteTexto": "Por ahora solo La Merced tiene plano interior. Pronto sumaremos más mercados.",
-    "irFicha": "Volver a la ficha"
+    "irFicha": "Volver a la ficha",
+    "leyendaPuesto": "Puesto (el color es el giro)"
   },
   "puesto": {
     "enMercado": "en {mercado}",

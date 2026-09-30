@@ -75,6 +75,24 @@ export function BottomSheet({
   }, [destino, contenedor, abierto]);
 
 
+  // Accesibilidad: al abrir, el foco pasa a la hoja; Escape la cierra; al cerrar, el foco vuelve a donde estaba.
+  const cerrarRef = useRef(onCerrar);
+  useEffect(() => {
+    cerrarRef.current = onCerrar;
+  });
+  useEffect(() => {
+    if (!abierto) return;
+    const previo = document.activeElement as HTMLElement | null;
+    const id = requestAnimationFrame(() => ref.current?.focus({ preventScroll: true }));
+    const alTeclear = (e: KeyboardEvent) => e.key === "Escape" && cerrarRef.current();
+    document.addEventListener("keydown", alTeclear);
+    return () => {
+      cancelAnimationFrame(id);
+      document.removeEventListener("keydown", alTeclear);
+      if (previo?.isConnected && previo !== document.body) previo.focus({ preventScroll: true });
+    };
+  }, [abierto]);
+
   const onDragEnd = (_: unknown, info: PanInfo) => {
     const visible = alto - y.get() - info.velocity.y * 0.15;
     if (visible < px("peek") * 0.6) return onCerrar();
@@ -94,11 +112,12 @@ export function BottomSheet({
       aria-hidden={!abierto}
       data-hoja-abierta={abierto || undefined}
       inert={!abierto}
+      tabIndex={-1}
       style={{ y, height: alto || undefined }}
       drag="y"
       dragListener={false}
       className={cn(
-        "absolute inset-x-0 bottom-0 z-30 flex flex-col rounded-t-card border-t border-border bg-crema shadow-[0_-8px_30px_rgba(62,28,60,0.18)]",
+        "absolute inset-x-0 bottom-0 z-30 flex flex-col rounded-t-card outline-none border-t border-border bg-crema shadow-[0_-8px_30px_rgba(62,28,60,0.18)]",
         !contenedor && "invisible",
         className,
       )}
@@ -123,7 +142,7 @@ export function BottomSheet({
         aria-label={etiquetaCerrar}
         className="absolute top-2 right-3 grid size-11 place-items-center rounded-pill text-tinta-2 hover:bg-morado-50 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
       >
-        <XIcon className="size-5" />
+        <XIcon className="size-5" aria-hidden />
       </button>
       <div className={cn("min-h-0 flex-1 px-5 pb-[calc(var(--asoma,0px)+1.5rem)]", altura === "completa" ? "overflow-y-auto" : "overflow-hidden")}>{children}</div>
     </motion.section>

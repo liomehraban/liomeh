@@ -146,7 +146,10 @@
     "atribucion": "© OpenStreetMap · © CARTO",
     "titulo": "Map",
     "marcador": "Map marker",
-    "creditos": "Show or hide map credits"
+    "creditos": "Show or hide map credits",
+    "gestoWindows": "Use Ctrl + scroll to zoom the map",
+    "gestoMac": "Use ⌘ + scroll to zoom the map",
+    "gestoMovil": "Use two fingers to move the map"
   },
   "explorar": {
     "buscar": "Search a market, dish or product",
@@ -290,7 +293,8 @@
     "parada": "Stop",
     "proximamente": "Indoor map coming soon",
     "proximamenteTexto": "For now only La Merced has an indoor map. More markets are on the way.",
-    "irFicha": "Back to the market"
+    "irFicha": "Back to the market",
+    "leyendaPuesto": "Stall (color shows the trade)"
   },
   "puesto": {
     "enMercado": "at {mercado}",

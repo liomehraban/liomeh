@@ -23,6 +23,7 @@ export default function MapLibreView({
   layers,
   onSelect,
   onVacio,
+  cooperativo = false,
   seleccionado,
   ubicacion,
   enfoque,
@@ -108,7 +109,15 @@ export default function MapLibreView({
           onMouseLeave={() => setCursor("")}
           cursor={cursor}
           attributionControl={false}
-          locale={{ "Map.Title": t("titulo"), "Marker.Title": t("marcador"), "AttributionControl.ToggleAttribution": t("creditos") }}
+          locale={{
+            "Map.Title": t("titulo"),
+            "Marker.Title": t("marcador"),
+            "AttributionControl.ToggleAttribution": t("creditos"),
+            "CooperativeGesturesHandler.WindowsHelpText": t("gestoWindows"),
+            "CooperativeGesturesHandler.MacHelpText": t("gestoMac"),
+            "CooperativeGesturesHandler.MobileHelpText": t("gestoMovil"),
+          }}
+          cooperativeGestures={cooperativo}
           dragRotate={false}
           touchPitch={false}
           maxZoom={18}

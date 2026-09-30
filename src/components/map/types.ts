@@ -51,6 +51,8 @@ export type MapViewProps = {
   onSelect?: (id: string, capa: string) => void;
   /** Toque en una zona del mapa sin pines ni zonas (p. ej. para cerrar la ficha abierta). */
   onVacio?: () => void;
+  /** Gestos cooperativos: un dedo (o la rueda) desplaza la página; dos dedos (o Ctrl/⌘ + rueda) mueven el mapa. */
+  cooperativo?: boolean;
   seleccionado?: string | null;
   ubicacion?: LatLng | null;
   enfoque?: Enfoque | null;

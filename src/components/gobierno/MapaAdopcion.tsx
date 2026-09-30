@@ -35,7 +35,7 @@ export function MapaAdopcion({ mercados, porAlcaldia }: { mercados: MercadoPunto
         <span className="text-[12px] text-tinta-2">{t("texto")}</span>
       </figcaption>
       <div className="h-72 overflow-hidden rounded-2xl lg:h-auto lg:min-h-96 lg:flex-1">
-        <MapView center={{ lat: 19.36, lng: -99.13 }} zoom={9.6} layers={capas} ariaLabel={t("aria")} className="size-full" />
+        <MapView center={{ lat: 19.36, lng: -99.13 }} zoom={9.6} layers={capas} ariaLabel={t("aria")} className="size-full" cooperativo />
       </div>
       <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[12px] text-tinta-2">
         {RAMPA_ADOPCION.map((c, i) => (
