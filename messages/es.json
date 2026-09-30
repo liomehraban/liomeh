@@ -72,8 +72,6 @@
       "productor": "Vende tu cosecha al mayoreo, a precio justo",
       "gobierno": "Mide el impacto por secretaría"
     },
-    "creditos": "Una iniciativa de SECTUR · SEDEMA · Secretaría de Economía · Gobierno de la CDMX",
-    "logoPlaceholder": "Logo {institucion}",
     "paso": "Paso {actual} de {total}"
   },
   "paginas": {
@@ -962,5 +960,12 @@
     "pedidos": "Mis pedidos",
     "reintentar": "Reintentar",
     "resumen": "{sellos, plural, one {# sello} other {# sellos}} · {puntos} puntos · {pedidos, plural, one {# pedido} other {# pedidos}}"
+  },
+  "instituciones": {
+    "titulo": "Una iniciativa de",
+    "turismo": "Secretaría de Turismo",
+    "medioAmbiente": "Secretaría de Medio Ambiente y Recursos Naturales",
+    "economia": "Secretaría de Economía",
+    "cdmx": "Gobierno de la Ciudad de México · Secretaría de Gobierno"
   }
 }

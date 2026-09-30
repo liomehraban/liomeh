@@ -5,6 +5,8 @@ import { Download, Info } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { type Institucion, LogoInstitucion } from "@/components/shell/LogoInstitucion";
+import { LogosInstitucionales } from "@/components/shell/LogosInstitucionales";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { alcaldiasPorVentas, csvMetricas, toneladasRescatadas } from "@/lib/gobierno";
@@ -20,6 +22,7 @@ import { etiquetaMes } from "./mes";
 const SECRETARIAS = ["sectur", "sedema", "se"] as const;
 type Secretaria = (typeof SECRETARIAS)[number];
 const ETIQUETA: Record<Secretaria, string> = { sectur: "SECTUR", sedema: "SEDEMA", se: "SE" };
+const LOGO: Record<Secretaria, Institucion> = { sectur: "turismo", sedema: "medioAmbiente", se: "economia" };
 
 /** Pestaña inicial desde el hash (#sedema), para el modo presentación. */
 const subHash = (cb: () => void) => {
@@ -93,6 +96,10 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
         </div>
       </header>
 
+      <div className="border-b border-border bg-papel px-5 py-4 lg:px-10">
+        <LogosInstitucionales className="mx-auto max-w-6xl" />
+      </div>
+
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 p-5 lg:px-10">
         <p className="flex items-center gap-2 rounded-2xl bg-dorado-200 px-4 py-2 text-[13px] font-semibold text-morado-900" role="note">
           <Info className="size-4 shrink-0" aria-hidden />
@@ -161,6 +168,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
           </TabsList>
 
           <TabsContent value="sectur" className="flex flex-col gap-5">
+            <LogoInstitucion id={LOGO.sectur} className="h-11 self-start lg:h-14" />
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
               <KpiTile etiqueta={t("kpis.turistas_mes")} valor={compacto(k.turistas_mes)} detalle={nf(k.turistas_mes)} />
               <KpiTile etiqueta={t("kpis.extranjeros")} valor={t("pct", { n: nf(pctExtranjeros, 1) })} detalle={t("kpis.extranjerosTexto", { n: nf(ultimoMes.turistas_extranjeros), total: nf(ultimoMes.usuarios_activos) })} />
@@ -173,6 +181,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
           </TabsContent>
 
           <TabsContent value="sedema" className="flex flex-col gap-5">
+            <LogoInstitucion id={LOGO.sedema} className="h-11 self-start lg:h-14" />
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
               <KpiTile etiqueta={t("kpis.co2_evitado_mes_ton")} valor={t("ton", { n: nf(k.co2_evitado_mes_ton) })} />
               <KpiTile
@@ -198,6 +207,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
           </TabsContent>
 
           <TabsContent value="se" className="flex flex-col gap-5">
+            <LogoInstitucion id={LOGO.se} className="h-11 self-start lg:h-14" />
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
               <KpiTile etiqueta={t("kpis.derrama_digital_mes_mxn")} valor={mxnCompacto(k.derrama_digital_mes_mxn)} detalle={formatMXN(k.derrama_digital_mes_mxn, locale)} />
               <KpiTile etiqueta={t("kpis.locatarios_activos")} valor={nf(k.locatarios_activos)} />

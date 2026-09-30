@@ -4,10 +4,9 @@ import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 
+import { LogosInstitucionales } from "@/components/shell/LogosInstitucionales";
 import { ICONO_PERFIL, PERFILES } from "@/components/shell/perfiles";
 import type { Perfil } from "@/store/useAppStore";
-
-const INSTITUCIONES = ["SECTUR", "SEDEMA", "SE", "CDMX"];
 
 export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) {
   const t = useTranslations();
@@ -49,18 +48,7 @@ export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) 
       </ul>
 
       <footer className="mt-auto flex flex-col gap-3 border-t border-border bg-papel px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <p className="text-center text-[13px] text-tinta-2">{t("entrada.creditos")}</p>
-        <ul className="flex justify-center gap-2">
-          {INSTITUCIONES.map((inst) => (
-            <li
-              key={inst}
-              aria-label={t("entrada.logoPlaceholder", { institucion: inst })}
-              className="grid h-10 min-w-16 place-items-center rounded-xl border border-dashed border-gris/60 px-2 text-xs font-bold text-tinta-2"
-            >
-              {inst}
-            </li>
-          ))}
-        </ul>
+        <LogosInstitucionales />
       </footer>
     </div>
   );
