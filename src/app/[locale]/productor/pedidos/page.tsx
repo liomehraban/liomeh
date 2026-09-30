@@ -1,3 +1,10 @@
-import { placeholderPage } from "@/components/shell/placeholderPage";
+import { setRequestLocale } from "next-intl/server";
 
-export default placeholderPage("productorPedidos", "7", "mayoreo");
+import type { Locale } from "@/i18n/routing";
+import { PedidosMayoreoView } from "@/components/productor/PedidosMayoreoView";
+
+export default async function PedidosMayoreoPage({ params }: PageProps<"/[locale]/productor/pedidos">) {
+  const { locale } = await params;
+  setRequestLocale(locale as Locale);
+  return <PedidosMayoreoView />;
+}

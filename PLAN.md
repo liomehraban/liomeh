@@ -41,8 +41,8 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] Tests de `intents.ts` (8 intenciones × ES/EN)
 
 ## Fase 7 · Vender y cosechar `/fase-7`
-- [ ] **M13–M16** Locatario
-- [ ] **M17–M18** Productor
+- [x] **M13–M16** Locatario
+- [x] **M17–M18** Productor
 
 ## Fase 8 · Pitch y salida `/fase-8`
 - [ ] **M19** Panel de gobierno
