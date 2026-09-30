@@ -243,7 +243,10 @@
       "anios": "años",
       "restaurantes": "restaurantes",
       "pct_consumo_nacional": "% del consumo nacional"
-    }
+    },
+    "productos": "{n, plural, one {# producto} other {# productos}}",
+    "pedidosHoy": "{n, plural, one {# pedido hoy} other {# pedidos hoy}}",
+    "verMasPuestos": "Ver los {n} puestos"
   },
   "giros": {
     "comida": "Comida",
@@ -313,7 +316,19 @@
     "otroPedidoNo": "Mejor no",
     "resenas": "Reseñas",
     "sinResenas": "Aún no hay reseñas de este puesto.",
-    "noEncontrado": "No encontramos ese puesto"
+    "noEncontrado": "No encontramos ese puesto",
+    "actividad": "{n} pedidos hoy · el último hace {min} min",
+    "actividadVacia": "Recién abierto: sé el primero en pedir hoy",
+    "horarioMercado": "Según el horario del mercado",
+    "comoLlegar": "Cómo llegar a {mercado}",
+    "simulado": "Catálogo simulado",
+    "stock": {
+      "surtido": "Recién surtido · {n} {u} disponibles",
+      "ok": "{n} {u} disponibles",
+      "pocas": "¡Quedan {n} {u}!",
+      "agotado": "Agotado por hoy",
+      "agotadoBoton": "Agotado"
+    }
   },
   "carrito": {
     "titulo": "Tu carrito",

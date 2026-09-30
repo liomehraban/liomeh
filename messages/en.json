@@ -243,7 +243,10 @@
       "anios": "years",
       "restaurantes": "restaurants",
       "pct_consumo_nacional": "% of national consumption"
-    }
+    },
+    "productos": "{n, plural, one {# product} other {# products}}",
+    "pedidosHoy": "{n, plural, one {# order today} other {# orders today}}",
+    "verMasPuestos": "See all {n} stalls"
   },
   "giros": {
     "comida": "Food",
@@ -313,7 +316,19 @@
     "otroPedidoNo": "Not now",
     "resenas": "Reviews",
     "sinResenas": "No reviews for this stall yet.",
-    "noEncontrado": "We couldn't find that stall"
+    "noEncontrado": "We couldn't find that stall",
+    "actividad": "{n} orders today · last one {min} min ago",
+    "actividadVacia": "Just opened: be the first to order today",
+    "horarioMercado": "Same hours as the market",
+    "comoLlegar": "Directions to {mercado}",
+    "simulado": "Simulated catalog",
+    "stock": {
+      "surtido": "Freshly stocked · {n} {u} available",
+      "ok": "{n} {u} available",
+      "pocas": "Only {n} {u} left!",
+      "agotado": "Sold out for today",
+      "agotadoBoton": "Sold out"
+    }
   },
   "carrito": {
     "titulo": "Your cart",

@@ -36,6 +36,8 @@ export interface Repository {
   mercado(id: string): Promise<Mercado | null>;
   interior(mercadoId: string): Promise<Interior | null>;
   puesto(id: string): Promise<Puesto | null>;
+  /** Puestos en línea de un mercado (interior o catálogo simulado). */
+  puestosDeMercado(mercadoId: string): Promise<Puesto[]>;
   zonasHuerto(): Promise<ZonaHuerto[]>;
   productores(filtro?: FiltroProductores): Promise<Productor[]>;
   productor(id: string): Promise<Productor | null>;

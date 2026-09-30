@@ -11,6 +11,7 @@ import modeloJson from "../../data/modelo_negocio.json";
 
 import * as S from "@/lib/schemas";
 import type { FiltroMercados, FiltroProductores, Repository } from "./repository";
+import { esPuestoSimulado, mercadoDePuestoSimulado, puestosSimulados } from "@/lib/catalogo-simulado";
 
 type Datos = {
   mercados: S.Mercado[];
@@ -72,7 +73,19 @@ export class MockRepository implements Repository {
   }
 
   async puesto(id: string) {
+    if (esPuestoSimulado(id)) {
+      const m = await this.mercado(mercadoDePuestoSimulado(id));
+      return (m && puestosSimulados(m).find((p) => p.id === id)) ?? null;
+    }
     return this.d.interior.puestos.find((p) => p.id === id) ?? null;
+  }
+
+  /** Puestos en línea del mercado: los del interior si existe; si no, el catálogo simulado. */
+  async puestosDeMercado(mercadoId: string) {
+    const m = await this.mercado(mercadoId);
+    if (!m) return [];
+    const interior = m.interior_disponible ? await this.interior(mercadoId) : null;
+    return interior?.puestos ?? puestosSimulados(m);
   }
 
   async zonasHuerto() {

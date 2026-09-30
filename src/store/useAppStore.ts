@@ -24,6 +24,9 @@ import { consumirPregunta } from "@/lib/planes";
 import { puedeAgregarProducto, siguienteEstadoLocatario, type EstadoLocatario, type PlanLocatario } from "@/lib/locatario";
 import { normalizarEstadoMayoreo, type EstadoMayoreo } from "@/lib/productor";
 import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
+import { hoyCDMX } from "@/lib/eventos";
+import { claveVenta } from "@/lib/inventario";
+import type { PuestoResumen } from "@/data/comercio";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -41,6 +44,10 @@ type DatosDemo = {
   plan: PlanConsumidor;
   onboardingVisto: boolean;
   carrito: LineaCarrito[];
+  /** Ficha de cada vendedor agregado al carrito (puestos del catálogo simulado incluidos). */
+  vendedores: Record<string, PuestoResumen>;
+  /** Unidades compradas hoy por la persona: `AAAA-MM-DD|puesto::producto` → cantidad (se descuentan del inventario). */
+  vendidos: Record<string, number>;
   pedidos: Pedido[];
   puntos: number;
   sellos: string[];
@@ -82,7 +89,7 @@ type Acciones = {
   setLocale: (locale: Locale) => void;
   setPlan: (plan: PlanConsumidor) => void;
   marcarOnboarding: () => void;
-  agregarAlCarrito: (puestoId: string, item: ItemCarrito) => void;
+  agregarAlCarrito: (puestoId: string, item: ItemCarrito, vendedor?: PuestoResumen) => void;
   cambiarCantidad: (puestoId: string, nombre: string, qty: number) => void;
   quitarGrupo: (puestoId: string) => void;
   /** Crea el pedido pagado: lo guarda, vacía ese grupo, suma puntos (una sola vez) y el sello del mercado. */
@@ -119,6 +126,8 @@ export function estadoInicial(): DatosDemo {
     plan: "Gratis",
     onboardingVisto: false,
     carrito: [],
+    vendedores: {},
+    vendidos: {},
     pedidos: [],
     puntos: demoSeed.usuario.puntos,
     sellos: [...demoSeed.usuario.sellos],
@@ -156,7 +165,11 @@ export const useAppStore = create<AppState>()(
       setLocale: (locale) => set({ locale }),
       setPlan: (plan) => set({ plan }),
       marcarOnboarding: () => set({ onboardingVisto: true }),
-      agregarAlCarrito: (puestoId, item) => set((s) => ({ carrito: agregarItem(s.carrito, puestoId, item) })),
+      agregarAlCarrito: (puestoId, item, vendedor) =>
+        set((s) => ({
+          carrito: agregarItem(s.carrito, puestoId, item),
+          vendedores: vendedor ? { ...s.vendedores, [puestoId]: vendedor } : s.vendedores,
+        })),
       cambiarCantidad: (puestoId, nombre, qty) => set((s) => ({ carrito: cambiarCantidad(s.carrito, puestoId, nombre, qty) })),
       quitarGrupo: (puestoId) => set((s) => ({ carrito: s.carrito.filter((l) => l.puestoId !== puestoId) })),
       registrarPedido: (input) => {
@@ -165,7 +178,15 @@ export const useAppStore = create<AppState>()(
         const hora = new Date(pedido.fecha).toLocaleTimeString("es-MX", { timeZone: "America/Mexico_City", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
         const paraLocatario = pedido.puestoId === demoSeed.locatario.puesto_id;
         const paraProductor = pedido.puestoId === demoSeed.productor.productor_id;
+        const dia = hoyCDMX(new Date(pedido.fecha));
+        // Solo se conservan las ventas de hoy: el inventario se resurte cada día.
+        const vendidos = Object.fromEntries(Object.entries(s.vendidos).filter(([k]) => k.startsWith(`${dia}|`)));
+        for (const i of pedido.items) {
+          const k = claveVenta(dia, pedido.puestoId, i.nombre);
+          vendidos[k] = (vendidos[k] ?? 0) + i.qty;
+        }
         set({
+          vendidos,
           pedidos: [pedido, ...s.pedidos],
           carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
           puntos: s.puntos + pedido.puntos,

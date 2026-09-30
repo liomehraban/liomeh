@@ -61,10 +61,10 @@ describe("M2 · Ficha de mercado", () => {
     expect(html).toContain("Pancita Doña Chela");
   });
 
-  it("un mercado no destacado muestra el estado vacío y horario no disponible", async () => {
+  it("un mercado no destacado muestra su catálogo simulado de puestos, sin inventar el horario", async () => {
     const html = await render("9-san-lucas");
-    expect(html).toContain("Este mercado aún no tiene puestos en línea");
-    expect(html).toContain("¿Eres locatario? Súmate gratis");
+    expect(html).not.toContain("Este mercado aún no tiene puestos en línea");
+    expect(html).toContain('href="/puesto/9-san-lucas--1"');
     expect(html).toContain("Horario no disponible · Pregunta en el mercado");
   });
 

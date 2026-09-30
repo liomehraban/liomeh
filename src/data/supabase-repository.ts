@@ -18,6 +18,7 @@ export class SupabaseRepository implements Repository {
   async interior(): Promise<never> { return notImplemented("interior"); }
   // TODO: select * from puestos where id = $1 (con productos)
   async puesto(): Promise<never> { return notImplemented("puesto"); }
+  async puestosDeMercado(): Promise<never> { return notImplemented("puestosDeMercado"); }
   // TODO: select * from zonas_huerto (ST_AsGeoJSON del polígono)
   async zonasHuerto(): Promise<never> { return notImplemented("zonasHuerto"); }
   // TODO: select * from productores where zona_id = $1

@@ -21,6 +21,7 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
   const locale = useLocale();
   const hydrated = useHydrated();
   const pedido = useAppStore((s) => s.pedidos.find((p) => p.folio === folio));
+  const vendedores = useAppStore((s) => s.vendedores);
   const $ = (n: number) => formatMXN(n, locale);
 
   if (!hydrated) return <EncabezadoSimple titulo={t("pedido.titulo")} />;
@@ -38,7 +39,7 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
     );
   }
 
-  const puesto = puestos[pedido.puestoId];
+  const puesto = puestos[pedido.puestoId] ?? vendedores[pedido.puestoId];
   const huertos = [...new Set(pedido.items.map((i) => i.huertoId).filter(Boolean))];
   const prods = productores.filter((p) => huertos.includes(p.id));
 

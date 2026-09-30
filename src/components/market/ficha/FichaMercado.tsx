@@ -1,10 +1,9 @@
-import { ArrowRight, BadgeCheck, Bus, Clock, Lock, MapPin, Navigation, PartyPopper, Route, Store, Timer } from "lucide-react";
+import { ArrowRight, Bus, Clock, Lock, MapPin, Navigation, PartyPopper, Route, Store, Timer } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { EstadoHorario } from "@/components/market/EstadoHorario";
-import { Estrellas } from "@/components/market/Estrellas";
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { TIPO_KEY } from "@/components/market/tipos";
 import { comoLlegarUrl } from "@/lib/geo";
@@ -19,6 +18,7 @@ import { SeccionResenas } from "@/components/resenas/SeccionResenas";
 import { BotonCompartir } from "./BotonCompartir";
 import { BotonVolver } from "./BotonVolver";
 import { EventosRelacionados } from "./EventosRelacionados";
+import { ListaPuestos } from "./ListaPuestos";
 import { Seccion } from "./Seccion";
 
 type ClaveCifra = keyof typeof messages.mercado.cifrasEtiquetas;
@@ -46,9 +46,6 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
   const resumen = en ? (m.resumen_en ?? m.resumen) : m.resumen;
   const cat = categoriaMercado(m);
   const rating = ratingPromedio(resenas);
-  const destacadosPuestos = [...puestos]
-    .sort((a, b) => Number(b.real_segun_guia) - Number(a.real_segun_guia) || b.rating - a.rating)
-    .slice(0, PUESTOS_VISIBLES);
 
   const formatoCifra = (k: string, v: number | string) => {
     if (typeof v === "string") return v;
@@ -229,26 +226,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
 
         {puestos.length ? (
           <Seccion titulo={t("mercado.puestos")}>
-            <ul className="flex flex-col gap-2">
-              {destacadosPuestos.map((p) => (
-                <li key={p.id}>
-                  <Link
-                    href={`/puesto/${p.id}`}
-                    className="flex min-h-11 items-center gap-3 rounded-2xl border border-border bg-white p-3 hover:border-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
-                  >
-                    <span aria-hidden className="size-3 shrink-0 rounded-full" style={{ background: COLOR_GIRO[categoriaGiro(p.giro)] }} />
-                    <span className="flex min-w-0 flex-1 flex-col">
-                      <span className="flex items-center gap-1.5 font-semibold">
-                        {p.nombre}
-                        {p.real_segun_guia && <BadgeCheck className="size-4 shrink-0 text-dorado" aria-label={t("mercado.realGuia")} />}
-                      </span>
-                      <span className="truncate text-[13px] text-tinta-2">{p.ubicacion_texto}</span>
-                    </span>
-                    <Estrellas rating={p.rating} />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <ListaPuestos puestos={puestos} visibles={PUESTOS_VISIBLES} />
             {m.interior_disponible && (
               <Link href={`/mercado/${m.id}/interior`} className="flex min-h-11 items-center gap-2 font-semibold text-morado underline-offset-4 hover:underline">
                 {t("mercado.verTodosPuestos", { n: puestos.length })}
