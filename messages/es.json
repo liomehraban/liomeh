@@ -103,7 +103,8 @@
     "productorHuerto": "Mi huerto",
     "productorCuenta": "Cuenta",
     "gobierno": "Panel de impacto",
-    "presentacion": "Modo presentación"
+    "presentacion": "Modo presentación",
+    "offline": "Sin conexión"
   },
   "fases": {
     "1": "Fase 1 · Descubrir",
@@ -952,5 +953,14 @@
         "espera": "KPIs, adopción, CO₂ y toneladas rescatadas"
       }
     }
+  },
+  "offline": {
+    "titulo": "Sin conexión",
+    "texto": "Sin conexión: tu pasaporte y tus pedidos siguen aquí.",
+    "detalle": "Lo que ya visitaste se abre sin internet. En cuanto vuelva la señal, todo sigue donde lo dejaste.",
+    "pasaporte": "Mi pasaporte",
+    "pedidos": "Mis pedidos",
+    "reintentar": "Reintentar",
+    "resumen": "{sellos, plural, one {# sello} other {# sellos}} · {puntos} puntos · {pedidos, plural, one {# pedido} other {# pedidos}}"
   }
 }

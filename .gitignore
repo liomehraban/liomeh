@@ -45,3 +45,7 @@ next-env.d.ts
 # Playwright
 /test-results/
 /playwright-report/
+
+# Service worker generado por serwist build
+/public/sw.js
+/public/sw.js.map

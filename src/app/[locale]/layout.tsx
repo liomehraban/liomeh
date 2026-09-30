@@ -11,6 +11,7 @@ import { LocaleSync } from "@/components/shell/LocaleSync";
 import { MotionProvider } from "@/components/shell/MotionProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { Conductor } from "@/components/presentacion/Conductor";
+import { RegistroSW } from "@/components/pwa/RegistroSW";
 import "../globals.css";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas", display: "swap" });
@@ -23,7 +24,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale: hasLocale(routing.locales, locale) ? locale : "es", namespace: "meta" });
-  return { title: { default: t("titulo"), template: `%s · Bara Bara` }, description: t("descripcion") };
+  return {
+    title: { default: t("titulo"), template: `%s · Bara Bara` },
+    description: t("descripcion"),
+    applicationName: "Bara Bara",
+    appleWebApp: { capable: true, title: "Bara Bara", statusBarStyle: "default" },
+    icons: { apple: "/icons/apple-touch-icon.png" },
+  };
 }
 
 export const viewport: Viewport = {
@@ -42,15 +49,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html lang={locale} className={`${bebas.variable} ${publicSans.variable}`}>
       <body>
         <NextIntlClientProvider>
-          <MotionProvider>
-            <LocaleSync />
-            <PhoneFrame>
-              <TopControls />
-              {children}
-              <Conductor />
-              <Toaster />
-            </PhoneFrame>
-          </MotionProvider>
+          <RegistroSW>
+            <MotionProvider>
+              <LocaleSync />
+              <PhoneFrame>
+                <TopControls />
+                {children}
+                <Conductor />
+                <Toaster />
+              </PhoneFrame>
+            </MotionProvider>
+          </RegistroSW>
         </NextIntlClientProvider>
       </body>
     </html>

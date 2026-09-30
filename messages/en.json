@@ -103,7 +103,8 @@
     "productorHuerto": "My farm",
     "productorCuenta": "Account",
     "gobierno": "Impact dashboard",
-    "presentacion": "Presentation mode"
+    "presentacion": "Presentation mode",
+    "offline": "You're offline"
   },
   "fases": {
     "1": "Phase 1 · Discover",
@@ -952,5 +953,14 @@
         "espera": "KPIs, adoption, CO₂ and tons rescued"
       }
     }
+  },
+  "offline": {
+    "titulo": "You're offline",
+    "texto": "You're offline: your passport and orders are still here.",
+    "detalle": "Pages you've already visited open without internet. When the signal's back, everything picks up where you left it.",
+    "pasaporte": "My passport",
+    "pedidos": "My orders",
+    "reintentar": "Try again",
+    "resumen": "{sellos, plural, one {# stamp} other {# stamps}} · {puntos} points · {pedidos, plural, one {# order} other {# orders}}"
   }
 }
