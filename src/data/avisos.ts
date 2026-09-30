@@ -2,23 +2,20 @@
 import type { DatosAvisos } from "@/lib/notificaciones";
 import { getRepository } from "./repository";
 import { ofertasRescate } from "./rescate";
+import { cacheConVigencia, VIGENCIA_DATOS_MS } from "./cache";
 
-let cache: Promise<DatosAvisos> | null = null;
-
-export function datosAvisos(): Promise<DatosAvisos> {
-  cache ??= (async () => {
+export const datosAvisos = cacheConVigencia(async (): Promise<DatosAvisos> => {
     const repo = getRepository();
     const [demo, eventos, metricas, ofertas] = await Promise.all([repo.demo(), repo.eventos(), repo.metricas(), ofertasRescate()]);
     const [puestoDemo, productor] = await Promise.all([repo.puesto(demo.locatario.puesto_id), repo.productor(demo.productor.productor_id)]);
 
     // «Recién surtido»: frutas y verduras de los mercados más visitados.
-    const surtidos: DatosAvisos["surtidos"] = [];
-    for (const { id } of metricas.top_mercados) {
-      const m = await repo.mercado(id);
-      if (!m) continue;
-      const p = (await repo.puestosDeMercado(id)).find((x) => /frutas/i.test(x.giro));
-      if (p) surtidos.push({ puestoId: p.id, puesto: p.nombre, mercado: m.nombre_display, producto: p.productos[0].n });
-    }
+    const top = await repo.mercados({ ids: metricas.top_mercados.map((x) => x.id) });
+    const puestosTop = await Promise.all(top.map((m) => repo.puestosDeMercado(m.id)));
+    const surtidos: DatosAvisos["surtidos"] = top.flatMap((m, i) => {
+      const p = puestosTop[i].find((x) => /frutas/i.test(x.giro));
+      return p ? [{ puestoId: p.id, puesto: p.nombre, mercado: m.nombre_display, producto: p.productos[0].n }] : [];
+    });
 
     const mes = metricas.serie_mensual.find((s) => s.gmv_mxn >= metricas.kpis_hoy.derrama_digital_mes_mxn) ?? metricas.serie_mensual.at(-1)!;
     return {
@@ -33,6 +30,4 @@ export function datosAvisos(): Promise<DatosAvisos> {
         kgRescatadosDia: Math.round((metricas.kpis_hoy.alimento_rescatado_mes_ton * 1000) / 30),
       },
     };
-  })();
-  return cache;
-}
+}, VIGENCIA_DATOS_MS);
