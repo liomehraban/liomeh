@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Pásele · Mercados CDMX",
+    "titulo": "Bara Bara · Mercados CDMX",
     "descripcion": "Los 340 mercados públicos de la Ciudad de México en una sola app: descubre, llega al puesto, compra justo y vive el mercado."
   },
   "comun": {
@@ -24,7 +24,7 @@
   },
   "shell": {
     "abrirEnTelefono": "Abrir en tu teléfono",
-    "escaneaQR": "Escanea para probar Pásele en tu celular",
+    "escaneaQR": "Escanea para probar Bara Bara en tu celular",
     "cambiarPerfil": "Cambiar de perfil",
     "perfilActual": "Perfil actual: {perfil}",
     "cambiarIdioma": "Cambiar idioma",
@@ -406,7 +406,7 @@
     "tu": "Tú",
     "km": "{km} km",
     "conIntermediarios": "Con intermediarios",
-    "conPasele": "Con Pásele",
+    "conApp": "Con Bara Bara",
     "barra": "{etiqueta}: el productor recibe {monto} ({pct}%) de {precio}",
     "copy": "De cada {precio} del {unidad} de {producto}, {recibe} se quedan con {nombre} (antes {antes}).",
     "doble": "¡El doble!",
@@ -473,7 +473,53 @@
     "sinVisitas": "Este huerto no recibe visitas por ahora.",
     "resenas": "Reseñas",
     "sinResenas": "Aún no hay reseñas de este productor.",
-    "pagoSimulado": "Pago simulado · sin backend"
+    "pagoSimulado": "Pago simulado · sin backend",
+    "hola": "¡Hola, {nombre}!",
+    "cosecha": {
+      "titulo": "Cosecha",
+      "lotes": "Lotes activos",
+      "publicar": "Publicar cosecha",
+      "producto": "Producto",
+      "cantidad": "Cantidad",
+      "unidad": "Unidad",
+      "precio": "Precio por unidad",
+      "referencia": "Precio de mercado: {precio}/{unidad} ({dif}%)",
+      "fecha": "Disponible desde",
+      "foto": "Foto (opcional)",
+      "vistaPrevia": "Así te verán los locatarios",
+      "publicado": "Cosecha publicada: {cantidad} {unidad} de {producto}",
+      "disponible": "Disponible {fecha}",
+      "sinLotes": "Aún no publicas cosechas.",
+      "nuevo": "Nuevo",
+      "mayoreo": "Mayoreo directo del huerto"
+    },
+    "pedidos": {
+      "titulo": "Pedidos de mayoreo",
+      "vacio": "Sin pedidos por ahora.",
+      "estados": {
+        "nuevo": "Nuevo",
+        "confirmado": "Confirmado",
+        "listo": "Listo para recoger",
+        "enviado": "Enviado con terceros",
+        "entregado": "Entregado"
+      },
+      "acciones": {
+        "confirmado": "Confirmar",
+        "listo": "Listo para recoger",
+        "enviado": "Enviar con terceros",
+        "entregado": "Marcar entregado"
+      },
+      "cambiado": "Pedido {estado}"
+    },
+    "huerto": {
+      "titulo": "Mi huerto",
+      "perfil": "Tu perfil público",
+      "verPerfil": "Ver como consumidor",
+      "mes": "Este mes recibiste {veces} por kilo que con intermediarios",
+      "doble": "el doble",
+      "masPct": "{pct}% más",
+      "comision": "Plan {plan}: 3% solo en ventas de mayoreo pagadas en la app"
+    }
   },
   "resenas": {
     "titulo": "Reseñas",
@@ -684,5 +730,91 @@
     },
     "fuenteIA": "Respuesta con IA",
     "tu": "Tú"
+  },
+  "locatario": {
+    "saludo": {
+      "dias": "Buenos días, {nombre}",
+      "tardes": "Buenas tardes, {nombre}",
+      "noches": "Buenas noches, {nombre}"
+    },
+    "puesto": "{puesto} · {mercado}",
+    "hoy": "Hoy",
+    "kpis": {
+      "ventas_mxn": "Ventas de hoy",
+      "pedidos_app": "Pedidos app",
+      "cobros_qr": "Cobros QR",
+      "checkins_efectivo": "Check-ins en efectivo",
+      "ticket_promedio": "Ticket promedio"
+    },
+    "semana": "Ventas de la semana",
+    "semanaTexto": "Ventas diarias de lunes a domingo; hoy incluye lo cobrado en la demo.",
+    "top": "Lo más vendido",
+    "resenas": "Últimas reseñas",
+    "banner": "Tus clientes en efectivo ya suman puntos: {n} check-ins hoy",
+    "pendientes": "{n, plural, =0 {Sin pedidos pendientes} one {# pedido pendiente} other {# pedidos pendientes}}",
+    "verPedidos": "Ver pedidos",
+    "cobrar": {
+      "titulo": "Cobrar",
+      "monto": "Monto a cobrar",
+      "metodo": "Forma de cobro",
+      "codi": "CoDi / SPEI",
+      "tarjeta": "Tarjeta (link de pago)",
+      "sinComision": "0% de comisión con QR",
+      "tarjetaNota": "Con tarjeta solo se traslada el costo del procesador, sin margen.",
+      "generar": "Generar QR",
+      "borrar": "Borrar",
+      "limpiar": "Limpiar",
+      "qrEtiqueta": "QR de cobro por {monto} en {puesto}",
+      "esperando": "Esperando pago…",
+      "recibido": "Pago recibido {monto}",
+      "compartir": "Compartir comprobante",
+      "nuevo": "Nuevo cobro",
+      "comprobante": "Comprobante Bara Bara · {puesto} · {monto} · {fecha} · {id}",
+      "copiado": "Comprobante copiado",
+      "linkPago": "Link de pago con tarjeta"
+    },
+    "pedidos": {
+      "titulo": "Pedidos",
+      "vacio": "No hay pedidos.",
+      "app": "Pedido de la app",
+      "avanzar": "Marcar como {estado}",
+      "estados": {
+        "nuevo": "Nuevo",
+        "preparando": "Preparando",
+        "listo": "Listo",
+        "entregado": "Entregado"
+      },
+      "hora": "Para las {hora}"
+    },
+    "catalogo": {
+      "titulo": "Catálogo",
+      "total": "{n, plural, one {# producto} other {# productos}}",
+      "limite": "Plan Gratis: hasta {n} productos",
+      "precio": "Precio de {producto}",
+      "disponible": "{producto} disponible",
+      "agotado": "Agotado",
+      "agregar": "Agregar producto",
+      "nombre": "Nombre",
+      "unidad": "Unidad",
+      "foto": "Foto (opcional)",
+      "origen": "Origen",
+      "origenNinguno": "Sin especificar",
+      "guardar": "Guardar producto",
+      "agregado": "Producto agregado: {producto}",
+      "upsellTitulo": "Llegaste a 20 productos",
+      "upsellTexto": "El plan Gratis incluye hasta 20 productos. Con Pro tu catálogo es ilimitado.",
+      "verPlan": "Ver planes"
+    },
+    "plan": {
+      "titulo": "Tu plan",
+      "actual": "Plan actual",
+      "cambiar": "Cambiar a {plan}",
+      "cambiado": "Ahora tienes el plan {plan}",
+      "porMes": "{precio}/mes",
+      "gratis": "$0 · subsidiado por gobierno",
+      "comision": "Pedidos en línea: Bara Bara 4% vs apps de delivery 18–30% + IVA",
+      "qr": "Cobro con QR: 0% de comisión",
+      "pagoSimulado": "Pago simulado · sin backend"
+    }
   }
 }

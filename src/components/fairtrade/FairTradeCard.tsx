@@ -28,7 +28,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
 
   const barras = [
     { etiqueta: t("conIntermediarios"), pct: f.pctIntermediarios, monto: f.antes, color: "bg-gris" },
-    { etiqueta: t("conPasele"), pct: f.pctApp, monto: f.recibe, color: "bg-nopal" },
+    { etiqueta: t("conApp"), pct: f.pctApp, monto: f.recibe, color: "bg-nopal" },
   ];
 
   return (

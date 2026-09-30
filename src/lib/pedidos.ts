@@ -36,11 +36,11 @@ export function etapaActual(p: Pick<Pedido, "fecha" | "entrega">, now = new Date
   return Math.max(0, Math.min(n, etapas(p.entrega).length - 1));
 }
 
-/** «PSL-XXXX» con 4 dígitos que no choquen con los existentes. */
+/** «BB-XXXX» con 4 dígitos que no choquen con los existentes. */
 export function nuevoFolio(existentes: string[], rnd: () => number = Math.random): string {
   const usados = new Set(existentes);
   for (let i = 0; i < 1000; i++) {
-    const f = `PSL-${String(Math.floor(1000 + rnd() * 9000))}`;
+    const f = `BB-${String(Math.floor(1000 + rnd() * 9000))}`;
     if (!usados.has(f)) return f;
   }
   throw new Error("Sin folios disponibles");

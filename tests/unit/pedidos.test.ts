@@ -12,11 +12,11 @@ const base = {
 };
 
 describe("pedidos", () => {
-  it("folio PSL-XXXX sin colisiones", () => {
-    expect(nuevoFolio([])).toMatch(/^PSL-\d{4}$/);
+  it("folio BB-XXXX sin colisiones", () => {
+    expect(nuevoFolio([])).toMatch(/^BB-\d{4}$/);
     let i = 0;
     const seq = [0.1, 0.1, 0.5];
-    expect(nuevoFolio(["PSL-1900"], () => seq[i++])).toBe("PSL-5500");
+    expect(nuevoFolio(["BB-1900"], () => seq[i++])).toBe("BB-5500");
   });
   it("paso 4: $309 → 30 puntos", () => {
     const p = construirPedido(base, []);

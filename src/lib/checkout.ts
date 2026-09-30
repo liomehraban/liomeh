@@ -82,5 +82,5 @@ export const formatearTarjeta = (s: string) => s.replace(/\D/g, "").slice(0, 19)
 
 /** Payload simulado de CoDi/SPEI para el QR (no es un formato bancario real). */
 export function payloadCoDi(folio: string, monto: number, puestoId: string): string {
-  return `PASELE-CODI-DEMO|folio=${folio}|monto=${monto.toFixed(2)}|mxn|puesto=${puestoId}`;
+  return `BARABARA-CODI-DEMO|folio=${folio}|monto=${monto.toFixed(2)}|mxn|puesto=${puestoId}`;
 }

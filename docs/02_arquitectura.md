@@ -111,7 +111,7 @@ export interface Repository {
 ## PWA
 
 - Serwist: precache del shell y de `/data/*.json`; runtime cache `StaleWhileRevalidate` para los tiles de CARTO (máx. 500 entradas).
-- `manifest.ts`: name «Pásele · Mercados CDMX», `theme_color #93408F`, `background_color #FEFAEB`, `display standalone` e íconos de 192 y 512 px, además del maskable.
+- `manifest.ts`: name «Bara Bara · Mercados CDMX», `theme_color #93408F`, `background_color #FEFAEB`, `display standalone` e íconos de 192 y 512 px, además del maskable.
 - Página offline con el mensaje «Sin conexión: tu pasaporte y tus pedidos siguen aquí».
 
 ## Variables de entorno (`.env.example`)

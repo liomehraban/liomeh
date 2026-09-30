@@ -1,4 +1,4 @@
-# Modelo de negocio · Pásele (propuesta Cinética)
+# Modelo de negocio · Bara Bara (propuesta Cinética)
 
 ## El principio
 
@@ -19,7 +19,7 @@
 
 ## Comisiones
 
-| Concepto | Pásele | Referencia de mercado |
+| Concepto | Bara Bara | Referencia de mercado |
 |---|---|---|
 | Cobro presencial con QR CoDi/SPEI | **0%** | — |
 | Cobro presencial con tarjeta | Costo del procesador, sin margen | Terminales en MX: ≈3–4% + IVA |

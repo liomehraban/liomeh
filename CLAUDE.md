@@ -1,10 +1,10 @@
-# CLAUDE.md · Pásele (app de Mercados Públicos CDMX)
+# CLAUDE.md · Bara Bara (app de Mercados Públicos CDMX)
 
 > Memoria del proyecto para Claude Code. Léela completa antes de cada fase.
 
 ## Qué construimos
 
-«Pásele» (nombre provisional) es la PWA que organiza, concentra y visibiliza los 340 mercados públicos de la Ciudad de México, además de la Central de Abasto, La Nueva Viga y los huertos del suelo de conservación. Hace tres cosas: **vende, cobra y distribuye**. El ADN es el **comercio justo entre el campo y el consumidor final**.
+«Bara Bara» es la PWA que organiza, concentra y visibiliza los 340 mercados públicos de la Ciudad de México, además de la Central de Abasto, La Nueva Viga y los huertos del suelo de conservación. Hace tres cosas: **vende, cobra y distribuye**. El ADN es el **comercio justo entre el campo y el consumidor final**.
 
 La impulsan SECTUR CDMX, SEDEMA y la Secretaría de Economía. La desarrolla Cinética Studio.
 

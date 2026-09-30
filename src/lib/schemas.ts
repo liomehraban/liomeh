@@ -1,5 +1,5 @@
 /**
- * Contratos de datos de Pásele.
+ * Contratos de datos de Bara Bara.
  * Fuente: /data/*.json (mock). Validar con `pnpm validate:data`.
  * Cuando exista Supabase, SupabaseRepository debe devolver exactamente estos tipos.
  */

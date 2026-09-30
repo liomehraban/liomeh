@@ -130,6 +130,6 @@ export function puedeCanjear(puntos: number, costo: number) {
 }
 
 export function nuevoCupon(r: { id: string; titulo: string; puntos: number }, rnd: () => number = Math.random, now = new Date()): Cupon {
-  const codigo = `PSL-${r.id.toUpperCase().slice(0, 4)}-${Math.floor(100000 + rnd() * 900000)}`;
+  const codigo = `BB-${r.id.toUpperCase().slice(0, 4)}-${Math.floor(100000 + rnd() * 900000)}`;
   return { id: codigo, recompensaId: r.id, titulo: r.titulo, puntos: r.puntos, codigo, fecha: now.toISOString() };
 }

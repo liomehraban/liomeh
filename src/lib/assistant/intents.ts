@@ -243,8 +243,8 @@ function comercioJusto(_msg: string, d: DatosAsistente, o: Opciones): ResultadoI
   return {
     intencion: "comercioJusto",
     text: en
-      ? `In Pásele you buy closer to the field, with fewer middlemen. Example: of every ${$(f.precio)} for a ${f.unidad} of ${p.producto_principal.toLowerCase()}, ${p.nombre} now keeps ${$(f.recibe)} (${f.pctApp}%) instead of ${$(f.antes)} (${f.pctIntermediarios}%). QR payments carry no fee.`
-      : `En Pásele compras más cerca del campo y con menos intermediarios. Ejemplo: de cada ${$(f.precio)} del ${f.unidad} de ${p.producto_principal.toLowerCase()}, ${p.nombre} ahora recibe ${$(f.recibe)} (${f.pctApp}%) en vez de ${$(f.antes)} (${f.pctIntermediarios}%). El cobro con QR no tiene comisión.`,
+      ? `In Bara Bara you buy closer to the field, with fewer middlemen. Example: of every ${$(f.precio)} for a ${f.unidad} of ${p.producto_principal.toLowerCase()}, ${p.nombre} now keeps ${$(f.recibe)} (${f.pctApp}%) instead of ${$(f.antes)} (${f.pctIntermediarios}%). QR payments carry no fee.`
+      : `En Bara Bara compras más cerca del campo y con menos intermediarios. Ejemplo: de cada ${$(f.precio)} del ${f.unidad} de ${p.producto_principal.toLowerCase()}, ${p.nombre} ahora recibe ${$(f.recibe)} (${f.pctApp}%) en vez de ${$(f.antes)} (${f.pctIntermediarios}%). El cobro con QR no tiene comisión.`,
     cards: [{ tipo: "productor", id: p.id }],
   };
 }

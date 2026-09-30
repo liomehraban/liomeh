@@ -68,7 +68,7 @@ describe("insignias", () => {
 });
 
 describe("recompensas y planes", () => {
-  it("cupón con código", () => expect(nuevoCupon({ id: "agua", titulo: "Agua", puntos: 120 }, () => 0.5).codigo).toBe("PSL-AGUA-550000"));
+  it("cupón con código", () => expect(nuevoCupon({ id: "agua", titulo: "Agua", puntos: 120 }, () => 0.5).codigo).toBe("BB-AGUA-550000"));
   it("límite del asistente por plan", () => {
     expect(limiteAsistente("Gratis")).toBe(20);
     expect(limiteAsistente("Pase Turista")).toBe(Infinity);

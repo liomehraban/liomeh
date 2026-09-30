@@ -1,6 +1,6 @@
-# Pack Claude Code · Pásele (Mercados Públicos CDMX)
+# Pack Claude Code · Bara Bara (Mercados Públicos CDMX)
 
-Pack de arranque para que **Claude Code** programe la PWA de Pásele: Next.js con datos mock, lista para Supabase y con deploy en Vercel.
+Pack de arranque para que **Claude Code** programe la PWA de Bara Bara: Next.js con datos mock, lista para Supabase y con deploy en Vercel.
 
 ## Qué trae
 

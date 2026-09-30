@@ -9,7 +9,7 @@ El modo presentación (`/presentacion`) muestra una barra inferior con el paso a
 | 1 | Turista, EN (Emily) | Abrir Explorar y buscar «pancita» | El mapa centra La Merced; el bottom sheet muestra «Open now» si aplica |
 | 2 | Turista | Ficha de La Merced → «See indoor map» | Plano de 8 naves; Pancita Doña Chela resaltada |
 | 3 | Turista | «Take me there» desde Metro Merced | Ruta animada, 636 m · 9 min, 6 pasos en inglés; avanzar hasta «You've arrived» |
-| 4 | Turista | Agregar 2 pancitas + 2 sopes → pagar con QR CoDi → recoger en puesto | QR de pago → «Payment received» → folio PSL-XXXX + sello y +30 puntos |
+| 4 | Turista | Agregar 2 pancitas + 2 sopes → pagar con QR CoDi → recoger en puesto | QR de pago → «Payment received» → folio BB-XXXX + sello y +30 puntos |
 | 5 | Consumidora, ES (Sofía) | Huertos → Familia Jurado Nopaleros | Barra de precio justo: $70 vs $35 de $150, «el doble» |
 | 6 | Consumidora | Asistente: «¿Qué eventos hay este mes?» | Tarjeta de la Feria Nacional del Mole (3–25 oct) + «Recordarme» |
 | 7 | Consumidora | Yo → Escanear QR del puesto (pagó en efectivo en Jugos Moreno) | +10 puntos y toast «Funciona aunque pagues en efectivo» |
@@ -21,5 +21,5 @@ El modo presentación (`/presentacion`) muestra una barra inferior con el paso a
 
 - Paso 3: el número de pasos y la distancia coinciden con `rutas_precalculadas["metro-merced__pancita-dona-chela"]`.
 - Paso 4: puntos = `floor(total / 10)`. En el paso 4, el total = 2×115 + 2×35 = $300, más $9 de servicio = $309 → 30 puntos.
-- Paso 8: el pedido PSL-XXXX del paso 4 aparece en Pedidos del locatario.
+- Paso 8: el pedido BB-XXXX del paso 4 aparece en Pedidos del locatario.
 - No hay errores en consola en todo el recorrido.

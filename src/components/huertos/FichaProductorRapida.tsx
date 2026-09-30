@@ -31,7 +31,7 @@ export function FichaProductorRapida({ p }: { p: Productor }) {
         <strong>{p.producto_principal}</strong> · {formatMXN(p.precio_mayoreo_app.precio, locale)}/{p.precio_mayoreo_app.unidad}
       </p>
       <p className="rounded-2xl bg-dorado-200/60 p-3 text-sm">
-        {t("fairtrade.conPasele")}: <strong>{formatMXN(f.recibe, locale)}</strong> ({f.pctApp}%) · {t("fairtrade.conIntermediarios")}: {formatMXN(f.antes, locale)} ({f.pctIntermediarios}%)
+        {t("fairtrade.conApp")}: <strong>{formatMXN(f.recibe, locale)}</strong> ({f.pctApp}%) · {t("fairtrade.conIntermediarios")}: {formatMXN(f.antes, locale)} ({f.pctIntermediarios}%)
       </p>
       <Button asChild>
         <Link href={`/huertos/${p.id}`}>{t("huertos.verProductor")}</Link>

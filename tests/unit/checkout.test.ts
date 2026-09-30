@@ -43,4 +43,4 @@ describe("tarjeta", () => {
   it("formatea en bloques", () => expect(formatearTarjeta("4242424242424242")).toBe("4242 4242 4242 4242"));
 });
 
-it("payload CoDi simulado lleva folio y monto", () => expect(payloadCoDi("PSL-1234", 309, "x")).toContain("monto=309.00"));
+it("payload CoDi simulado lleva folio y monto", () => expect(payloadCoDi("BB-1234", 309, "x")).toContain("monto=309.00"));

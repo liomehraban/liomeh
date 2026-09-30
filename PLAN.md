@@ -51,5 +51,6 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [ ] e2e Playwright del guion completo
 - [ ] Lighthouse móvil: PWA ok, Performance ≥ 80, Accessibility ≥ 95
 - [ ] Deploy a Vercel (preview) y README con la URL
+- [ ] Dominio `mercados.cineticastudio.xyz`: dominio en el proyecto de Vercel + registro CNAME en Cloudflare (DNS only)
 
 Después de cualquier fase se puede correr **`/revisar-demo`**, que ejecuta el guion y reporta lo que falle.

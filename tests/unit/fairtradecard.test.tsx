@@ -25,7 +25,7 @@ describe("<FairTradeCard>", () => {
   it("las barras tienen texto equivalente", () => {
     const html = render(jurado);
     expect(html).toContain('role="img" aria-label="Con intermediarios: el productor recibe $35 (23%) de $150"');
-    expect(html).toContain('aria-label="Con Pásele: el productor recibe $70 (47%) de $150"');
+    expect(html).toContain('aria-label="Con Bara Bara: el productor recibe $70 (47%) de $150"');
   });
   it("sin «el doble» cuando mejora_pct < 95", () => {
     const otro = huertos.productores.find((p) => p.comercio_justo.mejora_pct < 95);

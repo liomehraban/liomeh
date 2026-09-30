@@ -64,7 +64,7 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
         {pedido.entrega === "recoger" && (
           <section className="flex flex-col items-center gap-2 rounded-card border border-border bg-white p-4 text-center">
             <h2 className="font-bold text-morado-700">{t("pedido.qrRecoger")}</h2>
-            <QRCodeSVG value={`PASELE-RECOGER|${pedido.folio}|${pedido.puestoId}`} size={160} fgColor="#3E1C3C" marginSize={2} title={t("pedido.qrEtiqueta", { folio: pedido.folio })} />
+            <QRCodeSVG value={`BARABARA-RECOGER|${pedido.folio}|${pedido.puestoId}`} size={160} fgColor="#3E1C3C" marginSize={2} title={t("pedido.qrEtiqueta", { folio: pedido.folio })} />
           </section>
         )}
 

@@ -102,7 +102,7 @@ Formato de cada módulo: **Ruta** · **Qué hace** · **AC** (criterios de acept
   - **CoDi / SPEI con QR:** QR real (`qrcode.react`) con un payload simulado, cuenta regresiva de 3 s y «Pago recibido».
   - **Tarjeta:** formulario con validación Luhn y la tarjeta de prueba 4242…; spinner de 1.5 s. Sin backend.
 - **Confirmación `/pedido/[folio]`:**
-  - Folio `PSL-XXXX`.
+  - Folio `BB-XXXX`.
   - QR de recogida (si aplica).
   - Timeline de estado (Pagado → Preparando → Listo / En ruta), que avanza solo cada 8 s en modo demo.
   - Puntos ganados: `floor(total / 10)`, dobles si algún ítem tiene `huertoId`, con animación de sello.
@@ -136,7 +136,7 @@ Formato de cada módulo: **Ruta** · **Qué hace** · **AC** (criterios de acept
 ## M7 · Del huerto a tu mesa (trazabilidad y precio justo)
 Componente `<FairTradeCard productor producto />`, reutilizable en el puesto, el productor, la confirmación y el panel del productor.
 - Recorrido ilustrado huerto → mercado → tú, con los km (`km_a_la_merced`) y el nombre de la familia o titular.
-- **Barra de precio justo:** dos barras horizontales (con intermediarios vs con Pásele), con el % y los pesos. Copy:
+- **Barra de precio justo:** dos barras horizontales (con intermediarios vs con Bara Bara), con el % y los pesos. Copy:
   > «De cada $150 del ciento de nopal, $70 se quedan con la Familia Jurado Nopaleros (antes $35).»
 
 **AC**
@@ -223,7 +223,7 @@ Componente `<FairTradeCard productor producto />`, reutilizable en el puesto, el
   8. Cómo funcionan los puntos y el check-in en efectivo.
 - **System prompt (con API key):**
 
-  > Eres Marchanta, la asistente de Pásele, la app de los mercados públicos de la Ciudad de México. Hablas cálido, breve y claro, en el idioma del usuario (español mexicano o inglés). Solo recomiendas mercados, puestos, productores, eventos y rutas que aparezcan en el CONTEXTO; si algo no está, dilo y sugiere la alternativa más cercana del contexto. Nunca inventes horarios, precios ni direcciones. Considera la hora actual en CDMX ({ahora}) para decir si algo está abierto. Responde SOLO en JSON: {"text": string (máx. 90 palabras), "cards": [{"tipo":"mercado|puesto|productor|evento|ruta","id": string}] (máx. 3)}.
+  > Eres Marchanta, la asistente de Bara Bara, la app de los mercados públicos de la Ciudad de México. Hablas cálido, breve y claro, en el idioma del usuario (español mexicano o inglés). Solo recomiendas mercados, puestos, productores, eventos y rutas que aparezcan en el CONTEXTO; si algo no está, dilo y sugiere la alternativa más cercana del contexto. Nunca inventes horarios, precios ni direcciones. Considera la hora actual en CDMX ({ahora}) para decir si algo está abierto. Responde SOLO en JSON: {"text": string (máx. 90 palabras), "cards": [{"tipo":"mercado|puesto|productor|evento|ruta","id": string}] (máx. 3)}.
   > CONTEXTO: {json recortado}
 
 - **Límite:** 20 mensajes al día en el plan Gratis. Aviso: «20 preguntas al día · ilimitado con Pase Turista».
@@ -257,7 +257,7 @@ Componente `<FairTradeCard productor producto />`, reutilizable en el puesto, el
 - En plan Gratis, el límite es de 20 productos: al pasarlo aparece un upsell a Pro.
 
 ## M16 · Locatario › Plan
-- Gratis / Pro $149 / Plus $349 (`modelo_negocio.precios.locatario`) y una comparación de comisión: «Pásele 4% vs apps de delivery 18–30% + IVA». El plan actual va marcado.
+- Gratis / Pro $149 / Plus $349 (`modelo_negocio.precios.locatario`) y una comparación de comisión: «Bara Bara 4% vs apps de delivery 18–30% + IVA». El plan actual va marcado.
 
 ## M17 · Productor › Cosecha
 **Ruta:** `/productor`. Datos: `usuarios_demo.productor`.

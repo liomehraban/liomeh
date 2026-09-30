@@ -1,6 +1,6 @@
 {
   "meta": {
-    "titulo": "Pásele · Mexico City Markets",
+    "titulo": "Bara Bara · Mexico City Markets",
     "descripcion": "All 340 public markets of Mexico City in one app: discover, find the stall, buy fair and live the market."
   },
   "comun": {
@@ -24,7 +24,7 @@
   },
   "shell": {
     "abrirEnTelefono": "Open on your phone",
-    "escaneaQR": "Scan to try Pásele on your phone",
+    "escaneaQR": "Scan to try Bara Bara on your phone",
     "cambiarPerfil": "Switch profile",
     "perfilActual": "Current profile: {perfil}",
     "cambiarIdioma": "Change language",
@@ -406,7 +406,7 @@
     "tu": "You",
     "km": "{km} km",
     "conIntermediarios": "With middlemen",
-    "conPasele": "With Pásele",
+    "conApp": "With Bara Bara",
     "barra": "{etiqueta}: the grower gets {monto} ({pct}%) of {precio}",
     "copy": "Of every {precio} for a {unidad} of {producto}, {recibe} goes to {nombre} (previously {antes}).",
     "doble": "Twice as much!",
@@ -473,7 +473,53 @@
     "sinVisitas": "This farm doesn't take visitors for now.",
     "resenas": "Reviews",
     "sinResenas": "No reviews for this grower yet.",
-    "pagoSimulado": "Simulated payment · no backend"
+    "pagoSimulado": "Simulated payment · no backend",
+    "hola": "Hi, {nombre}!",
+    "cosecha": {
+      "titulo": "Harvest",
+      "lotes": "Active lots",
+      "publicar": "Publish harvest",
+      "producto": "Product",
+      "cantidad": "Quantity",
+      "unidad": "Unit",
+      "precio": "Price per unit",
+      "referencia": "Market price: {precio}/{unidad} ({dif}%)",
+      "fecha": "Available from",
+      "foto": "Photo (optional)",
+      "vistaPrevia": "How stallholders will see you",
+      "publicado": "Harvest published: {cantidad} {unidad} of {producto}",
+      "disponible": "Available {fecha}",
+      "sinLotes": "You haven't published any harvest yet.",
+      "nuevo": "New",
+      "mayoreo": "Wholesale straight from the farm"
+    },
+    "pedidos": {
+      "titulo": "Wholesale orders",
+      "vacio": "No orders yet.",
+      "estados": {
+        "nuevo": "New",
+        "confirmado": "Confirmed",
+        "listo": "Ready for pickup",
+        "enviado": "Sent with courier",
+        "entregado": "Delivered"
+      },
+      "acciones": {
+        "confirmado": "Confirm",
+        "listo": "Ready for pickup",
+        "enviado": "Send with courier",
+        "entregado": "Mark delivered"
+      },
+      "cambiado": "Order {estado}"
+    },
+    "huerto": {
+      "titulo": "My farm",
+      "perfil": "Your public profile",
+      "verPerfil": "View as shopper",
+      "mes": "This month you earned {veces} per kilo than with middlemen",
+      "doble": "twice as much",
+      "masPct": "{pct}% more",
+      "comision": "{plan} plan: 3% only on wholesale sales paid in the app"
+    }
   },
   "resenas": {
     "titulo": "Reviews",
@@ -684,5 +730,91 @@
     },
     "fuenteIA": "AI answer",
     "tu": "You"
+  },
+  "locatario": {
+    "saludo": {
+      "dias": "Good morning, {nombre}",
+      "tardes": "Good afternoon, {nombre}",
+      "noches": "Good evening, {nombre}"
+    },
+    "puesto": "{puesto} · {mercado}",
+    "hoy": "Today",
+    "kpis": {
+      "ventas_mxn": "Sales today",
+      "pedidos_app": "App orders",
+      "cobros_qr": "QR payments",
+      "checkins_efectivo": "Cash check-ins",
+      "ticket_promedio": "Average ticket"
+    },
+    "semana": "Sales this week",
+    "semanaTexto": "Daily sales Monday to Sunday; today includes what was charged in the demo.",
+    "top": "Best sellers",
+    "resenas": "Latest reviews",
+    "banner": "Your cash customers are earning points too: {n} check-ins today",
+    "pendientes": "{n, plural, =0 {No pending orders} one {# pending order} other {# pending orders}}",
+    "verPedidos": "See orders",
+    "cobrar": {
+      "titulo": "Charge",
+      "monto": "Amount to charge",
+      "metodo": "Payment method",
+      "codi": "CoDi / SPEI",
+      "tarjeta": "Card (payment link)",
+      "sinComision": "0% fee with QR",
+      "tarjetaNota": "Card payments only pass on the processor's cost, no margin.",
+      "generar": "Generate QR",
+      "borrar": "Delete",
+      "limpiar": "Clear",
+      "qrEtiqueta": "Payment QR for {monto} at {puesto}",
+      "esperando": "Waiting for payment…",
+      "recibido": "Payment received {monto}",
+      "compartir": "Share receipt",
+      "nuevo": "New charge",
+      "comprobante": "Bara Bara receipt · {puesto} · {monto} · {fecha} · {id}",
+      "copiado": "Receipt copied",
+      "linkPago": "Card payment link"
+    },
+    "pedidos": {
+      "titulo": "Orders",
+      "vacio": "No orders.",
+      "app": "App order",
+      "avanzar": "Mark as {estado}",
+      "estados": {
+        "nuevo": "New",
+        "preparando": "Preparing",
+        "listo": "Ready",
+        "entregado": "Delivered"
+      },
+      "hora": "For {hora}"
+    },
+    "catalogo": {
+      "titulo": "Catalog",
+      "total": "{n, plural, one {# product} other {# products}}",
+      "limite": "Free plan: up to {n} products",
+      "precio": "Price of {producto}",
+      "disponible": "{producto} available",
+      "agotado": "Sold out",
+      "agregar": "Add product",
+      "nombre": "Name",
+      "unidad": "Unit",
+      "foto": "Photo (optional)",
+      "origen": "Origin",
+      "origenNinguno": "Not specified",
+      "guardar": "Save product",
+      "agregado": "Product added: {producto}",
+      "upsellTitulo": "You've reached 20 products",
+      "upsellTexto": "The Free plan includes up to 20 products. With Pro your catalog is unlimited.",
+      "verPlan": "See plans"
+    },
+    "plan": {
+      "titulo": "Your plan",
+      "actual": "Current plan",
+      "cambiar": "Switch to {plan}",
+      "cambiado": "You now have the {plan} plan",
+      "porMes": "{precio}/month",
+      "gratis": "$0 · subsidized by the government",
+      "comision": "Online orders: Bara Bara 4% vs delivery apps 18–30% + VAT",
+      "qr": "QR payments: 0% fee",
+      "pagoSimulado": "Simulated payment · no backend"
+    }
   }
 }

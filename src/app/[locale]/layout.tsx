@@ -22,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale: hasLocale(routing.locales, locale) ? locale : "es", namespace: "meta" });
-  return { title: { default: t("titulo"), template: `%s · Pásele` }, description: t("descripcion") };
+  return { title: { default: t("titulo"), template: `%s · Bara Bara` }, description: t("descripcion") };
 }
 
 export const viewport: Viewport = {
