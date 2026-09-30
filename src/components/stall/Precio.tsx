@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 export function Precio({ monto, className }: { monto: number; className?: string }) {
   const locale = useLocale();
   return (
-    <span className={cn("inline-flex flex-col leading-tight", className)}>
-      <span className="font-bold">{formatMXN(monto, locale)}</span>
-      {locale === "en" && <span className="text-xs font-normal text-tinta-2">{formatUSDaprox(monto)}</span>}
+    <span className={cn("inline-flex shrink-0 flex-col leading-tight", className)}>
+      <span className="font-bold whitespace-nowrap">{formatMXN(monto, locale)}</span>
+      {locale === "en" && <span className="text-xs font-normal whitespace-nowrap text-tinta-2">{formatUSDaprox(monto)}</span>}
     </span>
   );
 }

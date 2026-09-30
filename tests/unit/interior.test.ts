@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import data from "../../data/la_merced_interior.json";
 import { Interior } from "../../src/lib/schemas";
 import { rutaInterior } from "../../src/lib/routing";
-import { esOrigen, nodoEnPaso, puntosDeRuta, transformacionCentrada } from "../../src/lib/interior";
+import { escalaAjuste, esOrigen, nodoEnPaso, puntosDeRuta, separarDe, tamEtiqueta, transformacionCentrada } from "../../src/lib/interior";
 
 const interior = Interior.parse(data);
 const ruta = rutaInterior(interior, "metro-merced", "pancita-dona-chela", "es")!;
@@ -47,5 +47,26 @@ describe("interior", () => {
     const t = transformacionCentrada({ x: 600, y: 400 }, { w: 1200, h: 800 }, { w: 390, h: 500 }, 2);
     expect(390 / 1200 * 600 * 2 + t.x).toBeCloseTo(195);
     expect(390 / 1200 * 400 * 2 + t.y).toBeCloseTo(250);
+  });
+  it("transformacionCentrada respeta los márgenes de los controles", () => {
+    const t = transformacionCentrada({ x: 600, y: 400 }, { w: 1200, h: 800 }, { w: 390, h: 500 }, 2, { top: 60 });
+    expect(390 / 1200 * 400 * 2 + t.y).toBeCloseTo(280);
+  });
+  it("escalaAjuste encuadra el plano completo", () => {
+    // Ancho manda: 374 px libres de 390.
+    expect(escalaAjuste({ w: 1200, h: 800 }, { w: 390, h: 600 }, { left: 8, right: 8, top: 60 })).toBeCloseTo(374 / 390);
+    // Alto manda: contenedor bajo.
+    const e = escalaAjuste({ w: 1200, h: 800 }, { w: 390, h: 200 }, { top: 60 });
+    expect(e * (390 / 1200) * 800).toBeCloseTo(140);
+  });
+  it("tamEtiqueta: mínimo en pantalla u oculta si no cabe", () => {
+    expect(tamEtiqueta("Nave Mayor", 17, 800, 0.325)! * 0.325).toBeGreaterThanOrEqual(10);
+    expect(tamEtiqueta("Nave Mayor", 17, 800, 2)).toBe(17);
+    expect(tamEtiqueta("Mercado Banquetón", 17, 180, 0.325)).toBeNull();
+  });
+  it("separarDe aleja los íconos encimados", () => {
+    const p = separarDe({ x: 130, y: 530 }, [{ x: 125, y: 507 }], 30);
+    expect(Math.hypot(p.x - 125, p.y - 507)).toBeCloseTo(30);
+    expect(separarDe({ x: 0, y: 0 }, [{ x: 100, y: 100 }], 30)).toEqual({ x: 0, y: 0 });
   });
 });

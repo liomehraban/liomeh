@@ -14,6 +14,7 @@ export function Plegable({
   onToggle,
   children,
   extra,
+  nota,
 }: {
   titulo: string;
   icono: ReactNode;
@@ -21,6 +22,8 @@ export function Plegable({
   onToggle: () => void;
   children: ReactNode;
   extra?: ReactNode;
+  /** Aclaración breve en su propia línea bajo el título (p. ej. «datos simulados»). */
+  nota?: ReactNode;
 }) {
   const t = useTranslations("explorar");
   const id = useId();
@@ -35,7 +38,14 @@ export function Plegable({
         className="flex min-h-11 items-center gap-2 px-4 text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
       >
         {icono}
-        <span className="font-bold text-morado-700">{titulo}</span>
+        {nota ? (
+          <span className="flex min-w-0 flex-col py-1">
+            <span className="font-bold text-morado-700">{titulo}</span>
+            <span className="text-[12px] leading-tight text-tinta-2">{nota}</span>
+          </span>
+        ) : (
+          <span className="font-bold text-morado-700">{titulo}</span>
+        )}
         {extra}
         <ChevronDown className={cn("ml-auto size-5 text-tinta-2 transition-transform", abierto && "rotate-180")} aria-hidden />
       </button>

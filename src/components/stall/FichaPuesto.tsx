@@ -50,11 +50,18 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">
         <div className="flex flex-col gap-2">
           <p className="text-sm font-semibold text-morado">{v("girosPuesto", p.giro)}</p>
-          <h1 className="flex items-start gap-2 font-display text-5xl text-morado-700">
+          {/* El sello va pegado al nombre (en línea), no flotando al extremo derecho. */}
+          <h1 className="font-display text-5xl leading-none text-morado-700">
             {p.nombre}
-            {p.real_segun_guia && <BadgeCheck className="mt-1 size-6 shrink-0 text-dorado" aria-label={t("mercado.realGuia")} />}
+            {p.real_segun_guia && (
+              <BadgeCheck className="ml-2 inline-block size-7 -translate-y-1 align-middle text-dorado" aria-label={t("mercado.realGuia")} />
+            )}
           </h1>
-          <Link href={`/mercado/${mercado.id}`} className="inline-flex min-h-11 w-fit items-center text-sm font-semibold text-morado underline-offset-4 hover:underline">
+          {/* -my-2.5: el área táctil de 44 px se mantiene, pero sin abrir un hueco visual bajo el nombre. */}
+          <Link
+            href={`/mercado/${mercado.id}`}
+            className="-my-2.5 inline-flex min-h-11 w-fit items-center text-sm font-semibold text-morado underline-offset-4 hover:underline"
+          >
             {t("puesto.enMercado", { mercado: mercado.nombre })}
           </Link>
           <p className="flex items-center gap-1.5 text-sm text-tinta-2">

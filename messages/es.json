@@ -193,7 +193,8 @@
     "sinResenas": "Sin reseñas aún",
     "calificacion": "Calificación {rating} de 5",
     "sinFiltro": "Ningún mercado cumple estos filtros.",
-    "quitarFiltros": "Quitar filtros"
+    "quitarFiltros": "Quitar filtros",
+    "buscarCorto": "Mercado o platillo"
   },
   "mercado": {
     "volver": "Volver",
@@ -468,7 +469,8 @@
     "cerrar": "Cerrar ficha",
     "expandir": "Cambiar tamaño de la ficha",
     "desdeMerced": "{km} km a La Merced",
-    "simulado": "Productores y precios simulados para la demo"
+    "simulado": "Productores y precios simulados para la demo",
+    "simuladoCorto": "Datos simulados para la demo"
   },
   "productor": {
     "volver": "Volver",
@@ -582,7 +584,8 @@
     "idiomaEn": "EN",
     "sinFiltro": "No hay reseñas en ese idioma.",
     "publicadaSinPuntos": "¡Gracias por tu reseña! Agrega una foto la próxima vez y gana 15 puntos",
-    "editada": "Actualizamos tu reseña"
+    "editada": "Actualizamos tu reseña",
+    "vacioInvita": "Cuenta cómo te fue y ayuda a otras personas a elegir."
   },
   "pasaporte": {
     "titulo": "Pasaporte de Mercados",
@@ -1207,7 +1210,17 @@
       "cajas": "cajas",
       "cientos": "cientos",
       "macetas": "macetas",
-      "docenas": "docenas"
+      "docenas": "docenas",
+      "platos": "platos",
+      "vasos": "vasos",
+      "vasos 1/2 L": "vasos 1/2 L",
+      "juegos": "juegos",
+      "kits": "kits",
+      "menús": "menús",
+      "tazas": "tazas",
+      "tiras": "tiras",
+      "ramos": "ramos",
+      "pacas": "pacas"
     },
     "giros": {
       "abasto general": "abasto general",

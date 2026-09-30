@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Fish, Flower2, Palette, SlidersHorizontal, Star, Truck, UtensilsCrossed, type LucideIcon } from "lucide-react";
+import { Clock, Fish, Flower2, Palette, SlidersHorizontal, Star, Truck, Utensils, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { CHIPS, type Chip } from "@/lib/filtros";
@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const ICONO: Record<Chip, LucideIcon> = {
   abierto: Clock,
   destacados: Star,
-  comida: UtensilsCrossed,
+  comida: Utensils,
   flores: Flower2,
   artesanias: Palette,
   pescados: Fish,

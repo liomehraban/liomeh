@@ -1,18 +1,6 @@
-import { Candy, Carrot, Fish, Flower2, Palette, Store, Truck, UtensilsCrossed, type LucideIcon } from "lucide-react";
-
 import { categoriaGiro, COLOR_GIRO, type CategoriaGiro } from "@/lib/giros";
 import { cn } from "@/lib/utils";
-
-const ICONO: Record<CategoriaGiro, LucideIcon> = {
-  comida: UtensilsCrossed,
-  frutas: Carrot,
-  flores: Flower2,
-  artesanias: Palette,
-  pescados: Fish,
-  dulces: Candy,
-  mayoreo: Truck,
-  otros: Store,
-};
+import { ICONO_GIRO } from "./iconosGiro";
 
 type Props = {
   /** Giro en texto libre (se clasifica) o categoría ya resuelta. */
@@ -28,7 +16,7 @@ type Props = {
  */
 export function PhotoPlaceholder({ giro, categoria, className, iconClassName }: Props) {
   const cat = categoria ?? categoriaGiro(giro);
-  const Icono = ICONO[cat];
+  const Icono = ICONO_GIRO[cat];
   return (
     <div
       aria-hidden

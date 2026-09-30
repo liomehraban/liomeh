@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Bus, DoorOpen, Maximize, Minus, Plus, Star, TrainFront } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { nodoEnPaso, posicionNodo, puntosDeRuta, transformacionCentrada, type Punto } from "@/lib/interior";
+import { escalaAjuste, nodoEnPaso, posicionNodo, puntosDeRuta, separarDe, tamEtiqueta, transformacionCentrada, type Margen, type Punto } from "@/lib/interior";
 import type { Interior, RutaInterior } from "@/lib/schemas";
 import { StallMarker } from "./StallMarker";
 
@@ -27,7 +27,14 @@ type Props = {
   ref?: Ref<InteriorMapHandle>;
 };
 
-const ESCALA_INICIAL = 1.08;
+/** Franja superior tapada por «Plano esquemático · Leyenda» y los botones de zoom (8 + 44 + 8 px). */
+const MARGEN_FOCO: Margen = { top: 60 };
+/** Encuadre completo: el plano entero, con aire a los lados, debajo de los controles. */
+const MARGEN_TODO: Margen = { top: 60, right: 8, bottom: 8, left: 8 };
+/** Tamaño mínimo en pantalla de las etiquetas del plano. */
+const MIN_PX_ETIQUETA = 10;
+/** Distancia mínima (unidades del plano) entre un acceso y un puesto, para que no se encimen. */
+const SEPARACION_ACCESO = 30;
 const ACCESO_ICONO = { metro: TrainFront, calle: Bus, puerta: DoorOpen } as const;
 const ACCESO_COLOR = { metro: "#E4007C", calle: "#1F4E9A", puerta: "#3E1C3C" } as const;
 
@@ -53,14 +60,15 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
     return () => ro.disconnect();
   }, []);
 
-  const centrar = (p: Punto, escala?: number) => {
+  const ajuste = tam.w ? escalaAjuste({ w: LW, h: LH }, tam, MARGEN_TODO) : 1;
+  const centrar = (p: Punto, escala?: number, margen: Margen = MARGEN_FOCO) => {
     const z = zp.current;
     if (!z || !tam.w) return;
     const e = escala ?? Math.max(z.state.scale, 2.4);
-    const tr = transformacionCentrada(p, { w: LW, h: LH }, tam, e);
+    const tr = transformacionCentrada(p, { w: LW, h: LH }, tam, e, margen);
     z.setTransform(tr.x, tr.y, tr.escala, reducir ? 0 : 450, "easeOut");
   };
-  const verTodo = () => centrar({ x: LW / 2, y: LH / 2 }, 1);
+  const verTodo = () => centrar({ x: LW / 2, y: LH / 2 }, ajuste, MARGEN_TODO);
 
   useImperativeHandle(ref, () => ({ verTodo }));
 
@@ -69,7 +77,8 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
   useEffect(() => {
     if (!tam.w || listo.current) return;
     listo.current = true;
-    const tr = transformacionCentrada({ x: LW / 2, y: LH / 2 }, { w: LW, h: LH }, tam, ESCALA_INICIAL);
+    const e = escalaAjuste({ w: LW, h: LH }, tam, MARGEN_TODO);
+    const tr = transformacionCentrada({ x: LW / 2, y: LH / 2 }, { w: LW, h: LH }, tam, e, MARGEN_TODO);
     zp.current?.setTransform(tr.x, tr.y, tr.escala, 0);
   }, [tam, LW, LH]);
 
@@ -86,6 +95,12 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
   const aqui = ruta ? posicionNodo(interior, nodoEnPaso(ruta, paso)) : null;
   const idxAqui = ruta ? ruta.nodos.indexOf(nodoEnPaso(ruta, paso)) : -1;
   const recorrido = idxAqui >= 0 ? pts.slice(0, idxAqui + 1) : [];
+  // Accesos desplazados lo justo para no taparse con un puesto vecino (p. ej. Puerta 14 y la estrella de Doña Chela).
+  const accesos = useMemo(() => {
+    const pts = interior.puestos.map(({ x, y }) => ({ x, y }));
+    return interior.accesos.map((a) => ({ ...a, ...separarDe(a, pts, SEPARACION_ACCESO) }));
+  }, [interior]);
+  const etiqueta = (texto: string, base: number, disponible: number) => tamEtiqueta(texto, base, disponible, pxPorUnidad, MIN_PX_ETIQUETA);
   const str = (p: Punto[]) => p.map(({ x, y }) => `${x},${y}`).join(" ");
 
   const boton =
@@ -96,7 +111,7 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
       {tam.w > 0 && (
         <TransformWrapper
           ref={zp}
-          minScale={0.9}
+          minScale={Math.min(0.9, ajuste)}
           onTransform={(_, s) => setEscala(Math.round(s.scale * 10) / 10)}
           maxScale={8}
           limitToBounds={false}
@@ -119,33 +134,52 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
                   const vertical = c.x1 === c.x2;
                   const mx = (c.x1 + c.x2) / 2;
                   const my = (c.y1 + c.y2) / 2;
+                  // El rótulo arranca después de los accesos de la primera mitad de la calle (no se encima con ellos).
+                  const inicio = Math.max(
+                    (vertical ? c.y1 : c.x1) + 20,
+                    ...accesos
+                      .filter((a) => (vertical ? Math.abs(a.x - mx) < 30 && a.y < my : Math.abs(a.y - my) < 30 && a.x < mx))
+                      .map((a) => (vertical ? a.y : a.x) + 30),
+                  );
+                  const fs = etiqueta(c.nombre, 13, (vertical ? c.y2 : c.x2) - 20 - inicio);
+                  // Texto centrado sobre el eje de la calle (baseline a +0.35 em).
+                  const x0 = vertical ? mx : inicio;
+                  const y0 = vertical ? inicio : my;
                   return (
                     <g key={c.nombre}>
                       <line x1={c.x1} y1={c.y1} x2={c.x2} y2={c.y2} stroke="#E8DFD4" strokeWidth={22} strokeLinecap="round" />
-                      <text
-                        x={vertical ? mx - 2 : c.x1 + 20}
-                        y={vertical ? 40 : my + 5}
-                        fontSize={13}
-                        fill="#8A7888"
-                        fontWeight={600}
-                        transform={vertical ? `rotate(90 ${mx - 2} 40)` : undefined}
-                      >
-                        {c.nombre}
-                      </text>
+                      {fs && (
+                        <text
+                          x={x0}
+                          y={y0 + fs * 0.35}
+                          fontSize={fs}
+                          fill="#6F5E6D"
+                          fontWeight={600}
+                          transform={vertical ? `rotate(90 ${x0} ${y0})` : undefined}
+                        >
+                          {c.nombre}
+                        </text>
+                      )}
                     </g>
                   );
                 })}
               </g>
               {/* edificios */}
               <g aria-hidden>
-                {interior.edificios.map((e) => (
-                  <g key={e.id}>
-                    <rect x={e.x} y={e.y} width={e.w} height={e.h} rx={14} fill={e.color} fillOpacity={0.14} stroke={e.color} strokeWidth={3} />
-                    <text x={e.x + 10} y={e.y + 22} fontSize={e.w < 100 ? 11 : 17} fontWeight={700} fill="#3E1C3C">
-                      {e.nombre}
-                    </text>
-                  </g>
-                ))}
+                {interior.edificios.map((e) => {
+                  // Solo si cabe a lo ancho y a lo alto; los edificios chicos se rotulan al acercarse.
+                  const fs = etiqueta(e.nombre, e.w < 100 ? 11 : 17, e.w - 20);
+                  return (
+                    <g key={e.id}>
+                      <rect x={e.x} y={e.y} width={e.w} height={e.h} rx={14} fill={e.color} fillOpacity={0.14} stroke={e.color} strokeWidth={3} />
+                      {fs && fs + 12 <= e.h && (
+                        <text x={e.x + 10} y={e.y + 6 + fs} fontSize={fs} fontWeight={700} fill="#3E1C3C">
+                          {e.nombre}
+                        </text>
+                      )}
+                    </g>
+                  );
+                })}
               </g>
               {/* pasillos */}
               <g aria-hidden stroke="#D9CCD7" strokeWidth={5} strokeLinecap="round">
@@ -187,7 +221,7 @@ export function InteriorMap({ interior, nombreMercado, visibles, seleccionado, r
               </g>
               {/* accesos */}
               <g aria-hidden>
-                {interior.accesos.map((a) => {
+                {accesos.map((a) => {
                   const Icono = ACCESO_ICONO[a.tipo];
                   const numero = a.tipo === "puerta" ? a.id.replace(/\D/g, "") : null;
                   return (

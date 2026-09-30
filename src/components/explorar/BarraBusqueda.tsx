@@ -68,7 +68,7 @@ export function BarraBusqueda({ onElegir }: { onElegir: (d: DocBusqueda) => void
           }}
           onFocus={() => setAbierto(true)}
           onKeyDown={(e) => e.key === "Escape" && setAbierto(false)}
-          placeholder={t("buscar")}
+          placeholder={t("buscarCorto")}
           aria-label={t("buscar")}
           role="combobox"
           data-demo="buscar"
@@ -77,7 +77,7 @@ export function BarraBusqueda({ onElegir }: { onElegir: (d: DocBusqueda) => void
           aria-controls="resultados-busqueda"
           autoComplete="off"
           enterKeyHint="search"
-          className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-tinta-2/80 [&::-webkit-search-cancel-button]:hidden"
+          className="min-w-0 flex-1 truncate bg-transparent text-base outline-none placeholder:truncate placeholder:text-tinta-2/80 [&::-webkit-search-cancel-button]:hidden"
         />
         {q && (
           <button

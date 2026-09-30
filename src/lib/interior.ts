@@ -27,8 +27,56 @@ export function posicionNodo(interior: Interior, id: string): Punto | null {
   return n ? { x: n.x, y: n.y } : null;
 }
 
-/** Transformación (pan/zoom) que centra el punto `p` del lienzo en un contenedor de `w`×`h`. */
-export function transformacionCentrada(p: Punto, lienzo: { w: number; h: number }, cont: { w: number; h: number }, escala: number) {
+/** Márgenes (px) del contenedor tapados por controles flotantes; el encuadre los respeta. */
+export type Margen = { top?: number; right?: number; bottom?: number; left?: number };
+
+/**
+ * Transformación (pan/zoom) que centra el punto `p` del lienzo en un contenedor de `w`×`h`.
+ * Con `margen`, centra en el área libre (descontando los controles superpuestos).
+ */
+export function transformacionCentrada(
+  p: Punto,
+  lienzo: { w: number; h: number },
+  cont: { w: number; h: number },
+  escala: number,
+  margen: Margen = {},
+) {
+  const { top = 0, right = 0, bottom = 0, left = 0 } = margen;
   const s0 = cont.w / lienzo.w; // el SVG ocupa el ancho del contenedor a escala 1
-  return { x: cont.w / 2 - p.x * s0 * escala, y: cont.h / 2 - p.y * s0 * escala, escala };
+  const cx = left + (cont.w - left - right) / 2;
+  const cy = top + (cont.h - top - bottom) / 2;
+  return { x: cx - p.x * s0 * escala, y: cy - p.y * s0 * escala, escala };
+}
+
+/** Escala a la que el lienzo completo cabe (ancho y alto) en el área libre del contenedor. */
+export function escalaAjuste(lienzo: { w: number; h: number }, cont: { w: number; h: number }, margen: Margen = {}) {
+  const { top = 0, right = 0, bottom = 0, left = 0 } = margen;
+  const s0 = cont.w / lienzo.w;
+  const libreW = Math.max(1, cont.w - left - right);
+  const libreH = Math.max(1, cont.h - top - bottom);
+  return Math.min(libreW / (lienzo.w * s0), libreH / (lienzo.h * s0));
+}
+
+/**
+ * Tamaño (en unidades del plano) de una etiqueta para que mida al menos `minPx` en pantalla.
+ * Devuelve `null` si a ese tamaño el texto no cabe en `disponible` (se oculta hasta acercarse).
+ */
+export function tamEtiqueta(texto: string, base: number, disponible: number, pxPorUnidad: number, minPx = 10): number | null {
+  const tam = Math.max(base, minPx / Math.max(pxPorUnidad, 1e-6));
+  return texto.length * 0.6 * tam <= disponible ? tam : null;
+}
+
+/** Aleja `p` de los marcadores de `otros` que estén a menos de `dist` (evita íconos encimados). */
+export function separarDe(p: Punto, otros: Punto[], dist: number): Punto {
+  let { x, y } = p;
+  for (const o of otros) {
+    const dx = x - o.x;
+    const dy = y - o.y;
+    const d = Math.hypot(dx, dy);
+    if (d >= dist) continue;
+    const [ux, uy] = d > 0.001 ? [dx / d, dy / d] : [0, 1];
+    x = o.x + ux * dist;
+    y = o.y + uy * dist;
+  }
+  return { x, y };
 }

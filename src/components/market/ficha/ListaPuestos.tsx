@@ -5,6 +5,8 @@ import { BadgeCheck, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Estrellas } from "@/components/market/Estrellas";
+import { ICONO_GIRO } from "@/components/market/iconosGiro";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { Link } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
 import { COLOR_GIRO, categoriaGiro } from "@/lib/giros";
@@ -16,6 +18,7 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
   const t = useTranslations("mercado");
   const tp = useTranslations("puesto");
   const ahora = useAhora();
+  const v = useVocabulario();
   const [todos, setTodos] = useState(false);
   const orden = [...puestos].sort((a, b) => Number(b.real_segun_guia) - Number(a.real_segun_guia) || b.rating - a.rating);
   const lista = todos ? orden : orden.slice(0, visibles);
@@ -24,28 +27,32 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
       <ul data-revelar className="flex flex-col gap-2">
         {lista.map((p) => {
           const a = ahora ? actividadPuesto(p.id, ahora) : null;
+          const cat = categoriaGiro(p.giro);
+          const Icono = ICONO_GIRO[cat];
           return (
             <li key={p.id}>
               <Link
                 href={`/puesto/${p.id}`}
                 className="flex min-h-11 items-center gap-3 rounded-2xl border border-border bg-white p-3 hover:border-morado focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               >
-                <span aria-hidden className="size-3 shrink-0 rounded-full" style={{ background: COLOR_GIRO[categoriaGiro(p.giro)] }} />
+                {/* Ícono del giro (el mismo de los placeholders) en lugar de un punto de color sin leyenda. */}
+                <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-full text-white" style={{ background: COLOR_GIRO[cat] }}>
+                  <Icono className="size-[18px]" strokeWidth={2} />
+                </span>
                 <span className="flex min-w-0 flex-1 flex-col">
-                  <span className="flex items-center gap-1.5 font-semibold">
+                  <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 font-semibold">
                     {p.nombre}
                     {p.real_segun_guia && <BadgeCheck className="size-4 shrink-0 text-dorado" aria-label={t("realGuia")} />}
+                    {!p.num_resenas && (
+                      <span className="rounded-pill bg-dorado-200 px-1.5 py-px text-[11px] leading-tight font-bold text-morado-900">{tp("nuevo")}</span>
+                    )}
                   </span>
                   <span className="text-[13px] leading-snug text-tinta-2">
-                    {p.giro} · {t("productos", { n: p.productos.length })}
+                    {v("girosPuesto", p.giro)} · {t("productos", { n: p.productos.length })}
                   </span>
                   {a && a.pedidosHoy > 0 && <span className="text-[12px] font-semibold text-nopal-700">{t("pedidosHoy", { n: a.pedidosHoy })}</span>}
                 </span>
-                {p.num_resenas ? (
-                  <Estrellas rating={p.rating} />
-                ) : (
-                  <span className="shrink-0 rounded-pill bg-dorado-200 px-2 py-0.5 text-xs font-bold text-morado-900">{tp("nuevo")}</span>
-                )}
+                {p.num_resenas ? <Estrellas rating={p.rating} className="shrink-0" /> : null}
               </Link>
             </li>
           );

@@ -15,6 +15,7 @@ import { categoriaGiro, categoriaMercado, COLOR_GIRO } from "@/lib/giros";
 import { describirHorario, formatMinutos } from "@/lib/horarioTexto";
 import { ratingPromedio } from "@/lib/resenas";
 import type { Evento, Mercado, Puesto, Resena, Ruta } from "@/lib/schemas";
+import { cn } from "@/lib/utils";
 import type messages from "../../../../messages/es.json";
 import { RatingCombinado } from "@/components/resenas/RatingCombinado";
 import { SeccionResenas } from "@/components/resenas/SeccionResenas";
@@ -50,7 +51,17 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
   const resumen = en ? (m.resumen_en ?? m.resumen) : m.resumen;
   const cat = categoriaMercado(m);
   const rating = ratingPromedio(resenas);
-
+  // Tipo y giro pueden decir lo mismo al traducirse (Central de Abasto: «Wholesale» y «wholesale»): un solo chip.
+  const vistos = new Set<string>();
+  const unico = (s: string) => {
+    const k = s.trim().toLocaleLowerCase(locale);
+    if (vistos.has(k)) return false;
+    vistos.add(k);
+    return true;
+  };
+  const chipsTipo = m.tipos.map((tipo) => ({ tipo, texto: TIPO_KEY[tipo] ? t(`tipos.${TIPO_KEY[tipo]}`) : tipo })).filter((c) => unico(c.texto));
+  const chipsGiro = m.giros.map((g) => ({ g, texto: v("giros", g) })).filter((c) => unico(c.texto));
+  const cifras = m.cifras ? Object.entries(m.cifras) : [];
 
   return (
     <article className="flex flex-col pb-10">
@@ -67,15 +78,15 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
           <h1 className="font-display text-5xl text-morado-700">{m.nombre_display}</h1>
           {lema && <p className="text-lg text-tinta-2">{lema}</p>}
           <ul className="flex flex-wrap gap-2 pt-1" aria-label={t("explorar.tipo")}>
-            {m.tipos.map((tipo) => (
+            {chipsTipo.map(({ tipo, texto }) => (
               <li key={tipo} className="rounded-pill bg-morado-50 px-3 py-1 text-[13px] font-semibold text-morado-700">
-                {TIPO_KEY[tipo] ? t(`tipos.${TIPO_KEY[tipo]}`) : tipo}
+                {texto}
               </li>
             ))}
-            {m.giros.map((g) => (
+            {chipsGiro.map(({ g, texto }) => (
               <li key={g} className="flex items-center gap-1.5 rounded-pill border border-border px-3 py-1 text-[13px] font-semibold">
                 <span aria-hidden className="size-2 rounded-full" style={{ background: COLOR_GIRO[categoriaGiro(g)] }} />
-                {v("giros", g)}
+                {texto}
               </li>
             ))}
           </ul>
@@ -153,12 +164,17 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
           </Seccion>
         ) : null}
 
-        {m.cifras && (
+        {cifras.length > 0 && (
           <Seccion titulo={t("mercado.cifras")}>
             <dl className="grid grid-cols-2 gap-3">
-              {Object.entries(m.cifras).map(([k, v], i) => (
-                <Revelar key={k} orden={i} className="flex flex-col gap-1 rounded-card bg-morado p-4 text-crema">
-                  <dd className="font-display text-4xl text-dorado-200">
+              {cifras.map(([k, v], i) => (
+                <Revelar
+                  key={k}
+                  orden={i}
+                  // Con un número impar de cifras, la última ocupa las dos columnas.
+                  className={cn("@container flex min-w-0 flex-col gap-1 rounded-card bg-morado p-4 text-crema", cifras.length % 2 === 1 && i === cifras.length - 1 && "col-span-2")}
+                >
+                  <dd className="font-display text-4xl leading-none whitespace-nowrap text-dorado-200">
                     <CifraAnimada clave={k} valor={v} />
                   </dd>
                   <dt className="text-sm">{CIFRAS.has(k) ? t(`mercado.cifrasEtiquetas.${k as ClaveCifra}`) : k.replaceAll("_", " ")}</dt>

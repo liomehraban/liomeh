@@ -193,7 +193,8 @@
     "sinResenas": "No reviews yet",
     "calificacion": "Rated {rating} out of 5",
     "sinFiltro": "No market matches these filters.",
-    "quitarFiltros": "Clear filters"
+    "quitarFiltros": "Clear filters",
+    "buscarCorto": "Market or dish"
   },
   "mercado": {
     "volver": "Back",
@@ -468,7 +469,8 @@
     "cerrar": "Close card",
     "expandir": "Resize card",
     "desdeMerced": "{km} km to La Merced",
-    "simulado": "Growers and prices are simulated for this demo"
+    "simulado": "Growers and prices are simulated for this demo",
+    "simuladoCorto": "Simulated data for this demo"
   },
   "productor": {
     "volver": "Back",
@@ -582,7 +584,8 @@
     "idiomaEn": "EN",
     "sinFiltro": "No reviews in that language.",
     "publicadaSinPuntos": "Thanks for your review! Add a photo next time to earn 15 points",
-    "editada": "Your review was updated"
+    "editada": "Your review was updated",
+    "vacioInvita": "Tell us how it went and help others choose."
   },
   "pasaporte": {
     "titulo": "Market Passport",
@@ -1207,7 +1210,17 @@
       "cajas": "boxes",
       "cientos": "× 100 pcs",
       "macetas": "pots",
-      "docenas": "dozen"
+      "docenas": "dozen",
+      "platos": "plates",
+      "vasos": "glasses",
+      "vasos 1/2 L": "½ L glasses",
+      "juegos": "sets",
+      "kits": "kits",
+      "menús": "set menus",
+      "tazas": "cups",
+      "tiras": "strips",
+      "ramos": "bouquets",
+      "pacas": "bales"
     },
     "giros": {
       "abasto general": "general supplies",

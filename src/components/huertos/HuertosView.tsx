@@ -138,7 +138,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
             icono={<Sprout className="size-5 text-nopal-700" aria-hidden />}
             abierto={lista}
             onToggle={() => setLista((v) => !v)}
-            extra={<span className="text-[13px] text-tinta-2">· {t("simulado")}</span>}
+            nota={t("simuladoCorto")}
           >
             <ul className="carrusel scroll-px-4 gap-3 px-4 pb-2">
               {visibles.map((p) => (

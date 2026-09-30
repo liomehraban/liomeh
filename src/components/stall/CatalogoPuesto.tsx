@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ShoppingBasket } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useMessages, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,14 @@ const ESTILO_STOCK: Record<Stock["estado"], string> = {
 export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: Puesto; nombresPuestos: Record<string, string>; vendedor?: PuestoResumen }) {
   const t = useTranslations("puesto");
   const voc = useVocabulario();
+  const locale = useLocale();
+  const unidades = useMessages().datos.unidades as Record<string, string>;
+  // «63 platos» → «63 plates»: se traduce el plural (datos.unidades); si el diccionario aún no lo tiene,
+  // en inglés se cae a la unidad singular traducida antes que mostrar la palabra en español.
+  const unidadStock = (u: string, n: number) => {
+    const plural = unidadPlural(u, n);
+    return unidades[plural] ?? (locale === "en" ? voc("unidades", u) : plural);
+  };
   const router = useRouter();
   const [qty, setQty] = useState<Record<string, number>>({});
   const hydrated = useHydrated();
@@ -82,7 +90,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
           return (
             <li key={prod.n} data-demo={`producto:${prod.n}`} className={cn("flex flex-col gap-3 p-4", agotado && "bg-papel")}>
               <div className="flex items-start justify-between gap-3">
-                <div className="flex flex-col">
+                <div className="flex min-w-0 flex-1 flex-col">
                   <span className={cn("font-semibold", agotado && "text-tinta-2")}>{prod.n}</span>
                   <span className="text-[13px] text-tinta-2">/ {voc("unidades", prod.u)}</span>
                   {stock && (
@@ -90,10 +98,10 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
                       {stock.estado === "agotado"
                         ? t("stock.agotado")
                         : stock.estado === "pocas"
-                          ? t("stock.pocas", { n: stock.disponible, u: unidadPlural(prod.u, stock.disponible) })
+                          ? t("stock.pocas", { n: stock.disponible, u: unidadStock(prod.u, stock.disponible) })
                           : stock.estado === "surtido"
-                            ? t("stock.surtido", { n: stock.disponible, u: unidadPlural(prod.u, stock.disponible) })
-                            : t("stock.ok", { n: stock.disponible, u: unidadPlural(prod.u, stock.disponible) })}
+                            ? t("stock.surtido", { n: stock.disponible, u: unidadStock(prod.u, stock.disponible) })
+                            : t("stock.ok", { n: stock.disponible, u: unidadStock(prod.u, stock.disponible) })}
                     </span>
                   )}
                 </div>
