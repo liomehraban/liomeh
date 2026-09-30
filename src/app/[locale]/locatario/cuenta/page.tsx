@@ -4,6 +4,9 @@ import type { Locale } from "@/i18n/routing";
 import { AjustesDemo } from "@/components/shell/AjustesDemo";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("locatarioCuenta");
 
 export default async function CuentaPage({ params }: PageProps<"/[locale]/locatario/cuenta">) {
   const { locale } = await params;

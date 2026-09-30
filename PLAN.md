@@ -37,7 +37,7 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] **M8** Reseñas · **M9** Pasaporte y check-in · **M10** Agenda · **M11** Rutas · **M12** Planes · **M20** Rescata hoy
 
 ## Fase 6 · Marchanta `/fase-6`
-- [x] **M22** Chat, tarjetas accionables, `/api/asistente` (Anthropic + fallback), límite freemium
+- [x] **M22** Marchanta simulada: preguntas rápidas, respuestas calculadas en el servidor, tarjetas accionables, límite freemium
 - [x] Tests de `intents.ts` (8 intenciones × ES/EN)
 
 ## Fase 7 · Vender y cosechar `/fase-7`
@@ -52,5 +52,11 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [ ] Lighthouse móvil: PWA ok, Performance ≥ 80, Accessibility ≥ 95 — instalable ✓, accesibilidad 96–100 ✓; performance 85–95 salvo las pantallas con mapa (71–75, por MapLibre)
 - [x] Deploy a Vercel y README con la URL — proyecto `bara-bara` (https://bara-bara-lovat.vercel.app)
 - [x] Dominio `mercados.cineticastudio.xyz`: dominio en el proyecto de Vercel + registro CNAME en Cloudflare (DNS only)
+
+## Auditoría y endurecimiento
+- [x] **P0** Presentación robusta, páginas de error y 404, KPIs reales del locatario, avisos por perfil
+- [x] **P1** Puestos simulados sin calificaciones inventadas, reseñas verificadas, límites de compra, Rescata hoy con pago y folio, planes con pago y vencimiento, sincronía de pedidos, jalar para actualizar
+- [x] **P2** Service worker con actualización segura, store robusto y entre pestañas, accesibilidad (44 px, AA), búsqueda bajo demanda con productos del catálogo
+- [x] **P3** Repositorio con consultas agregadas y cachés con vigencia, migración `0002`, documentación, limpieza, clave `bara-bara-demo`, e2e extra, CI y cabeceras de seguridad
 
 Después de cualquier fase se puede correr **`/revisar-demo`**, que ejecuta el guion y reporta lo que falle.

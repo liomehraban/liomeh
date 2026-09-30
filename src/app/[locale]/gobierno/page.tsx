@@ -3,6 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { datosGobierno } from "@/data/gobierno";
 import { PanelGobierno } from "@/components/gobierno/PanelGobierno";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("gobierno");
 
 export default async function GobiernoPage({ params }: PageProps<"/[locale]/gobierno">) {
   const { locale } = await params;

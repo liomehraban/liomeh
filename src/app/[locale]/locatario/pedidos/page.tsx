@@ -2,6 +2,9 @@ import { setRequestLocale } from "next-intl/server";
 
 import type { Locale } from "@/i18n/routing";
 import { PedidosView } from "@/components/locatario/PedidosView";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("locatarioPedidos");
 
 export default async function LocatarioPedidosPage({ params }: PageProps<"/[locale]/locatario/pedidos">) {
   const { locale } = await params;

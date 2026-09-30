@@ -13,8 +13,6 @@
     "reiniciarDemo": "Reiniciar demo",
     "demoReiniciada": "Demo reiniciada: todo quedó como en los datos originales",
     "proximamente": "Próximamente",
-    "enConstruccion": "Esta sección llega en la {fase}.",
-    "sinConexion": "Sin conexión: tu pasaporte y tus pedidos siguen aquí",
     "actualizado": "Todo al día",
     "actualizando": "Actualizando…",
     "soltar": "Suelta para actualizar",
@@ -33,7 +31,6 @@
     "cambiarPerfil": "Cambiar de perfil",
     "perfilActual": "Perfil actual: {perfil}",
     "cambiarIdioma": "Cambiar idioma",
-    "idiomaActual": "Español",
     "navegacion": "Navegación principal",
     "carrito": "Carrito",
     "tabs": {
@@ -110,16 +107,6 @@
     "gobierno": "Panel de impacto",
     "presentacion": "Modo presentación",
     "offline": "Sin conexión"
-  },
-  "fases": {
-    "1": "Fase 1 · Descubrir",
-    "2": "Fase 2 · Llegar al puesto",
-    "3": "Fase 3 · Comprar justo",
-    "4": "Fase 4 · Huertos",
-    "5": "Fase 5 · Volver al mercado",
-    "6": "Fase 6 · Marchanta",
-    "7": "Fase 7 · Vender y cosechar",
-    "8": "Fase 8 · Pitch y salida"
   },
   "yo": {
     "ajustes": "Ajustes",
@@ -287,7 +274,6 @@
     "llegasteTexto": "{nombre} está a tu lado",
     "verMenu": "Ver menú del puesto",
     "otraRuta": "Terminar ruta",
-    "sinRuta": "No encontramos una ruta a este puesto",
     "real": "Puesto de la guía",
     "leyenda": "Leyenda",
     "metro": "Metro",
@@ -683,15 +669,13 @@
     "incluye": "Incluye: {incluye}",
     "reservada": "Tour reservado: {fecha} · {personas, plural, one {# persona} other {# personas}} · folio {id}",
     "mapa": "Mapa de la ruta {titulo}",
-    "hecha": "Visitada",
-    "noEncontrada": "No encontramos esa ruta"
+    "hecha": "Visitada"
   },
   "planes": {
     "titulo": "Planes",
     "subtitulo": "Todo lo esencial es gratis. Los planes suman extras.",
     "actual": "Tu plan actual",
     "activar": "Activar",
-    "activando": "Procesando pago…",
     "activado": "¡Listo! Ahora tienes {plan}",
     "volverGratis": "Volver a Gratis",
     "gratis": "Gratis",

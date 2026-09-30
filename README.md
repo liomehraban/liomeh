@@ -41,7 +41,7 @@ pnpm dev              # http://localhost:3000/es
 
 **Marchanta** (`/asistente`) es simulada: ocho preguntas rápidas con respuestas preguardadas, calculadas en el servidor con las reglas de `src/lib/assistant/intents.ts` sobre los datos reales (la página se regenera cada 15 min por «abierto ahora» y «eventos del mes»). No hay texto libre ni llamadas a una API de IA.
 
-Todo lo transaccional persiste en `localStorage` (Zustand, clave `pasele-demo`) y se refleja entre perfiles sin recargar. «Reiniciar demo» (modo presentación o Ajustes) deja todo como en los JSON.
+Todo lo transaccional persiste en `localStorage` (Zustand, clave `bara-bara-demo`; se migra sola desde la anterior `pasele-demo`) y se refleja entre perfiles sin recargar. «Reiniciar demo» (modo presentación o Ajustes) deja todo como en los JSON.
 
 ## PWA
 

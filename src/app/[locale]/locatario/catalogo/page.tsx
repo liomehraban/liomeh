@@ -3,6 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { datosLocatario } from "@/data/vistas-demo";
 import { CatalogoView } from "@/components/locatario/CatalogoView";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("locatarioCatalogo");
 
 export default async function CatalogoPage({ params }: PageProps<"/[locale]/locatario/catalogo">) {
   const { locale } = await params;
