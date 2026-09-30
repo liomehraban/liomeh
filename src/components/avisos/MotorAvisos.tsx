@@ -9,6 +9,7 @@ import { avisosDePedidos, bandejaInicial, siguienteAviso, type Aviso, type Datos
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { useTextoAviso } from "./useTextoAviso";
 import { EVENTO_ACTUALIZAR } from "@/components/shell/MainActualizable";
+import { crearCandado } from "./candado";
 
 const PRIMERO_MS = 12_000;
 const ENTRE_MS: [number, number] = [40_000, 90_000];
@@ -33,7 +34,8 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
       const sistema = useAppStore.getState().avisosSistema && typeof Notification !== "undefined" && Notification.permission === "granted";
       if (document.hidden && sistema) {
         const opciones: NotificationOptions = { body: cuerpo, icon: "/icons/icon-192.png", badge: "/icons/icon-192.png", tag: a.id, data: { url: a.href ?? "/" } };
-        navigator.serviceWorker?.ready.then((r) => r.showNotification(titulo, opciones)).catch(() => new Notification(titulo, opciones));
+        // En Android `new Notification()` no está permitido: solo vía service worker.
+        navigator.serviceWorker?.ready.then((r) => r.showNotification(titulo, opciones)).catch(() => toast(titulo, { description: cuerpo }));
         return;
       }
       toast(titulo, {
@@ -49,8 +51,13 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
     st.sembrarAvisos(bandejaInicial(perfil, datos, new Date()));
 
     let timer: ReturnType<typeof setTimeout>;
+    // Solo una pestaña genera avisos (las demás los ven al sincronizarse).
+    const candado = crearCandado();
+    candado.tomar();
+    const latido = setInterval(() => candado.tomar(), 5000);
     /** Entrega el siguiente aviso que toque (si hay algo nuevo). */
     const revisar = () => {
+      if (!candado.tomar()) return;
       const s = useAppStore.getState();
       const r = siguienteAviso(
         perfil,
@@ -88,6 +95,7 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
     // Pedidos de la persona: avisar en cuanto cambian de etapa.
     const pedidos = perfil === "consumidor"
       ? setInterval(() => {
+          if (!candado.tomar()) return;
           const s = useAppStore.getState();
           const now = new Date();
           const estados = Object.fromEntries(s.locatario.pedidos.filter((x) => x.folio).map((x) => [x.folio!, x.estado ?? "nuevo"]));
@@ -102,6 +110,8 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
     return () => {
       clearTimeout(timer);
       clearInterval(pedidos);
+      clearInterval(latido);
+      candado.soltar();
       window.removeEventListener(EVENTO_ACTUALIZAR, alActualizar);
     };
   }, [hydrated, perfil, presentando, datos]);

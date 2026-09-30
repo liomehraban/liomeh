@@ -17,7 +17,9 @@
     "sinConexion": "Sin conexión: tu pasaporte y tus pedidos siguen aquí",
     "actualizado": "Todo al día",
     "actualizando": "Actualizando…",
-    "soltar": "Suelta para actualizar"
+    "soltar": "Suelta para actualizar",
+    "nuevaVersion": "Hay una versión nueva de Bara Bara",
+    "recargar": "Recargar"
   },
   "perfiles": {
     "consumidor": "Turista / Consumidor",

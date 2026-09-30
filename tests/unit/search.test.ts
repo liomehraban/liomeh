@@ -44,3 +44,11 @@ describe("search", () => {
   });
   it("consulta vacía no devuelve nada", () => expect(Object.values(buscar(indice, "  ")).flat()).toHaveLength(0));
 });
+
+describe("productos del catálogo simulado", () => {
+  it("encuentra un mercado por un producto de su catálogo simulado", () => {
+    const otro = mercados.find((m) => m.id !== "la-merced")!;
+    const idx = crearIndice(documentosBusqueda(mercados, {}, productores, { [otro.id]: ["Pitahaya amarilla"] }));
+    expect(buscar(idx, "pitahaya").mercado.map((r) => r.doc.id)).toContain(otro.id);
+  });
+});

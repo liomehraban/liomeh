@@ -30,11 +30,9 @@ type Origen = LatLng & { fuente: "gps" | "zocalo" };
 /** M1 · Mapa de la ciudad. */
 export function Explorador({
   mercados,
-  docs,
   rescate,
 }: {
   mercados: MercadoMapa[];
-  docs: DocBusqueda[];
   rescate: { ofertas: OfertaRescate[]; kpiTon: number };
 }) {
   const t = useTranslations();
@@ -138,6 +136,7 @@ export function Explorador({
 
   return (
     <div data-pantalla-completa className="relative h-full overflow-hidden">
+      <h1 className="sr-only">{t("paginas.explorar")}</h1>
       <MapView
         center={CENTRO_CDMX}
         zoom={11}
@@ -154,7 +153,7 @@ export function Explorador({
       {/* Buscador + chips */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
         <div className="mr-28">
-          <BarraBusqueda docs={docs} onElegir={onBuscar} />
+          <BarraBusqueda onElegir={onBuscar} />
         </div>
         <ChipsFiltro activos={filtros.chips} onToggle={toggleChip} onFiltros={() => setSheetFiltros(true)} nFiltros={filtros.alcaldias.length + filtros.tipos.length} />
         <p className="self-start rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">

@@ -30,6 +30,7 @@ const chip =
 export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuerto[]; productores: Productor[]; mercados: MercadoPunto[] }) {
   const t = useTranslations("huertos");
   const locale = useLocale();
+  const tp = useTranslations("paginas");
   const ahora = useAhora();
   const [cultivos, setCultivos] = useState<Cultivo[]>([]);
   const [temporada, setTemporada] = useState(false);
@@ -76,6 +77,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
 
   return (
     <div data-pantalla-completa className="relative h-full overflow-hidden">
+      <h1 className="sr-only">{tp("huertos")}</h1>
       <MapView
         center={CENTRO}
         zoom={10}

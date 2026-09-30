@@ -17,7 +17,9 @@
     "sinConexion": "You're offline: your passport and orders are still here",
     "actualizado": "You're all caught up",
     "actualizando": "Refreshing…",
-    "soltar": "Release to refresh"
+    "soltar": "Release to refresh",
+    "nuevaVersion": "A new version of Bara Bara is ready",
+    "recargar": "Reload"
   },
   "perfiles": {
     "consumidor": "Visitor / Shopper",

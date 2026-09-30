@@ -27,7 +27,7 @@ export function NivelCard({ niveles }: { niveles: Nivel[] }) {
         <BarraAnimada pct={p.pct} className="bg-dorado" retraso={0.2} />
       </div>
       <p className="text-sm">{p.siguiente ? t("faltan", { n: p.faltan, nivel: p.siguiente.nivel }) : t("maximo")}</p>
-      <p className="text-[13px] text-crema/80">{t("beneficio", { beneficio: enIdioma(p.actual, "beneficio", locale) })}</p>
+      <p className="text-[13px] text-crema">{t("beneficio", { beneficio: enIdioma(p.actual, "beneficio", locale) })}</p>
     </section>
   );
 }

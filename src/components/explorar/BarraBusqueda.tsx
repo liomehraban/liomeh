@@ -1,17 +1,29 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapPin, Search, Sprout, Store, UtensilsCrossed, X, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { buscar, crearIndice, type DocBusqueda, type TipoResultado } from "@/lib/search";
+import { cargarDocsBusqueda } from "./docsBusqueda";
 
 const ICONO: Record<TipoResultado, LucideIcon> = { mercado: MapPin, puesto: Store, producto: UtensilsCrossed, productor: Sprout };
 const ORDEN: TipoResultado[] = ["mercado", "puesto", "producto", "productor"];
 
-export function BarraBusqueda({ docs, onElegir }: { docs: DocBusqueda[]; onElegir: (d: DocBusqueda) => void }) {
+/**
+ * Buscador de Explorar. El índice (mercados, puestos, productos, productores) no viaja en la página:
+ * se precarga en segundo plano y, si alguien busca antes, se espera a que llegue.
+ */
+export function BarraBusqueda({ onElegir }: { onElegir: (d: DocBusqueda) => void }) {
   const t = useTranslations("explorar");
-  const indice = useMemo(() => crearIndice(docs), [docs]);
+  const [docs, setDocs] = useState<DocBusqueda[] | null>(null);
+  useEffect(() => {
+    const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 300));
+    const cancelar = window.cancelIdleCallback ?? window.clearTimeout;
+    const id = ric(() => void cargarDocsBusqueda().then(setDocs).catch(() => {}), { timeout: 2000 });
+    return () => cancelar(id);
+  }, []);
+  const indice = useMemo(() => (docs ? crearIndice(docs) : []), [docs]);
   const [q, setQ] = useState("");
   const [abierto, setAbierto] = useState(false);
   const resultados = useMemo(() => buscar(indice, q), [indice, q]);
@@ -27,9 +39,11 @@ export function BarraBusqueda({ docs, onElegir }: { docs: DocBusqueda[]; onElegi
     <div className="relative">
       <form
         role="search"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          const primero = resultados.mercado[0] ?? ORDEN.map((k) => resultados[k][0]).find(Boolean);
+          // Si el índice aún no llega (búsqueda inmediata, p. ej. el modo presentación), se espera.
+          const r = docs ? resultados : buscar(crearIndice(await cargarDocsBusqueda().catch(() => [])), q);
+          const primero = r.mercado[0] ?? ORDEN.map((k) => r[k][0]).find(Boolean);
           if (primero) elegir(primero.doc);
         }}
         className="flex h-12 items-center gap-2 rounded-pill border border-border bg-white px-4 shadow-md focus-within:ring-[3px] focus-within:ring-ring/40"

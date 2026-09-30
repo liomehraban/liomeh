@@ -10,7 +10,8 @@ function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimi
     <SwitchPrimitive.Root
       data-slot="switch"
       className={cn(
-        "peer inline-flex h-7 w-12 shrink-0 items-center rounded-pill border-2 border-transparent transition-all outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-gris/40",
+        // El área táctil llega a 44 px con un ::after invisible (la pastilla se ve de 28 px).
+        "peer relative inline-flex h-7 w-12 shrink-0 after:absolute after:-inset-2 after:content-[''] items-center rounded-pill border-2 border-transparent transition-all outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-gris/40",
         className,
       )}
       {...props}

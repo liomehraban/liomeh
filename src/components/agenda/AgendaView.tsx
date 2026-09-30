@@ -59,7 +59,7 @@ export function AgendaView({ eventos, rutas, paradas, mercados }: { eventos: Eve
                   role="radio"
                   aria-checked={vista === v}
                   onClick={() => setVista(v)}
-                  className={cn("flex h-9 items-center gap-1.5 rounded-pill px-3 text-[13px] font-semibold", vista === v ? "bg-primary text-primary-foreground" : "text-morado-700")}
+                  className={cn("flex h-11 items-center gap-1.5 rounded-pill px-3 text-[13px] font-semibold", vista === v ? "bg-primary text-primary-foreground" : "text-morado-700")}
                 >
                   {v === "lista" ? <List className="size-4" aria-hidden /> : <CalendarDays className="size-4" aria-hidden />}
                   {t(v)}

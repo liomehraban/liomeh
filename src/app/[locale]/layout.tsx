@@ -15,6 +15,7 @@ import { RegistroSW } from "@/components/pwa/RegistroSW";
 import { MotorAvisos } from "@/components/avisos/MotorAvisos";
 import { RevelarAutomatico } from "@/components/motion/RevelarAutomatico";
 import { VigilantePlan } from "@/components/planes/VigilantePlan";
+import { SincroniaPestanas } from "@/components/shell/SincroniaPestanas";
 import { datosAvisos } from "@/data/avisos";
 import "../globals.css";
 
@@ -63,6 +64,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
                 <MotorAvisos datos={await datosAvisos()} />
                 <RevelarAutomatico />
                 <VigilantePlan />
+                <SincroniaPestanas />
                 <Toaster />
               </PhoneFrame>
             </MotionProvider>
