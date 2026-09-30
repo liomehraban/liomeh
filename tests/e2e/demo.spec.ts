@@ -136,7 +136,9 @@ test("guion de demo completo sin errores de consola", async ({ page }) => {
   expect(limpio.locatario.cobros).toHaveLength(0);
 
   expect(errores).toEqual([]);
-  expect(fallidas.filter((u) => u.startsWith("http://localhost"))).toEqual([]);
+  // Ningún recurso propio (mismo origen) puede fallar
+  const origen = new URL(page.url()).origin;
+  expect(fallidas.filter((u) => u.startsWith(origen))).toEqual([]);
 });
 
 test("los datos de tarjeta nunca salen a la red", async ({ page }) => {

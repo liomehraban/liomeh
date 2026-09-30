@@ -2,6 +2,8 @@ import { existsSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
 
 const PUERTO = Number(process.env.E2E_PORT ?? 3100);
+// E2E_BASE_URL=https://… corre el guion contra un deploy (sin levantar servidor local).
+const REMOTO = process.env.E2E_BASE_URL;
 // En el contenedor de Claude Code hay un Chromium preinstalado; en otro entorno se usa el de Playwright.
 const CHROMIUM = "/opt/pw-browsers/chromium";
 
@@ -13,7 +15,7 @@ export default defineConfig({
   workers: 1,
   reporter: [["list"]],
   use: {
-    baseURL: `http://localhost:${PUERTO}`,
+    baseURL: REMOTO ?? `http://localhost:${PUERTO}`,
     ...devices["Desktop Chrome"],
     viewport: { width: 390, height: 844 },
     hasTouch: false,
@@ -21,11 +23,15 @@ export default defineConfig({
     timezoneId: "America/Mexico_City",
     trace: "retain-on-failure",
     launchOptions: existsSync(CHROMIUM) ? { executablePath: CHROMIUM } : {},
+    // En el contenedor de Claude Code la salida pasa por un proxy con CA propia que Chromium no conoce.
+    ignoreHTTPSErrors: !!REMOTO,
   },
-  webServer: {
-    command: `pnpm build && pnpm start -p ${PUERTO}`,
-    url: `http://localhost:${PUERTO}/es`,
-    reuseExistingServer: true,
-    timeout: 300_000,
-  },
+  webServer: REMOTO
+    ? undefined
+    : {
+        command: `pnpm build && pnpm start -p ${PUERTO}`,
+        url: `http://localhost:${PUERTO}/es`,
+        reuseExistingServer: true,
+        timeout: 300_000,
+      },
 });

@@ -1,0 +1,9 @@
+# Se generan en el build de Vercel
+.next
+node_modules
+public/sw.js
+public/sw.js.map
+public/maplibre
+# Resultados locales de pruebas
+test-results
+playwright-report
