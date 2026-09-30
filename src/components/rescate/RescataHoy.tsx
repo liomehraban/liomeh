@@ -65,7 +65,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
               <div className="flex gap-2">
                 <div className="relative">
                   <PhotoPlaceholder giro={o.giro} className="aspect-square w-16 rounded-2xl" iconClassName="size-6" />
-                  <span className="absolute -top-1 -left-1 rounded-pill bg-chile px-1.5 text-[11px] font-bold text-white">{t("descuento")}</span>
+                  <span className="absolute -top-1 -left-1 rounded-pill bg-chile px-1.5 text-xs font-bold text-white">{t("descuento")}</span>
                 </div>
                 <div className="flex min-w-0 flex-col">
                   <span className="line-clamp-2 text-[13px] leading-tight font-bold">{nombre(o)}</span>
@@ -110,7 +110,7 @@ export function RescataHoy({ ofertas, kpiTon }: { ofertas: OfertaRescate[]; kpiT
           );
         })}
       </ul>
-      <p className="px-4 text-[11px] text-tinta-2">{t("simulado")}</p>
+      <p className="px-4 text-xs text-tinta-2">{t("simulado")}</p>
     </div>
   );
 }

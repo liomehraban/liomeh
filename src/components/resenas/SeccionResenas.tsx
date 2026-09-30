@@ -76,7 +76,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
                     {r.origen && <span className="font-normal text-tinta-2"> · {r.origen}</span>}
                   </span>
                   <span className="flex items-center gap-2 text-[13px] text-tinta-2">
-                    <span className="rounded bg-morado-50 px-1.5 text-[11px] font-bold text-morado-700">{r.idioma === "es" ? t("idiomaEs") : t("idiomaEn")}</span>
+                    <span className="rounded bg-morado-50 px-1.5 text-xs font-bold text-morado-700">{r.idioma === "es" ? t("idiomaEs") : t("idiomaEn")}</span>
                     {fecha(r.fecha)}
                   </span>
                 </div>

@@ -44,7 +44,7 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
                 {p.num_resenas ? (
                   <Estrellas rating={p.rating} />
                 ) : (
-                  <span className="shrink-0 rounded-pill bg-dorado-200 px-2 py-0.5 text-[11px] font-bold text-morado-900">{tp("nuevo")}</span>
+                  <span className="shrink-0 rounded-pill bg-dorado-200 px-2 py-0.5 text-xs font-bold text-morado-900">{tp("nuevo")}</span>
                 )}
               </Link>
             </li>

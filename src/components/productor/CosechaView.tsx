@@ -46,7 +46,7 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
       <div className="flex min-w-0 flex-col">
         <span className="flex items-center gap-2 font-bold text-morado-700">
           {l.producto || "—"}
-          {nuevo && <span className="rounded-pill bg-dorado px-2 text-[11px] text-morado-900">{t("nuevo")}</span>}
+          {nuevo && <span className="rounded-pill bg-dorado px-2 text-xs text-morado-900">{t("nuevo")}</span>}
         </span>
         <span className="text-sm">
           {l.cantidad} {nombreUnidad(l.unidad)} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{nombreUnidad(singular(l.unidad))}

@@ -60,7 +60,7 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
               <li key={c.id} className="flex w-44 shrink-0 snap-start flex-col items-center gap-1 rounded-card border-2 border-dashed border-dorado bg-dorado-200/40 p-3 text-center">
                 <QRCodeSVG value={c.codigo} size={96} fgColor="#3E1C3C" bgColor="transparent" title={t("cuponEtiqueta", { codigo: c.codigo })} />
                 <span className="text-[13px] font-bold">{tituloCupon(c)}</span>
-                <span className="font-mono text-[11px] text-tinta-2">{c.codigo}</span>
+                <span className="font-mono text-xs text-tinta-2">{c.codigo}</span>
               </li>
             ))}
           </ul>

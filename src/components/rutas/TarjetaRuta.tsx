@@ -20,12 +20,12 @@ export function TarjetaRuta({ r, paradas }: { r: Ruta; paradas: Record<string, P
       <div className="flex min-w-0 flex-col gap-1">
         <div className="flex items-center gap-2">
           {r.tipo === "premium" ? (
-            <span className="flex items-center gap-1 rounded-pill bg-dorado px-2 py-0.5 text-[11px] font-bold text-morado-900">
+            <span className="flex items-center gap-1 rounded-pill bg-dorado px-2 py-0.5 text-xs font-bold text-morado-900">
               <Lock className="size-3" aria-hidden />
               {t("premium")}
             </span>
           ) : (
-            <span className="rounded-pill bg-nopal-700 px-2 py-0.5 text-[11px] font-bold text-white">{t("gratis")}</span>
+            <span className="rounded-pill bg-nopal-700 px-2 py-0.5 text-xs font-bold text-white">{t("gratis")}</span>
           )}
         </div>
         <h3 className="leading-snug font-bold text-morado-700">{enIdioma(r, "titulo", locale)}</h3>

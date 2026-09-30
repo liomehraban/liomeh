@@ -28,7 +28,7 @@ export function TarjetaAsistente({ c }: { c: TarjetaResuelta }) {
           <Icono className="size-4" />
         </span>
         <div className="flex min-w-0 flex-col">
-          <span className="text-[11px] font-bold tracking-wide text-tinta-2 uppercase">{t(`tipos.${c.tipo}`)}</span>
+          <span className="text-xs font-bold tracking-wide text-tinta-2 uppercase">{t(`tipos.${c.tipo}`)}</span>
           <span className="leading-snug font-bold text-morado-700">{c.titulo}</span>
           {c.subtitulo && <span className="line-clamp-2 text-[13px] text-tinta-2">{c.subtitulo}</span>}
         </div>

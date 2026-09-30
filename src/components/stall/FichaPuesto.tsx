@@ -54,7 +54,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
             {p.nombre}
             {p.real_segun_guia && <BadgeCheck className="mt-1 size-6 shrink-0 text-dorado" aria-label={t("mercado.realGuia")} />}
           </h1>
-          <Link href={`/mercado/${mercado.id}`} className="w-fit text-sm font-semibold text-morado underline-offset-4 hover:underline">
+          <Link href={`/mercado/${mercado.id}`} className="inline-flex min-h-11 w-fit items-center text-sm font-semibold text-morado underline-offset-4 hover:underline">
             {t("puesto.enMercado", { mercado: mercado.nombre })}
           </Link>
           <p className="flex items-center gap-1.5 text-sm text-tinta-2">

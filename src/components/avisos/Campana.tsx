@@ -71,7 +71,7 @@ export function Campana() {
       >
         {noLeidos ? <BellRing className="size-5" strokeWidth={2} aria-hidden /> : <Bell className="size-5" strokeWidth={2} aria-hidden />}
         {noLeidos > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-chile px-1 text-[11px] leading-5 font-bold text-white" aria-hidden>
+          <span className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full bg-chile px-1 text-xs leading-5 font-bold text-white" aria-hidden>
             {noLeidos > 9 ? "9+" : noLeidos}
           </span>
         )}
@@ -119,7 +119,7 @@ export function Campana() {
                         {!a.leida && <span className="sr-only">{t("nueva")}</span>}
                       </span>
                       <span className="text-[13px] text-tinta-2">{cuerpo}</span>
-                      {ahora && <span className="mt-0.5 text-[11px] text-tinta-2">{haceTiempo(a.fecha, ahora, locale)}</span>}
+                      {ahora && <span className="mt-0.5 text-xs text-tinta-2">{haceTiempo(a.fecha, ahora, locale)}</span>}
                     </span>
                   </button>
                 </li>
