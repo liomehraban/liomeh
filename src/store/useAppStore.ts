@@ -20,6 +20,7 @@ export const HOME_PERFIL: Record<Perfil, string> = {
 
 import { agregarItem, cambiarCantidad, type ItemCarrito, type LineaCarrito } from "@/lib/carrito";
 import { construirPedido, type NuevoPedido, type Pedido } from "@/lib/pedidos";
+import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -40,14 +41,25 @@ type DatosDemo = {
   sellos: string[];
   insignias: string[];
   recordatorios: string[];
-  resenasPropias: Resena[];
-  /** puestoId → fecha ISO del último check-in (máx. 1 por día) */
-  checkinsHoy: Record<string, string>;
+  resenasPropias: ResenaPropia[];
+  /** Historial de check-ins QR (máx. 1 por objetivo al día). */
+  checkins: Checkin[];
+  /** mercadoId → fecha ISO en que se ganó el sello (los de la demo no tienen fecha). */
+  sellosFechas: Record<string, string>;
+  cupones: Cupon[];
+  rescates: Rescate[];
+  /** rutaId → fecha ISO de inicio */
+  rutasIniciadas: Record<string, string>;
+  reservasTour: ReservaTour[];
   asistente: { fecha: string; usados: number };
   locatario: { pedidos: PedidoLocatario[]; catalogoExtra: Producto[]; cobros: Cobro[] };
   productor: { lotes: Lote[]; pedidos: PedidoMayoreo[] };
   reservasVisita: ReservaVisita[];
 };
+
+export type ResenaPropia = Resena & { fotoUrl?: string };
+export type Rescate = { ofertaId: string; tipo: "compra" | "donacion"; kg: number; fecha: string };
+export type ReservaTour = { id: string; rutaId: string; fecha: string; personas: number; total: number; creada: string };
 
 export type ReservaVisita = { id: string; productorId: string; fecha: string; personas: number; total: number; creada: string };
 
@@ -62,6 +74,13 @@ type Acciones = {
   /** Crea el pedido pagado: lo guarda, vacía ese grupo, suma puntos (una sola vez) y el sello del mercado. */
   registrarPedido: (input: Omit<NuevoPedido, "planMercadoMas">) => Pedido;
   reservarVisita: (r: Omit<ReservaVisita, "id" | "creada">) => ReservaVisita;
+  hacerCheckin: (objetivo: string, mercadoId: string) => ResultadoCheckin;
+  canjear: (r: { id: string; titulo: string; puntos: number }) => Cupon | null;
+  escribirResena: (r: Pick<Resena, "objetivo_id" | "estrellas" | "texto" | "idioma"> & { fotoUrl?: string }) => ResenaPropia;
+  rescatar: (ofertaId: string, tipo: Rescate["tipo"], kg: number) => void;
+  toggleRecordatorio: (eventoId: string) => boolean;
+  iniciarRuta: (rutaId: string) => void;
+  reservarTour: (r: Omit<ReservaTour, "id" | "creada">) => ReservaTour;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
 };
@@ -81,7 +100,12 @@ export function estadoInicial(): DatosDemo {
     insignias: [...demoSeed.usuario.insignias],
     recordatorios: [],
     resenasPropias: [],
-    checkinsHoy: {},
+    checkins: [],
+    sellosFechas: {},
+    cupones: [],
+    rescates: [],
+    rutasIniciadas: {},
+    reservasTour: [],
     asistente: { fecha: "", usados: 0 },
     locatario: { pedidos: demoSeed.locatario.pedidos_pendientes.map((p) => ({ ...p })), catalogoExtra: [], cobros: [] },
     productor: {
@@ -113,6 +137,8 @@ export const useAppStore = create<AppState>()(
           carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
           puntos: s.puntos + pedido.puntos,
           sellos: !pedido.mercadoId || s.sellos.includes(pedido.mercadoId) ? s.sellos : [...s.sellos, pedido.mercadoId],
+          sellosFechas:
+            !pedido.mercadoId || s.sellos.includes(pedido.mercadoId) ? s.sellosFechas : { ...s.sellosFechas, [pedido.mercadoId]: pedido.fecha },
           locatario: paraLocatario
             ? {
                 ...s.locatario,
@@ -138,6 +164,52 @@ export const useAppStore = create<AppState>()(
         set((s) => ({ reservasVisita: [reserva, ...s.reservasVisita] }));
         return reserva;
       },
+      hacerCheckin: (objetivo, mercadoId) => {
+        const s = get();
+        const r = evaluarCheckin(s, objetivo, mercadoId);
+        if (!r.ok) return r;
+        set({
+          checkins: [r.checkin, ...s.checkins],
+          puntos: s.puntos + r.puntos,
+          sellos: r.selloNuevo ? [...s.sellos, mercadoId] : s.sellos,
+          sellosFechas: r.selloNuevo ? { ...s.sellosFechas, [mercadoId]: r.checkin.fecha } : s.sellosFechas,
+        });
+        return r;
+      },
+      canjear: (rec) => {
+        const s = get();
+        if (!puedeCanjear(s.puntos, rec.puntos)) return null;
+        const cupon = nuevoCupon(rec);
+        set({ puntos: s.puntos - rec.puntos, cupones: [cupon, ...s.cupones] });
+        return cupon;
+      },
+      escribirResena: (r) => {
+        const resena: ResenaPropia = {
+          ...r,
+          id: `propia-${Date.now()}`,
+          autor: "Tú",
+          origen: "",
+          fecha: new Date().toISOString().slice(0, 10),
+          verificada: "check-in QR",
+          fotos: r.fotoUrl ? 1 : 0,
+          simulado: false,
+        };
+        set((s) => ({ resenasPropias: [resena, ...s.resenasPropias], puntos: s.puntos + PUNTOS_RESENA_FOTO }));
+        return resena;
+      },
+      rescatar: (ofertaId, tipo, kg) =>
+        set((s) => (s.rescates.some((x) => x.ofertaId === ofertaId) ? s : { rescates: [{ ofertaId, tipo, kg, fecha: new Date().toISOString() }, ...s.rescates] })),
+      toggleRecordatorio: (eventoId) => {
+        const activo = !get().recordatorios.includes(eventoId);
+        set((s) => ({ recordatorios: activo ? [...s.recordatorios, eventoId] : s.recordatorios.filter((x) => x !== eventoId) }));
+        return activo;
+      },
+      iniciarRuta: (rutaId) => set((s) => (s.rutasIniciadas[rutaId] ? s : { rutasIniciadas: { ...s.rutasIniciadas, [rutaId]: new Date().toISOString() } })),
+      reservarTour: (r) => {
+        const reserva = { ...r, id: `TOUR-${Math.floor(1000 + Math.random() * 9000)}`, creada: new Date().toISOString() };
+        set((s) => ({ reservasTour: [reserva, ...s.reservasTour] }));
+        return reserva;
+      },
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
     }),
     {
@@ -148,7 +220,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, resetDemo, ...datos } = s;
         return datos;
       },
     },

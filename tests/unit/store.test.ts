@@ -96,3 +96,41 @@ describe("compra a productor", () => {
     expect(useAppStore.getState().reservasVisita[0]).toEqual(r);
   });
 });
+
+describe("pasaporte en el store", () => {
+  beforeEach(() => useAppStore.getState().resetDemo());
+  it("check-in: +10, luego «yaHoy» sin sumar", () => {
+    const p0 = useAppStore.getState().puntos;
+    expect(useAppStore.getState().hacerCheckin("jugos-moreno", "la-merced")).toMatchObject({ ok: true, puntos: 10 });
+    expect(useAppStore.getState().hacerCheckin("jugos-moreno", "la-merced")).toEqual({ ok: false, motivo: "yaHoy" });
+    expect(useAppStore.getState().puntos).toBe(p0 + 10);
+  });
+  it("primer check-in en mercado nuevo: sello con fecha y +60", () => {
+    const p0 = useAppStore.getState().puntos;
+    useAppStore.getState().hacerCheckin("mercado:53-rio-blanco", "53-rio-blanco");
+    const s = useAppStore.getState();
+    expect(s.sellos).toContain("53-rio-blanco");
+    expect(s.sellosFechas["53-rio-blanco"]).toBeTruthy();
+    expect(s.puntos).toBe(p0 + 60);
+  });
+  it("canje resta puntos y genera cupón; sin puntos no canjea", () => {
+    const c = useAppStore.getState().canjear({ id: "agua", titulo: "Agua fresca gratis", puntos: 120 });
+    expect(c?.codigo).toMatch(/^PSL-AGUA-\d{6}$/);
+    expect(useAppStore.getState().puntos).toBe(740 - 120);
+    expect(useAppStore.getState().canjear({ id: "huerto", titulo: "Visita", puntos: 99999 })).toBeNull();
+  });
+  it("reseña propia da +15", () => {
+    useAppStore.getState().escribirResena({ objetivo_id: "la-merced", estrellas: 5, texto: "Todo delicioso y la gente muy amable.", idioma: "es" });
+    expect(useAppStore.getState().puntos).toBe(755);
+    expect(useAppStore.getState().resenasPropias[0].objetivo_id).toBe("la-merced");
+  });
+  it("rescate suma kg una sola vez por oferta", () => {
+    useAppStore.getState().rescatar("r1", "donacion", 3);
+    useAppStore.getState().rescatar("r1", "compra", 3);
+    expect(useAppStore.getState().rescates).toHaveLength(1);
+  });
+  it("recordatorios toggle", () => {
+    expect(useAppStore.getState().toggleRecordatorio("mole-2026")).toBe(true);
+    expect(useAppStore.getState().toggleRecordatorio("mole-2026")).toBe(false);
+  });
+});
