@@ -92,7 +92,7 @@ export function Campana() {
             <Switch checked={hydrated && sistema} onCheckedChange={(v) => void alternarSistema(v)} aria-label={t("sistema")} />
           </label>
         )}
-        <ul className="flex flex-col gap-2 overflow-y-auto" aria-live="polite">
+        <ul className="-mx-1 flex min-h-0 flex-col gap-2 overflow-y-auto overscroll-contain px-1 py-1" aria-live="polite">
           {hydrated && avisos.length === 0 && <li className="rounded-2xl bg-white p-4 text-tinta-2">{t("vacio")}</li>}
           {hydrated &&
             avisos.map((a) => {
@@ -108,17 +108,21 @@ export function Campana() {
                       marcarLeidos(perfil);
                       if (a.href) router.push(a.href);
                     }}
-                    className={cn("flex w-full items-start gap-3 rounded-2xl bg-white p-3 text-left", !a.leida && "ring-2 ring-morado/30")}
+                    className={cn("flex w-full items-start gap-3 rounded-2xl border-2 bg-white p-3 text-left shadow-sm disabled:opacity-100", a.leida ? "border-transparent" : "border-morado/35")}
                   >
                     <span className={cn("grid size-10 shrink-0 place-items-center rounded-full", a.leida ? "bg-morado-50 text-morado-700" : "bg-morado text-crema")} aria-hidden>
                       <Icono className="size-5" />
                     </span>
-                    <span className="flex min-w-0 flex-col">
-                      <span className="flex items-center gap-2 font-bold text-tinta">
-                        {titulo}
-                        {!a.leida && <span className="sr-only">{t("nueva")}</span>}
+                    <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <span className="flex items-start justify-between gap-2 leading-snug font-bold text-tinta">
+                        <span className="min-w-0 break-words">{titulo}</span>
+                        {!a.leida && (
+                          <span className="mt-1.5 size-2.5 shrink-0 rounded-full bg-chile">
+                            <span className="sr-only">{t("nueva")}</span>
+                          </span>
+                        )}
                       </span>
-                      <span className="text-[13px] text-tinta-2">{cuerpo}</span>
+                      <span className="text-[13px] leading-snug break-words text-tinta-2">{cuerpo}</span>
                       {ahora && <span className="mt-0.5 text-xs text-tinta-2">{haceTiempo(a.fecha, ahora, locale)}</span>}
                     </span>
                   </button>
