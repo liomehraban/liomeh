@@ -81,10 +81,10 @@ export const PASOS: PasoDemo[] = [
     vaciarCarrito: PUESTO_DEMO,
     acciones: [
       { tipo: "ir", ruta: `/puesto/${PUESTO_DEMO}` },
-      { tipo: "clic", demo: "mas", dentro: "producto:Pancita (pata, libro y cuaderno)" },
       { tipo: "clic", demo: "agregar", dentro: "producto:Pancita (pata, libro y cuaderno)" },
-      { tipo: "clic", demo: "mas", dentro: "producto:Sope" },
+      { tipo: "clic", demo: "mas", dentro: "producto:Pancita (pata, libro y cuaderno)" },
       { tipo: "clic", demo: "agregar", dentro: "producto:Sope" },
+      { tipo: "clic", demo: "mas", dentro: "producto:Sope" },
       { tipo: "esperar", ms: 600 },
       { tipo: "ir", ruta: `/checkout?puesto=${PUESTO_DEMO}` },
       { tipo: "clic", demo: "generar-qr" },

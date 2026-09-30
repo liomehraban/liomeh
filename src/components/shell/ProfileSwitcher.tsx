@@ -24,7 +24,8 @@ export function ProfileSwitcher({ className }: { className?: string }) {
   const salirDePerfil = useAppStore((s) => s.salirDePerfil);
   const [abierto, setAbierto] = useState(false);
   const actual = hydrated ? perfil : null;
-  const Icono = actual ? ICONO_PERFIL[actual] : UserRound;
+  // Consumidor: persona (la mochila del selector de perfiles se confundía con el carrito).
+  const Icono = actual && actual !== "consumidor" ? ICONO_PERFIL[actual] : UserRound;
 
   const elegir = (p: Perfil) => {
     setAbierto(false);

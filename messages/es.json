@@ -50,7 +50,9 @@
       "cuenta": "Cuenta",
       "cosecha": "Cosecha",
       "huerto": "Mi huerto"
-    }
+    },
+    "irAPagar": "Ir a pagar",
+    "productosPedido": "{n, plural, one {# producto en tu pedido} other {# productos en tu pedido}}"
   },
   "entrada": {
     "saltarSplash": "Toca para entrar",
@@ -332,7 +334,9 @@
     "actividadDia": "{n} pedidos por la app hoy",
     "nuevo": "Nuevo en Bara Bara",
     "sinStock": "No hay más {producto} por hoy",
-    "ubicacion": "Pasillo {pasillo} · Local {local}"
+    "ubicacion": "Pasillo {pasillo} · Local {local}",
+    "enTuPedido": "En tu pedido",
+    "quitarDelPedido": "Quitar {producto} del pedido"
   },
   "carrito": {
     "titulo": "Tu carrito",
