@@ -48,8 +48,13 @@ test("guion de demo completo sin errores de consola", async ({ page }) => {
   await page.getByRole("button", { name: "Comenzar demo" }).click();
   const boton = page.locator("[data-demo-siguiente]");
 
-  // 1 · Turista EN busca «pancita»: el mapa centra La Merced y abre la ficha rápida
+  // 1 · Turista EN busca «pancita»: el mapa centra La Merced y abre la ficha rápida.
+  // «Siguiente» debe seguir deshabilitado mientras el paso corre, aunque cambie el idioma.
+  await expect(boton).toBeDisabled();
+  await expect(page).toHaveURL(/\/en\/explorar/);
+  await expect(boton).toBeDisabled();
   await expect(boton).toBeEnabled({ timeout: 60_000 });
+  await expect(page.locator('[data-demo="buscar"]')).toHaveValue("pancita");
   await expect(page).toHaveURL(/\/en\/explorar/);
   await expect(page.locator('[data-demo="ver-mercado"]')).toBeVisible();
   await expect(page.getByRole("heading", { name: /La Merced|Merced Nave Mayor/ }).first()).toBeVisible();

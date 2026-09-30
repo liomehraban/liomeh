@@ -45,12 +45,12 @@ Cada fase se lanza con su comando (`/fase-0` … `/fase-8`). Al terminar una fas
 - [x] **M17–M18** Productor
 
 ## Fase 8 · Pitch y salida `/fase-8`
-- [ ] **M19** Panel de gobierno
-- [ ] Modo presentación (`06_demo.md`)
-- [ ] PWA (Serwist, manifest, íconos, offline)
-- [ ] e2e Playwright del guion completo
-- [ ] Lighthouse móvil: PWA ok, Performance ≥ 80, Accessibility ≥ 95
-- [ ] Deploy a Vercel (preview) y README con la URL
+- [x] **M19** Panel de gobierno
+- [x] Modo presentación (`06_demo.md`)
+- [x] PWA (Serwist, manifest, íconos, offline)
+- [x] e2e Playwright del guion completo
+- [ ] Lighthouse móvil: PWA ok, Performance ≥ 80, Accessibility ≥ 95 — instalable ✓, accesibilidad 96–100 ✓; performance 85–95 salvo las pantallas con mapa (71–75, por MapLibre)
+- [ ] Deploy a Vercel (preview) y README con la URL — README con pasos ✓; falta el deploy (requiere la cuenta de Vercel)
 - [ ] Dominio `mercados.cineticastudio.xyz`: dominio en el proyecto de Vercel + registro CNAME en Cloudflare (DNS only)
 
 Después de cualquier fase se puede correr **`/revisar-demo`**, que ejecuta el guion y reporta lo que falle.

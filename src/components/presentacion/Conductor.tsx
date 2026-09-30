@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { create } from "zustand";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -17,14 +18,25 @@ export const EVENTO_SIGUIENTE = "barabara:presentacion-siguiente";
 
 let corrida = 0;
 
+/**
+ * Estado de ejecución en memoria (no persistido). Vive fuera del componente porque cambiar de idioma
+ * vuelve a montar el layout: si fuera estado local, «Siguiente» se habilitaría a medio paso.
+ */
+const useEjecucion = create<{ ejecutando: boolean; dedo: EstadoDedo }>(() => ({
+  ejecutando: false,
+  dedo: { x: 0, y: 0, toque: 0, visible: false },
+}));
+const setEjecutando = (ejecutando: boolean) => useEjecucion.setState({ ejecutando });
+const setDedo = (f: (d: EstadoDedo) => EstadoDedo) => useEjecucion.setState((s) => ({ dedo: f(s.dedo) }));
+
 /** Monta la barra y ejecuta el guion. Vive en el layout, así sobrevive a la navegación. */
 export function Conductor() {
   const t = useTranslations("presentacion");
   const router = useRouter();
   const hydrated = useHydrated();
   const { activa, paso } = useAppStore((s) => s.presentacion);
-  const [ejecutando, setEjecutando] = useState(false);
-  const [dedo, setDedo] = useState<EstadoDedo>({ x: 0, y: 0, toque: 0, visible: false });
+  const ejecutando = useEjecucion((s) => s.ejecutando);
+  const dedo = useEjecucion((s) => s.dedo);
   const reducido = useRef(false);
 
   const correr = useCallback(
