@@ -66,11 +66,31 @@ export function recortarEstado<T extends Record<string, unknown>>(s: T): T {
 export const sinFotos = (json: string) => json.replace(/"fotoUrl":"data:[^"]*"/g, '"fotoUrl":null');
 
 /** localStorage que no truena: si se llena, reintenta sin fotos; si tampoco cabe, lo reporta y sigue. */
-export function almacenamientoSeguro(base: () => Storage): StateStorage {
+/** Clave del estado de la demo en localStorage. */
+export const CLAVE_ESTADO = "bara-bara-demo";
+/** Claves anteriores (la app se llamaba «Pásele»): se migran a la actual la primera vez. */
+export const CLAVES_ANTERIORES: Record<string, string[]> = { [CLAVE_ESTADO]: ["pasele-demo"] };
+
+export function almacenamientoSeguro(base: () => Storage, anteriores: Record<string, string[]> = CLAVES_ANTERIORES): StateStorage {
   return {
     getItem: (k) => {
       try {
-        return base().getItem(k);
+        const s = base();
+        const v = s.getItem(k);
+        if (v !== null) return v;
+        // Migración de la clave: se copia lo guardado con el nombre anterior y se borra el viejo.
+        for (const vieja of anteriores[k] ?? []) {
+          const w = s.getItem(vieja);
+          if (w === null) continue;
+          try {
+            s.setItem(k, w);
+            s.removeItem(vieja);
+          } catch {
+            /* sin espacio: se usa tal cual y se reintenta en la próxima carga */
+          }
+          return w;
+        }
+        return null;
       } catch {
         return null;
       }

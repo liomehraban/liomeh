@@ -2,6 +2,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import type { Locale } from "@/i18n/routing";
 import { AjustesDemo } from "@/components/shell/AjustesDemo";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("productorCuenta");
 
 export default async function CuentaPage({ params }: PageProps<"/[locale]/productor/cuenta">) {
   const { locale } = await params;

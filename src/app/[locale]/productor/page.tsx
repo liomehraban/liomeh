@@ -3,6 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { datosProductor } from "@/data/vistas-demo";
 import { CosechaView } from "@/components/productor/CosechaView";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("productorCosecha");
 
 export default async function CosechaPage({ params }: PageProps<"/[locale]/productor">) {
   const { locale } = await params;

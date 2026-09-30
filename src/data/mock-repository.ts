@@ -10,7 +10,8 @@ import metricasJson from "../../data/metricas_gobierno.json";
 import modeloJson from "../../data/modelo_negocio.json";
 
 import * as S from "@/lib/schemas";
-import type { FiltroMercados, FiltroProductores, Repository } from "./repository";
+import type { FiltroMercados, FiltroProductores, PuestoEnLinea, Repository } from "./repository";
+import { ratingsPorObjetivo, type Rating } from "@/lib/resenas";
 import { esPuestoSimulado, mercadoDePuestoSimulado, puestosSimulados } from "@/lib/catalogo-simulado";
 
 type Datos = {
@@ -27,6 +28,9 @@ type Datos = {
 };
 
 let cache: Datos | null = null;
+// Agregados derivados de los JSON (inmutables en el proceso).
+let ratingsCache: Record<string, Rating> | null = null;
+let productosCache: Record<string, string[]> | null = null;
 
 /** Valida los JSON con zod una sola vez por proceso y los deja en memoria. */
 export function datosMock(): Datos {
@@ -88,13 +92,27 @@ export class MockRepository implements Repository {
     return interior?.puestos ?? puestosSimulados(m);
   }
 
+  async puestosEnLinea(): Promise<PuestoEnLinea[]> {
+    const mercado = this.d.mercados.find((m) => m.id === this.d.interior.mercado_id && m.interior_disponible);
+    return mercado ? this.d.interior.puestos.map((puesto) => ({ puesto, mercado })) : [];
+  }
+
+  async productosPorMercado(): Promise<Record<string, string[]>> {
+    if (!productosCache) {
+      const out: Record<string, string[]> = {};
+      for (const m of this.d.mercados) out[m.id] = [...new Set((await this.puestosDeMercado(m.id)).flatMap((p) => p.productos.map((x) => x.n)))];
+      productosCache = out;
+    }
+    return productosCache;
+  }
+
   async zonasHuerto() {
     return this.d.huertos.zonas;
   }
 
   async productores(f: FiltroProductores = {}) {
     return this.d.huertos.productores.filter(
-      (p) => (!f.zonaId || p.zona_id === f.zonaId) && (!f.alcaldia || p.alcaldia === f.alcaldia),
+      (p) => (!f.zonaId || p.zona_id === f.zonaId) && (!f.alcaldia || p.alcaldia === f.alcaldia) && (!f.ids || f.ids.includes(p.id)),
     );
   }
 
@@ -117,6 +135,11 @@ export class MockRepository implements Repository {
 
   async resenas(objetivoId: string) {
     return this.d.resenas.filter((r) => r.objetivo_id === objetivoId);
+  }
+
+  async ratings() {
+    ratingsCache ??= ratingsPorObjetivo(this.d.resenas);
+    return ratingsCache;
   }
 
   async lealtad() {

@@ -29,7 +29,8 @@ export default defineConfig({
   webServer: REMOTO
     ? undefined
     : {
-        command: `pnpm build && pnpm start -p ${PUERTO}`,
+        // E2E_SIN_BUILD=1 reutiliza un build hecho antes (CI).
+        command: `${process.env.E2E_SIN_BUILD ? "" : "pnpm build && "}pnpm start -p ${PUERTO}`,
         url: `http://localhost:${PUERTO}/es`,
         reuseExistingServer: true,
         timeout: 300_000,

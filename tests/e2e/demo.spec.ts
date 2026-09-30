@@ -13,7 +13,7 @@ type Estado = {
   productor: { lotes: { cantidad: number; precio: number; producto: string }[] };
 };
 
-const estado = (page: Page) => page.evaluate(() => JSON.parse(localStorage.getItem("pasele-demo") ?? "{}").state as Estado);
+const estado = (page: Page) => page.evaluate(() => JSON.parse(localStorage.getItem("bara-bara-demo") ?? "{}").state as Estado);
 
 const ruta = (() => {
   const r = (interior as { rutas_precalculadas: unknown }).rutas_precalculadas as
@@ -158,9 +158,9 @@ test("los datos de tarjeta nunca salen a la red", async ({ page }) => {
     return route.continue();
   });
   await page.addInitScript(() => {
-    if (!localStorage.getItem("pasele-demo"))
+    if (!localStorage.getItem("bara-bara-demo"))
       localStorage.setItem(
-        "pasele-demo",
+        "bara-bara-demo",
         JSON.stringify({
           state: { perfil: "consumidor", onboardingVisto: true, carrito: [{ puestoId: "pancita-dona-chela", items: [{ nombre: "Sope", precio: 35, unidad: "pieza", qty: 2 }] }] },
           version: 2,

@@ -29,7 +29,7 @@ import { claveVenta } from "@/lib/inventario";
 import type { PuestoResumen } from "@/data/comercio";
 import type { Aviso, EfectoAviso } from "@/lib/notificaciones";
 import { puntosPorResena, verificacionResena } from "@/lib/resenas";
-import { almacenamientoSeguro, mezclarEstado, recortarEstado } from "./persistencia";
+import { almacenamientoSeguro, CLAVE_ESTADO, mezclarEstado, recortarEstado } from "./persistencia";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -392,7 +392,7 @@ export const useAppStore = create<AppState>()(
       setAvisosSistema: (v) => set({ avisosSistema: v }),
     }),
     {
-      name: "pasele-demo",
+      name: CLAVE_ESTADO,
       // v2: nueva forma de Pedido (resumen, puntos, mercadoId).
       // v3: vendedores, vendidos, avisos, presentación, planVence, ediciones y plan del locatario.
       version: 3,

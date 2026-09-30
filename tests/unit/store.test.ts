@@ -26,7 +26,7 @@ describe("useAppStore", () => {
   it("persiste perfil y locale", () => {
     useAppStore.getState().setPerfil("locatario");
     useAppStore.getState().setLocale("en");
-    const saved = JSON.parse(mem.get("pasele-demo")!);
+    const saved = JSON.parse(mem.get("bara-bara-demo")!);
     expect(saved.state.perfil).toBe("locatario");
     expect(saved.state.locale).toBe("en");
   });

@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { getRepository } from "@/data/repository";
 import { categoriaMercado } from "@/lib/giros";
-import { ratingPromedio } from "@/lib/resenas";
 import { Explorador } from "@/components/explorar/Explorador";
 import { ofertasRescate } from "@/data/rescate";
 import type { MercadoMapa } from "@/components/explorar/tipos";
@@ -18,25 +17,23 @@ export default async function ExplorarPage({ params }: PageProps<"/[locale]/expl
   const { locale } = await params;
   setRequestLocale(locale as Locale);
   const repo = getRepository();
-  const mercados = await repo.mercados();
+  const [mercados, ratings] = await Promise.all([repo.mercados(), repo.ratings()]);
 
-  const datos: MercadoMapa[] = await Promise.all(
-    mercados.map(async (m) => ({
-      id: m.id,
-      nombre: m.nombre_display,
-      alcaldia: m.alcaldia,
-      lat: m.lat,
-      lng: m.lng,
-      tipos: m.tipos,
-      giros: m.giros,
-      destacado: m.destacado,
-      categoria: categoriaMercado(m),
-      lema: m.lema,
-      lema_en: m.lema_en,
-      horario: m.horario,
-      rating: ratingPromedio(await repo.resenas(m.id)),
-    })),
-  );
+  const datos: MercadoMapa[] = mercados.map((m) => ({
+    id: m.id,
+    nombre: m.nombre_display,
+    alcaldia: m.alcaldia,
+    lat: m.lat,
+    lng: m.lng,
+    tipos: m.tipos,
+    giros: m.giros,
+    destacado: m.destacado,
+    categoria: categoriaMercado(m),
+    lema: m.lema,
+    lema_en: m.lema_en,
+    horario: m.horario,
+    rating: ratings[m.id] ?? null,
+  }));;
 
   const [ofertas, metricas] = await Promise.all([ofertasRescate(), repo.metricas()]);
 

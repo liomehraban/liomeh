@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { almacenamientoSeguro, mezclarEstado, recortarEstado, sinFotos, TOPES } from "@/store/persistencia";
+import { almacenamientoSeguro, CLAVE_ESTADO, mezclarEstado, recortarEstado, sinFotos, TOPES } from "@/store/persistencia";
 import { estadoInicial, useAppStore } from "@/store/useAppStore";
 
 describe("persistencia del store", () => {
@@ -56,5 +56,29 @@ describe("persistencia del store", () => {
     expect(intentos).toBe(2);
     expect(guardado.k).toContain('"fotoUrl":null');
     expect(sinFotos('{"fotoUrl":"data:x"}')).toBe('{"fotoUrl":null}');
+  });
+});
+
+describe("migración de la clave de almacenamiento", () => {
+  const memoria = (inicial: Record<string, string>) => {
+    const m = new Map(Object.entries(inicial));
+    return {
+      m,
+      s: { getItem: (k: string) => m.get(k) ?? null, setItem: (k: string, v: string) => void m.set(k, v), removeItem: (k: string) => void m.delete(k) } as unknown as Storage,
+    };
+  };
+
+  it("copia lo guardado con la clave anterior y la borra", () => {
+    const { m, s } = memoria({ "pasele-demo": '{"state":{"puntos":5}}' });
+    const st = almacenamientoSeguro(() => s);
+    expect(st.getItem(CLAVE_ESTADO)).toBe('{"state":{"puntos":5}}');
+    expect(m.get(CLAVE_ESTADO)).toBe('{"state":{"puntos":5}}');
+    expect(m.has("pasele-demo")).toBe(false);
+  });
+
+  it("si ya hay estado con la clave nueva, ignora la anterior", () => {
+    const { m, s } = memoria({ [CLAVE_ESTADO]: "nuevo", "pasele-demo": "viejo" });
+    expect(almacenamientoSeguro(() => s).getItem(CLAVE_ESTADO)).toBe("nuevo");
+    expect(m.get("pasele-demo")).toBe("viejo");
   });
 });

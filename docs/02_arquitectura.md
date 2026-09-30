@@ -63,13 +63,17 @@ export interface Repository {
   mercados(filtro?: FiltroMercados): Promise<Mercado[]>;
   mercado(id: string): Promise<Mercado | null>;
   interior(mercadoId: string): Promise<Interior | null>;   // hoy solo 'la-merced'
-  puesto(id: string): Promise<Puesto | null>;
+  puesto(id: string): Promise<Puesto | null>;            // también ids del catálogo simulado (`mercadoId--k`)
+  puestosDeMercado(mercadoId: string): Promise<Puesto[]>; // interior si existe; si no, catálogo simulado
+  puestosEnLinea(): Promise<PuestoEnLinea[]>;            // agregado: puestos reales en línea + su mercado
+  productosPorMercado(): Promise<Record<string, string[]>>; // agregado: nombres únicos (búsqueda)
   zonasHuerto(): Promise<ZonaHuerto[]>;
   productores(filtro?: FiltroProductores): Promise<Productor[]>;
   productor(id: string): Promise<Productor | null>;
   eventos(desde?: Date): Promise<Evento[]>;
   rutas(): Promise<Ruta[]>;
   resenas(objetivoId: string): Promise<Resena[]>;
+  ratings(): Promise<Record<string, Rating>>;            // agregado: promedio y total por objetivo
   lealtad(): Promise<Lealtad>;
   demo(): Promise<UsuariosDemo>;
   metricas(): Promise<MetricasGobierno>;
@@ -78,6 +82,12 @@ export interface Repository {
 ```
 
 - `getRepository()` devuelve `MockRepository` si `NEXT_PUBLIC_DATA_SOURCE !== 'supabase'`.
+- **Sin consultas en bucle:** las pantallas que necesitan datos de muchos mercados o puestos usan los métodos agregados (`ratings`, `puestosEnLinea`, `productosPorMercado`, `productores({ ids })`). En Supabase son las vistas de `0002`.
+- **Datos derivados** (`src/data/*.ts`): combinan llamadas al repositorio para una pantalla. Los que se comparten entre peticiones (avisos, asistente) usan `cacheConVigencia` (`src/data/cache.ts`): se renuevan cada 15 min y no guardan errores.
+- **Catálogo simulado** (`src/lib/catalogo-simulado.ts`): cada mercado sin interior tiene puestos y productos generados de forma determinista a partir de su id y sus giros. Sin calificación inventada: se muestran como «Nuevo en Bara Bara».
+- **Inventario vivo** (`src/lib/inventario.ts`): existencia por producto, día y hora (curva de venta del día), menos lo que compró la persona. Los puestos reales de la guía nunca se agotan.
+- **Avisos simulados** (`src/lib/notificaciones.ts` + `MotorAvisos`): eventos, rescates, surtidos, pedidos y cobros por perfil. Una sola pestaña genera avisos (candado en localStorage).
+- **Búsqueda:** `/api/busqueda` es un JSON estático generado en el build (`force-static`); Explorar lo descarga en tiempo libre.
 - Todo lo que el usuario crea (pedidos, reseñas nuevas, lotes publicados, productos agregados, recordatorios, puntos) vive en Zustand persistido. Las pantallas combinan los datos del repositorio con el estado local.
 
 ## Mapas
@@ -99,18 +109,19 @@ export interface Repository {
   - Las instrucciones se generan con el mismo algoritmo que produjo las precalculadas (ver `03_datos.md`). **Test obligatorio:** las 9 rutas recalculadas deben dar los mismos nodos que las precalculadas.
 - **Minutos:** `max(1, round(metros / 70))`.
 
-## Asistente AI (M22)
+## Asistente Marchanta (M22)
 
-- `POST /api/asistente` recibe `{ messages, locale, perfil, ubicacion? }` y devuelve `{ text, cards: Card[] }`, donde `Card = { tipo: 'mercado'|'puesto'|'productor'|'evento'|'ruta', id }`.
-- **Si existe `ANTHROPIC_API_KEY`:** llama a la Messages API con el modelo de `ANTHROPIC_MODEL` (**obligatoria**, sin default hardcodeado).
-  - El system prompt está en `05_modulos.md` §M22.
-  - El contexto lo arma `lib/assistant/context.ts`: los 15–25 registros más relevantes según la búsqueda local, más los eventos de los próximos 30 días. Hay que pedir la respuesta en JSON y validarla con zod.
-- **Sin key:** `lib/assistant/intents.ts` resuelve por palabras clave (ES/EN) al menos las 8 intenciones de `05_modulos.md`, calculando de verdad «abierto ahora», distancias y fechas.
-- **Límite freemium:** 20 mensajes al día en el plan Gratis, contados en el store; ilimitado con Pase Turista o Mercado+.
+- **Simulado, sin API de IA** (decisión de producto): ocho preguntas rápidas con respuestas preguardadas. No hay texto libre.
+- Las respuestas se calculan en el servidor con `lib/assistant/intents.ts` sobre los datos reales (abierto ahora, distancias, eventos del mes) y la página se regenera cada 15 min. `lib/assistant/cards.ts` arma las tarjetas accionables (mercado, puesto, productor, evento, ruta).
+- **Límite freemium:** 20 consultas al día en el plan Gratis, contadas en el store; ilimitado con Pase Turista o Mercado+.
+- Conectar un modelo después es cambiar la fuente de la respuesta: la UI y las tarjetas ya están separadas del cálculo.
 
 ## PWA
 
-- Serwist: precache del shell y de `/data/*.json`; runtime cache `StaleWhileRevalidate` para los tiles de CARTO (máx. 500 entradas).
+- Serwist en modo configurator (`src/sw.ts` + `serwist.config.mjs`, se compila después de `next build`).
+- Precache del shell y de los chunks (los JSON de `/data` viajan dentro de ellos); la revisión se toma de `.next/BUILD_ID`. `/asistente` no se precachea (se regenera).
+- Runtime: teselas de CARTO con `StaleWhileRevalidate` (máx. 500); `/api/busqueda` con la caché por defecto de Serwist.
+- **Actualización segura:** sin `skipWaiting`; la app muestra «Nueva versión · Recargar» y envía `SKIP_WAITING` al tocarlo.
 - `manifest.ts`: name «Bara Bara · Mercados CDMX», `theme_color #93408F`, `background_color #FEFAEB`, `display standalone` e íconos de 192 y 512 px, además del maskable.
 - Página offline con el mensaje «Sin conexión: tu pasaporte y tus pedidos siguen aquí».
 
@@ -121,8 +132,6 @@ NEXT_PUBLIC_DATA_SOURCE=mock
 NEXT_PUBLIC_MAP_PROVIDER=maplibre
 NEXT_PUBLIC_GOOGLE_MAPS_KEY=
 NEXT_PUBLIC_USD_RATE=18.5
-ANTHROPIC_API_KEY=
-ANTHROPIC_MODEL=
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
@@ -135,7 +144,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
 ## Roadmap de backend (fuera de esta etapa, solo documentado)
 
-1. Supabase: aplicar `supabase/migrations/0001_init.sql`, sembrar desde `/data` (script `scripts/seed.ts`) e implementar `SupabaseRepository`.
+1. Supabase: aplicar `supabase/migrations/0001_init.sql` y `0002_catalogo_inventario_avisos.sql` (inventario con descuento atómico, avisos, reservas, suscripciones y vistas agregadas), sembrar desde `/data` (script `scripts/seed.ts`) e implementar `SupabaseRepository`.
 2. Auth con teléfono (OTP) para locatarios y productores; RLS por rol.
 3. Pagos: agregador CoDi/SPEI y procesador de tarjeta (Conekta, Stripe MX o Mercado Pago), con webhooks → `pagos`.
 4. Envíos con terceros por API (Rappi, Uber Direct, 99).

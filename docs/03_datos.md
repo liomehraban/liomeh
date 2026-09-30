@@ -16,6 +16,7 @@ Todos los contratos están en `src/lib/schemas.ts` (zod). La validación complet
 | `usuarios_demo.json` | `UsuariosDemo` | — | Simulado |
 | `metricas_gobierno.json` | `MetricasGobierno` | — | Proyección simulada (kpis = mes 6 del piloto) |
 | `modelo_negocio.json` | `ModeloNegocio` | — | Propuesta Cinética |
+| Catálogo simulado (sin archivo) | `Puesto[]` por mercado | 3–8 puestos por mercado sin interior | **Simulado** en `src/lib/catalogo-simulado.ts`: determinista por id de mercado (ids `mercadoId--k`), giros del mercado, precios de referencia. `rating = 0` |
 | `mercados_cdmx.csv` | — | 346 | Export plano de `mercados.json` (para Excel o QA) |
 
 ## Mercados: notas de uso
@@ -62,23 +63,25 @@ Todos los contratos están en `src/lib/schemas.ts` (zod). La validación complet
 
 ## Estado local (Zustand, persistido)
 
+Clave `bara-bara-demo` en localStorage (versión 3; se migra sola desde la clave anterior `pasele-demo`). Tipos completos en `src/store/useAppStore.ts`; resumen:
+
 ```ts
 {
-  perfil: 'consumidor'|'locatario'|'productor'|'gobierno',
-  locale: 'es'|'en',
-  plan: 'Gratis'|'Pase Turista'|'Mercado+',
-  carrito: { puestoId: string, items: { nombre: string, precio: number, unidad: string, qty: number, huertoId?: string }[] }[],
-  pedidos: Pedido[],                  // creados en checkout
-  puntos: number,                     // arranca en lealtad.usuario_demo.puntos
-  sellos: string[],                   // ids de mercado
-  insignias: string[],
-  recordatorios: string[],            // ids de evento
-  resenasPropias: Resena[],
-  checkinsHoy: Record<string, string>,// puestoId → fecha ISO (máx. 1 por día)
-  asistente: { fecha: string, usados: number },
-  locatario: { pedidos: …, catalogoExtra: Producto[], cobros: … },
-  productor: { lotes: …, pedidos: … }
+  perfil, locale, plan: 'Gratis'|'Pase Turista'|'Mercado+', planVence: string | null,
+  carrito: { puestoId, items: { nombre, precio, unidad, qty, huertoId?, rescate? }[] }[],
+  vendedores: Record<string, PuestoResumen>,   // datos del vendedor de cada grupo del carrito
+  pedidos: Pedido[],                           // creados en checkout (folio, etapa, puntos)
+  vendidos: Record<string, number>,            // `AAAA-MM-DD|puesto::producto` → cantidad (inventario)
+  puntos, sellos, sellosFechas, insignias, cupones, recordatorios, checkins, resenasPropias,
+  rescates, reservasTour, reservasVisita, rutasIniciadas,
+  avisos: Aviso[], avisosEntregados, avisosSistema,
+  asistente: { fecha, usados },
+  locatario: { pedidos, catalogoExtra, cobros, ediciones, plan },
+  productor: { lotes, pedidos },
+  presentacion: { activa, paso, completado? }
 }
 ```
 
-Incluye un botón «Reiniciar demo» (en Yo › Ajustes y en el modo presentación) que restablece todo desde los JSON.
+- **Robustez** (`src/store/persistencia.ts`): `mezclarEstado` completa campos faltantes al cargar; `recortarEstado` pone topes a historiales y fotos; si el almacenamiento se llena, se guarda sin fotos en lugar de fallar.
+- **Varias pestañas:** `SincroniaPestanas` rehidrata el store con el evento `storage`.
+- Incluye un botón «Reiniciar demo» (en Yo › Ajustes y en el modo presentación) que restablece todo desde los JSON.

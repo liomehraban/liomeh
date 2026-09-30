@@ -19,6 +19,10 @@ export class SupabaseRepository implements Repository {
   // TODO: select * from puestos where id = $1 (con productos)
   async puesto(): Promise<never> { return notImplemented("puesto"); }
   async puestosDeMercado(): Promise<never> { return notImplemented("puestosDeMercado"); }
+  // TODO: select * from puestos_en_linea (vista de 0002: puestos de mercados con interior + su mercado)
+  async puestosEnLinea(): Promise<never> { return notImplemented("puestosEnLinea"); }
+  // TODO: select mercado_id, productos from productos_por_mercado (vista de 0002)
+  async productosPorMercado(): Promise<never> { return notImplemented("productosPorMercado"); }
   // TODO: select * from zonas_huerto (ST_AsGeoJSON del polígono)
   async zonasHuerto(): Promise<never> { return notImplemented("zonasHuerto"); }
   // TODO: select * from productores where zona_id = $1
@@ -29,6 +33,8 @@ export class SupabaseRepository implements Repository {
   async rutas(): Promise<never> { return notImplemented("rutas"); }
   // TODO: select * from resenas where objetivo_id = $1 order by fecha desc
   async resenas(): Promise<never> { return notImplemented("resenas"); }
+  // TODO: select objetivo_id, promedio, total from ratings_objetivo (vista de 0002)
+  async ratings(): Promise<never> { return notImplemented("ratings"); }
   async lealtad(): Promise<never> { return notImplemented("lealtad"); }
   // TODO: reemplazar por el perfil del usuario autenticado (auth OTP)
   async demo(): Promise<never> { return notImplemented("demo"); }

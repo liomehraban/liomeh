@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [claude/new-session-qesrxe, main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: Datos, lint, tests y build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm validate:data
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
+      - name: Instalar Chromium de Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: e2e (guion de demo y pruebas extra)
+        run: pnpm e2e
+        env:
+          E2E_SIN_BUILD: "1"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-trazas
+          path: test-results/
+          retention-days: 7

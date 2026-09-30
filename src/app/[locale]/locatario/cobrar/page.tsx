@@ -3,6 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { datosLocatario } from "@/data/vistas-demo";
 import { CobrarView } from "@/components/locatario/CobrarView";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("locatarioCobrar");
 
 export default async function CobrarPage({ params }: PageProps<"/[locale]/locatario/cobrar">) {
   const { locale } = await params;

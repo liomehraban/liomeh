@@ -1,6 +1,5 @@
 /** Datos de apoyo para carrito, checkout y pedidos (vía repositorio). */
 import { getRepository } from "./repository";
-import { puestosEnLinea } from "./ficha-puesto";
 import { demoSeed } from "./demo-seed";
 
 /** Vendedor del carrito: un puesto de mercado o un productor (mayoreo directo del huerto). */
@@ -26,9 +25,8 @@ export type PuestoResumen = {
 export async function resumenPuestos(): Promise<Record<string, PuestoResumen>> {
   const repo = getRepository();
   const out: Record<string, PuestoResumen> = {};
-  for (const { puestoId, mercadoId } of await puestosEnLinea()) {
-    const [p, m] = await Promise.all([repo.puesto(puestoId), repo.mercado(mercadoId)]);
-    if (!p || !m) continue;
+  const [enLinea, productores] = await Promise.all([repo.puestosEnLinea(), repo.productores()]);
+  for (const { puesto: p, mercado: m } of enLinea) {
     out[p.id] = {
       id: p.id,
       tipo: "puesto",
@@ -44,7 +42,7 @@ export async function resumenPuestos(): Promise<Record<string, PuestoResumen>> {
       interior: !!m.interior_disponible,
     };
   }
-  for (const p of await repo.productores()) {
+  for (const p of productores) {
     out[p.id] = {
       id: p.id,
       tipo: "productor",

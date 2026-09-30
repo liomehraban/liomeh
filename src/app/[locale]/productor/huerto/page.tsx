@@ -3,6 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { datosProductor } from "@/data/vistas-demo";
 import { MiHuertoView } from "@/components/productor/MiHuertoView";
+import { tituloPagina } from "@/i18n/titulo";
+
+export const generateMetadata = tituloPagina("productorHuerto");
 
 export default async function MiHuertoPage({ params }: PageProps<"/[locale]/productor/huerto">) {
   const { locale } = await params;
