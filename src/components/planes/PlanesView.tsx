@@ -10,7 +10,7 @@ import { Confirmar } from "@/components/ui/confirmar";
 import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
 import { TARIFA_SERVICIO, type PlanConsumidor } from "@/lib/checkout";
 import { enIdioma } from "@/lib/idioma";
-import { formatMXN } from "@/lib/money";
+import { formatMXN, formatUSDaprox } from "@/lib/money";
 import { accesoRutaPremium, limiteAsistente, planDesdeModelo, venceEn } from "@/lib/planes";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
@@ -82,7 +82,10 @@ export function PlanesView({ planes }: { planes: PlanModelo[] }) {
                     {id !== "Gratis" && <Crown className="size-5 text-dorado" aria-hidden />}
                     {nombre(id)}
                   </h2>
-                  <p className="font-bold">{precio(m)}</p>
+                  <p className="font-bold">
+                    {precio(m)}
+                    {m.precio > 0 && locale === "en" && <span className="ml-1.5 text-xs font-normal whitespace-nowrap text-tinta-2">{formatUSDaprox(m.precio)}</span>}
+                  </p>
                 </div>
                 {esActual && (
                   <span className="flex flex-col items-end gap-1">

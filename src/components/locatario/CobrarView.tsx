@@ -163,7 +163,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
               onClick={() => setMonto((m) => teclear(m, k))}
               data-demo={`tecla-${k}`}
               aria-label={k === "⌫" ? t("borrar") : k === "C" ? t("limpiar") : k}
-              className="grid h-16 place-items-center rounded-2xl bg-white text-2xl font-bold text-tinta shadow-sm active:bg-morado-50"
+              className="grid h-16 place-items-center rounded-2xl bg-white text-2xl font-bold text-tinta shadow-sm active:bg-morado-50 [@media(max-height:780px)]:h-12"
             >
               {k === "⌫" ? <Delete className="size-6" aria-hidden /> : k}
             </button>

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useVocabulario } from "@/hooks/useVocabulario";
 import { enIdioma } from "@/lib/idioma";
 import type { PlanLocatario } from "@/lib/locatario";
-import { formatMXN } from "@/lib/money";
+import { formatMXN, formatUSDaprox } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
@@ -60,7 +60,10 @@ export function PlanLocatarioView({ planes }: { planes: PlanModelo[] }) {
                     {id !== "Gratis" && <Crown className="size-5 text-dorado" aria-hidden />}
                     {v("planes", id)}
                   </h2>
-                  <p className="font-bold">{m.precio ? t("porMes", { precio: formatMXN(m.precio, locale) }) : t("gratis")}</p>
+                  <p className="font-bold">
+                    {m.precio ? t("porMes", { precio: formatMXN(m.precio, locale) }) : t("gratis")}
+                    {m.precio > 0 && locale === "en" && <span className="ml-1.5 text-xs font-normal whitespace-nowrap text-tinta-2">{formatUSDaprox(m.precio)}</span>}
+                  </p>
                 </div>
                 {esActual && <span className="rounded-pill bg-morado px-2.5 py-0.5 text-[12px] font-bold text-crema">{t("actual")}</span>}
               </div>

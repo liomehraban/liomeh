@@ -551,7 +551,7 @@
       },
       "acciones": {
         "confirmado": "Confirm",
-        "listo": "Ready for pickup",
+        "listo": "Mark ready for pickup",
         "enviado": "Send with courier",
         "entregado": "Mark delivered"
       },

@@ -76,6 +76,7 @@
 @layer base {
   /* iOS acerca la pantalla al enfocar campos con letra menor a 16 px: los campos nunca bajan de 1rem. */
   input, select, textarea {
+    font-family: inherit;
     font-size: 1rem;
   }
   * {

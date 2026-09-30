@@ -61,9 +61,8 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
               <paso.icono className="size-5" aria-hidden />
             </span>
             <span className="font-bold">{paso.titulo}</span>
-            {/* Cada renglón del recorrido cabe en dos líneas como máximo. */}
-            {paso.texto && <span className="line-clamp-2 text-tinta-2">{paso.texto}</span>}
-            {paso.sub && <span className="line-clamp-2 font-semibold text-tinta-2">{paso.sub}</span>}
+            {paso.texto && <span className="leading-snug break-words text-tinta-2">{paso.texto}</span>}
+            {paso.sub && <span className="leading-snug font-semibold break-words text-tinta-2">{paso.sub}</span>}
           </li>
         ))}
       </ol>

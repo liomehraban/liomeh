@@ -57,17 +57,23 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor?:
         </span>
         {/* Sin cantidad o sin precio todavía, «—» en lugar de «0 piezas · $0». */}
         <span className="text-sm">
-          {l.cantidad ? `${l.cantidad} ${nombreUnidad(l.unidad)}` : "—"} ·{" "}
-          {l.precio ? (
-            <>
-              <strong>{formatMXN(l.precio, locale)}</strong>/{nombreUnidad(singular(l.unidad))}
-            </>
-          ) : (
+          {!l.cantidad && !l.precio ? (
             "—"
+          ) : (
+            <>
+              {l.cantidad ? `${l.cantidad} ${nombreUnidad(l.unidad)}` : "—"} ·{" "}
+              {l.precio ? (
+                <>
+                  <strong>{formatMXN(l.precio, locale)}</strong>/{nombreUnidad(singular(l.unidad))}
+                </>
+              ) : (
+                "—"
+              )}
+            </>
           )}
         </span>
         {productor && (
-          <span className="truncate text-[12px] text-tinta-2">
+          <span className="text-[12px] leading-snug text-tinta-2">
             {productor.nombre} · {productor.pueblo}
           </span>
         )}

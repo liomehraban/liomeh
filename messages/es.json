@@ -551,7 +551,7 @@
       },
       "acciones": {
         "confirmado": "Confirmar",
-        "listo": "Listo para recoger",
+        "listo": "Marcar listo para recoger",
         "enviado": "Enviar con terceros",
         "entregado": "Marcar entregado"
       },

@@ -83,7 +83,7 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
               </div>
               <PrecioEditable valor={x.p} etiqueta={t("precio", { producto: x.n })} onGuardar={(p) => editar(x.n, { p })} />
               {/* Interruptor con rótulo visible debajo; el nombre accesible incluye el producto. */}
-              <div className="flex w-[68px] shrink-0 flex-col items-center gap-1">
+              <div className="flex w-14 shrink-0 flex-col items-center gap-1">
                 <Switch id={`${idBase}-disp-${i}`} checked={x.disponible} onCheckedChange={(v) => editar(x.n, { disponible: v })} aria-label={t("disponible", { producto: x.n })} />
                 <label htmlFor={`${idBase}-disp-${i}`} className="cursor-pointer text-center text-[12px] leading-tight font-semibold text-tinta-2">
                   {t("disponibleCorto")}
