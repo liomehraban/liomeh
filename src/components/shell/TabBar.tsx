@@ -16,7 +16,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import { Link, usePathname } from "@/i18n/navigation";
-import { MarchantaAvatar } from "@/components/assistant/MarchantaAvatar";
+import { MarchantaPersonaje } from "@/components/assistant/MarchantaPersonaje";
 import { cn } from "@/lib/utils";
 
 type TabKey = "explorar" | "huertos" | "asistente" | "agenda" | "yo" | "hoy" | "cobrar" | "pedidos" | "catalogo" | "cuenta" | "cosecha" | "huerto";
@@ -71,16 +71,9 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
                   href={tab.href}
                   onClick={vibrar}
                   aria-current={on ? "page" : undefined}
-                  className="pressable group -mt-5 flex flex-col items-center gap-0.5 rounded-pill focus-visible:outline-none"
+                  className="pressable group -mt-6 flex flex-col items-center gap-0.5 rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
-                  <span
-                    className={cn(
-                      "grid size-14 place-items-center rounded-full bg-dorado shadow-md ring-4 ring-white group-focus-visible:ring-morado/60",
-                      on && "ring-morado",
-                    )}
-                  >
-                    <MarchantaAvatar className="size-11" />
-                  </span>
+                  <MarchantaPersonaje activo={on} />
                   <span className={cn("text-[11px] font-semibold text-tinta-2", on && "font-bold text-morado")}>{label}</span>
                 </Link>
               </li>

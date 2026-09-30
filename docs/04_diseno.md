@@ -60,7 +60,7 @@ Colores muestreados de la *Guía de Mercados CDMX 2026*: morado institucional y 
 | **Chip de filtro** | seleccionable, con ícono y color de giro |
 | **Tarjeta de mercado** | placeholder de foto 16:9 + nombre en Bebas + lema + estado + distancia + rating |
 | **Bottom sheet** | con handle y 3 alturas (peek, mitad, completa) |
-| **Tab bar** | 5 ítems; el botón central del Asistente es circular, elevado y dorado |
+| **Tab bar** | 5 ítems, anclada y sólida; pestaña activa con píldora morada. El botón central «Marchanta» es un disco dorado elevado con el personaje (ajolote con sombrero y canasta, `public/marchanta/`) saliéndose del borde por arriba |
 | **Sellos** | «Comercio justo» (dorado con ícono de mano y hoja), «Productor local CDMX» (nopal) y «Real · Guía CDMX» (morado, solo en QA) |
 | **Placeholder fotográfico** | color sólido del giro (sin degradados) + patrón SVG de papel picado al 14% de opacidad + ícono del giro. **No se usan fotos reales de la guía** |
 | **Papel picado** | separador SVG repetible (`public/papel-picado.svg`) en encabezados de ficha y onboarding |
