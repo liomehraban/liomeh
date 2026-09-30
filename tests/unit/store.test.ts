@@ -60,7 +60,7 @@ describe("registrarPedido", () => {
     const antes = useAppStore.getState().puntos;
     const p = useAppStore.getState().registrarPedido(input);
     const s = useAppStore.getState();
-    expect(p.folio).toMatch(/^PSL-\d{4}$/);
+    expect(p.folio).toMatch(/^BB-\d{4}$/);
     expect(s.pedidos[0].folio).toBe(p.folio);
     expect(s.puntos).toBe(antes + 30);
     expect(s.carrito.map((l) => l.puestoId)).toEqual(["dona-tere"]);
@@ -115,7 +115,7 @@ describe("pasaporte en el store", () => {
   });
   it("canje resta puntos y genera cupón; sin puntos no canjea", () => {
     const c = useAppStore.getState().canjear({ id: "agua", titulo: "Agua fresca gratis", puntos: 120 });
-    expect(c?.codigo).toMatch(/^PSL-AGUA-\d{6}$/);
+    expect(c?.codigo).toMatch(/^BB-AGUA-\d{6}$/);
     expect(useAppStore.getState().puntos).toBe(740 - 120);
     expect(useAppStore.getState().canjear({ id: "huerto", titulo: "Visita", puntos: 99999 })).toBeNull();
   });
@@ -132,5 +132,47 @@ describe("pasaporte en el store", () => {
   it("recordatorios toggle", () => {
     expect(useAppStore.getState().toggleRecordatorio("mole-2026")).toBe(true);
     expect(useAppStore.getState().toggleRecordatorio("mole-2026")).toBe(false);
+  });
+});
+
+describe("locatario y productor en el store", () => {
+  beforeEach(() => useAppStore.getState().resetDemo());
+  it("cobrar $250 guarda el cobro", () => {
+    useAppStore.getState().cobrar(250, "qr");
+    expect(useAppStore.getState().locatario.cobros[0]).toMatchObject({ monto: 250, metodo: "qr" });
+  });
+  it("pedidos del locatario avanzan de estado", () => {
+    const id = useAppStore.getState().locatario.pedidos[0].id;
+    useAppStore.getState().avanzarPedidoLocatario(id);
+    expect(useAppStore.getState().locatario.pedidos[0].estado).toBe("preparando");
+  });
+  it("catálogo: ediciones y límite en Gratis", () => {
+    const st = useAppStore.getState();
+    st.editarProducto("Sope", { p: 40 });
+    st.editarProducto("Sope", { disponible: false });
+    expect(useAppStore.getState().locatario.ediciones.Sope).toEqual({ p: 40, disponible: false });
+    expect(st.agregarProductoLocatario({ n: "Tlacoyo", p: 30, u: "pieza" }, 5)).toBe(true);
+    st.setPlanLocatario("Gratis");
+    expect(useAppStore.getState().agregarProductoLocatario({ n: "Gordita", p: 30, u: "pieza" }, 20)).toBe(false);
+    expect(useAppStore.getState().locatario.catalogoExtra.map((p) => p.n)).toEqual(["Tlacoyo"]);
+  });
+  it("lotes y pedidos de mayoreo", () => {
+    const l = useAppStore.getState().publicarLote({ producto: "Lechuga orejona", cantidad: 200, unidad: "piezas", precio: 12, disponible: "2026-10-03" });
+    expect(useAppStore.getState().productor.lotes[0].id).toBe(l.id);
+    const p = useAppStore.getState().productor.pedidos[0];
+    expect(p.estadoId).toBe("confirmado");
+    useAppStore.getState().cambiarEstadoMayoreo(p.id!, "listo");
+    expect(useAppStore.getState().productor.pedidos[0].estadoId).toBe("listo");
+  });
+  it("una compra del consumidor a Lucía llega a sus pedidos de mayoreo", () => {
+    useAppStore.getState().registrarPedido({
+      puestoId: "prod-xochi-01",
+      mercadoId: "",
+      items: [{ nombre: "Hortalizas de chinampa (kg)", precio: 18, unidad: "kg", qty: 10, huertoId: "prod-xochi-01" }],
+      resumen: { subtotal: 180, descuento: 0, servicio: 9, servicioOriginal: 9, envio: 0, total: 189 },
+      metodo: "qr",
+      entrega: "recoger",
+    });
+    expect(useAppStore.getState().productor.pedidos[0]).toMatchObject({ estadoId: "nuevo", total: 189, cantidad: "10 kg" });
   });
 });

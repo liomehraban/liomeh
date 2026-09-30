@@ -21,15 +21,19 @@ export const HOME_PERFIL: Record<Perfil, string> = {
 import { agregarItem, cambiarCantidad, type ItemCarrito, type LineaCarrito } from "@/lib/carrito";
 import { construirPedido, type NuevoPedido, type Pedido } from "@/lib/pedidos";
 import { consumirPregunta } from "@/lib/planes";
+import { puedeAgregarProducto, siguienteEstadoLocatario, type EstadoLocatario, type PlanLocatario } from "@/lib/locatario";
+import { normalizarEstadoMayoreo, type EstadoMayoreo } from "@/lib/productor";
 import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
 
 export type { ItemCarrito, LineaCarrito };
 
 export type { Pedido };
-export type PedidoLocatario = (typeof demoSeed.locatario.pedidos_pendientes)[number] & { folio?: string };
+export type PedidoLocatario = (typeof demoSeed.locatario.pedidos_pendientes)[number] & { folio?: string; estado?: EstadoLocatario };
 export type Cobro = { id: string; monto: number; metodo: "qr" | "tarjeta"; fecha: string };
-export type Lote = (typeof demoSeed.productor.lotes)[number] & { id?: string };
-export type PedidoMayoreo = (typeof demoSeed.productor.pedidos_mayoreo)[number] & { id?: string };
+export type Lote = (typeof demoSeed.productor.lotes)[number] & { id?: string; fotoUrl?: string; publicado?: string };
+export type PedidoMayoreo = (typeof demoSeed.productor.pedidos_mayoreo)[number] & { id?: string; estadoId?: EstadoMayoreo; folio?: string };
+export type ProductoLocatario = Producto & { disponible?: boolean; origen?: string; fotoUrl?: string };
+export type EdicionProducto = { p?: number; disponible?: boolean };
 
 type DatosDemo = {
   perfil: Perfil | null;
@@ -53,7 +57,14 @@ type DatosDemo = {
   rutasIniciadas: Record<string, string>;
   reservasTour: ReservaTour[];
   asistente: { fecha: string; usados: number };
-  locatario: { pedidos: PedidoLocatario[]; catalogoExtra: Producto[]; cobros: Cobro[] };
+  locatario: {
+    pedidos: PedidoLocatario[];
+    catalogoExtra: ProductoLocatario[];
+    cobros: Cobro[];
+    /** Cambios de precio/disponibilidad por nombre de producto (catálogo base y extra). */
+    ediciones: Record<string, EdicionProducto>;
+    plan: PlanLocatario;
+  };
   productor: { lotes: Lote[]; pedidos: PedidoMayoreo[] };
   reservasVisita: ReservaVisita[];
 };
@@ -84,6 +95,14 @@ type Acciones = {
   reservarTour: (r: Omit<ReservaTour, "id" | "creada">) => ReservaTour;
   /** Consume una pregunta del límite diario del asistente; false si ya se agotó. */
   preguntarAsistente: () => boolean;
+  cobrar: (monto: number, metodo: Cobro["metodo"]) => Cobro;
+  avanzarPedidoLocatario: (id: string) => void;
+  editarProducto: (nombre: string, cambios: EdicionProducto) => void;
+  /** false si el plan Gratis ya llegó al límite de 20 productos. */
+  agregarProductoLocatario: (p: ProductoLocatario, totalActual: number) => boolean;
+  setPlanLocatario: (plan: PlanLocatario) => void;
+  publicarLote: (l: Omit<Lote, "id" | "publicado">) => Lote;
+  cambiarEstadoMayoreo: (id: string, estado: EstadoMayoreo) => void;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
 };
@@ -110,10 +129,16 @@ export function estadoInicial(): DatosDemo {
     rutasIniciadas: {},
     reservasTour: [],
     asistente: { fecha: "", usados: 0 },
-    locatario: { pedidos: demoSeed.locatario.pedidos_pendientes.map((p) => ({ ...p })), catalogoExtra: [], cobros: [] },
+    locatario: {
+      pedidos: demoSeed.locatario.pedidos_pendientes.map((p) => ({ ...p, estado: "nuevo" as const })),
+      catalogoExtra: [],
+      cobros: [],
+      ediciones: {},
+      plan: demoSeed.locatario.plan as PlanLocatario,
+    },
     productor: {
-      lotes: demoSeed.productor.lotes.map((l) => ({ ...l })),
-      pedidos: demoSeed.productor.pedidos_mayoreo.map((p) => ({ ...p })),
+      lotes: demoSeed.productor.lotes.map((l, i) => ({ ...l, id: `lote-${i + 1}` })),
+      pedidos: demoSeed.productor.pedidos_mayoreo.map((p, i) => ({ ...p, id: `may-${i + 1}`, estadoId: normalizarEstadoMayoreo(p.estado) })),
     },
     reservasVisita: [],
   };
@@ -135,6 +160,7 @@ export const useAppStore = create<AppState>()(
         const pedido = construirPedido({ ...input, planMercadoMas: s.plan === "Mercado+" }, s.pedidos.map((p) => p.folio));
         const hora = new Date(pedido.fecha).toLocaleTimeString("es-MX", { timeZone: "America/Mexico_City", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
         const paraLocatario = pedido.puestoId === demoSeed.locatario.puesto_id;
+        const paraProductor = pedido.puestoId === demoSeed.productor.productor_id;
         set({
           pedidos: [pedido, ...s.pedidos],
           carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
@@ -149,16 +175,35 @@ export const useAppStore = create<AppState>()(
                   {
                     id: pedido.folio,
                     folio: pedido.folio,
-                    cliente: "Pásele",
+                    cliente: "Bara Bara",
                     items: pedido.items.map((i) => `${i.qty} × ${i.nombre}`).join(", "),
                     total: pedido.total,
                     tipo: pedido.entrega === "recoger" ? "Recoger en puesto" : "Envío (terceros)",
                     hora,
+                    estado: "nuevo",
                   },
                   ...s.locatario.pedidos,
                 ],
               }
             : s.locatario,
+          productor: paraProductor
+            ? {
+                ...s.productor,
+                pedidos: [
+                  {
+                    id: pedido.folio,
+                    folio: pedido.folio,
+                    cliente: "Bara Bara",
+                    producto: pedido.items.map((i) => i.nombre).join(", "),
+                    cantidad: pedido.items.map((i) => `${i.qty} ${i.unidad}`).join(", "),
+                    total: pedido.total,
+                    estado: "Nuevo",
+                    estadoId: "nuevo",
+                  },
+                  ...s.productor.pedidos,
+                ],
+              }
+            : s.productor,
         });
         return pedido;
       },
@@ -214,6 +259,31 @@ export const useAppStore = create<AppState>()(
         set({ asistente: r.contador });
         return r.ok;
       },
+      cobrar: (monto, metodo) => {
+        const cobro: Cobro = { id: `COB-${Math.floor(1000 + Math.random() * 9000)}`, monto, metodo, fecha: new Date().toISOString() };
+        set((s) => ({ locatario: { ...s.locatario, cobros: [cobro, ...s.locatario.cobros] } }));
+        return cobro;
+      },
+      avanzarPedidoLocatario: (id) =>
+        set((s) => ({
+          locatario: { ...s.locatario, pedidos: s.locatario.pedidos.map((p) => (p.id === id ? { ...p, estado: siguienteEstadoLocatario(p.estado) } : p)) },
+        })),
+      editarProducto: (nombre, cambios) =>
+        set((s) => ({ locatario: { ...s.locatario, ediciones: { ...s.locatario.ediciones, [nombre]: { ...s.locatario.ediciones?.[nombre], ...cambios } } } })),
+      agregarProductoLocatario: (p, totalActual) => {
+        const s = get();
+        if (!puedeAgregarProducto(totalActual, s.locatario.plan ?? "Gratis")) return false;
+        set({ locatario: { ...s.locatario, catalogoExtra: [...s.locatario.catalogoExtra, p] } });
+        return true;
+      },
+      setPlanLocatario: (plan) => set((s) => ({ locatario: { ...s.locatario, plan } })),
+      publicarLote: (l) => {
+        const lote: Lote = { ...l, id: `lote-${Date.now()}`, publicado: new Date().toISOString() };
+        set((s) => ({ productor: { ...s.productor, lotes: [lote, ...s.productor.lotes] } }));
+        return lote;
+      },
+      cambiarEstadoMayoreo: (id, estado) =>
+        set((s) => ({ productor: { ...s.productor, pedidos: s.productor.pedidos.map((p) => (p.id === id ? { ...p, estadoId: estado } : p)) } })),
       reservarTour: (r) => {
         const reserva = { ...r, id: `TOUR-${Math.floor(1000 + Math.random() * 9000)}`, creada: new Date().toISOString() };
         set((s) => ({ reservasTour: [reserva, ...s.reservasTour] }));
@@ -229,7 +299,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, ...datos } = s;
         return datos;
       },
     },
