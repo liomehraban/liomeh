@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Link } from "@/i18n/navigation";
 import { etiquetaEvento, formatRangoFechas } from "@/lib/eventos";
 import { comoLlegarUrl } from "@/lib/geo";
+import { enIdioma } from "@/lib/idioma";
 import type { Evento } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
@@ -18,6 +19,7 @@ const accion =
 export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: Date; mercadoExiste: boolean }) {
   const t = useTranslations("agenda");
   const locale = useLocale();
+  const titulo = enIdioma(e, "titulo", locale);
   const hydrated = useHydrated();
   const activo = useAppStore((s) => s.recordatorios.includes(e.id));
   const toggle = useAppStore((s) => s.toggleRecordatorio);
@@ -36,7 +38,7 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
     <article className="flex flex-col gap-2 rounded-card border border-border bg-white p-4" aria-labelledby={`ev-${e.id}`}>
       <span className={cn("w-fit rounded-pill px-2.5 py-0.5 text-[13px] font-bold", chip.cls)}>{chip.txt}</span>
       <h3 id={`ev-${e.id}`} className="text-lg leading-snug font-bold text-tinta">
-        {e.titulo}
+        {titulo}
       </h3>
       {e.inicio !== "recurrente" && (
         <p className="flex items-center gap-1.5 text-sm font-semibold text-morado-700">
@@ -48,14 +50,14 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
         <MapPin className="size-4 shrink-0" aria-hidden />
         {e.lugar}
       </p>
-      <p className="text-sm text-tinta-2">{e.descripcion}</p>
+      <p className="text-sm text-tinta-2">{enIdioma(e, "descripcion", locale)}</p>
       <div className="flex flex-wrap gap-2 pt-1">
         <button
           type="button"
           aria-pressed={hydrated && activo}
           onClick={() => {
             const on = toggle(e.id);
-            if (on) toast.success(t("recordatorioCreado", { titulo: e.titulo }));
+            if (on) toast.success(t("recordatorioCreado", { titulo }));
             else toast(t("recordatorioQuitado"));
           }}
           className={cn(accion, hydrated && activo ? "border-dorado bg-dorado text-morado-900" : "border-morado text-morado")}

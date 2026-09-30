@@ -18,6 +18,7 @@
   {
    "id": "zona-milpa-alta",
    "nombre": "Nopaleras y milpas de Milpa Alta",
+   "nombre_en": "Nopal fields and milpas of Milpa Alta",
    "alcaldia": "Milpa Alta",
    "lat": 19.185,
    "lng": -99.015,
@@ -28,7 +29,14 @@
     "haba",
     "mole (San Pedro Atocpan)"
    ],
+   "cultivos_en": [
+    "nopal",
+    "native corn (blue, cacahuacintle)",
+    "fava beans",
+    "mole (San Pedro Atocpan)"
+   ],
    "descripcion": "Única alcaldía 100% rural y de suelo de conservación. Una de las principales regiones productoras de nopal del país; su centro de acopio en Villa Milpa Alta abre desde las 2:30 a.m.",
+   "descripcion_en": "The only borough that is 100% rural and conservation land. One of the country's main nopal-growing regions; its collection center in Villa Milpa Alta opens at 2:30 a.m.",
    "poligono_ilustrativo": [
     [
      19.185,
@@ -63,6 +71,7 @@
   {
    "id": "zona-chinampas-xochimilco",
    "nombre": "Chinampas de Xochimilco (San Gregorio Atlapulco)",
+   "nombre_en": "Xochimilco chinampas (San Gregorio Atlapulco)",
    "alcaldia": "Xochimilco",
    "lat": 19.255,
    "lng": -99.058,
@@ -76,7 +85,17 @@
     "flor de calabaza",
     "elote"
    ],
+   "cultivos_en": [
+    "lettuce",
+    "chard",
+    "purslane",
+    "romeritos",
+    "cilantro",
+    "squash blossom",
+    "fresh corn"
+   ],
    "descripcion": "Sistema agrícola prehispánico sobre el lago; verdura de chinampa que llega al Mercado 44 (Zona Xóchitl).",
+   "descripcion_en": "A pre-Hispanic farming system built on the lake; chinampa greens that reach Mercado 44 (Zona Xóchitl).",
    "poligono_ilustrativo": [
     [
      19.255,
@@ -111,6 +130,7 @@
   {
    "id": "zona-tlaxialtemalco",
    "nombre": "Viveros de San Luis Tlaxialtemalco",
+   "nombre_en": "San Luis Tlaxialtemalco nurseries",
    "alcaldia": "Xochimilco",
    "lat": 19.262,
    "lng": -99.043,
@@ -120,7 +140,13 @@
     "flor de nochebuena (temporada)",
     "cempasúchil (temporada)"
    ],
+   "cultivos_en": [
+    "ornamental plants",
+    "poinsettia (seasonal)",
+    "cempasúchil (seasonal)"
+   ],
    "descripcion": "Zona de viveros y producción de flor de temporada.",
+   "descripcion_en": "Plant nurseries and seasonal flower growing.",
    "poligono_ilustrativo": [
     [
      19.262,
@@ -155,6 +181,7 @@
   {
    "id": "zona-tulyehualco",
    "nombre": "Amaranto y olivo de Tulyehualco",
+   "nombre_en": "Amaranth and olives of Tulyehualco",
    "alcaldia": "Xochimilco",
    "lat": 19.254,
    "lng": -99.011,
@@ -164,7 +191,13 @@
     "alegrías",
     "aceituna / olivo"
    ],
+   "cultivos_en": [
+    "amaranth",
+    "alegrías (amaranth sweets)",
+    "olives"
+   ],
    "descripcion": "Sede de la Feria de la Alegría y el Olivo (53ª edición en 2026, más de 100 productores).",
+   "descripcion_en": "Home of the Alegría and Olive Fair (53rd edition in 2026, more than 100 growers).",
    "poligono_ilustrativo": [
     [
      19.254,
@@ -199,6 +232,7 @@
   {
    "id": "zona-mixquic",
    "nombre": "Chinampas de San Andrés Mixquic",
+   "nombre_en": "San Andrés Mixquic chinampas",
    "alcaldia": "Tláhuac",
    "lat": 19.224,
    "lng": -98.964,
@@ -211,7 +245,16 @@
     "espinaca",
     "apio"
    ],
+   "cultivos_en": [
+    "broccoli",
+    "cauliflower",
+    "lettuce",
+    "purslane",
+    "spinach",
+    "celery"
+   ],
    "descripcion": "Chinampas hortícolas del sur-oriente; famosas también por su celebración de Día de Muertos.",
+   "descripcion_en": "Vegetable chinampas in the southeast; also famous for their Day of the Dead celebration.",
    "poligono_ilustrativo": [
     [
      19.224,
@@ -246,6 +289,7 @@
   {
    "id": "zona-tlahuac-ixtayopan",
    "nombre": "Ejidos de Tláhuac (San Juan Ixtayopan)",
+   "nombre_en": "Tláhuac ejidos (San Juan Ixtayopan)",
    "alcaldia": "Tláhuac",
    "lat": 19.238,
    "lng": -99.02,
@@ -255,7 +299,13 @@
     "hortalizas",
     "amaranto"
    ],
+   "cultivos_en": [
+    "corn",
+    "vegetables",
+    "amaranth"
+   ],
    "descripcion": "Zona ejidal con hortalizas y maíz.",
+   "descripcion_en": "Communal (ejido) land with vegetables and corn.",
    "poligono_ilustrativo": [
     [
      19.238,
@@ -290,6 +340,7 @@
   {
    "id": "zona-topilejo",
    "nombre": "Milpas de San Miguel Topilejo y Parres",
+   "nombre_en": "Milpas of San Miguel Topilejo and Parres",
    "alcaldia": "Tlalpan",
    "lat": 19.19,
    "lng": -99.15,
@@ -300,7 +351,14 @@
     "haba",
     "chícharo"
    ],
+   "cultivos_en": [
+    "native corn",
+    "forage oats",
+    "fava beans",
+    "peas"
+   ],
    "descripcion": "Altos de Tlalpan, agricultura de temporal en suelo de conservación.",
+   "descripcion_en": "The Tlalpan highlands: rain-fed farming on conservation land.",
    "poligono_ilustrativo": [
     [
      19.19,
@@ -335,6 +393,7 @@
   {
    "id": "zona-ajusco",
    "nombre": "Ajusco medio",
+   "nombre_en": "Middle Ajusco",
    "alcaldia": "Tlalpan",
    "lat": 19.215,
    "lng": -99.205,
@@ -345,7 +404,14 @@
     "papa",
     "hongos (temporada de lluvias)"
    ],
+   "cultivos_en": [
+    "corn",
+    "fava beans",
+    "potatoes",
+    "mushrooms (rainy season)"
+   ],
    "descripcion": "Pueblos del Ajusco con producción de temporal.",
+   "descripcion_en": "Ajusco villages with rain-fed farming.",
    "poligono_ilustrativo": [
     [
      19.215,
@@ -394,6 +460,7 @@
     "Nopal limpio (kg)"
    ],
    "temporada": "Todo el año; pico abril–septiembre",
+   "temporada_en": "Year-round; peak April–September",
    "precio_mayoreo_app": {
     "precio": 70,
     "unidad": "ciento"
@@ -409,6 +476,7 @@
    },
    "venta_minima": "10 kg",
    "entrega": "Recoger en centro de acopio",
+   "entrega_en": "Pick up at the collection center",
    "visitas_huerto": false,
    "precio_visita": 350,
    "rating": 4.8,
@@ -417,6 +485,10 @@
    "practicas": [
     "Sin agroquímicos (declarado)",
     "Rotación de cultivos"
+   ],
+   "practicas_en": [
+    "No agrochemicals (self-declared)",
+    "Crop rotation"
    ],
    "simulado": true
   },
@@ -436,6 +508,7 @@
     "Nopal (ciento)"
    ],
    "temporada": "Maíz: cosecha nov–ene",
+   "temporada_en": "Corn: harvest Nov–Jan",
    "precio_mayoreo_app": {
     "precio": 16,
     "unidad": "kg"
@@ -450,7 +523,9 @@
     "participacion_productor_pct_intermediarios": 32
    },
    "venta_minima": "1 caja",
+   "venta_minima_en": "1 box",
    "entrega": "Recoger en huerto",
+   "entrega_en": "Pick up at the farm",
    "visitas_huerto": false,
    "precio_visita": 250,
    "rating": 4.8,
@@ -459,6 +534,10 @@
    "practicas": [
     "Riego de canal",
     "Composta propia"
+   ],
+   "practicas_en": [
+    "Canal irrigation",
+    "Own compost"
    ],
    "simulado": true
   },
@@ -478,6 +557,7 @@
     "Pipián (kg)"
    ],
    "temporada": "Todo el año",
+   "temporada_en": "Year-round",
    "precio_mayoreo_app": {
     "precio": 180,
     "unidad": "kg"
@@ -493,6 +573,7 @@
    },
    "venta_minima": "5 kg",
    "entrega": "Recoger en centro de acopio",
+   "entrega_en": "Pick up at the collection center",
    "visitas_huerto": true,
    "precio_visita": 150,
    "rating": 4.7,
@@ -501,6 +582,10 @@
    "practicas": [
     "Riego de canal",
     "Semilla nativa"
+   ],
+   "practicas_en": [
+    "Canal irrigation",
+    "Native seed"
    ],
    "simulado": true
   },
@@ -519,6 +604,7 @@
     "Xoconostle (kg)"
    ],
    "temporada": "Todo el año",
+   "temporada_en": "Year-round",
    "precio_mayoreo_app": {
     "precio": 65,
     "unidad": "ciento"
@@ -534,6 +620,7 @@
    },
    "venta_minima": "5 kg",
    "entrega": "Recoger en huerto",
+   "entrega_en": "Pick up at the farm",
    "visitas_huerto": true,
    "precio_visita": 350,
    "rating": 4.8,
@@ -542,6 +629,10 @@
    "practicas": [
     "Composta propia",
     "Riego de canal"
+   ],
+   "practicas_en": [
+    "Own compost",
+    "Canal irrigation"
    ],
    "simulado": true
   },
@@ -562,6 +653,7 @@
     "Cilantro (manojo)"
    ],
    "temporada": "Todo el año",
+   "temporada_en": "Year-round",
    "precio_mayoreo_app": {
     "precio": 18,
     "unidad": "kg"
@@ -577,6 +669,7 @@
    },
    "venta_minima": "5 kg",
    "entrega": "Recoger en huerto",
+   "entrega_en": "Pick up at the farm",
    "visitas_huerto": true,
    "precio_visita": 200,
    "rating": 4.6,
@@ -585,6 +678,10 @@
    "practicas": [
     "Semilla nativa",
     "Sin agroquímicos (declarado)"
+   ],
+   "practicas_en": [
+    "Native seed",
+    "No agrochemicals (self-declared)"
    ],
    "simulado": true
   },
@@ -604,6 +701,7 @@
     "Elote (pieza)"
    ],
    "temporada": "Romeritos: nov–dic y Semana Santa",
+   "temporada_en": "Romeritos: Nov–Dec and Holy Week",
    "precio_mayoreo_app": {
     "precio": 35,
     "unidad": "kg"
@@ -619,6 +717,7 @@
    },
    "venta_minima": "10 kg",
    "entrega": "Recoger en centro de acopio",
+   "entrega_en": "Pick up at the collection center",
    "visitas_huerto": true,
    "precio_visita": 350,
    "rating": 4.8,
@@ -627,6 +726,10 @@
    "practicas": [
     "Rotación de cultivos",
     "Riego de canal"
+   ],
+   "practicas_en": [
+    "Crop rotation",
+    "Canal irrigation"
    ],
    "simulado": true
   },
@@ -646,6 +749,7 @@
     "Aceite de oliva local (500 ml)"
    ],
    "temporada": "Todo el año; feria en ene–feb",
+   "temporada_en": "Year-round; fair in Jan–Feb",
    "precio_mayoreo_app": {
     "precio": 45,
     "unidad": "kg"
@@ -660,7 +764,9 @@
     "participacion_productor_pct_intermediarios": 29
    },
    "venta_minima": "1 caja",
+   "venta_minima_en": "1 box",
    "entrega": "Recoger en centro de acopio",
+   "entrega_en": "Pick up at the collection center",
    "visitas_huerto": false,
    "precio_visita": 350,
    "rating": 4.7,
@@ -669,6 +775,10 @@
    "practicas": [
     "Sin agroquímicos (declarado)",
     "Composta propia"
+   ],
+   "practicas_en": [
+    "No agrochemicals (self-declared)",
+    "Own compost"
    ],
    "simulado": true
   },
@@ -688,6 +798,7 @@
     "Suculentas"
    ],
    "temporada": "Cempasúchil: oct; nochebuena: nov–dic",
+   "temporada_en": "Cempasúchil: Oct; poinsettia: Nov–Dec",
    "precio_mayoreo_app": {
     "precio": 25,
     "unidad": "maceta"
@@ -702,7 +813,9 @@
     "participacion_productor_pct_intermediarios": 23
    },
    "venta_minima": "1 caja",
+   "venta_minima_en": "1 box",
    "entrega": "Recoger en huerto",
+   "entrega_en": "Pick up at the farm",
    "visitas_huerto": true,
    "precio_visita": 150,
    "rating": 4.7,
@@ -711,6 +824,10 @@
    "practicas": [
     "Sin agroquímicos (declarado)",
     "Rotación de cultivos"
+   ],
+   "practicas_en": [
+    "No agrochemicals (self-declared)",
+    "Crop rotation"
    ],
    "simulado": true
   },
@@ -730,6 +847,7 @@
     "Espinaca (manojo)"
    ],
    "temporada": "Todo el año",
+   "temporada_en": "Year-round",
    "precio_mayoreo_app": {
     "precio": 12,
     "unidad": "kg"
@@ -745,6 +863,7 @@
    },
    "venta_minima": "10 kg",
    "entrega": "Envío con terceros a mercado",
+   "entrega_en": "Third-party delivery to the market",
    "visitas_huerto": true,
    "precio_visita": 200,
    "rating": 4.8,
@@ -753,6 +872,10 @@
    "practicas": [
     "Riego de canal",
     "Rotación de cultivos"
+   ],
+   "practicas_en": [
+    "Canal irrigation",
+    "Crop rotation"
    ],
    "simulado": true
   },
@@ -772,6 +895,7 @@
     "Lechuga (pieza)"
    ],
    "temporada": "Todo el año",
+   "temporada_en": "Year-round",
    "precio_mayoreo_app": {
     "precio": 10,
     "unidad": "kg"
@@ -786,7 +910,9 @@
     "participacion_productor_pct_intermediarios": 17
    },
    "venta_minima": "1 caja",
+   "venta_minima_en": "1 box",
    "entrega": "Recoger en centro de acopio",
+   "entrega_en": "Pick up at the collection center",
    "visitas_huerto": false,
    "precio_visita": 350,
    "rating": 4.7,
@@ -795,6 +921,10 @@
    "practicas": [
     "Sin agroquímicos (declarado)",
     "Semilla nativa"
+   ],
+   "practicas_en": [
+    "No agrochemicals (self-declared)",
+    "Native seed"
    ],
    "simulado": true
   },
@@ -813,6 +943,7 @@
     "Calabaza criolla (kg)"
    ],
    "temporada": "Cosecha oct–dic",
+   "temporada_en": "Harvest Oct–Dec",
    "precio_mayoreo_app": {
     "precio": 8,
     "unidad": "kg"
@@ -828,6 +959,7 @@
    },
    "venta_minima": "10 kg",
    "entrega": "Recoger en centro de acopio",
+   "entrega_en": "Pick up at the collection center",
    "visitas_huerto": false,
    "precio_visita": 200,
    "rating": 4.8,
@@ -836,6 +968,10 @@
    "practicas": [
     "Rotación de cultivos",
     "Riego de canal"
+   ],
+   "practicas_en": [
+    "Crop rotation",
+    "Canal irrigation"
    ],
    "simulado": true
   },
@@ -855,6 +991,7 @@
     "Chícharo (kg)"
    ],
    "temporada": "Cosecha nov–ene",
+   "temporada_en": "Harvest Nov–Jan",
    "precio_mayoreo_app": {
     "precio": 20,
     "unidad": "kg"
@@ -869,7 +1006,9 @@
     "participacion_productor_pct_intermediarios": 27
    },
    "venta_minima": "1 caja",
+   "venta_minima_en": "1 box",
    "entrega": "Envío con terceros a mercado",
+   "entrega_en": "Third-party delivery to the market",
    "visitas_huerto": true,
    "precio_visita": 150,
    "rating": 4.8,
@@ -878,6 +1017,10 @@
    "practicas": [
     "Rotación de cultivos",
     "Riego de canal"
+   ],
+   "practicas_en": [
+    "Crop rotation",
+    "Canal irrigation"
    ],
    "simulado": true
   },
@@ -896,6 +1039,7 @@
     "Avena (paca)"
    ],
    "temporada": "Temporal jun–oct",
+   "temporada_en": "Rainy season Jun–Oct",
    "precio_mayoreo_app": {
     "precio": 9,
     "unidad": "kg"
@@ -910,7 +1054,9 @@
     "participacion_productor_pct_intermediarios": 17
    },
    "venta_minima": "1 ciento",
+   "venta_minima_en": "1 hundred",
    "entrega": "Envío con terceros a mercado",
+   "entrega_en": "Third-party delivery to the market",
    "visitas_huerto": true,
    "precio_visita": 250,
    "rating": 4.8,
@@ -919,6 +1065,10 @@
    "practicas": [
     "Semilla nativa",
     "Rotación de cultivos"
+   ],
+   "practicas_en": [
+    "Native seed",
+    "Crop rotation"
    ],
    "simulado": true
   },
@@ -937,6 +1087,7 @@
     "Quesadilla de hongo (pieza)"
    ],
    "temporada": "Julio–septiembre",
+   "temporada_en": "July–September",
    "precio_mayoreo_app": {
     "precio": 120,
     "unidad": "kg"
@@ -951,7 +1102,9 @@
     "participacion_productor_pct_intermediarios": 27
    },
    "venta_minima": "1 ciento",
+   "venta_minima_en": "1 hundred",
    "entrega": "Recoger en huerto",
+   "entrega_en": "Pick up at the farm",
    "visitas_huerto": true,
    "precio_visita": 250,
    "rating": 4.9,
@@ -960,6 +1113,10 @@
    "practicas": [
     "Riego de canal",
     "Composta propia"
+   ],
+   "practicas_en": [
+    "Canal irrigation",
+    "Own compost"
    ],
    "simulado": true
   }

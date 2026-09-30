@@ -104,6 +104,7 @@ export default function MapLibreView({
           onMouseLeave={() => setCursor("")}
           cursor={cursor}
           attributionControl={false}
+          locale={{ "Map.Title": t("titulo"), "Marker.Title": t("marcador"), "AttributionControl.ToggleAttribution": t("creditos") }}
           dragRotate={false}
           touchPitch={false}
           maxZoom={18}

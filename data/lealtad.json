@@ -3,93 +3,121 @@
  "como_se_gana": [
   {
    "accion": "Compra pagada en la app (QR o tarjeta)",
-   "puntos": "1 punto por cada $10"
+   "accion_en": "Purchase paid in the app (QR or card)",
+   "puntos": "1 punto por cada $10",
+   "puntos_en": "1 point per $10"
   },
   {
    "accion": "Check-in con el QR del puesto (aunque pagues en efectivo)",
-   "puntos": "10 puntos (máx. 1 por puesto al día)"
+   "accion_en": "Check-in with the stall's QR (even if you pay cash)",
+   "puntos": "10 puntos (máx. 1 por puesto al día)",
+   "puntos_en": "10 points (max. 1 per stall a day)"
   },
   {
    "accion": "Primer check-in en un mercado nuevo",
-   "puntos": "50 puntos + sello en el pasaporte"
+   "accion_en": "First check-in at a new market",
+   "puntos": "50 puntos + sello en el pasaporte",
+   "puntos_en": "50 points + a passport stamp"
   },
   {
    "accion": "Reseña con foto",
-   "puntos": "15 puntos"
+   "accion_en": "Review with a photo",
+   "puntos": "15 puntos",
+   "puntos_en": "15 points"
   },
   {
    "accion": "Compra directa a un productor de huerto",
-   "puntos": "Puntos dobles"
+   "accion_en": "Buying straight from a farm grower",
+   "puntos": "Puntos dobles",
+   "puntos_en": "Double points"
   }
  ],
  "niveles": [
   {
    "nivel": "Marchante",
    "desde": 0,
-   "beneficio": "Pasaporte digital y sellos"
+   "beneficio": "Pasaporte digital y sellos",
+   "beneficio_en": "Digital passport and stamps"
   },
   {
    "nivel": "Casero",
    "desde": 500,
-   "beneficio": "5% de descuento en puestos adheridos"
+   "beneficio": "5% de descuento en puestos adheridos",
+   "beneficio_en": "5% off at participating stalls"
   },
   {
    "nivel": "Compadre de Mercado",
    "desde": 1500,
-   "beneficio": "Ruta guiada gratis cada trimestre"
+   "beneficio": "Ruta guiada gratis cada trimestre",
+   "beneficio_en": "A free guided route every quarter"
   },
   {
    "nivel": "Leyenda de Mercado",
    "desde": 4000,
-   "beneficio": "Invitación a eventos con productores y acceso anticipado"
+   "beneficio": "Invitación a eventos con productores y acceso anticipado",
+   "beneficio_en": "Invitations to events with growers and early access"
   }
  ],
  "insignias": [
   {
    "id": "centro",
    "nombre": "Corazón del Centro",
-   "regla": "5 mercados del Centro Histórico"
+   "nombre_en": "Heart of the Centro",
+   "regla": "5 mercados del Centro Histórico",
+   "regla_en": "5 markets in the Historic Center"
   },
   {
    "id": "chinampero",
    "nombre": "Chinampero",
-   "regla": "Compra en 2 huertos de Xochimilco o Tláhuac"
+   "nombre_en": "Chinampero",
+   "regla": "Compra en 2 huertos de Xochimilco o Tláhuac",
+   "regla_en": "Buy from 2 farms in Xochimilco or Tláhuac"
   },
   {
    "id": "madrugador",
    "nombre": "Madrugador de la CEDA",
-   "regla": "Check-in en la CEDA antes de las 7:00"
+   "nombre_en": "CEDA Early Bird",
+   "regla": "Check-in en la CEDA antes de las 7:00",
+   "regla_en": "Check in at the CEDA before 7:00 a.m."
   },
   {
    "id": "16",
    "nombre": "Las 16 alcaldías",
-   "regla": "Un mercado en cada alcaldía"
+   "nombre_en": "All 16 boroughs",
+   "regla": "Un mercado en cada alcaldía",
+   "regla_en": "One market in every borough"
   },
   {
    "id": "antojo",
    "nombre": "Antojo chilango",
-   "regla": "Huarache en Río Blanco + pancita en La Merced + carnitas en Jamaica"
+   "nombre_en": "Chilango cravings",
+   "regla": "Huarache en Río Blanco + pancita en La Merced + carnitas en Jamaica",
+   "regla_en": "Huarache at Río Blanco + pancita at La Merced + carnitas at Jamaica"
   }
  ],
  "recompensas": [
   {
    "id": "agua",
    "titulo": "Agua fresca gratis",
+   "titulo_en": "Free agua fresca",
    "puntos": 120
   },
   {
    "id": "desc10",
    "titulo": "10% en tu siguiente compra en La Merced",
+   "titulo_en": "10% off your next purchase at La Merced",
    "puntos": 300
   },
   {
    "id": "tour",
    "titulo": "Ruta guiada gratis",
+   "titulo_en": "Free guided route",
    "puntos": 900
   },
   {
    "id": "huerto",
    "titulo": "Visita a una chinampa",
+   "titulo_en": "Visit to a chinampa",
    "puntos": 1200
   }
  ],

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Stepper } from "@/components/ui/stepper";
 import { useAgregarAlCarrito } from "@/components/cart/useAgregarAlCarrito";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { useRouter } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
 import { huertoDeProducto } from "@/lib/carrito";
@@ -34,6 +35,7 @@ const ESTILO_STOCK: Record<Stock["estado"], string> = {
  */
 export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: Puesto; nombresPuestos: Record<string, string>; vendedor?: PuestoResumen }) {
   const t = useTranslations("puesto");
+  const voc = useVocabulario();
   const router = useRouter();
   const [qty, setQty] = useState<Record<string, number>>({});
   const hydrated = useHydrated();
@@ -82,7 +84,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col">
                   <span className={cn("font-semibold", agotado && "text-tinta-2")}>{prod.n}</span>
-                  <span className="text-[13px] text-tinta-2">/ {prod.u}</span>
+                  <span className="text-[13px] text-tinta-2">/ {voc("unidades", prod.u)}</span>
                   {stock && (
                     <span className={cn("text-[12px] font-semibold", ESTILO_STOCK[stock.estado])}>
                       {stock.estado === "agotado"

@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { useAhora } from "@/hooks/useAhora";
 import { estadoEvento, eventosVigentes, formatRangoFechas } from "@/lib/eventos";
+import { enIdioma } from "@/lib/idioma";
 import type { Evento } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { Seccion } from "./Seccion";
@@ -33,7 +34,7 @@ export function EventosRelacionados({ eventos }: { eventos: Evento[] }) {
               >
                 {etiqueta}
               </span>
-              <h3 className="font-bold text-tinta">{e.titulo}</h3>
+              <h3 className="font-bold text-tinta">{enIdioma(e, "titulo", locale)}</h3>
               {e.inicio !== "recurrente" && (
                 <p className="flex items-center gap-1.5 text-sm text-tinta-2">
                   <CalendarDays className="size-4" aria-hidden />

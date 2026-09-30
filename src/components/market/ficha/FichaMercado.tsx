@@ -6,7 +6,9 @@ import { Link } from "@/i18n/navigation";
 import { EstadoHorario } from "@/components/market/EstadoHorario";
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { TIPO_KEY } from "@/components/market/tipos";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { comoLlegarUrl } from "@/lib/geo";
+import { enIdioma } from "@/lib/idioma";
 import { categoriaGiro, categoriaMercado, COLOR_GIRO } from "@/lib/giros";
 import { describirHorario, formatMinutos } from "@/lib/horarioTexto";
 import { formatCompacto, formatMXN } from "@/lib/money";
@@ -42,6 +44,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
   const t = useTranslations();
   const locale = useLocale();
   const en = locale === "en";
+  const v = useVocabulario();
   const lema = en ? (m.lema_en ?? m.lema) : m.lema;
   const resumen = en ? (m.resumen_en ?? m.resumen) : m.resumen;
   const cat = categoriaMercado(m);
@@ -76,7 +79,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
             {m.giros.map((g) => (
               <li key={g} className="flex items-center gap-1.5 rounded-pill border border-border px-3 py-1 text-[13px] font-semibold">
                 <span aria-hidden className="size-2 rounded-full" style={{ background: COLOR_GIRO[categoriaGiro(g)] }} />
-                {g}
+                {v("giros", g)}
               </li>
             ))}
           </ul>
@@ -260,7 +263,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
                   >
                     <Route className="size-5 shrink-0 text-morado" aria-hidden />
                     <span className="flex flex-1 flex-col">
-                      <span className="font-semibold">{r.titulo}</span>
+                      <span className="font-semibold">{enIdioma(r, "titulo", locale)}</span>
                       <span className="text-[13px] text-tinta-2">
                         {t("mercado.paradas", { n: r.paradas.length })} · {t("mercado.horas", { h: r.duracion_h })} · {r.km} km
                       </span>

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EncabezadoPerfil } from "@/components/locatario/EncabezadoPerfil";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { reducirFoto } from "@/components/resenas/foto";
 import { fmtDia } from "@/components/ui/dialogo-reserva";
 import { proximosDias } from "@/lib/huertos";
@@ -17,7 +18,9 @@ import type { Productor } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated, type Lote } from "@/store/useAppStore";
 
-const UNIDADES = ["piezas", "kg", "manojos", "caja", "ciento"];
+const UNIDADES = ["piezas", "kg", "manojos", "cajas", "cientos"];
+/** Unidad del catálogo (singular) → unidad del lote (plural). */
+const PLURAL: Record<string, string> = { pieza: "piezas", manojo: "manojos", caja: "cajas", ciento: "cientos" };
 /** «Lechuga orejona (pieza)» → producto y unidad. */
 const partir = (c: string) => {
   const m = /^(.*?)\s*\(([^)]+)\)\s*$/.exec(c);
@@ -27,6 +30,7 @@ const partir = (c: string) => {
 function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: Productor; nuevo?: boolean }) {
   const t = useTranslations("productor.cosecha");
   const locale = useLocale();
+  const voc = useVocabulario();
   return (
     <article className="flex gap-3 rounded-card border border-border bg-white p-3">
       {l.fotoUrl ? (
@@ -43,7 +47,7 @@ function TarjetaLote({ l, productor, nuevo }: { l: Omit<Lote, "id">; productor: 
           {nuevo && <span className="rounded-pill bg-dorado px-2 text-[11px] text-morado-900">{t("nuevo")}</span>}
         </span>
         <span className="text-sm">
-          {l.cantidad} {l.unidad} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{l.unidad.replace(/s$/, "")}
+          {l.cantidad} {voc("unidades", l.unidad)} · <strong>{formatMXN(l.precio || 0, locale)}</strong>/{voc("unidades", l.unidad.replace(/s$/, ""))}
         </span>
         <span className="text-[12px] text-tinta-2">
           {productor.nombre} · {productor.pueblo}
@@ -59,6 +63,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
   const t = useTranslations("productor.cosecha");
   const tp = useTranslations("productor");
   const locale = useLocale();
+  const voc = useVocabulario();
   const hydrated = useHydrated();
   const lotes = useAppStore((s) => s.productor.lotes);
   const publicar = useAppStore((s) => s.publicarLote);
@@ -74,7 +79,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
   const enviar = () => {
     if (!valido) return;
     publicar(form);
-    toast.success(t("publicado", { cantidad: form.cantidad, unidad: form.unidad, producto: form.producto }));
+    toast.success(t("publicado", { cantidad: form.cantidad, unidad: voc("unidades", form.unidad), producto: form.producto }));
     setForm({ ...form, cantidad: 0, precio: 0, fotoUrl: undefined });
   };
 
@@ -93,7 +98,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
               value={form.producto}
               onChange={(e) => {
                 const o = opciones.find((x) => x.producto === e.target.value);
-                setForm({ ...form, producto: e.target.value, unidad: o ? (o.unidad === "pieza" ? "piezas" : o.unidad === "manojo" ? "manojos" : o.unidad) : form.unidad });
+                setForm({ ...form, producto: e.target.value, unidad: o ? (PLURAL[o.unidad] ?? o.unidad) : form.unidad });
               }}
               className="h-12 rounded-pill border border-input bg-white px-4 font-normal"
             >
@@ -111,7 +116,9 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
               {t("unidad")}
               <select value={form.unidad} onChange={(e) => setForm({ ...form, unidad: e.target.value })} className="h-12 rounded-pill border border-input bg-white px-4 font-normal">
                 {[...new Set([form.unidad, ...UNIDADES])].map((u) => (
-                  <option key={u}>{u}</option>
+                  <option key={u} value={u}>
+                    {voc("unidades", u)}
+                  </option>
                 ))}
               </select>
             </label>
@@ -120,7 +127,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
             {t("precio")}
             <Input data-demo="lote-precio" type="number" inputMode="numeric" min={1} value={form.precio || ""} onChange={(e) => setForm({ ...form, precio: Math.max(0, Math.round(Number(e.target.value))) })} />
             <span className={cn("text-[13px] font-normal", dif > 15 ? "text-chile" : dif < -15 ? "text-cempasuchil" : "text-tinta-2")}>
-              {t("referencia", { precio: formatMXN(referencia, locale), unidad: form.unidad.replace(/s$/, ""), dif: dif > 0 ? `+${dif}` : dif })}
+              {t("referencia", { precio: formatMXN(referencia, locale), unidad: voc("unidades", form.unidad.replace(/s$/, "")), dif: dif > 0 ? `+${dif}` : dif })}
             </span>
           </label>
           <label className="flex flex-col gap-1 text-sm font-semibold">

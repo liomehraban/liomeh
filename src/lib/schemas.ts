@@ -123,6 +123,7 @@ export type Interior = z.infer<typeof Interior>;
 export const ZonaHuerto = z.object({
   id: z.string(), nombre: z.string(), alcaldia: z.string(), lat: z.number(), lng: z.number(), radio_km: z.number(),
   cultivos: z.array(z.string()), descripcion: z.string(),
+  nombre_en: z.string().optional(), cultivos_en: z.array(z.string()).optional(), descripcion_en: z.string().optional(),
   /** [lat, lng][] — invertir a [lng, lat] para GeoJSON */
   poligono_ilustrativo: z.array(z.tuple([z.number(), z.number()])),
 });
@@ -139,6 +140,7 @@ export const Productor = z.object({
   }),
   venta_minima: z.string(), entrega: z.string(), visitas_huerto: z.boolean(), precio_visita: z.number(),
   rating: z.number(), num_resenas: z.number(), km_a_la_merced: z.number(), practicas: z.array(z.string()), simulado: z.boolean(),
+  temporada_en: z.string().optional(), venta_minima_en: z.string().optional(), entrega_en: z.string().optional(), practicas_en: z.array(z.string()).optional(),
 });
 export type Productor = z.infer<typeof Productor>;
 
@@ -157,6 +159,7 @@ export const Evento = z.object({
   lugar: z.string(), lat: z.number(), lng: z.number(),
   categoria: z.enum(["feria productores", "ciudad", "productores", "mercado", "tradición", "experiencia"]),
   descripcion: z.string(), fecha_confirmada: z.boolean(), mercado_id: z.string().nullable(),
+  titulo_en: z.string().optional(), descripcion_en: z.string().optional(),
 });
 export type Evento = z.infer<typeof Evento>;
 export const Eventos = z.array(Evento);
@@ -168,6 +171,7 @@ export const Ruta = z.object({
   paradas: z.array(z.string()),
   duracion_h: z.number(), km: z.number(), tipo: z.enum(["gratis", "premium"]), precio_guiada: z.number(),
   incluye: z.string().optional(),
+  titulo_en: z.string().optional(), incluye_en: z.string().optional(),
 });
 export type Ruta = z.infer<typeof Ruta>;
 export const Rutas = z.array(Ruta);
@@ -175,10 +179,10 @@ export const Rutas = z.array(Ruta);
 // ---------- lealtad.json ----------
 export const Lealtad = z.object({
   programa: z.string(),
-  como_se_gana: z.array(z.object({ accion: z.string(), puntos: z.string() })),
-  niveles: z.array(z.object({ nivel: z.string(), desde: z.number(), beneficio: z.string() })),
-  insignias: z.array(z.object({ id: z.string(), nombre: z.string(), regla: z.string() })),
-  recompensas: z.array(z.object({ id: z.string(), titulo: z.string(), puntos: z.number() })),
+  como_se_gana: z.array(z.object({ accion: z.string(), accion_en: z.string().optional(), puntos: z.string(), puntos_en: z.string().optional() })),
+  niveles: z.array(z.object({ nivel: z.string(), desde: z.number(), beneficio: z.string(), beneficio_en: z.string().optional() })),
+  insignias: z.array(z.object({ id: z.string(), nombre: z.string(), nombre_en: z.string().optional(), regla: z.string(), regla_en: z.string().optional() })),
+  recompensas: z.array(z.object({ id: z.string(), titulo: z.string(), titulo_en: z.string().optional(), puntos: z.number() })),
   usuario_demo: z.object({
     nombre: z.string(), nivel: z.string(), puntos: z.number(), sellos: z.array(z.string()), insignias: z.array(z.string()),
   }),

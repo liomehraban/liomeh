@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useVocabulario } from "@/hooks/useVocabulario";
 import { Link } from "@/i18n/navigation";
 import { reducirFoto } from "@/components/resenas/foto";
 import { catalogoEfectivo, LIMITE_CATALOGO_GRATIS } from "@/lib/locatario";
@@ -21,6 +22,7 @@ import { EncabezadoPerfil } from "./EncabezadoPerfil";
 /** M15 · Locatario › Catálogo: precio y disponibilidad en línea, alta de productos y límite de 20 en Gratis. */
 export function CatalogoView({ base, productores }: { base: Producto[]; productores: { id: string; nombre: string }[] }) {
   const t = useTranslations("locatario.catalogo");
+  const voc = useVocabulario();
   const locale = useLocale();
   const hydrated = useHydrated();
   const extra = useAppStore((s) => s.locatario.catalogoExtra);
@@ -67,7 +69,7 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
               <div className="flex min-w-0 flex-1 flex-col">
                 <span className="font-semibold">{x.n}</span>
                 <span className="text-[12px] text-tinta-2">
-                  / {x.u}
+                  / {voc("unidades", x.u)}
                   {x.origen ? ` · ${x.origen}` : ""}
                   {!x.disponible ? ` · ${t("agotado")}` : ""}
                 </span>
