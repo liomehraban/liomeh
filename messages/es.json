@@ -960,12 +960,5 @@
     "pedidos": "Mis pedidos",
     "reintentar": "Reintentar",
     "resumen": "{sellos, plural, one {# sello} other {# sellos}} · {puntos} puntos · {pedidos, plural, one {# pedido} other {# pedidos}}"
-  },
-  "instituciones": {
-    "titulo": "Una iniciativa de",
-    "turismo": "Secretaría de Turismo",
-    "medioAmbiente": "Secretaría de Medio Ambiente y Recursos Naturales",
-    "economia": "Secretaría de Economía",
-    "cdmx": "Gobierno de la Ciudad de México · Secretaría de Gobierno"
   }
 }

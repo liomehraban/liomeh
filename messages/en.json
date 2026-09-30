@@ -960,12 +960,5 @@
     "pedidos": "My orders",
     "reintentar": "Try again",
     "resumen": "{sellos, plural, one {# stamp} other {# stamps}} · {puntos} points · {pedidos, plural, one {# order} other {# orders}}"
-  },
-  "instituciones": {
-    "titulo": "An initiative of",
-    "turismo": "Ministry of Tourism",
-    "medioAmbiente": "Ministry of Environment and Natural Resources",
-    "economia": "Ministry of Economy",
-    "cdmx": "Mexico City Government · Ministry of the Interior"
   }
 }

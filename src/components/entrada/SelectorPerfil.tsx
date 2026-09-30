@@ -4,7 +4,6 @@ import { ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 
-import { LogosInstitucionales } from "@/components/shell/LogosInstitucionales";
 import { ICONO_PERFIL, PERFILES } from "@/components/shell/perfiles";
 import type { Perfil } from "@/store/useAppStore";
 
@@ -46,10 +45,6 @@ export function SelectorPerfil({ onElegir }: { onElegir: (p: Perfil) => void }) 
           );
         })}
       </ul>
-
-      <footer className="mt-auto flex flex-col gap-3 border-t border-border bg-papel px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <LogosInstitucionales />
-      </footer>
     </div>
   );
 }
