@@ -8,6 +8,7 @@ import { useVocabulario } from "@/hooks/useVocabulario";
 import { Link } from "@/i18n/navigation";
 import { Precio } from "@/components/stall/Precio";
 import type { PuestoResumen } from "@/data/comercio";
+import { Esqueleto } from "@/components/motion/Esqueleto";
 import { subtotalGrupo } from "@/lib/carrito";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "./EncabezadoSimple";
@@ -43,7 +44,11 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
   return (
     <div className="flex min-h-full flex-col">
       <EncabezadoSimple titulo={t("titulo")} />
-      {!hydrated ? null : carrito.length === 0 ? (
+      {!hydrated ? (
+        <div className="flex flex-col gap-3 p-5">
+          <Esqueleto className="h-56 rounded-card" />
+        </div>
+      ) : carrito.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
           <ShoppingBasket className="size-12 text-morado" strokeWidth={1.5} aria-hidden />
           <h2 className="text-xl font-bold text-morado-700">{t("vacio")}</h2>

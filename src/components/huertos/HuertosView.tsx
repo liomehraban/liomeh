@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { MapView, type CapaMapa, type Enfoque } from "@/components/map/MapView";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { Switch } from "@/components/ui/switch";
 import { Plegable } from "@/components/explorar/Plegable";
 import { useAhora } from "@/hooks/useAhora";
@@ -118,7 +119,7 @@ export function HuertosView({ zonas, productores, mercados }: { zonas: ZonaHuert
         </div>
         <div className="flex items-center gap-3">
           <p className="rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
-            {t("conteo", { n: visibles.length })}
+            <NumeroAnimado valor={visibles.length} formato={(n) => t("conteo", { n })} desde={visibles.length} />
           </p>
           <label className="ml-auto flex items-center gap-2 rounded-pill bg-white py-1 pr-1 pl-3 text-[13px] font-semibold shadow-sm">
             {t("mostrarMercados")}

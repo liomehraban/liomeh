@@ -105,10 +105,10 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
         </p>
 
         <section aria-label={t("general")} className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          <KpiTile etiqueta={t("kpis.mercados_en_app")} valor={nf(k.mercados_en_app)} detalle={t("kpis.mercados_de", { total: nf(k.mercados_totales), pct: pctApp })} />
-          <KpiTile etiqueta={t("kpis.usuarios_activos_mes")} valor={compacto(k.usuarios_activos_mes)} detalle={nf(k.usuarios_activos_mes)} />
-          <KpiTile etiqueta={t("kpis.derrama_digital_mes_mxn")} valor={mxnCompacto(k.derrama_digital_mes_mxn)} detalle={formatMXN(k.derrama_digital_mes_mxn, locale)} />
-          <KpiTile etiqueta={t("kpis.transacciones_mes")} valor={compacto(k.transacciones_mes)} detalle={`${t("kpis.rating_promedio")}: ${nf(k.rating_promedio, 1)} ★`} />
+          <KpiTile etiqueta={t("kpis.mercados_en_app")} numero={k.mercados_en_app} formato={nf} detalle={t("kpis.mercados_de", { total: nf(k.mercados_totales), pct: pctApp })} />
+          <KpiTile etiqueta={t("kpis.usuarios_activos_mes")} numero={k.usuarios_activos_mes} formato={compacto} detalle={nf(k.usuarios_activos_mes)} />
+          <KpiTile etiqueta={t("kpis.derrama_digital_mes_mxn")} numero={k.derrama_digital_mes_mxn} formato={mxnCompacto} detalle={formatMXN(k.derrama_digital_mes_mxn, locale)} />
+          <KpiTile etiqueta={t("kpis.transacciones_mes")} numero={k.transacciones_mes} formato={compacto} detalle={`${t("kpis.rating_promedio")}: ${nf(k.rating_promedio, 1)} ★`} />
         </section>
 
         <div className="grid gap-5 lg:grid-cols-[3fr_2fr]">
@@ -141,7 +141,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
             <h2 id="top" className="font-bold text-morado-700">
               {t("top.titulo")}
             </h2>
-            <ol className="flex flex-col">
+            <ol data-revelar className="flex flex-col">
               {m.top_mercados.map((x, i) => (
                 <li key={x.id} className="flex items-center gap-3 border-b border-border py-2 last:border-0">
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-morado-50 font-bold text-morado-700">{i + 1}</span>
@@ -167,8 +167,8 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
 
           <TabsContent value="sectur" className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-              <KpiTile etiqueta={t("kpis.turistas_mes")} valor={compacto(k.turistas_mes)} detalle={nf(k.turistas_mes)} />
-              <KpiTile etiqueta={t("kpis.extranjeros")} valor={t("pct", { n: nf(pctExtranjeros, 1) })} detalle={t("kpis.extranjerosTexto", { n: nf(ultimoMes.turistas_extranjeros), total: nf(ultimoMes.usuarios_activos) })} />
+              <KpiTile etiqueta={t("kpis.turistas_mes")} numero={k.turistas_mes} formato={compacto} detalle={nf(k.turistas_mes)} />
+              <KpiTile etiqueta={t("kpis.extranjeros")} numero={pctExtranjeros} formato={(n) => t("pct", { n: nf(n, 1) })} detalle={t("kpis.extranjerosTexto", { n: nf(ultimoMes.turistas_extranjeros), total: nf(ultimoMes.usuarios_activos) })} />
               <KpiTile etiqueta={t("sectur.idiomas")} valor="—" detalle={t("sectur.sinDato")} className="col-span-2" />
             </div>
             <div className="grid gap-5 lg:grid-cols-2">
@@ -179,14 +179,14 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
 
           <TabsContent value="sedema" className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-              <KpiTile etiqueta={t("kpis.co2_evitado_mes_ton")} valor={t("ton", { n: nf(k.co2_evitado_mes_ton) })} />
+              <KpiTile etiqueta={t("kpis.co2_evitado_mes_ton")} numero={k.co2_evitado_mes_ton} formato={(n) => t("ton", { n: nf(n) })} />
               <KpiTile
                 etiqueta={t("kpis.alimento_rescatado_mes_ton")}
-                valor={t("ton", { n: nf(rescatadas, kgDemo ? 3 : 0) })}
+                numero={rescatadas} formato={(n) => t("ton", { n: nf(n, kgDemo ? 3 : 0) })}
                 detalle={kgDemo ? t("sedema.demo", { kg: nf(kgDemo, 1) }) : t("sedema.sinDemo")}
               />
-              <KpiTile etiqueta={t("kpis.productores_suelo_conservacion")} valor={nf(k.productores_suelo_conservacion)} />
-              <KpiTile etiqueta={t("kpis.km_intermediacion_evitados_mes")} valor={t("km", { n: compacto(k.km_intermediacion_evitados_mes) })} />
+              <KpiTile etiqueta={t("kpis.productores_suelo_conservacion")} numero={k.productores_suelo_conservacion} formato={nf} />
+              <KpiTile etiqueta={t("kpis.km_intermediacion_evitados_mes")} numero={k.km_intermediacion_evitados_mes} formato={(n) => t("km", { n: compacto(n) })} />
             </div>
             <GraficaLinea
               titulo={t("sedema.serie")}
@@ -204,9 +204,9 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
 
           <TabsContent value="se" className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-              <KpiTile etiqueta={t("kpis.derrama_digital_mes_mxn")} valor={mxnCompacto(k.derrama_digital_mes_mxn)} detalle={formatMXN(k.derrama_digital_mes_mxn, locale)} />
-              <KpiTile etiqueta={t("kpis.locatarios_activos")} valor={nf(k.locatarios_activos)} />
-              <KpiTile etiqueta={t("kpis.pct_ventas_efectivo_registradas")} valor={t("pct", { n: k.pct_ventas_efectivo_registradas })} className="col-span-2" detalle={t("se.creditoTexto", { pct: k.pct_ventas_efectivo_registradas })} />
+              <KpiTile etiqueta={t("kpis.derrama_digital_mes_mxn")} numero={k.derrama_digital_mes_mxn} formato={mxnCompacto} detalle={formatMXN(k.derrama_digital_mes_mxn, locale)} />
+              <KpiTile etiqueta={t("kpis.locatarios_activos")} numero={k.locatarios_activos} formato={nf} />
+              <KpiTile etiqueta={t("kpis.pct_ventas_efectivo_registradas")} numero={k.pct_ventas_efectivo_registradas} formato={(n) => t("pct", { n })} className="col-span-2" detalle={t("se.creditoTexto", { pct: k.pct_ventas_efectivo_registradas })} />
             </div>
             <GraficaLinea titulo={t("se.checkins")} subtitulo={t("se.credito")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} hoy={indiceHoy} series={[{ clave: "checkins_efectivo", nombre: t("se.checkins"), color: "#9B2694" }]} formato={compacto} />
           </TabsContent>

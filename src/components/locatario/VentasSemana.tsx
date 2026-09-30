@@ -1,6 +1,7 @@
 "use client";
 
 import { Bar, BarChart, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { useVocabulario } from "@/hooks/useVocabulario";
@@ -11,6 +12,7 @@ import { formatMXN } from "@/lib/money";
  * el día de hoy lleva etiqueta directa. Incluye tabla equivalente para lector de pantalla.
  */
 export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]; hoy: number }) {
+  const animar = !useReducedMotion();
   const t = useTranslations("locatario");
   const locale = useLocale();
   const voc = useVocabulario();
@@ -33,7 +35,7 @@ export function VentasSemana({ datos, hoy }: { datos: { d: string; v: number }[]
               formatter={(v) => [$(Number(v)), t("ventasDia")]}
               contentStyle={{ borderRadius: 12, borderColor: "#EADFE8", fontSize: 13 }}
             />
-            <Bar dataKey="v" fill="#9B2694" radius={[4, 4, 0, 0]} isAnimationActive={false}>
+            <Bar dataKey="v" fill="#9B2694" radius={[4, 4, 0, 0]} isAnimationActive={animar} animationDuration={900} animationEasing="ease-out">
               <LabelList dataKey="etiqueta" position="top" fill="#2B1A2A" fontSize={11} fontWeight={700} />
             </Bar>
           </BarChart>

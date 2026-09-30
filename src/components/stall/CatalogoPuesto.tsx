@@ -73,7 +73,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
 
   return (
     <>
-      <ul className="flex flex-col divide-y divide-border rounded-card border border-border bg-white">
+      <ul data-revelar className="flex flex-col divide-y divide-border rounded-card border border-border bg-white">
         {productos.map((prod) => {
           const stock = stockDe(prod);
           const agotado = stock ? stock.disponible === 0 : !prod.disponible;

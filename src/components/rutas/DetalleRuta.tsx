@@ -105,7 +105,7 @@ export function DetalleRuta({ ruta, paradas }: { ruta: Ruta; paradas: Parada[] }
           </Button>
         )}
 
-        <ol className="flex flex-col gap-2">
+        <ol data-revelar className="flex flex-col gap-2">
           {paradas.map((p, i) => {
             const ok = hechas.has(p.id);
             return (

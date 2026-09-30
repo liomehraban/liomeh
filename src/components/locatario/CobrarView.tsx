@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { Celebracion } from "@/components/motion/Celebracion";
 import { Button } from "@/components/ui/button";
 import { teclear } from "@/lib/locatario";
 import { formatMXN } from "@/lib/money";
@@ -76,7 +77,8 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
   if (fase !== "teclado") {
     const payload = `BARABARA-${metodo === "qr" ? "CODI" : "LINK"}-DEMO|puesto=${puestoId}|monto=${valor.toFixed(2)}|mxn`;
     return (
-      <div className="flex min-h-full flex-col items-center justify-center gap-4 bg-morado p-6 text-center text-crema" aria-live="polite">
+      <div className="relative flex min-h-full flex-col items-center justify-center gap-4 bg-morado p-6 text-center text-crema" aria-live="polite">
+        {fase === "recibido" && <Celebracion />}
         <p className="font-semibold">{puestoNombre}</p>
         <p className="font-display text-6xl text-dorado-200">{$(valor)}</p>
         <div className="relative rounded-card bg-white p-4">

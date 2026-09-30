@@ -7,7 +7,9 @@ import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { Celebracion } from "@/components/motion/Celebracion";
 import { Button } from "@/components/ui/button";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { Link } from "@/i18n/navigation";
 import { EncabezadoSimple } from "@/components/cart/EncabezadoSimple";
 import type { ObjetivoCheckin } from "@/data/pasaporte";
@@ -86,7 +88,8 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
   };
 
   return (
-    <div className="flex min-h-full flex-col">
+    <div className="relative flex min-h-full flex-col">
+      {fase === "resultado" && resultado?.tipo === "ok" && <Celebracion />}
       <EncabezadoSimple titulo={t("titulo")} fallback="/yo" />
       <div className="flex flex-col gap-4 p-5">
         {/* Cámara simulada */}
@@ -126,7 +129,9 @@ export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: Objeti
           <div className="flex flex-col gap-3" role="status">
             {resultado.tipo === "ok" ? (
               <div className="rounded-card bg-nopal-700 p-4 text-center text-white">
-                <p className="font-display text-4xl">+{resultado.puntos}</p>
+                <p className="font-display text-4xl">
+                  <NumeroAnimado valor={resultado.puntos} formato={(n) => `+${n}`} />
+                </p>
                 <p>{t("ok", { n: resultado.puntos })}</p>
                 {resultado.selloNuevo && <p className="mt-1 font-bold">{t("selloNuevo", { mercado: resultado.mercado })}</p>}
               </div>

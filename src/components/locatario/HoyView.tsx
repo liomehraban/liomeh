@@ -13,6 +13,8 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoPerfil } from "./EncabezadoPerfil";
 import { nombreCorto, useKpisLocatario } from "./useLocatario";
 import { VentasSemana } from "./VentasSemana";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
+import { Revelar } from "@/components/motion/Revelar";
 
 /** M13 · Locatario › Hoy. */
 export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: UsuariosDemo["locatario"]; puestoNombre: string; mercadoNombre: string; resenas: Resena[] }) {
@@ -33,26 +35,28 @@ export function HoyView({ demo, puestoNombre, mercadoNombre, resenas }: { demo: 
   const saludo = ahora ? saludoPorHora(ahora) : "dias";
 
   const tarjetas = [
-    { k: "ventas_mxn", v: $(kpis.ventas_mxn), icon: TrendingUp, grande: true },
-    { k: "pedidos_app", v: kpis.pedidos_app, icon: ShoppingBag },
-    { k: "cobros_qr", v: kpis.cobros_qr, icon: QrCode },
-    { k: "checkins_efectivo", v: kpis.checkins_efectivo, icon: Coins },
-    { k: "ticket_promedio", v: $(kpis.ticket_promedio), icon: Receipt },
+    { k: "ventas_mxn", v: kpis.ventas_mxn, f: $, icon: TrendingUp, grande: true },
+    { k: "pedidos_app", v: kpis.pedidos_app, f: String, icon: ShoppingBag },
+    { k: "cobros_qr", v: kpis.cobros_qr, f: String, icon: QrCode },
+    { k: "checkins_efectivo", v: kpis.checkins_efectivo, f: String, icon: Coins },
+    { k: "ticket_promedio", v: kpis.ticket_promedio, f: $, icon: Receipt },
   ] as const;
 
   return (
     <div className="flex flex-col">
       <EncabezadoPerfil titulo={t(`saludo.${saludo}`, { nombre: nombreCorto(demo.nombre) })} subtitulo={t("puesto", { puesto: puestoNombre, mercado: mercadoNombre })} />
       <div className="flex flex-col gap-5 p-5">
-        <dl className="grid grid-cols-2 gap-3" aria-live="polite">
-          {tarjetas.map(({ k, v, icon: Icono, ...r }) => (
-            <div key={k} className={"grande" in r ? "col-span-2 rounded-card bg-morado p-4 text-crema" : "rounded-card border border-border bg-white p-4"}>
+        <dl className="grid grid-cols-2 gap-3">
+          {tarjetas.map(({ k, v, f, icon: Icono, ...r }, i) => (
+            <Revelar key={k} orden={i} className={"grande" in r ? "col-span-2 rounded-card bg-morado p-4 text-crema" : "rounded-card border border-border bg-white p-4"}>
               <dt className="flex items-center gap-1.5 text-[13px] font-semibold">
                 <Icono className="size-4" aria-hidden />
                 {t(`kpis.${k}`)}
               </dt>
-              <dd className={"grande" in r ? "font-display text-5xl text-dorado-200" : "font-display text-3xl text-morado-700"}>{v}</dd>
-            </div>
+              <dd className={"grande" in r ? "font-display text-5xl text-dorado-200" : "font-display text-3xl text-morado-700"}>
+                <NumeroAnimado valor={v} formato={f} />
+              </dd>
+            </Revelar>
           ))}
         </dl>
 

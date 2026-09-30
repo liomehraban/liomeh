@@ -2,7 +2,10 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-/** Monta `children` cuando el contenedor se acerca a la pantalla (las gráficas bajo el pliegue no cuestan al cargar). */
+/**
+ * Monta `children` cuando el contenedor entra en pantalla: las gráficas bajo el pliegue no cuestan al cargar
+ * y su animación de entrada se ve completa.
+ */
 export function AlVerse({ children, className, style }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visto, setVisto] = useState(false);
@@ -19,7 +22,7 @@ export function AlVerse({ children, className, style }: { children: ReactNode; c
           io.disconnect();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: "0px 0px -12% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

@@ -20,7 +20,7 @@ export function Insignias({ insignias, ctx }: { insignias: Lealtad["insignias"];
       <h2 id="insignias" className="text-xl font-bold text-morado-700">
         {t("insignias")}
       </h2>
-      <ul className="grid grid-cols-2 gap-3">
+      <ul data-revelar className="grid grid-cols-2 gap-3">
         {insignias.map((i) => {
           const ok = hydrated && on.has(i.id);
           return (

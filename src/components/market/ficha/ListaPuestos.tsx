@@ -21,7 +21,7 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
   const lista = todos ? orden : orden.slice(0, visibles);
   return (
     <>
-      <ul className="flex flex-col gap-2">
+      <ul data-revelar className="flex flex-col gap-2">
         {lista.map((p) => {
           const a = ahora ? actividadPuesto(p.id, ahora) : null;
           return (

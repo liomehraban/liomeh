@@ -66,7 +66,7 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
       {lista.length === 0 ? (
         <p className="rounded-2xl bg-papel p-4 text-tinta-2">{resenas.length + propias.length ? t("sinFiltro") : t("vacio")}</p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul data-revelar className="flex flex-col gap-3">
           {lista.slice(0, 8).map((r) => (
             <li key={r.id} className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
               <div className="flex items-start justify-between gap-2">

@@ -3,8 +3,10 @@
 import { motion } from "motion/react";
 import { Stamp } from "lucide-react";
 
-/** Sello del pasaporte que cae con un pequeño rebote. */
-export function SelloPuntos({ texto, subtitulo }: { texto: string; subtitulo: string }) {
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
+
+/** Sello del pasaporte que cae con un pequeño rebote; los puntos cuentan cuando el sello aterriza. */
+export function SelloPuntos({ puntos, formato, subtitulo }: { puntos: number; formato: (n: number) => string; subtitulo: string }) {
   return (
     <div className="flex items-center gap-4 rounded-card bg-morado p-4 text-crema">
       <motion.div
@@ -18,7 +20,7 @@ export function SelloPuntos({ texto, subtitulo }: { texto: string; subtitulo: st
       </motion.div>
       <div className="flex flex-col">
         <p className="font-display text-4xl text-dorado-200" role="status">
-          {texto}
+          <NumeroAnimado valor={puntos} formato={formato} duracion={1.3} />
         </p>
         <p className="text-sm">{subtitulo}</p>
       </div>

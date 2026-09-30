@@ -1,6 +1,7 @@
 "use client";
 
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 
 import { AlVerse } from "./AlVerse";
@@ -33,6 +34,7 @@ export function GraficaLinea({
   hoy?: number;
 }) {
   const t = useTranslations("gobierno.serie");
+  const animar = !useReducedMotion();
   const ultimo = datos.length - 1;
   const corte = hoy ?? ultimo;
   // Cada serie se parte en dos claves: real (hasta hoy) y proyección (desde hoy), para trazar cada tramo distinto.
@@ -105,7 +107,9 @@ export function GraficaLinea({
                 dot={false}
                 connectNulls={false}
                 activeDot={{ r: 5, stroke: "#FFFFFF", strokeWidth: 2 }}
-                isAnimationActive={false}
+                isAnimationActive={animar}
+                animationDuration={1000}
+                animationEasing="ease-out"
                 label={etiqueta(s.clave, corte, true)}
               />,
               ...(corte < ultimo
@@ -121,7 +125,10 @@ export function GraficaLinea({
                       dot={false}
                       connectNulls={false}
                       activeDot={{ r: 4, stroke: "#FFFFFF", strokeWidth: 2 }}
-                      isAnimationActive={false}
+                      isAnimationActive={animar}
+                      animationBegin={900}
+                      animationDuration={700}
+                      animationEasing="ease-out"
                       label={etiqueta(`${s.clave}-p`, ultimo, false)}
                     />,
                   ]

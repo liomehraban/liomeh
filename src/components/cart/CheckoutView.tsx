@@ -18,6 +18,7 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "./EncabezadoSimple";
 import { PagoQR } from "./PagoQR";
 import { PagoTarjeta } from "./PagoTarjeta";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 
 const opcion =
   "flex min-h-11 w-full items-center gap-3 rounded-2xl border p-3 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none";
@@ -245,7 +246,7 @@ export function CheckoutView({ puestos, colonias }: { puestos: Record<string, Pu
               <div className="mt-1 flex items-baseline justify-between border-t border-border pt-2 text-lg font-bold">
                 <dt>{t("total")}</dt>
                 <dd className="text-right">
-                  {$(vista.total)}
+                  <NumeroAnimado valor={vista.total} formato={$} duracion={0.6} desde={vista.total} />
                   {locale === "en" && <span className="block text-xs font-normal text-tinta-2">{formatUSDaprox(vista.total)}</span>}
                 </dd>
               </div>

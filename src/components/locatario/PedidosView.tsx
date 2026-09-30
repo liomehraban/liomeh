@@ -1,11 +1,13 @@
 "use client";
 
 import { Bike, Clock, Smartphone, Store } from "lucide-react";
+import { motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { ESTADOS_LOCATARIO, siguienteEstadoLocatario, type EstadoLocatario } from "@/lib/locatario";
 import { formatMXN } from "@/lib/money";
+import { Esqueleto } from "@/components/motion/Esqueleto";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoPerfil } from "./EncabezadoPerfil";
@@ -33,8 +35,14 @@ export function PedidosView() {
   return (
     <div className="flex flex-col">
       <EncabezadoPerfil titulo={t("titulo")} />
-      <ul className="flex flex-col gap-3 p-5" aria-live="polite">
-        {!hydrated ? null : orden.length === 0 ? (
+      <ul data-revelar className="flex flex-col gap-3 p-5" aria-live="polite">
+        {!hydrated ? (
+          [0, 1].map((i) => (
+            <li key={i}>
+              <Esqueleto className="h-40 rounded-card" />
+            </li>
+          ))
+        ) : orden.length === 0 ? (
           <li className="rounded-2xl bg-papel p-4 text-tinta-2">{t("vacio")}</li>
         ) : (
           orden.map((p) => {
@@ -42,13 +50,21 @@ export function PedidosView() {
             const sig = siguienteEstadoLocatario(estado);
             const envio = p.tipo.toLowerCase().includes("env");
             return (
-              <li key={p.id} className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
+              <motion.li layout transition={{ type: "spring", stiffness: 420, damping: 36 }} key={p.id} className="flex flex-col gap-2 rounded-card border border-border bg-white p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex flex-col">
                     <span className="font-display text-2xl text-morado-700">{p.id}</span>
                     <span className="text-sm font-semibold">{p.cliente}</span>
                   </div>
-                  <span className={cn("rounded-pill px-2.5 py-0.5 text-[12px] font-bold", COLOR[estado])}>{t(`estados.${estado}`)}</span>
+                  <motion.span
+                    key={estado}
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 22 }}
+                    className={cn("rounded-pill px-2.5 py-0.5 text-[12px] font-bold", COLOR[estado])}
+                  >
+                    {t(`estados.${estado}`)}
+                  </motion.span>
                 </div>
                 <p>{p.items}</p>
                 <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-tinta-2">
@@ -75,7 +91,7 @@ export function PedidosView() {
                     </Button>
                   )}
                 </div>
-              </li>
+              </motion.li>
             );
           })
         )}

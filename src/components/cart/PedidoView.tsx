@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { Navigation } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { Celebracion } from "@/components/motion/Celebracion";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { FairTradeCard } from "@/components/fairtrade/FairTradeCard";
@@ -25,6 +27,8 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
   const pedido = useAppStore((s) => s.pedidos.find((p) => p.folio === folio));
   const vendedores = useAppStore((s) => s.vendedores);
   const $ = (n: number) => formatMXN(n, locale);
+  // Momento de apertura: la celebración solo sale si el pedido se acaba de pagar.
+  const [ahora] = useState(() => Date.now());
 
   if (!hydrated) return <EncabezadoSimple titulo={t("pedido.titulo")} />;
   if (!pedido) {
@@ -45,8 +49,11 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
   const huertos = [...new Set(pedido.items.map((i) => i.huertoId).filter(Boolean))];
   const prods = productores.filter((p) => huertos.includes(p.id));
 
+  const recienPagado = ahora - new Date(pedido.fecha).getTime() < 60_000;
+
   return (
-    <div className="flex min-h-full flex-col">
+    <div className="relative flex min-h-full flex-col">
+      {recienPagado && <Celebracion />}
       <EncabezadoSimple titulo={t("pedido.titulo")} />
       <div className="flex flex-col gap-5 p-5">
         <div className="flex flex-col gap-1">
@@ -58,7 +65,8 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
         </div>
 
         <SelloPuntos
-          texto={t("pedido.puntos", { n: pedido.puntos })}
+          puntos={pedido.puntos}
+          formato={(n) => t("pedido.puntos", { n })}
           subtitulo={pedido.dobles ? t("pedido.puntosDobles") : t("pedido.sello", { mercado: puesto?.mercadoNombre ?? pedido.mercadoId })}
         />
 

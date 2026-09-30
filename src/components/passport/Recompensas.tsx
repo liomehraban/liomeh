@@ -27,7 +27,7 @@ export function Recompensas({ recompensas }: { recompensas: Lealtad["recompensas
       <h2 id="recompensas" className="text-xl font-bold text-morado-700">
         {t("recompensas")}
       </h2>
-      <ul className="flex flex-col gap-2">
+      <ul data-revelar className="flex flex-col gap-2">
         {recompensas.map((r) => {
           const alcanza = hydrated && puntos >= r.puntos;
           const titulo = enIdioma(r, "titulo", locale);

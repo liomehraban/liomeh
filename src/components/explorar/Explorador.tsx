@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { MapView, type CapaMapa, type Encuadre, type Enfoque } from "@/components/map/MapView";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 import { MarketCard } from "@/components/market/MarketCard";
 import { useRouter } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
@@ -157,7 +158,7 @@ export function Explorador({
         </div>
         <ChipsFiltro activos={filtros.chips} onToggle={toggleChip} onFiltros={() => setSheetFiltros(true)} nFiltros={filtros.alcaldias.length + filtros.tipos.length} />
         <p className="self-start rounded-pill bg-white px-3 py-1 text-[13px] font-semibold text-tinta-2 shadow-sm" aria-live="polite">
-          {t("explorar.conteo", { n: visibles.length })}
+          <NumeroAnimado valor={visibles.length} formato={(n) => t("explorar.conteo", { n })} desde={visibles.length} />
         </p>
       </div>
 
@@ -182,7 +183,7 @@ export function Explorador({
             onToggle={() => setPlegables((p) => ({ ...p, cerca: !p.cerca }))}
             extra={origen.fuente === "zocalo" && <span className="text-[13px] text-tinta-2">· {t("explorar.desdeZocalo")}</span>}
           >
-            <ul className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+            <ul data-revelar className="flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
               {cercanos.map((m) => (
                 <li key={m.id} className="w-64 shrink-0 snap-start">
                   <MarketCard m={{ ...m, distancia: m.distancia }} compacta />

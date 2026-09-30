@@ -6,6 +6,8 @@ import { precioJusto, productoCorto } from "@/lib/fairtrade";
 import { formatMXN } from "@/lib/money";
 import type { Productor } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
+import { BarraAnimada } from "@/components/motion/BarraAnimada";
+import { NumeroAnimado } from "@/components/motion/NumeroAnimado";
 
 type Props = {
   productor: Pick<Productor, "nombre" | "titular" | "pueblo" | "alcaldia" | "producto_principal" | "km_a_la_merced" | "comercio_justo">;
@@ -61,12 +63,15 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
 
       {/* Barras de precio justo */}
       <div className="flex flex-col gap-2">
-        {barras.map((b) => (
+        {barras.map((b, i) => (
           <div key={b.etiqueta} className="flex flex-col gap-1">
             <div className="flex justify-between text-sm">
               <span className="font-semibold">{b.etiqueta}</span>
               <span aria-hidden>
-                <strong>{$(b.monto)}</strong> · {b.pct}%
+                <strong>
+                  <NumeroAnimado valor={b.monto} moneda />
+                </strong>{" "}
+                · {b.pct}%
               </span>
             </div>
             <div
@@ -74,7 +79,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
               aria-label={t("barra", { etiqueta: b.etiqueta, monto: $(b.monto), pct: b.pct, precio: $(f.precio) })}
               className="h-3 overflow-hidden rounded-pill bg-white"
             >
-              <div className={cn("h-full rounded-pill", b.color)} style={{ width: `${b.pct}%` }} />
+              <BarraAnimada pct={b.pct} className={b.color} retraso={i * 0.25} />
             </div>
           </div>
         ))}

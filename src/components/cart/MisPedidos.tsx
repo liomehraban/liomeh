@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import type { PuestoResumen } from "@/data/comercio";
 import { formatMXN } from "@/lib/money";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
+import { Esqueleto } from "@/components/motion/Esqueleto";
 
 /** Yo › Mis pedidos. */
 export function MisPedidos({ puestos }: { puestos: Record<string, PuestoResumen> }) {
@@ -15,7 +16,7 @@ export function MisPedidos({ puestos }: { puestos: Record<string, PuestoResumen>
   const hydrated = useHydrated();
   const pedidos = useAppStore((s) => s.pedidos);
   const vendedores = useAppStore((s) => s.vendedores);
-  if (!hydrated) return null;
+  if (!hydrated) return <Esqueleto className="h-28 rounded-card" />;
   return (
     <section aria-labelledby="mis-pedidos" className="flex flex-col gap-3 rounded-card border border-border bg-white p-5">
       <h2 id="mis-pedidos" className="text-xl font-bold text-morado-700">
@@ -24,7 +25,7 @@ export function MisPedidos({ puestos }: { puestos: Record<string, PuestoResumen>
       {pedidos.length === 0 ? (
         <p className="text-tinta-2">{t("vacio")}</p>
       ) : (
-        <ul className="flex flex-col divide-y divide-border">
+        <ul data-revelar className="flex flex-col divide-y divide-border">
           {pedidos.map((p) => (
             <li key={p.folio}>
               <Link href={`/pedido/${p.folio}`} aria-label={t("ver", { folio: p.folio })} className="flex min-h-11 items-center gap-3 py-2">

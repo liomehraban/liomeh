@@ -74,7 +74,7 @@ export function ChatAsistente({ preguntas }: { preguntas: PreguntaRapida[] }) {
       </p>
 
       <div className="flex-1 overflow-y-auto px-4 py-4" role="log" aria-live="polite" aria-relevant="additions">
-        <ul className="flex flex-col gap-3">
+        <ul data-revelar className="flex flex-col gap-3">
           {mensajes.map((m) => (
             <li key={m.id} className={cn("flex gap-2", m.role === "user" ? "justify-end" : "justify-start")}>
               {m.role === "assistant" && (
