@@ -113,9 +113,9 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
             </Button>
           ) : mercado.lat !== undefined && mercado.lng !== undefined ? (
             <Button asChild variant="secondary">
-              <a href={comoLlegarUrl({ lat: mercado.lat, lng: mercado.lng })} target="_blank" rel="noopener noreferrer">
+              <a href={comoLlegarUrl({ lat: mercado.lat, lng: mercado.lng })} target="_blank" rel="noopener noreferrer" aria-label={t("puesto.comoLlegar", { mercado: mercado.nombre })}>
                 <Navigation aria-hidden />
-                {t("puesto.comoLlegar", { mercado: mercado.nombre })}
+                {t("mercado.comoLlegar")}
               </a>
             </Button>
           ) : null}

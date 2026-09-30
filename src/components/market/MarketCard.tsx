@@ -47,7 +47,7 @@ export function MarketCard({
       >
         <PhotoPlaceholder categoria={m.categoria} className="aspect-square w-16 shrink-0 rounded-2xl" iconClassName="size-6" />
         <div className="flex min-w-0 flex-col gap-0.5">
-          <h3 className="truncate font-display text-xl text-morado-700">{m.nombre}</h3>
+          <h3 className="line-clamp-2 font-display text-xl leading-tight text-morado-700">{m.nombre}</h3>
           <EstadoHorario horario={m.horario} corto className="text-[13px]" />
           <div className="flex items-center gap-2 text-[13px] text-tinta-2">
             {m.distancia !== undefined && <span>{formatDistance(m.distancia, locale)}</span>}

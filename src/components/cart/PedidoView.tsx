@@ -121,9 +121,9 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
           )}
           {puesto?.tipo === "puesto" && !(puesto.interior ?? !esPuestoSimulado(puesto.id)) && (
             <Button asChild>
-              <a href={comoLlegarUrl(puesto)} target="_blank" rel="noopener noreferrer">
+              <a href={comoLlegarUrl(puesto)} target="_blank" rel="noopener noreferrer" aria-label={t("puesto.comoLlegar", { mercado: puesto.mercadoNombre })}>
                 <Navigation aria-hidden />
-                {t("puesto.comoLlegar", { mercado: puesto.mercadoNombre })}
+                {t("mercado.comoLlegar")}
               </a>
             </Button>
           )}
