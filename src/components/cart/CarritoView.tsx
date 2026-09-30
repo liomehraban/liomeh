@@ -1,8 +1,9 @@
 "use client";
 
-import { Minus, Plus, ShoppingBasket, Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { MarchantaIlustracion } from "@/components/assistant/MarchantaIlustracion";
 import { Button } from "@/components/ui/button";
 import { useVocabulario } from "@/hooks/useVocabulario";
 import { Link } from "@/i18n/navigation";
@@ -50,7 +51,7 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
         </div>
       ) : carrito.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
-          <ShoppingBasket className="size-12 text-morado" strokeWidth={1.5} aria-hidden />
+          <MarchantaIlustracion className="w-36" />
           <h2 className="text-xl font-bold text-morado-700">{t("vacio")}</h2>
           <p className="text-tinta-2">{t("vacioTexto")}</p>
           <Button asChild>

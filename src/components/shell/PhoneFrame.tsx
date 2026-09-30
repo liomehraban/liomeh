@@ -33,7 +33,7 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
     <div className="min-h-dvh md:flex md:items-center md:justify-center md:gap-10 md:bg-crema lg:gap-16 md:p-4">
       <aside className="hidden max-w-xs flex-col items-start gap-6 lg:flex">
         <div className="papel-picado h-12 w-64" aria-hidden />
-        <Logo className="text-7xl text-morado" />
+        <Logo className="w-64" />
         <p className="text-lg text-tinta-2">{t("escaneaQR")}</p>
         <div className="rounded-card bg-white p-4 shadow-sm">
           {url ? (

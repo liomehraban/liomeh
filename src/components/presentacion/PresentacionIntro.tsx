@@ -22,7 +22,7 @@ export function PresentacionIntro() {
   return (
     <div className="flex flex-col gap-5 bg-crema px-5 pt-16 pb-40">
       <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
-      <Logo className="text-6xl text-morado" />
+      <Logo className="w-48" />
       <div>
         <h1 className="font-display text-4xl text-morado-700">{t("titulo")}</h1>
         <p className="mt-1 text-tinta-2">{t("texto")}</p>
