@@ -74,6 +74,10 @@
 }
 
 @layer base {
+  /* iOS acerca la pantalla al enfocar campos con letra menor a 16 px: los campos nunca bajan de 1rem. */
+  input, select, textarea {
+    font-size: 1rem;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -169,6 +173,9 @@
    sigue pasando a la página/hoja que lo contiene. */
 @utility carrusel {
   display: flex;
+  /* Aire arriba para que anillos de foco y sombras no se corten con overflow-y:hidden. */
+  padding-top: 4px;
+  margin-top: -4px;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
@@ -188,6 +195,9 @@
 /* Fila de chips con desplazamiento horizontal: igual que el carrusel, pero sin anclar. */
 @utility fila-chips {
   display: flex;
+  /* Aire arriba para que anillos de foco y sombras no se corten con overflow-y:hidden. */
+  padding-top: 4px;
+  margin-top: -4px;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;

@@ -75,7 +75,7 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
                   className="pressable group -mt-4 flex flex-col items-center gap-0.5 rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
                   <MarchantaPersonaje activo={on} className="size-14" />
-                  <span className={cn("text-[11px] leading-none font-semibold whitespace-nowrap text-tinta-2 min-[375px]:text-xs", on && "font-bold text-morado")}>{label}</span>
+                  <span className={cn("text-[11px] leading-none font-semibold whitespace-nowrap text-tinta-2 min-[360px]:text-xs", on && "font-bold text-morado")}>{label}</span>
                 </Link>
               </li>
             );
@@ -88,7 +88,7 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
                 onClick={vibrar}
                 aria-current={on ? "page" : undefined}
                 className={cn(
-                  "pressable flex w-full min-w-0 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] leading-none font-semibold whitespace-nowrap min-[375px]:text-xs text-tinta-2 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+                  "pressable flex w-full min-w-0 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] leading-none font-semibold whitespace-nowrap min-[360px]:text-xs text-tinta-2 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
                   on && "font-bold text-morado",
                 )}
               >

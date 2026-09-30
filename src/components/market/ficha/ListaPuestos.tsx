@@ -36,7 +36,7 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
                     {p.nombre}
                     {p.real_segun_guia && <BadgeCheck className="size-4 shrink-0 text-dorado" aria-label={t("realGuia")} />}
                   </span>
-                  <span className="truncate text-[13px] text-tinta-2">
+                  <span className="text-[13px] leading-snug text-tinta-2">
                     {p.giro} · {t("productos", { n: p.productos.length })}
                   </span>
                   {a && a.pedidosHoy > 0 && <span className="text-[12px] font-semibold text-nopal-700">{t("pedidosHoy", { n: a.pedidosHoy })}</span>}

@@ -60,7 +60,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
       <div className="flex flex-col gap-4 px-5 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <div className="flex justify-center" aria-hidden>
           {slides.map((_, j) => (
-            <button key={j} type="button" tabIndex={-1} onClick={() => ir(j)} className="grid h-6 w-7 place-items-center">
+            <button key={j} type="button" tabIndex={-1} onClick={() => ir(j)} className="grid h-11 w-7 place-items-center">
               <span className={cn("h-2 rounded-pill transition-all", j === i ? "w-6 bg-morado" : "w-2 bg-morado/25")} />
             </button>
           ))}
