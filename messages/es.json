@@ -19,7 +19,8 @@
     "actualizando": "Actualizando…",
     "soltar": "Suelta para actualizar",
     "nuevaVersion": "Hay una versión nueva de Bara Bara",
-    "recargar": "Recargar"
+    "recargar": "Recargar",
+    "cancelar": "Cancelar"
   },
   "perfiles": {
     "consumidor": "Turista / Consumidor",
@@ -128,7 +129,9 @@
     "reiniciarTexto": "Borra pedidos, puntos, sellos y cambios locales y vuelve a los datos originales.",
     "perfil": "Perfil de la demo",
     "hola": "¡Hola, {nombre}!",
-    "puntos": "{puntos} puntos · nivel {nivel}"
+    "puntos": "{puntos} puntos · nivel {nivel}",
+    "confirmarReinicioTitulo": "¿Reiniciar la demo?",
+    "confirmarReinicio": "Sí, reiniciar"
   },
   "horario": {
     "abierto": "Abierto",
@@ -198,7 +201,9 @@
     "ocultar": "Ocultar {seccion}",
     "resenas": "{n, plural, one {# reseña} other {# reseñas}}",
     "sinResenas": "Sin reseñas aún",
-    "calificacion": "Calificación {rating} de 5"
+    "calificacion": "Calificación {rating} de 5",
+    "sinFiltro": "Ningún mercado cumple estos filtros.",
+    "quitarFiltros": "Quitar filtros"
   },
   "mercado": {
     "volver": "Volver",
@@ -617,7 +622,10 @@
     "plan": "Tu plan",
     "cambiarPlan": "Ver planes",
     "comoSeGana": "Cómo se gana",
-    "irAgenda": "Ir a la Agenda"
+    "irAgenda": "Ir a la Agenda",
+    "confirmarCanjeTitulo": "¿Canjear «{titulo}»?",
+    "confirmarCanjeTexto": "Se descuentan {n} puntos y te quedan {resto}. El cupón aparece en «Tus cupones».",
+    "confirmarCanje": "Canjear {n} puntos"
   },
   "escanear": {
     "titulo": "Escanear QR",
@@ -665,7 +673,7 @@
     "sinEventos": "No hay eventos con esos filtros.",
     "mesAnterior": "Mes anterior",
     "mesSiguiente": "Mes siguiente",
-    "eventosDia": "Eventos del {dia}",
+    "eventosDia": "{n, plural, one {# evento} other {# eventos}}",
     "sinEventosDia": "Sin eventos este día",
     "hoy": "Hoy"
   },
@@ -750,7 +758,10 @@
         "Asistente AI ilimitado",
         "Alertas de precio y temporada"
       ]
-    }
+    },
+    "confirmarGratisTitulo": "¿Volver al plan Gratis?",
+    "confirmarGratisTexto": "Dejas de tener los beneficios de {plan} desde ahora. Puedes volver a activarlo cuando quieras.",
+    "confirmarGratis": "Volver a Gratis"
   },
   "rescate": {
     "titulo": "Rescata hoy",
@@ -848,7 +859,8 @@
       "nuevo": "Nuevo cobro",
       "comprobante": "Comprobante Bara Bara · {puesto} · {monto} · {fecha} · {id}",
       "copiado": "Comprobante copiado",
-      "linkPago": "Link de pago con tarjeta"
+      "linkPago": "Link de pago con tarjeta",
+      "cancelar": "Cancelar cobro"
     },
     "pedidos": {
       "titulo": "Pedidos",
@@ -886,7 +898,8 @@
       "agregado": "Producto agregado: {producto}",
       "upsellTitulo": "Llegaste a 20 productos",
       "upsellTexto": "El plan Gratis incluye hasta 20 productos. Con Pro tu catálogo es ilimitado.",
-      "verPlan": "Ver planes"
+      "verPlan": "Ver planes",
+      "duplicado": "Ya tienes «{producto}» en tu catálogo. Edita su precio en la lista."
     },
     "plan": {
       "titulo": "Tu plan",

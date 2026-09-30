@@ -26,7 +26,7 @@ const ESTILO_STOCK: Record<Stock["estado"], string> = {
   surtido: "text-nopal-700",
   ok: "text-tinta-2",
   pocas: "text-chile",
-  agotado: "text-gris",
+  agotado: "text-tinta-2",
 };
 
 /**

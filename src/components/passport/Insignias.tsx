@@ -30,7 +30,7 @@ export function Insignias({ insignias, ctx }: { insignias: Lealtad["insignias"];
               </span>
               <span className="font-bold">{enIdioma(i, "nombre", locale)}</span>
               <span className="text-[13px] text-tinta-2">{enIdioma(i, "regla", locale)}</span>
-              <span className={cn("text-[12px] font-bold", ok ? "text-nopal-700" : "text-gris")}>{ok ? t("desbloqueada") : t("bloqueada")}</span>
+              <span className={cn("text-[12px] font-bold", ok ? "text-nopal-700" : "text-tinta-2")}>{ok ? t("desbloqueada") : t("bloqueada")}</span>
             </li>
           );
         })}

@@ -17,6 +17,7 @@ import { formatMXN } from "@/lib/money";
 import type { Producto } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
+import { PrecioEditable } from "./PrecioEditable";
 import { EncabezadoPerfil } from "./EncabezadoPerfil";
 
 /** M15 · Locatario › Catálogo: precio y disponibilidad en línea, alta de productos y límite de 20 en Gratis. */
@@ -40,6 +41,8 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
   const guardar = () => {
     const precio = Math.round(Number(form.p));
     if (!form.n.trim() || !precio) return;
+    // El nombre identifica al producto (ediciones, carrito): no se permiten repetidos.
+    if (lista.some((x) => x.n.trim().toLowerCase() === form.n.trim().toLowerCase())) return toast.error(t("duplicado", { producto: form.n.trim() }));
     const ok = agregar({ n: form.n.trim(), p: precio, u: form.u.trim() || "pieza", origen: form.origen || undefined, fotoUrl: form.fotoUrl || undefined, disponible: true }, lista.length);
     if (!ok) {
       setAbierto(false);
@@ -74,21 +77,7 @@ export function CatalogoView({ base, productores }: { base: Producto[]; producto
                   {!x.disponible ? ` · ${t("agotado")}` : ""}
                 </span>
               </div>
-              <label className="flex items-center gap-1 text-sm font-semibold">
-                $
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min={1}
-                  value={x.p}
-                  aria-label={t("precio", { producto: x.n })}
-                  onChange={(e) => {
-                    const v = Math.round(Number(e.target.value));
-                    if (v > 0) editar(x.n, { p: v });
-                  }}
-                  className="h-11 w-20 rounded-xl border border-input bg-white px-2 text-right"
-                />
-              </label>
+              <PrecioEditable valor={x.p} etiqueta={t("precio", { producto: x.n })} onGuardar={(p) => editar(x.n, { p })} />
               <Switch checked={x.disponible} onCheckedChange={(v) => editar(x.n, { disponible: v })} aria-label={t("disponible", { producto: x.n })} />
             </li>
           ))}

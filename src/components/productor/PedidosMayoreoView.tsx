@@ -1,18 +1,18 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { EncabezadoPerfil } from "@/components/locatario/EncabezadoPerfil";
 import { useVocabulario } from "@/hooks/useVocabulario";
 import { traducirCantidades } from "@/lib/idioma";
-import { formatMXN } from "@/lib/money";
 import { normalizarEstadoMayoreo, siguientesEstadosMayoreo, type EstadoMayoreo } from "@/lib/productor";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { Esqueleto } from "@/components/motion/Esqueleto";
+import { Precio } from "@/components/stall/Precio";
 
 const COLOR: Record<EstadoMayoreo, string> = {
   nuevo: "bg-cempasuchil text-morado-900",
@@ -26,7 +26,6 @@ const ORDEN: EstadoMayoreo[] = ["nuevo", "confirmado", "listo", "enviado", "entr
 /** M18 · Productor › Pedidos de mayoreo: Nuevo → Confirmado → Listo / Enviado con terceros → Entregado. */
 export function PedidosMayoreoView() {
   const t = useTranslations("productor.pedidos");
-  const locale = useLocale();
   const voc = useVocabulario();
   const hydrated = useHydrated();
   const pedidos = useAppStore((s) => s.productor.pedidos);
@@ -68,7 +67,7 @@ export function PedidosMayoreoView() {
                 {p.producto} · {traducirCantidades(p.cantidad, (u) => voc("unidades", u))}
               </p>
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2">
-                <span className="text-lg font-bold">{formatMXN(p.total, locale)}</span>
+                <Precio monto={p.total} className="text-lg" />
                 <div className="flex flex-wrap gap-2">
                   {siguientesEstadosMayoreo(p.e).map((sig) => (
                     <Button

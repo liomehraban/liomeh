@@ -19,7 +19,8 @@
     "actualizando": "Refreshing…",
     "soltar": "Release to refresh",
     "nuevaVersion": "A new version of Bara Bara is ready",
-    "recargar": "Reload"
+    "recargar": "Reload",
+    "cancelar": "Cancel"
   },
   "perfiles": {
     "consumidor": "Visitor / Shopper",
@@ -128,7 +129,9 @@
     "reiniciarTexto": "Clears orders, points, stamps and local changes and goes back to the original data.",
     "perfil": "Demo profile",
     "hola": "Hi, {nombre}!",
-    "puntos": "{puntos} points · {nivel} level"
+    "puntos": "{puntos} points · {nivel} level",
+    "confirmarReinicioTitulo": "Reset the demo?",
+    "confirmarReinicio": "Yes, reset"
   },
   "horario": {
     "abierto": "Open",
@@ -198,7 +201,9 @@
     "ocultar": "Hide {seccion}",
     "resenas": "{n, plural, one {# review} other {# reviews}}",
     "sinResenas": "No reviews yet",
-    "calificacion": "Rated {rating} out of 5"
+    "calificacion": "Rated {rating} out of 5",
+    "sinFiltro": "No market matches these filters.",
+    "quitarFiltros": "Clear filters"
   },
   "mercado": {
     "volver": "Back",
@@ -617,7 +622,10 @@
     "plan": "Your plan",
     "cambiarPlan": "See plans",
     "comoSeGana": "How to earn",
-    "irAgenda": "Go to Events"
+    "irAgenda": "Go to Events",
+    "confirmarCanjeTitulo": "Redeem “{titulo}”?",
+    "confirmarCanjeTexto": "{n} points will be deducted and you'll have {resto} left. The coupon shows up under “Your coupons”.",
+    "confirmarCanje": "Redeem {n} points"
   },
   "escanear": {
     "titulo": "Scan QR",
@@ -665,7 +673,7 @@
     "sinEventos": "No events match these filters.",
     "mesAnterior": "Previous month",
     "mesSiguiente": "Next month",
-    "eventosDia": "Events on {dia}",
+    "eventosDia": "{n, plural, one {# event} other {# events}}",
     "sinEventosDia": "No events this day",
     "hoy": "Today"
   },
@@ -750,7 +758,10 @@
         "Unlimited AI assistant",
         "Price and season alerts"
       ]
-    }
+    },
+    "confirmarGratisTitulo": "Switch back to Free?",
+    "confirmarGratisTexto": "You lose the {plan} benefits right away. You can turn it back on anytime.",
+    "confirmarGratis": "Switch to Free"
   },
   "rescate": {
     "titulo": "Rescue today",
@@ -848,7 +859,8 @@
       "nuevo": "New charge",
       "comprobante": "Bara Bara receipt · {puesto} · {monto} · {fecha} · {id}",
       "copiado": "Receipt copied",
-      "linkPago": "Card payment link"
+      "linkPago": "Card payment link",
+      "cancelar": "Cancel charge"
     },
     "pedidos": {
       "titulo": "Orders",
@@ -886,7 +898,8 @@
       "agregado": "Product added: {producto}",
       "upsellTitulo": "You've reached 20 products",
       "upsellTexto": "The Free plan includes up to 20 products. With Pro your catalog is unlimited.",
-      "verPlan": "See plans"
+      "verPlan": "See plans",
+      "duplicado": "“{producto}” is already in your catalog. Edit its price in the list."
     },
     "plan": {
       "titulo": "Your plan",

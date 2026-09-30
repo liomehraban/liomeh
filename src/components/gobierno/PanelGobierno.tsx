@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useSyncExternalStore } from "react";
-import { Download, Info } from "lucide-react";
+import { Download, Info, Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -169,7 +169,13 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
               <KpiTile etiqueta={t("kpis.turistas_mes")} numero={k.turistas_mes} formato={compacto} detalle={nf(k.turistas_mes)} />
               <KpiTile etiqueta={t("kpis.extranjeros")} numero={pctExtranjeros} formato={(n) => t("pct", { n: nf(n, 1) })} detalle={t("kpis.extranjerosTexto", { n: nf(ultimoMes.turistas_extranjeros), total: nf(ultimoMes.usuarios_activos) })} />
-              <KpiTile etiqueta={t("sectur.idiomas")} valor="—" detalle={t("sectur.sinDato")} className="col-span-2" />
+              <div className="col-span-2 flex items-center gap-3 rounded-card border border-dashed border-morado/30 bg-papel p-4">
+                <Languages className="size-6 shrink-0 text-morado/60" aria-hidden />
+                <div className="flex flex-col">
+                  <span className="text-[13px] font-semibold text-tinta">{t("sectur.idiomas")}</span>
+                  <span className="text-[13px] text-tinta-2">{t("sectur.sinDato")}</span>
+                </div>
+              </div>
             </div>
             <div className="grid gap-5 lg:grid-cols-2">
               <GraficaLinea titulo={t("sectur.turistas")} datos={serie} x="etiqueta" encabezadoX={t("serie.mes")} hoy={indiceHoy} series={[{ clave: "turistas_extranjeros", nombre: t("sectur.turistas"), color: "#1F4E9A" }]} formato={compacto} />

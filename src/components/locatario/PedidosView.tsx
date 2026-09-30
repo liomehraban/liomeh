@@ -2,24 +2,23 @@
 
 import { Bike, Clock, Smartphone, Store } from "lucide-react";
 import { motion } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { ESTADOS_LOCATARIO, siguienteEstadoLocatario, type EstadoLocatario } from "@/lib/locatario";
-import { formatMXN } from "@/lib/money";
 import { Esqueleto } from "@/components/motion/Esqueleto";
 import { cn } from "@/lib/utils";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoPerfil } from "./EncabezadoPerfil";
 import { useAhora } from "@/hooks/useAhora";
 import { estadoLocatarioDeEtapa, etapaSincronizada } from "@/lib/pedidos";
+import { Precio } from "@/components/stall/Precio";
 
 const COLOR = { nuevo: "bg-cempasuchil text-morado-900", preparando: "bg-morado-50 text-morado-700", listo: "bg-nopal-700 text-white", entregado: "bg-gris/20 text-tinta-2" } as const;
 
 /** Locatario › Pedidos: incluye los creados por consumidores (M5) con folio; cada uno avanza de estado. */
 export function PedidosView() {
   const t = useTranslations("locatario.pedidos");
-  const locale = useLocale();
   const hydrated = useHydrated();
   const pedidos = useAppStore((s) => s.locatario.pedidos);
   const delConsumidor = useAppStore((s) => s.pedidos);
@@ -84,7 +83,7 @@ export function PedidosView() {
                   )}
                 </p>
                 <div className="flex items-center justify-between border-t border-border pt-2">
-                  <span className="text-lg font-bold">{formatMXN(p.total, locale)}</span>
+                  <Precio monto={p.total} className="text-lg" />
                   {estado !== "entregado" && (
                     <Button size="sm" onClick={() => avanzar(p.id, estado)}>
                       {t(`acciones.${sig as Exclude<EstadoLocatario, "nuevo">}`)}
