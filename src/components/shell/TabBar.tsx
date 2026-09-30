@@ -57,6 +57,7 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
   return (
     <nav
       aria-label={t("navegacion")}
+      data-nav-tab
       style={{ viewTransitionName: "tab-bar" }}
       className="relative z-30 shrink-0 border-t border-border bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-2px_12px_rgba(62,28,60,0.06)]"
     >

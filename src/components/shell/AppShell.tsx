@@ -1,4 +1,6 @@
 import { ViewTransition, type ReactNode } from "react";
+import { DireccionNavegacion } from "./DireccionNavegacion";
+import { EncabezadoCompacto } from "./EncabezadoCompacto";
 import { TabBar } from "./TabBar";
 
 /**
@@ -7,11 +9,13 @@ import { TabBar } from "./TabBar";
  */
 export function AppShell({ perfil, children, extra }: { perfil: "consumidor" | "locatario" | "productor"; children: ReactNode; extra?: ReactNode }) {
   return (
-    <div className="flex h-full flex-col">
+    <div className="relative flex h-full flex-col">
       <main id="contenido" className="relative flex-1 overflow-x-hidden overflow-y-auto overscroll-contain">
         <ViewTransition default="pantalla">{children}</ViewTransition>
       </main>
+      <EncabezadoCompacto contenedorId="contenido" />
       {extra}
+      <DireccionNavegacion />
       <TabBar perfil={perfil} />
     </div>
   );

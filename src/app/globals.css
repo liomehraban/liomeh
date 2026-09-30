@@ -186,6 +186,42 @@
 ::view-transition-new(.pantalla) {
   animation: 240ms var(--ease-out) 60ms both vt-entra;
 }
+/* Detalle ↔ lista (DireccionNavegacion pone data-nav en <html>): eje X compartido, 60 px con fundido. */
+:root[data-nav="adelante"]::view-transition-old(.pantalla),
+:root[data-nav="atras"]::view-transition-old(.pantalla) {
+  animation:
+    140ms ease-in both vt-sale,
+    320ms var(--ease-out) both vt-desliza-salida;
+}
+:root[data-nav="adelante"]::view-transition-new(.pantalla),
+:root[data-nav="atras"]::view-transition-new(.pantalla) {
+  animation:
+    220ms var(--ease-out) 90ms both vt-entra-fundido,
+    320ms var(--ease-out) both vt-desliza-entrada;
+}
+:root[data-nav="adelante"] {
+  --vt-desde: 60px;
+  --vt-hacia: -60px;
+}
+:root[data-nav="atras"] {
+  --vt-desde: -60px;
+  --vt-hacia: 60px;
+}
+@keyframes vt-desliza-entrada {
+  from {
+    translate: var(--vt-desde) 0;
+  }
+}
+@keyframes vt-desliza-salida {
+  to {
+    translate: var(--vt-hacia) 0;
+  }
+}
+@keyframes vt-entra-fundido {
+  from {
+    opacity: 0;
+  }
+}
 @keyframes vt-sale {
   to {
     opacity: 0;
