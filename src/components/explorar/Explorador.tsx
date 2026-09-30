@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LocateFixed, Loader2, MapPin, Recycle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -53,7 +53,19 @@ export function Explorador({
   const visibles = useMemo(() => filtrarMercados(mercados, filtros, ahora ?? undefined), [mercados, filtros, ahora]);
   const porId = useMemo(() => new Map(mercados.map((m) => [m.id, m])), [mercados]);
   const actual = seleccionado ? porId.get(seleccionado) : undefined;
-  const altoInferior = actual ? 262 : plegables.cerca ? 196 : 96;
+  // Alto real de lo que ocupa la parte baja (panel de carruseles o ficha rápida): «Mi ubicación» y el carrito
+  // flotante se acomodan justo arriba, sin importar qué plegable esté abierto.
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [altoPanel, setAltoPanel] = useState(196);
+  const [altoHoja, setAltoHoja] = useState(300);
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setAltoPanel(Math.round(el.getBoundingClientRect().height)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [actual]);
+  const altoInferior = actual ? altoHoja : altoPanel;
   // El carrito flotante se acomoda arriba de «Mi ubicación» (48 px + márgenes).
   useEffect(() => {
     const raiz = document.getElementById(PHONE_ROOT_ID);
@@ -153,7 +165,7 @@ export function Explorador({
       />
 
       {/* Buscador + chips */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col focus-within:z-40 gap-2 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
         <div className="mr-28">
           <BarraBusqueda onElegir={onBuscar} />
         </div>
@@ -176,7 +188,10 @@ export function Explorador({
 
       {/* Carruseles inferiores */}
       {!actual && (
-        <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-card border-t border-border bg-white pb-[calc(var(--asoma,0px)+0.5rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]">
+        <div
+          ref={panelRef}
+          className="absolute inset-x-0 bottom-0 z-20 flex max-h-[62%] flex-col overflow-y-auto overscroll-contain rounded-t-card border-t border-border bg-white pb-[calc(var(--asoma,0px)+0.5rem)] shadow-[0_-8px_24px_rgba(62,28,60,0.12)]"
+        >
           <Plegable
             titulo={t("explorar.cercaDeTi")}
             icono={<MapPin className="size-5 text-morado" aria-hidden />}
@@ -218,6 +233,7 @@ export function Explorador({
         etiquetaCerrar={t("explorar.cerrarFicha")}
         etiquetaExpandir={t("explorar.expandir")}
         alturas={{ peek: 300, mitad: 0.5, completa: 0.9 }}
+        onAltura={setAltoHoja}
       >
         {actual && <FichaRapida m={actual} distancia={haversine(origen, actual)} desdeZocalo={origen.fuente === "zocalo"} />}
       </BottomSheet>

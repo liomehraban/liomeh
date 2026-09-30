@@ -36,7 +36,7 @@ export function SheetFiltros({
           <SheetTitle>{t("explorar.filtrosTitulo")}</SheetTitle>
           <SheetDescription>{t("explorar.conteo", { n: resultados })}</SheetDescription>
         </SheetHeader>
-        <div className="flex flex-col gap-5 overflow-y-auto px-5">
+        <div className="flex min-h-0 flex-col gap-5 overflow-y-auto overscroll-contain px-5 py-1">
           <fieldset className="flex flex-col gap-2">
             <legend className="mb-2 font-bold text-morado-700">{t("explorar.alcaldia")}</legend>
             <div className="flex flex-wrap gap-2">
