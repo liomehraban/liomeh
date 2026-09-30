@@ -109,12 +109,13 @@ export function InteriorView({ interior, nombreMercado }: { interior: Interior; 
   const inicial = useRef(false);
   useEffect(() => {
     if (inicial.current) return;
-    inicial.current = true;
     const p = params.get("puesto");
     const d = params.get("desde");
     if (!p || !interior.puestos.some((x) => x.id === p)) return;
-    // espera a que el plano mida su contenedor
+    // espera a que el plano mida su contenedor; la bandera se marca al ejecutar para que un
+    // re-render (o el doble montaje de Strict Mode) no cancele el deep link
     const id = setTimeout(() => {
+      inicial.current = true;
       if (esOrigen(d)) {
         setOrigen(d);
         trazar(p, d);

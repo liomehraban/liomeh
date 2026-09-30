@@ -47,6 +47,7 @@ export function BarraBusqueda({ docs, onElegir }: { docs: DocBusqueda[]; onElegi
           placeholder={t("buscar")}
           aria-label={t("buscar")}
           role="combobox"
+          data-demo="buscar"
           aria-autocomplete="list"
           aria-expanded={abierto && !!q.trim()}
           aria-controls="resultados-busqueda"

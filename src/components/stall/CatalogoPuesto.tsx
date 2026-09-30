@@ -41,7 +41,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
         {productos.map((prod) => {
           const n = qty[prod.n] ?? 1;
           return (
-            <li key={prod.n} className="flex flex-col gap-3 p-4">
+            <li key={prod.n} data-demo={`producto:${prod.n}`} className="flex flex-col gap-3 p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col">
                   <span className="font-semibold">{prod.n}</span>
@@ -60,6 +60,7 @@ export function CatalogoPuesto({ puesto, nombresPuestos }: { puesto: Puesto; nom
                 <Button
                   size="sm"
                   className="ml-auto"
+                  data-demo="agregar"
                   disabled={!prod.disponible}
                   onClick={() => agregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: n, huertoId: huertoDeProducto(prod.n, puesto.origen) })}
                 >

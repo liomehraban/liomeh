@@ -135,7 +135,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
 
         {m.interior_disponible && (
           <Button asChild size="lg" className="h-auto min-h-14 py-3 text-base whitespace-normal shadow-lg">
-            <Link href={`/mercado/${m.id}/interior`}>
+            <Link href={`/mercado/${m.id}/interior`} data-demo="ver-interior">
               <MapPin aria-hidden />
               {t("mercado.verInterior")}
             </Link>

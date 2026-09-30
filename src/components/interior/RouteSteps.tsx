@@ -87,7 +87,7 @@ export function RouteSteps({
             <Link href={`/puesto/${ruta.hacia_puesto}`}>{t("verMenu")}</Link>
           </Button>
         ) : (
-          <Button className="flex-[1.4]" onClick={() => onPaso(paso + 1)}>
+          <Button className="flex-[1.4]" onClick={() => onPaso(paso + 1)} data-demo="ruta-siguiente">
             {t("siguiente")}
             <ChevronRight aria-hidden />
           </Button>

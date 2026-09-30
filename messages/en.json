@@ -890,5 +890,67 @@
       "creditoTexto": "{pct}% of cash sales are already recorded via check-in: a sales history stallholders can show to apply for credit.",
       "checkins": "Cash check-ins per month"
     }
+  },
+  "presentacion": {
+    "titulo": "Presentation mode",
+    "texto": "A 10-step tour of the app: tourist, shopper, stallholder, grower and government. Each step navigates and acts on its own; you just tap “Next”.",
+    "comenzar": "Start demo",
+    "siguiente": "Next",
+    "terminar": "Finish",
+    "reiniciar": "Reset demo",
+    "reiniciado": "Demo reset: everything is back to the original data",
+    "ejecutando": "Running…",
+    "salir": "Exit presentation mode",
+    "pasoDe": "Step {n} of {total}",
+    "progreso": "Presentation progress",
+    "perfiles": {
+      "turista": "Emily · tourist (EN)",
+      "consumidora": "Sofía · shopper",
+      "locatario": "Doña Chela · stallholder",
+      "productor": "Lucía · grower",
+      "gobierno": "Mexico City government"
+    },
+    "pasos": {
+      "buscar": {
+        "titulo": "Search “pancita” in Explore",
+        "espera": "The map centers La Merced and the sheet says if it's open"
+      },
+      "interior": {
+        "titulo": "La Merced → indoor map",
+        "espera": "8-hall floor plan with Pancita Doña Chela highlighted"
+      },
+      "ruta": {
+        "titulo": "“Take me there” from Metro Merced",
+        "espera": "636 m · 9 min route in 6 steps to “You've arrived”"
+      },
+      "pagar": {
+        "titulo": "2 pancitas + 2 sopes, paid with CoDi QR",
+        "espera": "Payment received, BB-XXXX ref, stamp and +30 points"
+      },
+      "huerto": {
+        "titulo": "Farms → Familia Jurado Nopaleros",
+        "espera": "Fair price: $70 vs $35 of $150, “twice as much”"
+      },
+      "asistente": {
+        "titulo": "Marchanta: “What events are on this month?”",
+        "espera": "National Mole Fair card + “Remind me”"
+      },
+      "checkin": {
+        "titulo": "QR check-in at Jugos Moreno (paid cash)",
+        "espera": "+10 points even when paying cash"
+      },
+      "cobrar": {
+        "titulo": "Stallholder: app order and a $250 charge",
+        "espera": "The BB-XXXX order in Orders and “Payment received $250”"
+      },
+      "cosecha": {
+        "titulo": "Grower: publish 200 lettuces at $12",
+        "espera": "New lot in the preview"
+      },
+      "gobierno": {
+        "titulo": "Government dashboard → SEDEMA",
+        "espera": "KPIs, adoption, CO₂ and tons rescued"
+      }
+    }
   }
 }

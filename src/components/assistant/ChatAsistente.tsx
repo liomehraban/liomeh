@@ -166,6 +166,7 @@ export function ChatAsistente() {
             onChange={(e) => setTexto(e.target.value)}
             placeholder={dictado.escuchando ? t("escuchando") : t("placeholder")}
             aria-label={t("placeholder")}
+            data-demo="chat-input"
             maxLength={500}
             enterKeyHint="send"
             className="h-12 min-w-0 flex-1 rounded-pill border border-input bg-white px-4 text-base outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40"

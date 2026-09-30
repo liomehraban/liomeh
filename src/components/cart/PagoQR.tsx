@@ -35,7 +35,7 @@ export function PagoQR({ payload, totalTexto, onPagado }: { payload: string; tot
 
   if (fase === "inicio") {
     return (
-      <Button size="lg" onClick={() => setFase("esperando")}>
+      <Button size="lg" onClick={() => setFase("esperando")} data-demo="generar-qr">
         <QrCode aria-hidden />
         {t("generarQR")}
       </Button>

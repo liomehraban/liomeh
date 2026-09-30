@@ -38,6 +38,7 @@ export function SelectorOrigen({
               type="button"
               role="radio"
               aria-checked={on}
+              data-demo={`origen-${o}`}
               onClick={() => onCambio(o)}
               className={cn(
                 "flex min-h-11 items-center gap-3 rounded-2xl border px-3 py-2 text-left text-sm font-semibold transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
@@ -60,7 +61,7 @@ export function SelectorOrigen({
         <Button variant="ghost" className="flex-1" onClick={onCancelar}>
           {t("cancelar")}
         </Button>
-        <Button className="flex-[1.4]" onClick={onConfirmar}>
+        <Button className="flex-[1.4]" onClick={onConfirmar} data-demo="confirmar-origen">
           {t("calcular")}
         </Button>
       </div>

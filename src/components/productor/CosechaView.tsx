@@ -105,7 +105,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
           <div className="grid grid-cols-2 gap-2">
             <label className="flex flex-col gap-1 text-sm font-semibold">
               {t("cantidad")}
-              <Input type="number" inputMode="numeric" min={1} value={form.cantidad || ""} onChange={(e) => setForm({ ...form, cantidad: Math.max(0, Math.round(Number(e.target.value))) })} />
+              <Input data-demo="lote-cantidad" type="number" inputMode="numeric" min={1} value={form.cantidad || ""} onChange={(e) => setForm({ ...form, cantidad: Math.max(0, Math.round(Number(e.target.value))) })} />
             </label>
             <label className="flex flex-col gap-1 text-sm font-semibold">
               {t("unidad")}
@@ -118,7 +118,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
           </div>
           <label className="flex flex-col gap-1 text-sm font-semibold">
             {t("precio")}
-            <Input type="number" inputMode="numeric" min={1} value={form.precio || ""} onChange={(e) => setForm({ ...form, precio: Math.max(0, Math.round(Number(e.target.value))) })} />
+            <Input data-demo="lote-precio" type="number" inputMode="numeric" min={1} value={form.precio || ""} onChange={(e) => setForm({ ...form, precio: Math.max(0, Math.round(Number(e.target.value))) })} />
             <span className={cn("text-[13px] font-normal", dif > 15 ? "text-chile" : dif < -15 ? "text-cempasuchil" : "text-tinta-2")}>
               {t("referencia", { precio: formatMXN(referencia, locale), unidad: form.unidad.replace(/s$/, ""), dif: dif > 0 ? `+${dif}` : dif })}
             </span>
@@ -150,7 +150,7 @@ export function CosechaView({ productor, nombre }: { productor: Productor; nombr
             <span className="text-[13px] font-bold text-tinta-2">{t("vistaPrevia")}</span>
             <TarjetaLote l={form} productor={productor} nuevo />
           </div>
-          <Button onClick={enviar} disabled={!valido} className="bg-nopal hover:bg-nopal/90">
+          <Button onClick={enviar} disabled={!valido} className="bg-nopal hover:bg-nopal/90" data-demo="publicar-lote">
             {t("publicar")}
           </Button>
         </section>

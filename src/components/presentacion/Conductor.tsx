@@ -1,0 +1,107 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
+
+import { useRouter } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
+import { PASOS } from "@/lib/presentacion";
+import { useAppStore, useHydrated } from "@/store/useAppStore";
+import { BarraPresentacion } from "./BarraPresentacion";
+import { DedoDemo, type EstadoDedo } from "./DedoDemo";
+import { Cancelado, ejecutarPaso } from "./ejecutor";
+
+/** Evento con el que /presentacion arranca el guion. */
+export const EVENTO_SIGUIENTE = "barabara:presentacion-siguiente";
+
+let corrida = 0;
+
+/** Monta la barra y ejecuta el guion. Vive en el layout, así sobrevive a la navegación. */
+export function Conductor() {
+  const t = useTranslations("presentacion");
+  const router = useRouter();
+  const hydrated = useHydrated();
+  const { activa, paso } = useAppStore((s) => s.presentacion);
+  const [ejecutando, setEjecutando] = useState(false);
+  const [dedo, setDedo] = useState<EstadoDedo>({ x: 0, y: 0, toque: 0, visible: false });
+  const reducido = useRef(false);
+
+  const correr = useCallback(
+    async (i: number) => {
+      const paso = PASOS[i];
+      if (!paso) return;
+      const id = ++corrida;
+      const vivo = () => id === corrida;
+      const st = useAppStore.getState();
+      st.setPresentacion({ activa: true, paso: i });
+      st.setPerfil(paso.perfil);
+      st.marcarOnboarding();
+      reducido.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setEjecutando(true);
+      try {
+        await ejecutarPaso(paso, {
+          vivo,
+          reducido: reducido.current,
+          navegar: (ruta, locale: Locale) => router.push(ruta, { locale }),
+          dedo: async (el, tocar) => {
+            const r = el.getBoundingClientRect();
+            setDedo((d) => ({ x: r.left + r.width / 2, y: r.top + r.height / 2, toque: tocar ? d.toque + 1 : d.toque, visible: true }));
+            await new Promise((ok) => setTimeout(ok, reducido.current ? 60 : 550));
+          },
+        });
+      } catch (e) {
+        if (!(e instanceof Cancelado)) console.warn(e);
+      } finally {
+        if (vivo()) {
+          setEjecutando(false);
+          setDedo((d) => ({ ...d, visible: false }));
+        }
+      }
+    },
+    [router],
+  );
+
+  const siguiente = useCallback(() => {
+    const { paso } = useAppStore.getState().presentacion;
+    if (paso >= PASOS.length - 1) {
+      corrida++;
+      useAppStore.getState().setPresentacion({ activa: false, paso: -1 });
+      router.push("/presentacion", { locale: "es" });
+      return;
+    }
+    void correr(paso + 1);
+  }, [correr, router]);
+
+  const reiniciar = useCallback(() => {
+    corrida++;
+    setEjecutando(false);
+    setDedo((d) => ({ ...d, visible: false }));
+    const st = useAppStore.getState();
+    st.resetDemo();
+    st.setPresentacion({ activa: true, paso: -1 });
+    toast.success(t("reiniciado"));
+    router.push("/presentacion", { locale: "es" });
+  }, [router, t]);
+
+  const salir = useCallback(() => {
+    corrida++;
+    setEjecutando(false);
+    setDedo((d) => ({ ...d, visible: false }));
+    useAppStore.getState().setPresentacion({ activa: false, paso: -1 });
+  }, []);
+
+  useEffect(() => {
+    const h = () => siguiente();
+    window.addEventListener(EVENTO_SIGUIENTE, h);
+    return () => window.removeEventListener(EVENTO_SIGUIENTE, h);
+  }, [siguiente]);
+
+  if (!hydrated || !activa) return null;
+  return (
+    <>
+      <BarraPresentacion paso={paso} ejecutando={ejecutando} onSiguiente={siguiente} onReiniciar={reiniciar} onSalir={salir} />
+      <DedoDemo estado={dedo} />
+    </>
+  );
+}

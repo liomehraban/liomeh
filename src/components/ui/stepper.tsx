@@ -18,7 +18,7 @@ export function Stepper({ valor, onCambio, etiqueta, menos, mas }: { valor: numb
       <output className="w-8 text-center font-bold" aria-live="polite">
         {valor}
       </output>
-      <button type="button" aria-label={mas} onClick={() => onCambio(Math.min(99, valor + 1))} className="grid size-11 place-items-center rounded-pill text-morado">
+      <button type="button" data-demo="mas" aria-label={mas} onClick={() => onCambio(Math.min(99, valor + 1))} className="grid size-11 place-items-center rounded-pill text-morado">
         <Plus className="size-4" aria-hidden />
       </button>
     </div>

@@ -67,6 +67,8 @@ type DatosDemo = {
   };
   productor: { lotes: Lote[]; pedidos: PedidoMayoreo[] };
   reservasVisita: ReservaVisita[];
+  /** Modo presentación: paso actual (−1 = sin empezar). */
+  presentacion: { activa: boolean; paso: number };
 };
 
 export type ResenaPropia = Resena & { fotoUrl?: string };
@@ -105,6 +107,7 @@ type Acciones = {
   cambiarEstadoMayoreo: (id: string, estado: EstadoMayoreo) => void;
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
+  setPresentacion: (p: Partial<DatosDemo["presentacion"]>) => void;
 };
 
 export type AppState = DatosDemo & Acciones;
@@ -126,6 +129,7 @@ export function estadoInicial(): DatosDemo {
     sellosFechas: {},
     cupones: [],
     rescates: [],
+    presentacion: { activa: false, paso: -1 },
     rutasIniciadas: {},
     reservasTour: [],
     asistente: { fecha: "", usados: 0 },
@@ -290,6 +294,7 @@ export const useAppStore = create<AppState>()(
         return reserva;
       },
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
+      setPresentacion: (p) => set((s) => ({ presentacion: { ...s.presentacion, ...p } })),
     }),
     {
       name: "pasele-demo",
@@ -299,7 +304,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, ...datos } = s;
         return datos;
       },
     },

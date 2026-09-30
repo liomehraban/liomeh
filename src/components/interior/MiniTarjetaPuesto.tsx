@@ -32,7 +32,7 @@ export function MiniTarjetaPuesto({ puesto, onLlevame, onCerrar }: { puesto: Pue
         <Button asChild variant="secondary" className="flex-1">
           <Link href={`/puesto/${puesto.id}`}>{t("verPuesto")}</Link>
         </Button>
-        <Button className="flex-1" onClick={onLlevame}>
+        <Button className="flex-1" onClick={onLlevame} data-demo="llevame">
           <Navigation aria-hidden />
           {t("llevame")}
         </Button>

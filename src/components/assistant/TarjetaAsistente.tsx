@@ -64,6 +64,7 @@ export function TarjetaAsistente({ c }: { c: TarjetaResuelta }) {
             type="button"
             aria-pressed={hydrated && recordando}
             onClick={() => toggle(c.id)}
+            data-demo={`recordar:${c.id}`}
             className={cn(accion, hydrated && recordando ? "bg-dorado text-morado-900" : "border border-morado text-morado")}
           >
             {hydrated && recordando ? <BellRing className="size-4" aria-hidden /> : <Bell className="size-4" aria-hidden />}

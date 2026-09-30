@@ -37,7 +37,9 @@ export function FichaRapida({ m, distancia, desdeZocalo }: { m: MercadoMapa; dis
       <p className="text-sm text-tinta-2">{m.alcaldia}</p>
       <div className="flex gap-3">
         <Button asChild className="flex-1">
-          <Link href={`/mercado/${m.id}`}>{t("verMercado")}</Link>
+          <Link href={`/mercado/${m.id}`} data-demo="ver-mercado">
+            {t("verMercado")}
+          </Link>
         </Button>
         <Button asChild variant="secondary" className="flex-1">
           <a href={comoLlegarUrl(m)} target="_blank" rel="noopener noreferrer">

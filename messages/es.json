@@ -890,5 +890,67 @@
       "creditoTexto": "El {pct}% de las ventas en efectivo ya queda registrado con check-in: es historial de ventas que el locatario puede presentar para pedir crédito.",
       "checkins": "Check-ins en efectivo por mes"
     }
+  },
+  "presentacion": {
+    "titulo": "Modo presentación",
+    "texto": "Recorre la app en 10 pasos: turista, consumidora, locatario, productor y gobierno. Cada paso navega y ejecuta sus acciones solo; tú nada más tocas «Siguiente».",
+    "comenzar": "Comenzar demo",
+    "siguiente": "Siguiente",
+    "terminar": "Terminar",
+    "reiniciar": "Reiniciar demo",
+    "reiniciado": "Demo reiniciada: todo quedó como en los datos originales",
+    "ejecutando": "Ejecutando…",
+    "salir": "Salir del modo presentación",
+    "pasoDe": "Paso {n} de {total}",
+    "progreso": "Progreso de la presentación",
+    "perfiles": {
+      "turista": "Emily · turista (EN)",
+      "consumidora": "Sofía · consumidora",
+      "locatario": "Doña Chela · locatario",
+      "productor": "Lucía · productora",
+      "gobierno": "Gobierno CDMX"
+    },
+    "pasos": {
+      "buscar": {
+        "titulo": "Buscar «pancita» en Explorar",
+        "espera": "El mapa centra La Merced y la ficha dice si está abierto"
+      },
+      "interior": {
+        "titulo": "Ficha de La Merced → mapa interior",
+        "espera": "Plano de 8 naves con Pancita Doña Chela resaltada"
+      },
+      "ruta": {
+        "titulo": "«Llévame» desde Metro Merced",
+        "espera": "Ruta de 636 m · 9 min en 6 pasos hasta «Llegaste»"
+      },
+      "pagar": {
+        "titulo": "2 pancitas + 2 sopes, pago con QR CoDi",
+        "espera": "Pago recibido, folio BB-XXXX, sello y +30 puntos"
+      },
+      "huerto": {
+        "titulo": "Huertos → Familia Jurado Nopaleros",
+        "espera": "Precio justo: $70 vs $35 de $150, «el doble»"
+      },
+      "asistente": {
+        "titulo": "Marchanta: «¿Qué eventos hay este mes?»",
+        "espera": "Tarjeta de la Feria Nacional del Mole + «Recordarme»"
+      },
+      "checkin": {
+        "titulo": "Check-in QR en Jugos Moreno (pagó en efectivo)",
+        "espera": "+10 puntos aunque pague en efectivo"
+      },
+      "cobrar": {
+        "titulo": "Locatario: pedido de la app y cobro de $250",
+        "espera": "El pedido BB-XXXX en Pedidos y «Pago recibido $250»"
+      },
+      "cosecha": {
+        "titulo": "Productora: publicar 200 lechugas a $12",
+        "espera": "Lote nuevo en la vista previa"
+      },
+      "gobierno": {
+        "titulo": "Panel de gobierno → SEDEMA",
+        "espera": "KPIs, adopción, CO₂ y toneladas rescatadas"
+      }
+    }
   }
 }

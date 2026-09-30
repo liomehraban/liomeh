@@ -154,7 +154,7 @@ export function PanelGobierno({ metricas: m, nombres, mercados }: Props) {
           <h2 className="font-display text-3xl text-morado-700">{t("secretarias")}</h2>
           <TabsList className="w-full lg:w-fit">
             {SECRETARIAS.map((s) => (
-              <TabsTrigger key={s} value={s} className="min-h-11">
+              <TabsTrigger key={s} value={s} className="min-h-11" data-demo={`tab-${s}`}>
                 {ETIQUETA[s]}
               </TabsTrigger>
             ))}

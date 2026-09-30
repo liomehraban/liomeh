@@ -140,6 +140,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
               key={k}
               type="button"
               onClick={() => setMonto((m) => teclear(m, k))}
+              data-demo={`tecla-${k}`}
               aria-label={k === "⌫" ? t("borrar") : k === "C" ? t("limpiar") : k}
               className="grid h-16 place-items-center rounded-2xl bg-white text-2xl font-bold text-tinta shadow-sm active:bg-morado-50"
             >
@@ -147,7 +148,7 @@ export function CobrarView({ puestoNombre, puestoId }: { puestoNombre: string; p
             </button>
           ))}
         </div>
-        <Button size="lg" onClick={generar} disabled={!valor}>
+        <Button size="lg" onClick={generar} disabled={!valor} data-demo="generar-cobro">
           <QrCode aria-hidden />
           {t("generar")}
         </Button>

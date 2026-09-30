@@ -10,6 +10,7 @@ import { TopControls } from "@/components/shell/TopControls";
 import { LocaleSync } from "@/components/shell/LocaleSync";
 import { MotionProvider } from "@/components/shell/MotionProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { Conductor } from "@/components/presentacion/Conductor";
 import "../globals.css";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas", display: "swap" });
@@ -46,6 +47,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             <PhoneFrame>
               <TopControls />
               {children}
+              <Conductor />
               <Toaster />
             </PhoneFrame>
           </MotionProvider>

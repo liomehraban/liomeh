@@ -155,7 +155,7 @@ export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoChec
                 ))}
               </ul>
             </fieldset>
-            <Button size="lg" onClick={escanear} disabled={!objetivo || fase === "escaneando"}>
+            <Button size="lg" onClick={escanear} disabled={!objetivo || fase === "escaneando"} data-demo="escanear">
               {fase === "escaneando" ? t("escaneando") : t("titulo")}
             </Button>
           </>

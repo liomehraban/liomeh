@@ -32,7 +32,7 @@ export function FairTradeCard({ productor: p, producto, mercado = "La Merced", c
   ];
 
   return (
-    <section className={cn("flex flex-col gap-4 rounded-card border border-dorado/60 bg-dorado-200/40 p-4", className)}>
+    <section data-demo="fairtrade" className={cn("flex flex-col gap-4 rounded-card border border-dorado/60 bg-dorado-200/40 p-4", className)}>
       <h3 className="flex items-center gap-2 font-bold text-morado-700">
         <HandHeart className="size-5 text-dorado" aria-hidden />
         {t("titulo")}
