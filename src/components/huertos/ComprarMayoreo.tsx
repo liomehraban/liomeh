@@ -42,7 +42,7 @@ export function ComprarMayoreo({ p, nombres }: { p: Productor; nombres: Record<s
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <Stepper valor={qty} min={minimo} onCambio={setQty} etiqueta={t("cantidad", { unidad: v("unidades", unidad) })} menos={tp("menos")} mas={tp("mas")} />
-        <Button className="min-w-0 flex-1 basis-40" onClick={() => agregar({ nombre: nombreMayoreo(p), precio, unidad, qty, huertoId: p.id })}>
+        <Button className="min-w-fit flex-1 basis-40 whitespace-nowrap" onClick={() => agregar({ nombre: nombreMayoreo(p), precio, unidad, qty, huertoId: p.id })}>
           <ShoppingBasket aria-hidden />
           {t("agregar")}
         </Button>

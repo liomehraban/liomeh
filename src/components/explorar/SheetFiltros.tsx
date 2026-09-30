@@ -76,11 +76,11 @@ export function SheetFiltros({
             </div>
           </fieldset>
         </div>
-        <SheetFooter className="flex-row border-t border-border">
-          <Button variant="ghost" className="flex-1" onClick={() => onCambio({ ...filtros, alcaldias: [], tipos: [] })}>
+        <SheetFooter className="flex-row flex-wrap border-t border-border">
+          <Button variant="ghost" className="grow basis-0 min-w-fit whitespace-nowrap" onClick={() => onCambio({ ...filtros, alcaldias: [], tipos: [] })}>
             {t("explorar.limpiarFiltros")}
           </Button>
-          <Button className="flex-[2]" onClick={() => onAbierto(false)} disabled={!resultados}>
+          <Button className="grow-[2] basis-0 min-w-fit whitespace-nowrap" onClick={() => onAbierto(false)} disabled={!resultados}>
             {t("explorar.verN", { n: resultados })}
           </Button>
         </SheetFooter>

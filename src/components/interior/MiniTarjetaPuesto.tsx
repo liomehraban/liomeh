@@ -28,11 +28,11 @@ export function MiniTarjetaPuesto({ puesto, onLlevame, onCerrar }: { puesto: Pue
           <X className="size-5" aria-hidden />
         </button>
       </div>
-      <div className="flex gap-3">
-        <Button asChild variant="secondary" className="flex-1">
+      <div className="flex flex-wrap gap-3">
+        <Button asChild variant="secondary" className="grow basis-0 min-w-fit whitespace-nowrap">
           <Link href={`/puesto/${puesto.id}`}>{t("verPuesto")}</Link>
         </Button>
-        <Button className="flex-1" onClick={onLlevame} data-demo="llevame">
+        <Button className="grow basis-0 min-w-fit whitespace-nowrap" onClick={onLlevame} data-demo="llevame">
           <Navigation aria-hidden />
           {t("llevame")}
         </Button>

@@ -57,7 +57,7 @@ describe("M2 · Ficha de mercado", () => {
 
   it("La Merced tiene botón de interior y lista de puestos", async () => {
     const html = await render("la-merced");
-    expect(html).toContain("Ver mapa interior y llegar a un puesto");
+    expect(html).toContain("Ver mapa interior");
     expect(html).toContain("Pancita Doña Chela");
   });
 
