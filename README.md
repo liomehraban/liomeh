@@ -26,7 +26,7 @@ pnpm dev              # http://localhost:3000/es
 | `pnpm start` | Sirve el build de producción |
 | `pnpm lint` | ESLint |
 | `pnpm test` | Vitest: lógica pura de `src/lib` y del store |
-| `pnpm e2e` | Playwright: el guion de demo completo a 390×844 (levanta build + start si no hay servidor en :3100) |
+| `pnpm e2e` | Playwright a 390×844: el guion de demo (normal y con «reducir movimiento»), tarjeta que no sale a la red, recarga a mitad de paso, 404, cabeceras, migración del almacenamiento, avisos y sin conexión (levanta build + start si no hay servidor en :3100) |
 | `pnpm validate:data` | Valida `/data` contra `src/lib/schemas.ts` |
 | `pnpm icons` | Regenera los íconos de la PWA desde `scripts/generar-iconos.mjs` |
 
@@ -52,6 +52,11 @@ Todo lo transaccional persiste en `localStorage` (Zustand, clave `bara-bara-demo
   - Índice de búsqueda de Explorar: `/api/busqueda`, JSON estático generado en el build (~49 KB gzip). Se descarga en tiempo libre, no viaja en el HTML, y queda en caché para usarlo sin conexión.
   - Una versión nueva del service worker espera hasta que la persona toca «Nueva versión · Recargar».
   - Sin conexión, cualquier página no visitada cae en `/[locale]/offline` («Sin conexión: tu pasaporte y tus pedidos siguen aquí»).
+
+## Seguridad y CI
+
+- `next.config.ts` envía CSP (sin nonces: páginas estáticas), `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy` (solo ubicación), HSTS y COOP. Los únicos orígenes externos son los de CARTO (o Google Maps si se elige ese proveedor).
+- `.github/workflows/ci.yml`: `validate:data`, `lint`, `test`, `build` y `e2e` en cada push y PR.
 
 ## Deploy en Vercel
 
