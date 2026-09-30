@@ -42,3 +42,60 @@ export function formatRangoFechas(inicio: string, fin: string | null, locale = "
   }
   return `${f(inicio, { day: "numeric", month: "short" })} – ${f(fin, { day: "numeric", month: "short" })}`;
 }
+
+// ---------- Agenda (M10) ----------
+
+export type EtiquetaEvento = "en curso" | "proximo" | "por confirmar" | "siempre";
+
+/** «En curso» si hoy cae en el rango; si no, «Fecha por confirmar» cuando no está confirmada; si no, «Próximo». */
+export function etiquetaEvento(e: Pick<Evento, "inicio" | "fin" | "fecha_confirmada">, now = new Date()): EtiquetaEvento | "pasado" {
+  const est = estadoEvento(e, now);
+  if (est === "pasado" || est === "siempre" || est === "en curso") return est;
+  return e.fecha_confirmada ? "proximo" : "por confirmar";
+}
+
+export const CATEGORIAS_AGENDA = ["tradicion", "mercado", "feria", "ciudad", "experiencia"] as const;
+export type CategoriaAgenda = (typeof CATEGORIAS_AGENDA)[number];
+
+/** Chip de filtro de cada categoría de eventos.json («productores» cae en Feria de productores). */
+export function categoriaAgenda(c: Evento["categoria"]): CategoriaAgenda {
+  switch (c) {
+    case "tradición":
+      return "tradicion";
+    case "mercado":
+      return "mercado";
+    case "feria productores":
+    case "productores":
+      return "feria";
+    case "ciudad":
+      return "ciudad";
+    default:
+      return "experiencia";
+  }
+}
+
+/** Vigentes agrupados por mes «YYYY-MM»; los recurrentes van aparte («Siempre disponibles»). */
+export function agruparPorMes<T extends Pick<Evento, "inicio" | "fin">>(eventos: T[], now = new Date()) {
+  const vig = eventosVigentes(eventos, now);
+  const hoy = hoyCDMX(now);
+  const meses = new Map<string, T[]>();
+  for (const e of vig.filter((x) => x.inicio !== "recurrente")) {
+    // un evento en curso se agrupa en el mes actual
+    const clave = (e.inicio < hoy ? hoy : e.inicio).slice(0, 7);
+    meses.set(clave, [...(meses.get(clave) ?? []), e]);
+  }
+  return { meses: [...meses.entries()], siempre: vig.filter((x) => x.inicio === "recurrente") };
+}
+
+/** Celdas de un mes (lunes primero): null = hueco antes del día 1. */
+export function celdasMes(anio: number, mes0: number): (string | null)[] {
+  const primero = new Date(Date.UTC(anio, mes0, 1));
+  const dias = new Date(Date.UTC(anio, mes0 + 1, 0)).getUTCDate();
+  const offset = (primero.getUTCDay() + 6) % 7;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return [...Array(offset).fill(null), ...Array.from({ length: dias }, (_, i) => `${anio}-${pad(mes0 + 1)}-${pad(i + 1)}`)];
+}
+
+/** Eventos (no recurrentes) que ocurren en el día ISO. */
+export const eventosDelDia = <T extends Pick<Evento, "inicio" | "fin">>(eventos: T[], dia: string) =>
+  eventos.filter((e) => e.inicio !== "recurrente" && e.inicio <= dia && (e.fin ?? e.inicio) >= dia);

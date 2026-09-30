@@ -40,3 +40,22 @@ describe("horarioTexto", () => {
     expect(formatMinutos(120)).toBe("2 h");
   });
 });
+
+import { combinarRating, resenaValida } from "../../src/lib/resenas";
+import { precioRescate, toneladasRescatadas } from "../../src/lib/rescate";
+describe("reseñas propias y rescate", () => {
+  it("combina el rating del JSON con reseñas propias", () => {
+    expect(combinarRating({ promedio: 4.7, total: 468 }, [])).toEqual({ promedio: 4.7, total: 468 });
+    expect(combinarRating({ promedio: 5, total: 3 }, [{ estrellas: 1 }])).toEqual({ promedio: 4, total: 4 });
+    expect(combinarRating(null, [{ estrellas: 4 }])).toEqual({ promedio: 4, total: 1 });
+  });
+  it("reseña: mínimo 20 caracteres", () => {
+    expect(resenaValida({ estrellas: 5, texto: "Muy bueno" })).toBe(false);
+    expect(resenaValida({ estrellas: 5, texto: "La pancita estaba riquísima, volveré." })).toBe(true);
+    expect(resenaValida({ estrellas: 0, texto: "La pancita estaba riquísima, volveré." })).toBe(false);
+  });
+  it("rescate −40% y toneladas", () => {
+    expect(precioRescate(28)).toBe(17);
+    expect(toneladasRescatadas(37, 12)).toBe(37.012);
+  });
+});
