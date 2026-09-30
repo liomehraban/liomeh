@@ -36,7 +36,7 @@ export function EscribirResena({ objetivoId }: { objetivoId: string }) {
   return (
     <Dialog open={abierto} onOpenChange={setAbierto}>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm">
+        <Button variant="secondary" size="sm" className="w-full">
           <PenLine aria-hidden />
           {t("escribir")}
         </Button>

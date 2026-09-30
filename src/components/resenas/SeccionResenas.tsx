@@ -46,8 +46,8 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
         </h2>
         {rating && <Estrellas rating={rating.promedio} total={rating.total} />}
       </div>
-      <div className="flex items-center gap-2">
-        <div role="radiogroup" aria-label={t("filtro")} className="flex rounded-pill bg-morado-50 p-1">
+      <div className="flex flex-col gap-2">
+        <div role="radiogroup" aria-label={t("filtro")} className="grid grid-cols-3 rounded-pill bg-morado-50 p-1">
           {(["todas", "es", "en"] as const).map((f) => (
             <button
               key={f}
@@ -55,15 +55,13 @@ export function SeccionResenas({ objetivoId, resenas, base, titulo }: { objetivo
               role="radio"
               aria-checked={filtro === f}
               onClick={() => setFiltro(f)}
-              className={cn("h-9 rounded-pill px-3 text-[13px] font-semibold", filtro === f ? "bg-primary text-primary-foreground" : "text-morado-700")}
+              className={cn("pressable h-11 min-w-0 truncate rounded-pill px-3 text-[13px] font-semibold", filtro === f ? "bg-primary text-primary-foreground" : "text-morado-700")}
             >
               {f === "todas" ? t("todas") : f === "es" ? t("espanol") : t("english")}
             </button>
           ))}
         </div>
-        <div className="ml-auto">
-          <EscribirResena objetivoId={objetivoId} />
-        </div>
+        <EscribirResena objetivoId={objetivoId} />
       </div>
       {lista.length === 0 ? (
         <p className="rounded-2xl bg-papel p-4 text-tinta-2">{resenas.length + propias.length ? t("sinFiltro") : t("vacio")}</p>

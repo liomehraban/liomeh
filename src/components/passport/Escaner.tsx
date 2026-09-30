@@ -118,18 +118,18 @@ export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoChec
             ) : (
               <div className="rounded-card bg-cempasuchil p-4 text-center font-semibold text-morado-900">{t("yaHoy", { nombre: resultado.nombre })}</div>
             )}
-            <div className="flex gap-3">
-              <Button variant="secondary" className="flex-1" onClick={() => setFase("listo")}>
+            <div className="flex flex-col gap-2">
+              <Button variant="secondary" onClick={() => setFase("listo")}>
                 {t("otra")}
               </Button>
-              <Button asChild className="flex-1">
+              <Button asChild>
                 <Link href="/yo">{t("volverYo")}</Link>
               </Button>
             </div>
           </div>
         ) : (
           <>
-            <fieldset className="flex flex-col gap-2" disabled={fase === "escaneando"}>
+            <fieldset className="flex min-w-0 flex-col gap-2" disabled={fase === "escaneando"}>
               <legend className="mb-1 text-sm text-tinta-2">{t("demo")}</legend>
               <label className="flex h-12 items-center gap-2 rounded-pill border border-border bg-white px-4 focus-within:ring-[3px] focus-within:ring-ring/40">
                 <Search className="size-5 text-morado" aria-hidden />
