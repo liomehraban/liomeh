@@ -61,7 +61,7 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
       style={{ viewTransitionName: "tab-bar" }}
       className="relative z-30 shrink-0 border-t border-border bg-white pb-[env(safe-area-inset-bottom)] shadow-[0_-2px_12px_rgba(62,28,60,0.06)]"
     >
-      <ul className="flex h-16 items-stretch justify-around px-1">
+      <ul className="flex h-16 items-stretch justify-around px-0.5 min-[375px]:px-1">
         {TABS[perfil].map((tab) => {
           const on = activa(tab);
           const label = t(`tabs.${tab.key}`);
@@ -75,7 +75,7 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
                   className="pressable group -mt-4 flex flex-col items-center gap-0.5 rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
                   <MarchantaPersonaje activo={on} className="size-14" />
-                  <span className={cn("text-xs font-semibold text-tinta-2", on && "font-bold text-morado")}>{label}</span>
+                  <span className={cn("text-[11px] leading-none font-semibold whitespace-nowrap text-tinta-2 min-[375px]:text-xs", on && "font-bold text-morado")}>{label}</span>
                 </Link>
               </li>
             );
@@ -88,7 +88,7 @@ export function TabBar({ perfil }: { perfil: keyof typeof TABS }) {
                 onClick={vibrar}
                 aria-current={on ? "page" : undefined}
                 className={cn(
-                  "pressable flex w-full flex-col items-center justify-center gap-1 rounded-2xl text-xs font-semibold text-tinta-2 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+                  "pressable flex w-full min-w-0 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] leading-none font-semibold whitespace-nowrap min-[375px]:text-xs text-tinta-2 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
                   on && "font-bold text-morado",
                 )}
               >

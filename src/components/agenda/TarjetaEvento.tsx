@@ -64,7 +64,7 @@ export function TarjetaEvento({ e, ahora, mercadoExiste }: { e: Evento; ahora: D
         </p>
       )}
       <p className="text-sm text-tinta-2">{enIdioma(e, "descripcion", locale)}</p>
-      <div className="grid grid-cols-2 gap-2 pt-1">
+      <div className="grid grid-cols-1 gap-2 pt-1 min-[360px]:grid-cols-2">
         <button
           type="button"
           aria-pressed={hydrated && activo}
