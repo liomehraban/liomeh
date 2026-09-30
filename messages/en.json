@@ -328,7 +328,8 @@
       "pocas": "Only {n} {u} left!",
       "agotado": "Sold out for today",
       "agotadoBoton": "Sold out"
-    }
+    },
+    "actividadDia": "{n} app orders today"
   },
   "carrito": {
     "titulo": "Your cart",
@@ -971,5 +972,110 @@
     "pedidos": "My orders",
     "reintentar": "Try again",
     "resumen": "{sellos, plural, one {# stamp} other {# stamps}} · {puntos} points · {pedidos, plural, one {# order} other {# orders}}"
+  },
+  "notificaciones": {
+    "titulo": "Notifications",
+    "descripcion": "Updates on your orders, your markets and the city",
+    "sistema": "Alerts on this phone",
+    "sistemaTexto": "We'll let you know even when the app is closed",
+    "vacio": "No notifications yet.",
+    "nueva": "(new)",
+    "abrir": "Notifications",
+    "abrirConNuevas": "Notifications: {n} new",
+    "ver": "View",
+    "avisos": {
+      "pedido_preparando": {
+        "titulo": "Your order is being prepared",
+        "texto": "{folio}: the stall got your payment and is on it."
+      },
+      "pedido_listo": {
+        "titulo": "Your order is ready!",
+        "texto": "{folio}: swing by the stall to pick it up."
+      },
+      "pedido_en_ruta": {
+        "titulo": "Your order is on its way",
+        "texto": "{folio}: the courier just left the market."
+      },
+      "pedido_entregado": {
+        "titulo": "Order delivered",
+        "texto": "{folio}: enjoy! Tell us how it was with a review."
+      },
+      "eventoHoy": {
+        "titulo": "Today: {titulo}",
+        "texto": "Your reminder: the event is on now."
+      },
+      "eventoPronto": {
+        "titulo": "{titulo} in {dias, plural, one {# day} other {# days}}",
+        "texto": "We're reminding you because you saved it in the calendar."
+      },
+      "eventoNuevo": {
+        "titulo": "Coming up: {titulo}",
+        "texto": "{dias, plural, =0 {Starts today} one {Starts tomorrow} other {Starts in # days}}. Tap “Remind me” in the calendar."
+      },
+      "rescate": {
+        "titulo": "Rescue today: {producto}",
+        "texto": "At {mercado} for ${precio}/{unidad} (was ${antes}). Only a few hours left."
+      },
+      "surtido": {
+        "titulo": "Freshly stocked: {producto}",
+        "texto": "{puesto} at {mercado} just got a fresh delivery."
+      },
+      "checkin": {
+        "titulo": "Paid in cash?",
+        "texto": "Scan the stall's QR code and add 10 points to your passport."
+      },
+      "nuevoPedido": {
+        "titulo": "New order {folio}",
+        "texto": "{items} · ${total}. Check it in Orders."
+      },
+      "cobro": {
+        "titulo": "QR payment received",
+        "texto": "You got ${monto} via CoDi. It's already in today's sales."
+      },
+      "stockBajo": {
+        "titulo": "Running low: {producto}",
+        "texto": "{n} {unidad} left. Update your catalog if you run out."
+      },
+      "mayoreo": {
+        "titulo": "New wholesale order",
+        "texto": "{cliente} wants {cantidad} of {producto}."
+      },
+      "loteVisto": {
+        "titulo": "Your harvest is getting attention",
+        "texto": "{n} stallholders viewed your {producto} lot today."
+      },
+      "impactoCheckins": {
+        "titulo": "Cash check-ins today: {n}",
+        "texto": "Cash sales now on record across the markets."
+      },
+      "impactoRescate": {
+        "titulo": "{kg} kg of food rescued today",
+        "texto": "Added to SEDEMA's indicator."
+      },
+      "impactoTransacciones": {
+        "titulo": "{n} transactions today",
+        "texto": "Market activity on the app as of this hour."
+      },
+      "bienvenida_consumidor": {
+        "titulo": "Welcome to Bara Bara!",
+        "texto": "Your orders, “Rescue today” deals and market events will show up here."
+      },
+      "bienvenida_locatario": {
+        "titulo": "Your stall is online",
+        "texto": "We'll alert you about new orders, payments and items running low."
+      },
+      "bienvenida_productor": {
+        "titulo": "Your farm is online",
+        "texto": "We'll alert you about wholesale orders and who's viewing your harvest."
+      },
+      "bienvenida_gobierno": {
+        "titulo": "Live impact dashboard",
+        "texto": "Daily updates for SECTUR, SEDEMA and SE show up here."
+      },
+      "resumenDia": {
+        "titulo": "Good morning: the market is open",
+        "texto": "Check your app orders and stock before the rush."
+      }
+    }
   }
 }

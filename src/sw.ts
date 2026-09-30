@@ -35,3 +35,15 @@ const serwist = new Serwist({
 });
 
 serwist.addEventListeners();
+
+// Avisos del sistema (notificaciones simuladas): al tocarlos, abre o enfoca la app en la pantalla del aviso.
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = (event.notification.data as { url?: string } | null)?.url ?? "/";
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((ventanas) => {
+      const abierta = ventanas.find((v) => "focus" in v) as WindowClient | undefined;
+      return abierta ? abierta.navigate(url).then((v) => v?.focus()) : self.clients.openWindow(url);
+    }),
+  );
+});

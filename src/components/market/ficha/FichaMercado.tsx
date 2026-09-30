@@ -60,7 +60,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
         <PhotoPlaceholder categoria={cat} className="aspect-auto h-56 rounded-none" iconClassName="size-16" />
         <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
         <BotonVolver className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3" />
-        <BotonCompartir titulo={m.nombre_display} texto={lema} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-16" />
+        <BotonCompartir titulo={m.nombre_display} texto={lema} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-[6.75rem]" />
       </header>
 
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">

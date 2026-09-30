@@ -64,14 +64,25 @@ export function stockActual(puestoId: string, producto: { n: string; p: number; 
   return { inicial, disponible, estado };
 }
 
-/** Actividad del puesto hoy (pedidos por la app y minutos desde el último), para que se sienta vivo. */
+/**
+ * Actividad del puesto hoy (pedidos por la app y minutos desde el último), para que se sienta vivo.
+ * Después del cierre ya no hay «último pedido»: solo el total del día.
+ */
 export function actividadPuesto(puestoId: string, now = new Date()): { pedidosHoy: number; hace: number | null } {
   const dia = hoyCDMX(now);
   const r = azar(hashTexto(`actividad|${puestoId}|${dia}`));
   const { minutos } = ahoraCDMX(now);
   const pedidosHoy = Math.round(r.entero(8, 45) * avanceDelDia(minutos));
-  if (pedidosHoy === 0) return { pedidosHoy: 0, hace: null };
+  if (pedidosHoy === 0 || minutos >= CIERRE) return { pedidosHoy, hace: null };
   // El último pedido fue hace 1–25 min (cambia cada 5 min).
   const r2 = azar(hashTexto(`${puestoId}|${dia}|${Math.floor(minutos / 5)}`));
   return { pedidosHoy, hace: Math.min(minutos - APERTURA, r2.entero(1, 25)) };
+}
+
+/** «plato» → «platos», «vaso 1/2 L» → «vasos 1/2 L»; kg, L y g no cambian. */
+export function unidadPlural(u: string, n: number): string {
+  if (n === 1 || /^(kg|l|g|ml)$/i.test(u)) return u;
+  const [primera, ...resto] = u.split(" ");
+  const plural = /[aeiouáéíóú]$/i.test(primera) ? `${primera}s` : `${primera}es`;
+  return [plural.replace(/ú(s)$/, "ús"), ...resto].join(" ");
 }

@@ -142,7 +142,7 @@ export function Explorador({
 
       {/* Buscador + chips */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex flex-col gap-2 bg-gradient-to-b from-crema/90 via-crema/60 to-transparent px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 [&>*]:pointer-events-auto">
-        <div className="mr-14">
+        <div className="mr-28">
           <BarraBusqueda docs={docs} onElegir={onBuscar} />
         </div>
         <ChipsFiltro activos={filtros.chips} onToggle={toggleChip} onFiltros={() => setSheetFiltros(true)} nFiltros={filtros.alcaldias.length + filtros.tipos.length} />

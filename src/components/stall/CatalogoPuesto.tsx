@@ -12,7 +12,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useAhora } from "@/hooks/useAhora";
 import { huertoDeProducto } from "@/lib/carrito";
 import { hoyCDMX } from "@/lib/eventos";
-import { claveVenta, stockActual, type Stock } from "@/lib/inventario";
+import { claveVenta, stockActual, unidadPlural, type Stock } from "@/lib/inventario";
 import type { Puesto } from "@/lib/schemas";
 import { catalogoEfectivo } from "@/lib/locatario";
 import { cn } from "@/lib/utils";
@@ -88,10 +88,10 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
                       {stock.estado === "agotado"
                         ? t("stock.agotado")
                         : stock.estado === "pocas"
-                          ? t("stock.pocas", { n: stock.disponible, u: prod.u })
+                          ? t("stock.pocas", { n: stock.disponible, u: unidadPlural(prod.u, stock.disponible) })
                           : stock.estado === "surtido"
-                            ? t("stock.surtido", { n: stock.disponible, u: prod.u })
-                            : t("stock.ok", { n: stock.disponible, u: prod.u })}
+                            ? t("stock.surtido", { n: stock.disponible, u: unidadPlural(prod.u, stock.disponible) })
+                            : t("stock.ok", { n: stock.disponible, u: unidadPlural(prod.u, stock.disponible) })}
                     </span>
                   )}
                 </div>

@@ -59,7 +59,7 @@ export function ChatAsistente({ preguntas }: { preguntas: PreguntaRapida[] }) {
 
   return (
     <div className="flex h-full flex-col bg-papel">
-      <header className="relative flex items-center gap-3 bg-morado px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pr-16 pb-3 text-crema">
+      <header className="relative flex items-center gap-3 bg-morado px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pr-28 pb-3 text-crema">
         <div className="papel-picado absolute inset-x-0 top-0 h-5 opacity-50" aria-hidden />
         <span className="relative grid size-14 shrink-0 place-items-center rounded-full bg-dorado ring-4 ring-crema/40">
           <MarchantaAvatar className="size-12" />

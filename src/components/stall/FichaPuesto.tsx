@@ -39,7 +39,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
         <PhotoPlaceholder categoria={categoriaGiro(p.giro)} className="aspect-auto h-48 rounded-none" iconClassName="size-14" />
         <div className="papel-picado absolute inset-x-0 top-0 h-10" aria-hidden />
         <BotonVolver fallback={`/mercado/${mercado.id}`} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] left-3" />
-        <BotonCompartir titulo={p.nombre} texto={mercado.nombre} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-16" />
+        <BotonCompartir titulo={p.nombre} texto={mercado.nombre} className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-[6.75rem]" />
       </header>
 
       <div className="relative -mt-8 flex flex-col gap-6 rounded-t-card bg-background px-5 pt-6">

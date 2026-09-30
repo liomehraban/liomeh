@@ -27,6 +27,7 @@ import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Chec
 import { hoyCDMX } from "@/lib/eventos";
 import { claveVenta } from "@/lib/inventario";
 import type { PuestoResumen } from "@/data/comercio";
+import type { Aviso, EfectoAviso } from "@/lib/notificaciones";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -74,6 +75,12 @@ type DatosDemo = {
   };
   productor: { lotes: Lote[]; pedidos: PedidoMayoreo[] };
   reservasVisita: ReservaVisita[];
+  /** Bandeja de notificaciones simuladas (más reciente primero, máx. 40). */
+  avisos: Aviso[];
+  /** Ids de avisos ya entregados (no se repiten). */
+  avisosEntregados: string[];
+  /** La persona activó los avisos del sistema (Notification API). */
+  avisosSistema: boolean;
   /** Modo presentación: paso actual (−1 = sin empezar). */
   presentacion: { activa: boolean; paso: number };
 };
@@ -115,6 +122,12 @@ type Acciones = {
   /** Restablece todo desde los JSON. Conserva el idioma. */
   resetDemo: () => void;
   setPresentacion: (p: Partial<DatosDemo["presentacion"]>) => void;
+  /** Entrega un aviso (y aplica su efecto: pedido nuevo, cobro…). */
+  recibirAviso: (aviso: Aviso, efecto?: EfectoAviso) => void;
+  /** Agrega avisos iniciales que aún no estén en la bandeja. */
+  sembrarAvisos: (avisos: Aviso[]) => void;
+  marcarAvisosLeidos: () => void;
+  setAvisosSistema: (v: boolean) => void;
 };
 
 export type AppState = DatosDemo & Acciones;
@@ -139,6 +152,9 @@ export function estadoInicial(): DatosDemo {
     cupones: [],
     rescates: [],
     presentacion: { activa: false, paso: -1 },
+    avisos: [],
+    avisosEntregados: [],
+    avisosSistema: false,
     rutasIniciadas: {},
     reservasTour: [],
     asistente: { fecha: "", usados: 0 },
@@ -316,6 +332,33 @@ export const useAppStore = create<AppState>()(
       },
       resetDemo: () => set((s) => ({ ...estadoInicial(), locale: s.locale })),
       setPresentacion: (p) => set((s) => ({ presentacion: { ...s.presentacion, ...p } })),
+      recibirAviso: (aviso, efecto) =>
+        set((s) => {
+          if (s.avisosEntregados.includes(aviso.id)) return s;
+          const cambios: Partial<AppState> = {
+            avisos: [aviso, ...s.avisos].slice(0, 40),
+            avisosEntregados: [aviso.id, ...s.avisosEntregados].slice(0, 300),
+          };
+          if (efecto?.tipo === "pedidoLocatario") cambios.locatario = { ...s.locatario, pedidos: [efecto.pedido, ...s.locatario.pedidos] };
+          if (efecto?.tipo === "cobro")
+            cambios.locatario = {
+              ...s.locatario,
+              cobros: [{ id: `COB-${aviso.id.slice(-4)}`, monto: efecto.monto, metodo: "qr", fecha: aviso.fecha }, ...s.locatario.cobros],
+            };
+          if (efecto?.tipo === "pedidoMayoreo") cambios.productor = { ...s.productor, pedidos: [efecto.pedido, ...s.productor.pedidos] };
+          return cambios;
+        }),
+      sembrarAvisos: (avisos) =>
+        set((s) => {
+          const nuevos = avisos.filter((a) => !s.avisosEntregados.includes(a.id));
+          if (!nuevos.length) return s;
+          return {
+            avisos: [...s.avisos, ...nuevos].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 40),
+            avisosEntregados: [...nuevos.map((a) => a.id), ...s.avisosEntregados].slice(0, 300),
+          };
+        }),
+      marcarAvisosLeidos: () => set((s) => ({ avisos: s.avisos.map((a) => (a.leida ? a : { ...a, leida: true })) })),
+      setAvisosSistema: (v) => set({ avisosSistema: v }),
     }),
     {
       name: "pasele-demo",
@@ -325,7 +368,7 @@ export const useAppStore = create<AppState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, ...datos } = s;
+        const { setPerfil, setLocale, setPlan, marcarOnboarding, agregarAlCarrito, cambiarCantidad, quitarGrupo, registrarPedido, reservarVisita, hacerCheckin, canjear, escribirResena, rescatar, toggleRecordatorio, iniciarRuta, reservarTour, preguntarAsistente, cobrar, avanzarPedidoLocatario, editarProducto, agregarProductoLocatario, setPlanLocatario, publicarLote, cambiarEstadoMayoreo, resetDemo, setPresentacion, recibirAviso, sembrarAvisos, marcarAvisosLeidos, setAvisosSistema, ...datos } = s;
         return datos;
       },
     },

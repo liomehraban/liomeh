@@ -17,7 +17,7 @@ export function ActividadEnVivo({ puestoId }: { puestoId: string }) {
         <span className="absolute inline-flex size-full animate-ping rounded-full bg-nopal opacity-60 motion-reduce:animate-none" />
         <span className="relative inline-flex size-2.5 rounded-full bg-nopal" />
       </span>
-      {a.pedidosHoy === 0 || a.hace === null ? t("actividadVacia") : t("actividad", { n: a.pedidosHoy, min: a.hace })}
+      {a.pedidosHoy === 0 ? t("actividadVacia") : a.hace === null ? t("actividadDia", { n: a.pedidosHoy }) : t("actividad", { n: a.pedidosHoy, min: a.hace })}
     </p>
   );
 }

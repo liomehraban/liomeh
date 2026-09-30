@@ -57,3 +57,21 @@ describe("inventario vivo", () => {
     expect(claveVenta("2026-10-01", "p", "Sope")).toBe("2026-10-01|p::Sope");
   });
 });
+
+describe("unidades en plural", () => {
+  it("pluraliza la primera palabra y deja kg/L", async () => {
+    const { unidadPlural } = await import("@/lib/inventario");
+    expect(unidadPlural("plato", 20)).toBe("platos");
+    expect(unidadPlural("plato", 1)).toBe("plato");
+    expect(unidadPlural("kg", 7)).toBe("kg");
+    expect(unidadPlural("vaso 1/2 L", 3)).toBe("vasos 1/2 L");
+    expect(unidadPlural("menú", 2)).toBe("menús");
+    expect(unidadPlural("par", 4)).toBe("pares");
+  });
+  it("después del cierre no hay «último pedido»", async () => {
+    const { actividadPuesto } = await import("@/lib/inventario");
+    const r = actividadPuesto("x--1", new Date("2026-10-01T21:00:00-06:00"));
+    expect(r.pedidosHoy).toBeGreaterThan(0);
+    expect(r.hace).toBeNull();
+  });
+});
