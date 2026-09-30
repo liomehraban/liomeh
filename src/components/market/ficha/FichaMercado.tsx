@@ -14,7 +14,8 @@ import { formatCompacto, formatMXN } from "@/lib/money";
 import { ratingPromedio } from "@/lib/resenas";
 import type { Evento, Mercado, Puesto, Resena, Ruta } from "@/lib/schemas";
 import type messages from "../../../../messages/es.json";
-import { ListaResenas } from "@/components/market/ListaResenas";
+import { RatingCombinado } from "@/components/resenas/RatingCombinado";
+import { SeccionResenas } from "@/components/resenas/SeccionResenas";
 import { BotonCompartir } from "./BotonCompartir";
 import { BotonVolver } from "./BotonVolver";
 import { EventosRelacionados } from "./EventosRelacionados";
@@ -82,7 +83,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
               </li>
             ))}
           </ul>
-          {rating && <Estrellas rating={rating.promedio} total={rating.total} />}
+          <RatingCombinado objetivoId={m.id} base={rating} />
         </div>
 
         {/* Info */}
@@ -266,9 +267,7 @@ export function FichaMercado({ mercado: m, puestos, resenas, eventos, rutas }: F
           </section>
         )}
 
-        <Seccion titulo={t("mercado.resenas")} extra={rating && <Estrellas rating={rating.promedio} total={rating.total} />}>
-          <ListaResenas resenas={resenas} vacio={t("mercado.sinResenas")} />
-        </Seccion>
+        <SeccionResenas objetivoId={m.id} resenas={resenas} base={rating} titulo={t("mercado.resenas")} />
 
         <EventosRelacionados eventos={eventos} />
 

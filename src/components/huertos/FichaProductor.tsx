@@ -1,8 +1,8 @@
 import { CalendarDays, Leaf, MapPin, Package, Truck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { Estrellas } from "@/components/market/Estrellas";
-import { ListaResenas } from "@/components/market/ListaResenas";
+import { RatingCombinado } from "@/components/resenas/RatingCombinado";
+import { SeccionResenas } from "@/components/resenas/SeccionResenas";
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { BotonCompartir } from "@/components/market/ficha/BotonCompartir";
 import { BotonVolver } from "@/components/market/ficha/BotonVolver";
@@ -41,7 +41,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
             {p.pueblo}, {p.alcaldia} · {t("huertos.desdeMerced", { km })}
           </p>
           {zona && <p className="text-sm text-tinta-2">{t("productor.zona", { zona: zona.nombre })}</p>}
-          <Estrellas rating={p.rating} total={p.num_resenas} />
+          <RatingCombinado objetivoId={p.id} base={{ promedio: p.rating, total: p.num_resenas }} />
         </div>
 
         <div className="flex flex-col gap-3 rounded-card border border-border bg-white p-4 text-sm">
@@ -97,9 +97,7 @@ export function FichaProductor({ productor: p, zona, resenas, nombres }: FichaPr
           {p.visitas_huerto ? <ReservarVisita p={p} /> : <p className="rounded-2xl bg-papel p-4 text-tinta-2">{t("productor.sinVisitas")}</p>}
         </Seccion>
 
-        <Seccion titulo={t("productor.resenas")}>
-          <ListaResenas resenas={resenas} vacio={t("productor.sinResenas")} />
-        </Seccion>
+        <SeccionResenas objetivoId={p.id} resenas={resenas} base={{ promedio: p.rating, total: p.num_resenas }} titulo={t("productor.resenas")} />
 
         <p className="border-t border-border pt-4 text-[13px] text-tinta-2">{t("huertos.simulado")}</p>
       </div>

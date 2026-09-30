@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { Estrellas } from "@/components/market/Estrellas";
-import { ListaResenas } from "@/components/market/ListaResenas";
+import { RatingCombinado } from "@/components/resenas/RatingCombinado";
+import { SeccionResenas } from "@/components/resenas/SeccionResenas";
 import { PhotoPlaceholder } from "@/components/market/PhotoPlaceholder";
 import { BotonCompartir } from "@/components/market/ficha/BotonCompartir";
 import { BotonVolver } from "@/components/market/ficha/BotonVolver";
@@ -53,7 +53,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
             {p.ubicacion_texto}
           </p>
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <Estrellas rating={p.rating} total={p.num_resenas} />
+            <RatingCombinado objetivoId={p.id} base={{ promedio: p.rating, total: p.num_resenas }} />
             {p.sello_comercio_justo && <SelloComercioJusto />}
             <SoloQA>
               <span className="rounded-pill border border-dashed border-gris px-2.5 py-0.5 text-xs font-semibold text-tinta-2">
@@ -139,9 +139,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
           </Button>
         </section>
 
-        <Seccion titulo={t("puesto.resenas")}>
-          <ListaResenas resenas={resenas} vacio={t("puesto.sinResenas")} />
-        </Seccion>
+        <SeccionResenas objetivoId={p.id} resenas={resenas} base={{ promedio: p.rating, total: p.num_resenas }} titulo={t("puesto.resenas")} />
       </div>
     </article>
   );

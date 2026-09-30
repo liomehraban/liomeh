@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { EstadoHorario } from "@/components/market/EstadoHorario";
-import { Estrellas } from "@/components/market/Estrellas";
+import { RatingCombinado } from "@/components/resenas/RatingCombinado";
 import { comoLlegarUrl, formatDistance } from "@/lib/geo";
 import { COLOR_GIRO } from "@/lib/giros";
 import type { MercadoMapa } from "./tipos";
@@ -31,7 +31,8 @@ export function FichaRapida({ m, distancia, desdeZocalo }: { m: MercadoMapa; dis
           {formatDistance(distancia, locale)}
           {desdeZocalo && ` ${t("desdeZocalo")}`}
         </span>
-        {m.rating ? <Estrellas rating={m.rating.promedio} total={m.rating.total} /> : <span className="text-sm text-tinta-2">{t("sinResenas")}</span>}
+        <RatingCombinado objetivoId={m.id} base={m.rating} />
+        {!m.rating && <span className="text-sm text-tinta-2">{t("sinResenas")}</span>}
       </div>
       <p className="text-sm text-tinta-2">{m.alcaldia}</p>
       <div className="flex gap-3">
