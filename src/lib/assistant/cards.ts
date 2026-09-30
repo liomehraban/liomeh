@@ -1,4 +1,5 @@
 import { formatRangoFechas } from "../eventos";
+import { enIdioma } from "../idioma";
 import type { Card, DatosAsistente, Locale, TarjetaResuelta } from "./types";
 
 /** true si la tarjeta apunta a un registro que existe en los datos. */
@@ -32,10 +33,10 @@ export function resolverTarjetas(cards: Card[], d: DatosAsistente, locale: Local
       if (p) out.push({ ...c, titulo: p.nombre, subtitulo: `${p.producto_principal} · ${p.pueblo}, ${p.alcaldia}`, lat: p.lat, lng: p.lng });
     } else if (c.tipo === "evento") {
       const e = d.eventos.find((x) => x.id === c.id);
-      if (e) out.push({ ...c, titulo: e.titulo, subtitulo: `${e.inicio === "recurrente" ? "" : `${formatRangoFechas(e.inicio, e.fin, locale)} · `}${e.lugar}`, lat: e.lat, lng: e.lng });
+      if (e) out.push({ ...c, titulo: enIdioma(e, "titulo", locale), subtitulo: `${e.inicio === "recurrente" ? "" : `${formatRangoFechas(e.inicio, e.fin, locale)} · `}${e.lugar}`, lat: e.lat, lng: e.lng });
     } else {
       const r = d.rutas.find((x) => x.id === c.id);
-      if (r) out.push({ ...c, titulo: r.titulo, subtitulo: `${r.duracion_h} h · ${r.km} km` });
+      if (r) out.push({ ...c, titulo: enIdioma(r, "titulo", locale), subtitulo: `${r.duracion_h} h · ${r.km} km` });
     }
   }
   return out;
