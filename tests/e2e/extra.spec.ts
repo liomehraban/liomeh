@@ -83,3 +83,32 @@ test("sin conexión, una página no visitada cae en la pantalla offline", async 
   expect(await page.evaluate((clave) => !!localStorage.getItem(clave), CLAVE)).toBe(true);
   await context.setOffline(false);
 });
+
+test("compra en un puesto: agregar, ajustar cantidad, ir a pagar y recibir el pedido", async ({ page }) => {
+  await entrarComo(page, "consumidor");
+  await page.goto("/es/puesto/77-san-juan-ernesto-pugibet--1");
+  const primero = page.locator("li[data-demo^='producto:']").first();
+  // Un solo control: antes de agregar no hay cantidad suelta que confunda.
+  await expect(primero.locator("[data-demo='mas']")).toHaveCount(0);
+  await primero.locator("[data-demo='agregar']").click();
+  await expect(primero.getByText("En tu pedido")).toBeVisible();
+  await primero.locator("[data-demo='mas']").click();
+  await expect(primero.locator("output")).toHaveText("2");
+
+  const barra = page.locator("[data-demo='ir-a-pagar']");
+  await expect(barra).toContainText("Ir a pagar");
+  await expect(barra).toContainText("2 productos en tu pedido");
+  await barra.click();
+  await expect(page).toHaveURL(/\/es\/checkout\?puesto=77-san-juan-ernesto-pugibet--1/);
+
+  await page.getByRole("tab", { name: /Tarjeta/ }).click();
+  await page.getByLabel("Número de tarjeta").fill("4242 4242 4242 4242");
+  await page.getByLabel(/Vigencia/).fill("12/28");
+  await page.getByLabel("CVV").fill("123");
+  await page.getByLabel(/Nombre/).fill("Prueba Demo");
+  await page.getByRole("button", { name: /^Pagar/ }).click();
+  await expect(page).toHaveURL(/\/es\/pedido\//, { timeout: 20_000 });
+  // El carrito de ese puesto queda vacío.
+  const carrito = await page.evaluate((clave) => JSON.parse(localStorage.getItem(clave)!).state.carrito as unknown[], CLAVE);
+  expect(carrito).toEqual([]);
+});

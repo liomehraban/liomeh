@@ -112,10 +112,10 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
               </Link>
             </Button>
           ) : mercado.lat !== undefined && mercado.lng !== undefined ? (
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" className="h-auto min-h-11 py-2 whitespace-normal">
               <a href={comoLlegarUrl({ lat: mercado.lat, lng: mercado.lng })} target="_blank" rel="noopener noreferrer">
                 <Navigation aria-hidden />
-                {t("puesto.comoLlegar", { mercado: mercado.nombre })}
+                <span className="text-center">{t("puesto.comoLlegar", { mercado: mercado.nombre })}</span>
               </a>
             </Button>
           ) : null}

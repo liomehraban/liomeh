@@ -50,7 +50,9 @@
       "cuenta": "Account",
       "cosecha": "Harvest",
       "huerto": "My farm"
-    }
+    },
+    "irAPagar": "Go to checkout",
+    "productosPedido": "{n, plural, one {# item in your order} other {# items in your order}}"
   },
   "entrada": {
     "saltarSplash": "Tap to enter",
@@ -332,7 +334,9 @@
     "actividadDia": "{n} app orders today",
     "nuevo": "New on Bara Bara",
     "sinStock": "No more {producto} left today",
-    "ubicacion": "Aisle {pasillo} · Stall {local}"
+    "ubicacion": "Aisle {pasillo} · Stall {local}",
+    "enTuPedido": "In your order",
+    "quitarDelPedido": "Remove {producto} from order"
   },
   "carrito": {
     "titulo": "Your cart",

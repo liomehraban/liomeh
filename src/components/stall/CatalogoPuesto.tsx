@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { ShoppingBasket } from "lucide-react";
+import { Minus, Plus, ShoppingBasket, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Stepper } from "@/components/ui/stepper";
 import { useAgregarAlCarrito } from "@/components/cart/useAgregarAlCarrito";
 import { useVocabulario } from "@/hooks/useVocabulario";
 import { useRouter } from "@/i18n/navigation";
@@ -30,14 +28,14 @@ const ESTILO_STOCK: Record<Stock["estado"], string> = {
 };
 
 /**
- * Catálogo con inventario vivo, stepper de cantidad (tope = lo disponible) y «Agregar».
- * Un pedido por puesto: si hay otro puesto en el carrito, pregunta.
+ * Catálogo con inventario vivo. Cada producto tiene un solo control: «Agregar» lo pone en el pedido y
+ * se convierte en − cantidad + sobre el carrito (tope = lo disponible). Así nunca hay una cantidad
+ * elegida que no esté en el carrito. Un pedido por puesto: si hay otro puesto en el carrito, pregunta.
  */
 export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: Puesto; nombresPuestos: Record<string, string>; vendedor?: PuestoResumen }) {
   const t = useTranslations("puesto");
   const voc = useVocabulario();
   const router = useRouter();
-  const [qty, setQty] = useState<Record<string, number>>({});
   const hydrated = useHydrated();
   const ahora = useAhora();
   // Si es el puesto de la demo, refleja lo que el locatario editó (precio, disponibilidad, productos nuevos).
@@ -46,12 +44,12 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
   const ediciones = useAppStore((s) => s.locatario.ediciones);
   const vendidos = useAppStore((s) => s.vendidos);
   const carrito = useAppStore((s) => s.carrito);
+  const cambiarCantidad = useAppStore((s) => s.cambiarCantidad);
   const productos = esDemo && hydrated ? catalogoEfectivo(puesto.productos, extra, ediciones) : puesto.productos.map((x) => ({ ...x, disponible: true }));
   const { agregar, dialogo } = useAgregarAlCarrito(
     puesto.id,
     nombresPuestos,
     (item) => {
-      setQty((q) => ({ ...q, [item.nombre]: 1 }));
       toast.success(t("agregado", { qty: item.qty, producto: item.nombre }), {
         action: { label: t("verCarrito"), onClick: () => router.push("/carrito") },
       });
@@ -77,8 +75,9 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
         {productos.map((prod) => {
           const stock = stockDe(prod);
           const agotado = stock ? stock.disponible === 0 : !prod.disponible;
-          const tope = stock ? Math.max(1, stock.disponible) : 99;
-          const n = Math.min(qty[prod.n] ?? 1, tope);
+          const n = hydrated ? enCarrito(prod.n) : 0;
+          // El stock ya descuenta lo que está en el carrito: se puede sumar mientras quede disponible.
+          const puedeSumar = stock ? stock.disponible > 0 : n < 99;
           return (
             <li key={prod.n} data-demo={`producto:${prod.n}`} className={cn("flex flex-col gap-3 p-4", agotado && "bg-papel")}>
               <div className="flex items-start justify-between gap-3">
@@ -99,25 +98,45 @@ export function CatalogoPuesto({ puesto, nombresPuestos, vendedor }: { puesto: P
                 </div>
                 <Precio monto={prod.p} className="text-right" />
               </div>
-              <div className="flex items-center gap-3">
-                <Stepper
-                  valor={n}
-                  max={tope}
-                  onCambio={(v) => setQty((q) => ({ ...q, [prod.n]: v }))}
-                  etiqueta={t("cantidad", { producto: prod.n })}
-                  menos={t("menos")}
-                  mas={t("mas")}
-                />
-                <Button
-                  size="sm"
-                  className="ml-auto"
-                  data-demo="agregar"
-                  disabled={agotado}
-                  onClick={() => agregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: n, huertoId: huertoDeProducto(prod.n, puesto.origen) })}
-                >
-                  <ShoppingBasket aria-hidden />
-                  {agotado ? t("stock.agotadoBoton") : t("agregar")}
-                </Button>
+              <div className="flex min-h-11 items-center justify-end gap-3">
+                {n > 0 ? (
+                  <>
+                    <span className="mr-auto text-[13px] font-semibold text-nopal-700">{t("enTuPedido")}</span>
+                    <div className="flex items-center rounded-pill border border-morado/40 bg-morado/5" role="group" aria-label={t("cantidad", { producto: prod.n })}>
+                      <button
+                        type="button"
+                        aria-label={n > 1 ? t("menos") : t("quitarDelPedido", { producto: prod.n })}
+                        onClick={() => cambiarCantidad(puesto.id, prod.n, n - 1)}
+                        className="grid size-11 place-items-center rounded-pill text-morado"
+                      >
+                        {n > 1 ? <Minus className="size-4" aria-hidden /> : <Trash2 className="size-4" aria-hidden />}
+                      </button>
+                      <output className="w-8 text-center font-bold" aria-live="polite">
+                        {n}
+                      </output>
+                      <button
+                        type="button"
+                        data-demo="mas"
+                        aria-label={t("mas")}
+                        disabled={!puedeSumar}
+                        onClick={() => cambiarCantidad(puesto.id, prod.n, n + 1)}
+                        className="grid size-11 place-items-center rounded-pill text-morado disabled:text-gris/50"
+                      >
+                        <Plus className="size-4" aria-hidden />
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <Button
+                    size="sm"
+                    data-demo="agregar"
+                    disabled={agotado}
+                    onClick={() => agregar({ nombre: prod.n, precio: prod.p, unidad: prod.u, qty: 1, huertoId: huertoDeProducto(prod.n, puesto.origen) })}
+                  >
+                    <ShoppingBasket aria-hidden />
+                    {agotado ? t("stock.agotadoBoton") : t("agregar")}
+                  </Button>
+                )}
               </div>
             </li>
           );
