@@ -22,6 +22,7 @@ import { FichaRapida } from "./FichaRapida";
 import { Plegable } from "./Plegable";
 import { SheetFiltros } from "./SheetFiltros";
 import type { MercadoMapa } from "./tipos";
+import { PHONE_ROOT_ID } from "@/hooks/usePhoneContainer";
 
 type Origen = LatLng & { fuente: "gps" | "zocalo" };
 
@@ -52,6 +53,15 @@ export function Explorador({
   const visibles = useMemo(() => filtrarMercados(mercados, filtros, ahora ?? undefined), [mercados, filtros, ahora]);
   const porId = useMemo(() => new Map(mercados.map((m) => [m.id, m])), [mercados]);
   const actual = seleccionado ? porId.get(seleccionado) : undefined;
+  const altoInferior = actual ? 262 : plegables.cerca ? 196 : 96;
+  // El carrito flotante se acomoda arriba de «Mi ubicación» (48 px + márgenes).
+  useEffect(() => {
+    const raiz = document.getElementById(PHONE_ROOT_ID);
+    raiz?.style.setProperty("--fab-extra", `${altoInferior + 56}px`);
+    return () => {
+      raiz?.style.removeProperty("--fab-extra");
+    };
+  }, [altoInferior]);
 
   const layers = useMemo<CapaMapa[]>(() => {
     const punto = (m: MercadoMapa) => ({ id: m.id, lat: m.lat, lng: m.lng, color: HEX_GIRO[m.categoria], etiqueta: m.nombre });
@@ -157,7 +167,7 @@ export function Explorador({
         onClick={() => ubicar()}
         aria-label={ubicando ? t("explorar.ubicando") : t("explorar.miUbicacion")}
         className="absolute right-4 bottom-[calc(var(--alto-inferior,0px)+1rem)] z-20 grid size-12 place-items-center rounded-full bg-white text-morado shadow-lg transition-[bottom] focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
-        style={{ ["--alto-inferior" as string]: actual ? "262px" : plegables.cerca ? "196px" : "96px" }}
+        style={{ ["--alto-inferior" as string]: `${altoInferior}px` }}
       >
         {ubicando ? <Loader2 className="size-5 animate-spin" aria-hidden /> : <LocateFixed className="size-5" aria-hidden />}
       </button>

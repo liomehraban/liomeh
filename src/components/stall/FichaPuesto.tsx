@@ -1,4 +1,4 @@
-import { BadgeCheck, Clock, CreditCard, MapPin, Navigation, QrCode, Sprout } from "lucide-react";
+import { BadgeCheck, Clock, CreditCard, MapPin, Navigation, QrCode, Sparkles, Sprout } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
@@ -34,6 +34,9 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
   const t = useTranslations();
   const v = useVocabulario();
   const productorDe = (id: string | null) => (id ? productores.find((x) => x.id === id) : undefined);
+  // Puestos del catálogo simulado: «Pasillo A · Local A-087» se muestra en el idioma de la app.
+  const partes = /^Pasillo (\S+) · Local (\S+)$/.exec(p.ubicacion_texto);
+  const ubicacion = p.simulado && partes ? t("puesto.ubicacion", { pasillo: partes[1], local: partes[2] }) : p.ubicacion_texto;
 
   return (
     <article className="flex flex-col pb-10">
@@ -56,11 +59,17 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
           </Link>
           <p className="flex items-center gap-1.5 text-sm text-tinta-2">
             <MapPin className="size-4" aria-hidden />
-            {p.ubicacion_texto}
+            {ubicacion}
           </p>
           <ActividadEnVivo puestoId={p.id} />
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <RatingCombinado objetivoId={p.id} base={{ promedio: p.rating, total: p.num_resenas }} />
+            <RatingCombinado objetivoId={p.id} base={p.num_resenas ? { promedio: p.rating, total: p.num_resenas } : null} />
+            {!p.num_resenas && (
+              <span className="flex items-center gap-1 rounded-pill bg-dorado-200 px-2.5 py-0.5 text-[12px] font-bold text-morado-900">
+                <Sparkles className="size-3.5" aria-hidden />
+                {t("puesto.nuevo")}
+              </span>
+            )}
             {p.sello_comercio_justo && <SelloComercioJusto />}
             <SoloQA>
               <span className="rounded-pill border border-dashed border-gris px-2.5 py-0.5 text-xs font-semibold text-tinta-2">
@@ -151,7 +160,7 @@ export function FichaPuesto({ puesto: p, mercado, resenas, productores, nombresP
         <section className="flex flex-col gap-3 rounded-card bg-morado-50 p-4">
           <p className="text-sm text-tinta-2">{t("puesto.checkinTexto")}</p>
           <Button asChild variant="premium">
-            <Link href={`/yo/escanear?puesto=${p.id}`}>
+            <Link href={`/yo/escanear?puesto=${p.id}&n=${encodeURIComponent(p.nombre)}&mn=${encodeURIComponent(mercado.nombre)}`}>
               <QrCode aria-hidden />
               {t("puesto.checkin")}
             </Link>

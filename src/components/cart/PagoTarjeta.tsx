@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, useEffect, useRef } from "react";
 import { CreditCard, Loader2, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { formatearTarjeta, luhn, vigenciaValida } from "@/lib/checkout";
+import { formatearTarjeta, esTarjetaPrueba, luhn, vigenciaValida } from "@/lib/checkout";
 
 type Errores = Partial<Record<"numero" | "nombre" | "vigencia" | "cvv", string>>;
 
@@ -22,11 +22,15 @@ export function PagoTarjeta({ totalTexto, onPagado }: { totalTexto: string; onPa
   const [cvv, setCvv] = useState("");
   const [errores, setErrores] = useState<Errores>({});
   const [procesando, setProcesando] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  // Si la persona sale o cambia a QR mientras «procesa», el pago no se registra.
+  useEffect(() => () => clearTimeout(timer.current), []);
 
   const enviar = (e: FormEvent) => {
     e.preventDefault();
     const err: Errores = {};
     if (!luhn(numero)) err.numero = t("errNumero");
+    else if (!esTarjetaPrueba(numero)) err.numero = t("errSoloPrueba");
     if (!nombre.trim()) err.nombre = t("errNombre");
     if (!vigenciaValida(vigencia)) err.vigencia = t("errVigencia");
     if (!/^\d{3,4}$/.test(cvv)) err.cvv = t("errCvv");
@@ -34,7 +38,7 @@ export function PagoTarjeta({ totalTexto, onPagado }: { totalTexto: string; onPa
     if (Object.keys(err).length) return;
     setProcesando(true);
     const ultimos4 = numero.replace(/\D/g, "").slice(-4);
-    setTimeout(() => {
+    timer.current = setTimeout(() => {
       // Limpia los datos sensibles antes de salir.
       setNumero("");
       setCvv("");

@@ -13,6 +13,7 @@ import { useVocabulario } from "@/hooks/useVocabulario";
 import { useRouter } from "@/i18n/navigation";
 import { nombreMayoreo } from "@/lib/huertos";
 import type { Productor } from "@/lib/schemas";
+import { minimoMayoreo } from "@/lib/huertos";
 
 /** Compra al mayoreo del producto principal (precio_mayoreo_app). Lleva huertoId → puntos dobles. */
 export function ComprarMayoreo({ p, nombres }: { p: Productor; nombres: Record<string, string> }) {
@@ -20,10 +21,11 @@ export function ComprarMayoreo({ p, nombres }: { p: Productor; nombres: Record<s
   const tp = useTranslations("puesto");
   const router = useRouter();
   const v = useVocabulario();
-  const [qty, setQty] = useState(1);
   const { unidad, precio } = p.precio_mayoreo_app;
+  const minimo = minimoMayoreo(p.venta_minima, unidad);
+  const [qty, setQty] = useState(minimo);
   const { agregar, dialogo } = useAgregarAlCarrito(p.id, nombres, (item) => {
-    setQty(1);
+    setQty(minimo);
     toast.success(t("agregado", { qty: item.qty, unidad: v("unidades", unidad), producto: p.producto_principal }), {
       action: { label: t("verCarrito"), onClick: () => router.push("/carrito") },
     });
@@ -39,7 +41,7 @@ export function ComprarMayoreo({ p, nombres }: { p: Productor; nombres: Record<s
         <Precio monto={precio} className="text-right text-lg" />
       </div>
       <div className="flex flex-wrap items-center gap-3">
-        <Stepper valor={qty} onCambio={setQty} etiqueta={t("cantidad", { unidad: v("unidades", unidad) })} menos={tp("menos")} mas={tp("mas")} />
+        <Stepper valor={qty} min={minimo} onCambio={setQty} etiqueta={t("cantidad", { unidad: v("unidades", unidad) })} menos={tp("menos")} mas={tp("mas")} />
         <Button className="min-w-0 flex-1 basis-40" onClick={() => agregar({ nombre: nombreMayoreo(p), precio, unidad, qty, huertoId: p.id })}>
           <ShoppingBasket aria-hidden />
           {t("agregar")}

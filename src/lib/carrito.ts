@@ -2,7 +2,15 @@
  * Carrito agrupado por puesto: un grupo por puesto (un pedido por puesto).
  * Funciones puras; el store las usa para mutar el estado.
  */
-export type ItemCarrito = { nombre: string; precio: number; unidad: string; qty: number; huertoId?: string };
+export type ItemCarrito = {
+  nombre: string;
+  precio: number;
+  unidad: string;
+  qty: number;
+  huertoId?: string;
+  /** Oferta de «Rescata hoy»: lote único (qty 1); sus kg se suman al pagar. */
+  rescate?: { ofertaId: string; kg: number };
+};
 export type LineaCarrito = { puestoId: string; items: ItemCarrito[] };
 
 /** true si agregar de `puestoId` abriría un pedido nuevo junto a otro(s) ya existente(s). */

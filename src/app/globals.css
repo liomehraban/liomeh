@@ -124,13 +124,14 @@
   padding-bottom: calc(max(var(--asoma), var(--fab)) + 0.5rem);
   scroll-padding-bottom: calc(max(var(--asoma), var(--fab)) + 0.5rem);
 }
-[data-shell] > main:has(> [data-pantalla-completa]) {
+[data-shell] > main:has([data-pantalla-completa]) {
   padding-bottom: 0;
 }
 [data-cart-fab] {
   transition:
     opacity 200ms ease-out,
     scale 200ms ease-out,
+    bottom 200ms ease-out,
     transform 160ms var(--ease-out);
 }
 [data-shell]:has([data-hoja-abierta]) [data-cart-fab] {

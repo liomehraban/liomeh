@@ -23,11 +23,12 @@ import { construirPedido, type NuevoPedido, type Pedido } from "@/lib/pedidos";
 import { consumirPregunta } from "@/lib/planes";
 import { puedeAgregarProducto, siguienteEstadoLocatario, type EstadoLocatario, type PlanLocatario } from "@/lib/locatario";
 import { normalizarEstadoMayoreo, type EstadoMayoreo } from "@/lib/productor";
-import { evaluarCheckin, nuevoCupon, PUNTOS_RESENA_FOTO, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
+import { evaluarCheckin, nuevoCupon, puedeCanjear, type Checkin, type Cupon, type ResultadoCheckin } from "@/lib/loyalty";
 import { hoyCDMX } from "@/lib/eventos";
 import { claveVenta } from "@/lib/inventario";
 import type { PuestoResumen } from "@/data/comercio";
 import type { Aviso, EfectoAviso } from "@/lib/notificaciones";
+import { puntosPorResena, verificacionResena } from "@/lib/resenas";
 
 export type { ItemCarrito, LineaCarrito };
 
@@ -43,6 +44,8 @@ type DatosDemo = {
   perfil: Perfil | null;
   locale: Locale;
   plan: PlanConsumidor;
+  /** Vencimiento (ISO) del plan de pago; `null` en Gratis. */
+  planVence: string | null;
   onboardingVisto: boolean;
   carrito: LineaCarrito[];
   /** Ficha de cada vendedor agregado al carrito (puestos del catálogo simulado incluidos). */
@@ -85,7 +88,7 @@ type DatosDemo = {
   presentacion: { activa: boolean; paso: number; completado?: boolean };
 };
 
-export type ResenaPropia = Resena & { fotoUrl?: string };
+export type ResenaPropia = Omit<Resena, "verificada"> & { verificada?: Resena["verificada"]; fotoUrl?: string };
 export type Rescate = { ofertaId: string; tipo: "compra" | "donacion"; kg: number; fecha: string };
 export type ReservaTour = { id: string; rutaId: string; fecha: string; personas: number; total: number; creada: string };
 
@@ -96,7 +99,7 @@ type Acciones = {
   /** Vuelve a la pantalla de inicio (selector de perfil) sin borrar el resto de la demo. */
   salirDePerfil: () => void;
   setLocale: (locale: Locale) => void;
-  setPlan: (plan: PlanConsumidor) => void;
+  setPlan: (plan: PlanConsumidor, vence?: string | null) => void;
   marcarOnboarding: () => void;
   agregarAlCarrito: (puestoId: string, item: ItemCarrito, vendedor?: PuestoResumen) => void;
   cambiarCantidad: (puestoId: string, nombre: string, qty: number) => void;
@@ -106,7 +109,8 @@ type Acciones = {
   reservarVisita: (r: Omit<ReservaVisita, "id" | "creada">) => ReservaVisita;
   hacerCheckin: (objetivo: string, mercadoId: string) => ResultadoCheckin;
   canjear: (r: { id: string; titulo: string; puntos: number }) => Cupon | null;
-  escribirResena: (r: Pick<Resena, "objetivo_id" | "estrellas" | "texto" | "idioma"> & { fotoUrl?: string }) => ResenaPropia;
+  /** Una reseña por lugar: si ya existe se edita. Devuelve los puntos ganados (0 al editar o sin foto). */
+  escribirResena: (r: Pick<Resena, "objetivo_id" | "estrellas" | "texto" | "idioma"> & { fotoUrl?: string }) => { resena: ResenaPropia; puntos: number; editada: boolean };
   rescatar: (ofertaId: string, tipo: Rescate["tipo"], kg: number) => void;
   toggleRecordatorio: (eventoId: string) => boolean;
   iniciarRuta: (rutaId: string) => void;
@@ -114,7 +118,8 @@ type Acciones = {
   /** Consume una pregunta del límite diario del asistente; false si ya se agotó. */
   preguntarAsistente: () => boolean;
   cobrar: (monto: number, metodo: Cobro["metodo"]) => Cobro;
-  avanzarPedidoLocatario: (id: string) => void;
+  /** Avanza el pedido desde `desde` (el estado que ve el locatario, ya sincronizado con el consumidor). */
+  avanzarPedidoLocatario: (id: string, desde?: EstadoLocatario) => void;
   editarProducto: (nombre: string, cambios: EdicionProducto) => void;
   /** false si el plan Gratis ya llegó al límite de 20 productos. */
   agregarProductoLocatario: (p: ProductoLocatario, totalActual: number) => boolean;
@@ -140,6 +145,7 @@ export function estadoInicial(): DatosDemo {
     perfil: null,
     locale: "es",
     plan: "Gratis",
+    planVence: null,
     onboardingVisto: false,
     carrito: [],
     vendedores: {},
@@ -183,7 +189,7 @@ export const useAppStore = create<AppState>()(
       setPerfil: (perfil) => set({ perfil }),
       salirDePerfil: () => set({ perfil: null }),
       setLocale: (locale) => set({ locale }),
-      setPlan: (plan) => set({ plan }),
+      setPlan: (plan, vence = null) => set({ plan, planVence: plan === "Gratis" ? null : vence }),
       marcarOnboarding: () => set({ onboardingVisto: true }),
       agregarAlCarrito: (puestoId, item, vendedor) =>
         set((s) => ({
@@ -207,8 +213,13 @@ export const useAppStore = create<AppState>()(
           const k = claveVenta(dia, pedido.puestoId, i.nombre);
           vendidos[k] = (vendidos[k] ?? 0) + i.qty;
         }
+        // Lotes de «Rescata hoy» pagados: sus kg cuentan para el contador de SEDEMA.
+        const rescatesPagados = pedido.items
+          .filter((i) => i.rescate)
+          .map((i) => ({ ofertaId: i.rescate!.ofertaId, tipo: "compra" as const, kg: i.rescate!.kg, fecha: pedido.fecha }));
         set({
           vendidos,
+          rescates: rescatesPagados.length ? [...rescatesPagados, ...s.rescates].slice(0, 100) : s.rescates,
           pedidos: [pedido, ...s.pedidos],
           carrito: s.carrito.filter((l) => l.puestoId !== pedido.puestoId),
           puntos: s.puntos + pedido.puntos,
@@ -282,21 +293,29 @@ export const useAppStore = create<AppState>()(
         return cupon;
       },
       escribirResena: (r) => {
+        const s = get();
+        const previa = s.resenasPropias.find((x) => x.objetivo_id === r.objetivo_id);
         const resena: ResenaPropia = {
           ...r,
-          id: `propia-${Date.now()}`,
+          id: previa?.id ?? `propia-${Date.now()}`,
           autor: "Tú",
           origen: "",
           fecha: new Date().toLocaleDateString("en-CA", { timeZone: "America/Mexico_City" }),
-          verificada: "check-in QR",
+          verificada: verificacionResena(r.objetivo_id, { checkins: s.checkins ?? [], pedidos: s.pedidos }),
           fotos: r.fotoUrl ? 1 : 0,
           simulado: false,
         };
-        set((s) => ({ resenasPropias: [resena, ...s.resenasPropias], puntos: s.puntos + PUNTOS_RESENA_FOTO }));
-        return resena;
+        const puntos = puntosPorResena(!!previa, !!r.fotoUrl);
+        set({ resenasPropias: [resena, ...s.resenasPropias.filter((x) => x.id !== resena.id)], puntos: s.puntos + puntos });
+        return { resena, puntos, editada: !!previa };
       },
       rescatar: (ofertaId, tipo, kg) =>
-        set((s) => (s.rescates.some((x) => x.ofertaId === ofertaId) ? s : { rescates: [{ ofertaId, tipo, kg, fecha: new Date().toISOString() }, ...s.rescates] })),
+        set((s) => {
+          // Una vez por oferta al día (las ofertas se renuevan cada día).
+          const hoy = hoyCDMX();
+          if (s.rescates.some((x) => x.ofertaId === ofertaId && hoyCDMX(new Date(x.fecha)) === hoy)) return s;
+          return { rescates: [{ ofertaId, tipo, kg, fecha: new Date().toISOString() }, ...s.rescates].slice(0, 100) };
+        }),
       toggleRecordatorio: (eventoId) => {
         const activo = !get().recordatorios.includes(eventoId);
         set((s) => ({ recordatorios: activo ? [...s.recordatorios, eventoId] : s.recordatorios.filter((x) => x !== eventoId) }));
@@ -314,9 +333,9 @@ export const useAppStore = create<AppState>()(
         set((s) => ({ locatario: { ...s.locatario, cobros: [cobro, ...s.locatario.cobros] } }));
         return cobro;
       },
-      avanzarPedidoLocatario: (id) =>
+      avanzarPedidoLocatario: (id, desde) =>
         set((s) => ({
-          locatario: { ...s.locatario, pedidos: s.locatario.pedidos.map((p) => (p.id === id ? { ...p, estado: siguienteEstadoLocatario(p.estado) } : p)) },
+          locatario: { ...s.locatario, pedidos: s.locatario.pedidos.map((p) => (p.id === id ? { ...p, estado: siguienteEstadoLocatario(desde ?? p.estado) } : p)) },
         })),
       editarProducto: (nombre, cambios) =>
         set((s) => ({ locatario: { ...s.locatario, ediciones: { ...s.locatario.ediciones, [nombre]: { ...s.locatario.ediciones?.[nombre], ...cambios } } } })),

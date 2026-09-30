@@ -44,3 +44,13 @@ describe("tarjeta", () => {
 });
 
 it("payload CoDi simulado lleva folio y monto", () => expect(payloadCoDi("BB-1234", 309, "x")).toContain("monto=309.00"));
+
+describe("tarjeta de prueba", () => {
+  it("solo acepta 4242 4242 4242 4242 (regla 5)", async () => {
+    const { esTarjetaPrueba, luhn } = await import("@/lib/checkout");
+    expect(esTarjetaPrueba("4242 4242 4242 4242")).toBe(true);
+    // Una tarjeta válida por Luhn pero distinta no se acepta.
+    expect(luhn("5555 5555 5555 4444")).toBe(true);
+    expect(esTarjetaPrueba("5555 5555 5555 4444")).toBe(false);
+  });
+});

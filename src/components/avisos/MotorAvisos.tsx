@@ -8,6 +8,7 @@ import { useRouter } from "@/i18n/navigation";
 import { avisosDePedidos, bandejaInicial, siguienteAviso, type Aviso, type DatosAvisos } from "@/lib/notificaciones";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { useTextoAviso } from "./useTextoAviso";
+import { EVENTO_ACTUALIZAR } from "@/components/shell/MainActualizable";
 
 const PRIMERO_MS = 12_000;
 const ENTRE_MS: [number, number] = [40_000, 90_000];
@@ -48,37 +49,49 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
     st.sembrarAvisos(bandejaInicial(perfil, datos, new Date()));
 
     let timer: ReturnType<typeof setTimeout>;
+    /** Entrega el siguiente aviso que toque (si hay algo nuevo). */
+    const revisar = () => {
+      const s = useAppStore.getState();
+      const r = siguienteAviso(
+        perfil,
+        datos,
+        {
+          pedidos: s.pedidos,
+          recordatorios: s.recordatorios,
+          lotes: s.productor.lotes,
+          entregados: s.avisosEntregados,
+          folios: [...s.locatario.pedidos, ...s.productor.pedidos].map((p) => p.folio ?? p.id ?? ""),
+        },
+        new Date(),
+        Math.floor(Math.random() * 2 ** 31),
+      );
+      if (r) {
+        s.recibirAviso(r.aviso, r.efecto);
+        mostrarRef.current(r.aviso);
+      }
+    };
     const programar = (ms: number) => {
       timer = setTimeout(() => {
-        const s = useAppStore.getState();
-        const r = siguienteAviso(
-          perfil,
-          datos,
-          {
-            pedidos: s.pedidos,
-            recordatorios: s.recordatorios,
-            lotes: s.productor.lotes,
-            entregados: s.avisosEntregados,
-            folios: [...s.locatario.pedidos, ...s.productor.pedidos].map((p) => p.folio ?? p.id ?? ""),
-          },
-          new Date(),
-          Math.floor(Math.random() * 2 ** 31),
-        );
-        if (r) {
-          s.recibirAviso(r.aviso, r.efecto);
-          mostrarRef.current(r.aviso);
-        }
+        revisar();
         programar(ENTRE_MS[0] + Math.random() * (ENTRE_MS[1] - ENTRE_MS[0]));
       }, ms);
     };
     programar(PRIMERO_MS);
+    // «Jalar para actualizar»: revisa novedades ya y reinicia el intervalo.
+    const alActualizar = () => {
+      clearTimeout(timer);
+      revisar();
+      programar(ENTRE_MS[0] + Math.random() * (ENTRE_MS[1] - ENTRE_MS[0]));
+    };
+    window.addEventListener(EVENTO_ACTUALIZAR, alActualizar);
 
     // Pedidos de la persona: avisar en cuanto cambian de etapa.
     const pedidos = perfil === "consumidor"
       ? setInterval(() => {
           const s = useAppStore.getState();
           const now = new Date();
-          for (const a of avisosDePedidos(s.pedidos, now, s.avisosEntregados)) {
+          const estados = Object.fromEntries(s.locatario.pedidos.filter((x) => x.folio).map((x) => [x.folio!, x.estado ?? "nuevo"]));
+          for (const a of avisosDePedidos(s.pedidos, now, s.avisosEntregados, estados)) {
             const aviso = { ...a, fecha: now.toISOString(), leida: false };
             s.recibirAviso(aviso);
             mostrarRef.current(aviso);
@@ -89,6 +102,7 @@ export function MotorAvisos({ datos }: { datos: DatosAvisos }) {
     return () => {
       clearTimeout(timer);
       clearInterval(pedidos);
+      window.removeEventListener(EVENTO_ACTUALIZAR, alActualizar);
     };
   }, [hydrated, perfil, presentando, datos]);
 

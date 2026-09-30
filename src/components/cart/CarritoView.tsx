@@ -11,6 +11,10 @@ import type { PuestoResumen } from "@/data/comercio";
 import { subtotalGrupo } from "@/lib/carrito";
 import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "./EncabezadoSimple";
+import { toast } from "sonner";
+import { useAhora } from "@/hooks/useAhora";
+import { hoyCDMX } from "@/lib/eventos";
+import { claveVenta, stockActual } from "@/lib/inventario";
 
 /** M5 · Carrito agrupado por puesto (un pedido por puesto). */
 export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen> }) {
@@ -19,6 +23,20 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
   const hydrated = useHydrated();
   const carrito = useAppStore((s) => s.carrito);
   const vendedores = useAppStore((s) => s.vendedores);
+  const vendidos = useAppStore((s) => s.vendidos);
+  const ahora = useAhora();
+  const tp = useTranslations("puesto");
+  /** Unidades que aún se pueden pedir (inventario vivo); `null` = sin límite (productores o sin hora). */
+  const maximo = (puestoId: string, i: { nombre: string; precio: number; unidad: string; rescate?: unknown }) => {
+    if (i.rescate) return 1; // lote de «Rescata hoy»: uno por oferta
+    const v = puestos[puestoId] ?? vendedores[puestoId];
+    if (!ahora || !v || v.tipo !== "puesto") return null;
+    const dia = hoyCDMX(ahora);
+    return stockActual(puestoId, { n: i.nombre, p: i.precio, u: i.unidad }, ahora, {
+      vendidosDemo: vendidos[claveVenta(dia, puestoId, i.nombre)] ?? 0,
+      protegido: !!v.stockProtegido,
+    }).disponible;
+  };
   const cambiar = useAppStore((s) => s.cambiarCantidad);
   const quitarGrupo = useAppStore((s) => s.quitarGrupo);
 
@@ -68,7 +86,16 @@ export function CarritoView({ puestos }: { puestos: Record<string, PuestoResumen
                           {i.qty > 1 ? <Minus className="size-4" aria-hidden /> : <Trash2 className="size-4" aria-hidden />}
                         </button>
                         <output className="w-6 text-center font-bold">{i.qty}</output>
-                        <button type="button" aria-label={`+1 ${i.nombre}`} onClick={() => cambiar(grupo.puestoId, i.nombre, i.qty + 1)} className="grid size-11 place-items-center text-morado">
+                        <button
+                          type="button"
+                          aria-label={`+1 ${i.nombre}`}
+                          onClick={() => {
+                            const max = maximo(grupo.puestoId, i);
+                            if (max !== null && i.qty + 1 > max) return toast(tp("sinStock", { producto: i.nombre }));
+                            cambiar(grupo.puestoId, i.nombre, i.qty + 1);
+                          }}
+                          className="grid size-11 place-items-center text-morado"
+                        >
                           <Plus className="size-4" aria-hidden />
                         </button>
                       </div>

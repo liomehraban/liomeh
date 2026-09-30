@@ -14,7 +14,10 @@
     "demoReiniciada": "Demo reiniciada: todo quedó como en los datos originales",
     "proximamente": "Próximamente",
     "enConstruccion": "Esta sección llega en la {fase}.",
-    "sinConexion": "Sin conexión: tu pasaporte y tus pedidos siguen aquí"
+    "sinConexion": "Sin conexión: tu pasaporte y tus pedidos siguen aquí",
+    "actualizado": "Todo al día",
+    "actualizando": "Actualizando…",
+    "soltar": "Suelta para actualizar"
   },
   "perfiles": {
     "consumidor": "Turista / Consumidor",
@@ -333,7 +336,10 @@
       "agotado": "Agotado por hoy",
       "agotadoBoton": "Agotado"
     },
-    "actividadDia": "{n} pedidos por la app hoy"
+    "actividadDia": "{n} pedidos por la app hoy",
+    "nuevo": "Nuevo en Bara Bara",
+    "sinStock": "No hay más {producto} por hoy",
+    "ubicacion": "Pasillo {pasillo} · Local {local}"
   },
   "carrito": {
     "titulo": "Tu carrito",
@@ -392,7 +398,10 @@
     "seguro": "Pago simulado · sin backend",
     "planActual": "Tu plan: {plan}",
     "recogerProductor": "Recoger directo del productor",
-    "confirmando": "Confirmando tu pago…"
+    "confirmando": "Confirmando tu pago…",
+    "eligeColonia": "Elige tu alcaldía y colonia para calcular el envío y pagar.",
+    "eligeColoniaCorto": "Elige colonia",
+    "errSoloPrueba": "En la demo solo se acepta la tarjeta de prueba 4242 4242 4242 4242"
   },
   "pedido": {
     "titulo": "Tu pedido",
@@ -513,7 +522,17 @@
       "disponible": "Disponible {fecha}",
       "sinLotes": "Aún no publicas cosechas.",
       "nuevo": "Nuevo",
-      "mayoreo": "Mayoreo directo del huerto"
+      "mayoreo": "Mayoreo directo del huerto",
+      "sinReferencia": "Sin precio de referencia por {unidad}: fija el tuyo",
+      "unidades": {
+        "piezas": "piezas",
+        "pieza": "pieza",
+        "kg": "kg",
+        "manojos": "manojos",
+        "manojo": "manojo",
+        "caja": "caja",
+        "ciento": "ciento"
+      }
     },
     "pedidos": {
       "titulo": "Pedidos de mayoreo",
@@ -558,13 +577,15 @@
     "foto": "Foto (opcional)",
     "quitarFoto": "Quitar foto",
     "publicar": "Publicar reseña",
-    "publicada": "¡Gracias! +15 puntos por tu reseña",
+    "publicada": "¡Gracias! +{puntos} puntos por tu reseña con foto",
     "tu": "Tú",
     "vacio": "Aún no hay reseñas.",
     "fotos": "{n, plural, one {# foto} other {# fotos}}",
     "idiomaEs": "ES",
     "idiomaEn": "EN",
-    "sinFiltro": "No hay reseñas en ese idioma."
+    "sinFiltro": "No hay reseñas en ese idioma.",
+    "publicadaSinPuntos": "¡Gracias por tu reseña! Agrega una foto la próxima vez y gana 15 puntos",
+    "editada": "Actualizamos tu reseña"
   },
   "pasaporte": {
     "titulo": "Pasaporte de Mercados",
@@ -692,7 +713,42 @@
     "ilimitado": "ilimitado",
     "alDia": "{n} preguntas al día",
     "si": "sí",
-    "no": "no"
+    "no": "no",
+    "vencio": "Tu {plan} venció. Volviste al plan Gratis.",
+    "pagarTitulo": "Activar {plan}",
+    "pagarTexto": "Pago simulado de {total}. Usa QR CoDi o la tarjeta de prueba.",
+    "activadoHasta": "{plan} activo hasta el {fecha}",
+    "vigenteHasta": "Vigente hasta el {fecha}",
+    "activarPrecio": "Activar por {precio}",
+    "beneficiosEn": {
+      "gratis": [
+        "Mapa de 340+ mercados",
+        "Fichas, horarios y cómo llegar",
+        "Mapa interior y ruta paso a paso",
+        "Mapa de huertos",
+        "Calendario cultural",
+        "Reseñas",
+        "Pasaporte de Mercados (lealtad)",
+        "Asistente AI 24/7 (20 preguntas al día)",
+        "Pago con QR y tarjeta",
+        "Recoger en el puesto"
+      ],
+      "pase": [
+        "Todo lo gratis",
+        "Rutas premium con audioguía ES/EN",
+        "Traductor en vivo con el locatario",
+        "Mapas sin conexión",
+        "Asistente AI ilimitado",
+        "10% en puestos adheridos",
+        "Prioridad en tours"
+      ],
+      "mercadoMas": [
+        "Sin tarifa de servicio en pedidos",
+        "Puntos dobles",
+        "Asistente AI ilimitado",
+        "Alertas de precio y temporada"
+      ]
+    }
   },
   "rescate": {
     "titulo": "Rescata hoy",
@@ -707,7 +763,9 @@
     "tuyo": "+{kg} kg tuyos",
     "kg": "{kg} kg",
     "simulado": "Ofertas simuladas para la demo",
-    "donarCorto": "Donar"
+    "donarCorto": "Donar",
+    "alCarrito": "Lo apartamos en tu carrito: paga para recogerlo antes de las {hora}",
+    "pagar": "Pagar para apartar"
   },
   "asistente": {
     "titulo": "Marchanta",
@@ -805,7 +863,9 @@
         "preparando": "Empezar a preparar",
         "listo": "Marcar como listo",
         "entregado": "Marcar como entregado"
-      }
+      },
+      "tipoRecoger": "Recoger en puesto",
+      "tipoEnvio": "Envío con terceros"
     },
     "catalogo": {
       "titulo": "Catálogo",
@@ -835,7 +895,31 @@
       "gratis": "$0 · subsidiado por el gobierno",
       "comision": "Pedidos en línea: Bara Bara 4% vs apps de delivery 18–30% + IVA",
       "qr": "Cobro con QR: 0% de comisión",
-      "pagoSimulado": "Pago simulado · sin backend"
+      "pagoSimulado": "Pago simulado · sin backend",
+      "beneficiosEn": {
+        "Gratis": [
+          "Ficha del puesto en mapa e interior",
+          "Catálogo hasta 20 productos",
+          "Cobro con QR CoDi/SPEI sin comisión",
+          "Pedidos para recoger",
+          "Reseñas y lealtad",
+          "Panel básico de ventas"
+        ],
+        "Pro": [
+          "Catálogo ilimitado",
+          "Envío con terceros",
+          "Promociones y cupones",
+          "Analítica de clientes y horarios",
+          "Aparecer en rutas turísticas"
+        ],
+        "Plus": [
+          "Todo Pro",
+          "Destacado en mapa y búsquedas",
+          "Multiusuario (empleados)",
+          "Reporte de historial de ventas para crédito",
+          "Traducción automática del catálogo"
+        ]
+      }
     },
     "ventasDia": "Ventas"
   },

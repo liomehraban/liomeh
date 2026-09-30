@@ -14,6 +14,7 @@ import type { Puesto } from "@/lib/schemas";
 /** Puestos en línea del mercado: los mejor calificados primero y el resto al desplegar. */
 export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visibles: number }) {
   const t = useTranslations("mercado");
+  const tp = useTranslations("puesto");
   const ahora = useAhora();
   const [todos, setTodos] = useState(false);
   const orden = [...puestos].sort((a, b) => Number(b.real_segun_guia) - Number(a.real_segun_guia) || b.rating - a.rating);
@@ -40,7 +41,11 @@ export function ListaPuestos({ puestos, visibles }: { puestos: Puesto[]; visible
                   </span>
                   {a && a.pedidosHoy > 0 && <span className="text-[12px] font-semibold text-nopal-700">{t("pedidosHoy", { n: a.pedidosHoy })}</span>}
                 </span>
-                <Estrellas rating={p.rating} />
+                {p.num_resenas ? (
+                  <Estrellas rating={p.rating} />
+                ) : (
+                  <span className="shrink-0 rounded-pill bg-dorado-200 px-2 py-0.5 text-[11px] font-bold text-morado-900">{tp("nuevo")}</span>
+                )}
               </Link>
             </li>
           );

@@ -1,3 +1,4 @@
+import { demoSeed } from "./demo-seed";
 import type { PuestoResumen } from "./comercio";
 import { esPuestoSimulado, mercadoDePuestoSimulado } from "@/lib/catalogo-simulado";
 import { getRepository } from "./repository";
@@ -42,6 +43,8 @@ export async function datosPuesto(id: string) {
       mercadoNombre: mercado.nombre_display,
       lat: mercado.lat,
       lng: mercado.lng,
+      stockProtegido: puesto.real_segun_guia || puesto.id === demoSeed.locatario.puesto_id,
+      interior: !!mercado.interior_disponible,
     } satisfies PuestoResumen,
   };
 }

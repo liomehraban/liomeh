@@ -7,7 +7,7 @@ import { azar } from "./catalogo-simulado";
 import { hoyCDMX } from "./eventos";
 import { ahoraCDMX } from "./horario";
 import { avanceDelDia, stockActual, unidadPlural } from "./inventario";
-import { etapaActual, etapas, type Pedido } from "./pedidos";
+import { etapaSincronizada, etapas, type Pedido } from "./pedidos";
 
 export type TipoAviso = "bienvenida" | "pedido" | "evento" | "rescate" | "surtido" | "checkin" | "nuevoPedido" | "stock" | "cobro" | "mayoreo" | "lote" | "impacto";
 
@@ -30,7 +30,7 @@ export type PerfilAviso = "consumidor" | "locatario" | "productor" | "gobierno";
 /** Datos de apoyo (del servidor, vía repositorio). */
 export type DatosAvisos = {
   eventos: { id: string; titulo: string; inicio: string; fin: string | null }[];
-  ofertas: { id: string; producto: string; mercadoNombre: string; precio: number; precioOriginal: number; unidad: string }[];
+  ofertas: { id: string; producto: string; producto_en?: string; mercadoNombre: string; precio: number; precioOriginal: number; unidad: string }[];
   surtidos: { puestoId: string; puesto: string; mercado: string; producto: string }[];
   puestoDemo: { id: string; nombre: string; productos: { n: string; p: number; u: string }[] };
   productor: { nombre: string; catalogo: string[] };
@@ -61,12 +61,18 @@ const diasEntre = (a: string, b: string) => Math.round((Date.parse(`${b}T12:00:0
 const horaCDMX = (now: Date) => now.toLocaleTimeString("es-MX", { timeZone: "America/Mexico_City", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
 
 /** Avisos por cambio de etapa de los pedidos de la persona (preparando, listo, en ruta, entregado). */
-export function avisosDePedidos(pedidos: EstadoAvisos["pedidos"], now: Date, entregados: string[]): Omit<Aviso, "fecha" | "leida">[] {
+export function avisosDePedidos(
+  pedidos: EstadoAvisos["pedidos"],
+  now: Date,
+  entregados: string[],
+  /** folio → estado en el tablero del locatario (pedidos al puesto de la demo). */
+  estadosLocatario: Record<string, string> = {},
+): Omit<Aviso, "fecha" | "leida">[] {
   const ya = new Set(entregados);
   const out: Omit<Aviso, "fecha" | "leida">[] = [];
   for (const p of pedidos) {
     if (now.getTime() - Date.parse(p.fecha) > 3 * 3600_000) continue;
-    const i = etapaActual(p, now);
+    const i = etapaSincronizada(p, estadosLocatario[p.folio], now);
     if (i === 0) continue;
     const etapa = etapas(p.entrega)[i];
     const id = `pedido:${p.folio}:${etapa}`;
@@ -131,7 +137,7 @@ function candidatos(perfil: PerfilAviso, d: DatosAvisos, e: EstadoAvisos, now: D
     }
     if (minutos >= 10 * 60 && minutos < 22 * 60)
       for (const o of d.ofertas)
-        c.push({ peso: 2, aviso: { id: `rescate:${o.id}:${dia}`, tipo: "rescate", clave: "rescate", params: { producto: o.producto, mercado: o.mercadoNombre, precio: o.precio, antes: o.precioOriginal, unidad: o.unidad }, href: "/explorar" } });
+        c.push({ peso: 2, aviso: { id: `rescate:${o.id}:${dia}`, tipo: "rescate", clave: "rescate", params: { producto: o.producto, ...(o.producto_en ? { producto_en: o.producto_en } : {}), mercado: o.mercadoNombre, precio: o.precio, antes: o.precioOriginal, unidad: o.unidad }, href: "/explorar" } });
     if (minutos < 13 * 60)
       for (const s of d.surtidos)
         c.push({ peso: 2, aviso: { id: `surtido:${s.puestoId}:${s.producto}:${dia}`, tipo: "surtido", clave: "surtido", params: { producto: s.producto, puesto: s.puesto, mercado: s.mercado }, href: `/puesto/${s.puestoId}` } });

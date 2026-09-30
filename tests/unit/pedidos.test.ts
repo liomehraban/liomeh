@@ -42,3 +42,19 @@ describe("pedidos", () => {
     expect(etapaActual({ fecha, entrega: "envio" }, t(999))).toBe(3);
   });
 });
+
+describe("pedido sincronizado entre consumidor y locatario", () => {
+  it("gana la etapa más avanzada: reloj de la demo o tablero del locatario", async () => {
+    const { etapaSincronizada, estadoLocatarioDeEtapa } = await import("@/lib/pedidos");
+    const fecha = "2026-10-01T18:00:00.000Z";
+    const recien = new Date("2026-10-01T18:00:01.000Z");
+    const p = { fecha, entrega: "recoger" as const };
+    // Recién pagado: el reloj dice «pagado» (0); si el locatario ya lo marcó «listo», el consumidor ve «listo».
+    expect(etapaSincronizada(p, "nuevo", recien)).toBe(0);
+    expect(etapaSincronizada(p, "listo", recien)).toBe(2);
+    // «entregado» del locatario no rebasa la última etapa de «recoger».
+    expect(etapaSincronizada(p, "entregado", recien)).toBe(2);
+    // Con el reloj adelantado, el tablero sube a «listo» aunque el locatario no haya tocado nada.
+    expect(estadoLocatarioDeEtapa(etapaSincronizada(p, "nuevo", new Date("2026-10-01T18:01:00.000Z")))).toBe("listo");
+  });
+});

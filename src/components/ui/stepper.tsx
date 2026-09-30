@@ -10,6 +10,7 @@ export function Stepper({
   menos,
   mas,
   max = 99,
+  min = 1,
 }: {
   valor: number;
   onCambio: (v: number) => void;
@@ -17,14 +18,15 @@ export function Stepper({
   menos: string;
   mas: string;
   max?: number;
+  min?: number;
 }) {
   return (
     <div className="flex items-center rounded-pill border border-border" role="group" aria-label={etiqueta}>
       <button
         type="button"
         aria-label={menos}
-        disabled={valor <= 1}
-        onClick={() => onCambio(Math.max(1, valor - 1))}
+        disabled={valor <= min}
+        onClick={() => onCambio(Math.max(min, valor - 1))}
         className="grid size-11 place-items-center rounded-pill text-morado disabled:text-gris/50"
       >
         <Minus className="size-4" aria-hidden />

@@ -59,4 +59,11 @@ describe("gobierno", () => {
     expect(csv).toContain('la-merced,"La Merced, Nave Mayor",212000');
     expect(csv).toContain("derrama_digital_mes_mxn,70611000");
   });
+
+  it("el CSV coincide con la pantalla: el alimento rescatado suma los kg de la demo", () => {
+    const csv = csvMetricas(m, {}, 12);
+    expect(csv).toContain(`alimento_rescatado_mes_ton,${toneladasRescatadas(m.kpis_hoy.alimento_rescatado_mes_ton, 12)}`);
+    expect(csv).toContain("# demo");
+    expect(csvMetricas(m)).not.toContain("# demo");
+  });
 });

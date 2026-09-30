@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2, Info, Search, Store, XCircle } from "lucide-react";
 import { motion } from "motion/react";
@@ -16,25 +16,40 @@ import type { Lealtad } from "@/lib/schemas";
 import { normalizar } from "@/lib/search";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/useAppStore";
+import { esPuestoSimulado, mercadoDePuestoSimulado } from "@/lib/catalogo-simulado";
 
 type Resultado = { tipo: "ok"; puntos: number; selloNuevo: boolean; nombre: string; mercado: string } | { tipo: "yaHoy"; nombre: string };
 
 const ESPERA_MS = 2000;
 
 /** M9 · Escanear QR del puesto: cámara simulada, detección a los 2 s, +10 (1 por puesto al día) y sello si es mercado nuevo. */
-export function Escaner({ objetivos, ctx, insignias }: { objetivos: ObjetivoCheckin[]; ctx: ContextoInsignias; insignias: Lealtad["insignias"] }) {
+export function Escaner({ objetivos: base, ctx, insignias }: { objetivos: ObjetivoCheckin[]; ctx: ContextoInsignias; insignias: Lealtad["insignias"] }) {
   const t = useTranslations("escanear");
   const tp = useTranslations("pasaporte");
   const params = useSearchParams();
   const hacerCheckin = useAppStore((s) => s.hacerCheckin);
+  // Puestos del catálogo simulado: llegan por el enlace del puesto con su nombre (no están en la lista estática).
+  const objetivos = useMemo(() => {
+    const id = params.get("puesto");
+    if (!id || !esPuestoSimulado(id) || base.some((o) => o.objetivo === id)) return base;
+    const extra: ObjetivoCheckin = {
+      objetivo: id,
+      nombre: params.get("n") ?? id,
+      mercadoId: mercadoDePuestoSimulado(id),
+      mercadoNombre: params.get("mn") ?? "",
+      tipo: "puesto",
+    };
+    return [extra, ...base];
+  }, [base, params]);
   const [q, setQ] = useState("");
   const [sel, setSel] = useState<string | null>(() => {
     const p = params.get("puesto");
-    return p && objetivos.some((o) => o.objetivo === p) ? p : null;
+    return p && (base.some((o) => o.objetivo === p) || esPuestoSimulado(p)) ? p : null;
   });
   const [fase, setFase] = useState<"listo" | "escaneando" | "resultado">("listo");
   const [resultado, setResultado] = useState<Resultado | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
 
   const filtrados = useMemo(() => {
     const n = normalizar(q);

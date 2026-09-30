@@ -35,3 +35,16 @@ export function preguntasRestantes(c: ContadorAsistente, plan: PlanConsumidor, n
   const limite = limiteAsistente(plan);
   return limite === Infinity ? Infinity : Math.max(0, limite - (c.fecha === hoy ? c.usados : 0));
 }
+
+/** Días de vigencia de cada plan de pago (Pase Turista: 7 días; Mercado+: mensual). */
+export const DIAS_PLAN: Record<PlanConsumidor, number | null> = { Gratis: null, "Pase Turista": 7, "Mercado+": 30 };
+
+/** Fecha (ISO) en que vence un plan activado ahora; `null` para Gratis. */
+export function venceEn(plan: PlanConsumidor, now = new Date()): string | null {
+  const dias = DIAS_PLAN[plan];
+  return dias ? new Date(now.getTime() + dias * 86_400_000).toISOString() : null;
+}
+
+/** El plan de pago ya venció (vuelve a Gratis). */
+export const planVencido = (plan: PlanConsumidor, vence: string | null | undefined, now = new Date()) =>
+  plan !== "Gratis" && !!vence && now.getTime() >= Date.parse(vence);

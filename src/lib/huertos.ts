@@ -78,3 +78,14 @@ export function proximosDias(n: number, now = new Date()): string[] {
   const base = new Date(`${now.toLocaleDateString("en-CA", { timeZone: "America/Mexico_City" })}T12:00:00Z`);
   return Array.from({ length: n }, (_, i) => new Date(base.getTime() + (i + 1) * 86_400_000).toISOString().slice(0, 10));
 }
+
+/**
+ * Cantidad mínima de compra al mayoreo en la unidad del precio. «10 kg» con precio por kg → 10;
+ * si la venta mínima viene en otra unidad (p. ej. «1 caja» y precio por kg), no se puede convertir → 1.
+ */
+export function minimoMayoreo(ventaMinima: string, unidadPrecio: string): number {
+  const m = /^\s*(\d+(?:[.,]\d+)?)\s*(.+?)\s*$/.exec(ventaMinima);
+  if (!m) return 1;
+  const n = Number(m[1].replace(",", "."));
+  return m[2].toLowerCase() === unidadPrecio.toLowerCase() && n > 0 ? Math.ceil(n) : 1;
+}

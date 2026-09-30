@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/useAppStore";
 import { reducirFoto } from "./foto";
 
-/** «Escribir reseña»: estrellas, texto (mín. 20) y foto local opcional. +15 puntos. */
+/** «Escribir reseña»: estrellas, texto (mín. 20) y foto local opcional. +15 puntos con foto, la primera vez. */
 export function EscribirResena({ objetivoId }: { objetivoId: string }) {
   const t = useTranslations("resenas");
   const locale = useLocale() as "es" | "en";
@@ -25,8 +25,8 @@ export function EscribirResena({ objetivoId }: { objetivoId: string }) {
 
   const publicar = () => {
     if (!valida) return;
-    escribir({ objetivo_id: objetivoId, estrellas, texto: texto.trim(), idioma: locale, fotoUrl: foto });
-    toast.success(t("publicada"));
+    const r = escribir({ objetivo_id: objetivoId, estrellas, texto: texto.trim(), idioma: locale, fotoUrl: foto });
+    toast.success(r.editada ? t("editada") : r.puntos ? t("publicada", { puntos: r.puntos }) : t("publicadaSinPuntos"));
     setAbierto(false);
     setEstrellas(0);
     setTexto("");

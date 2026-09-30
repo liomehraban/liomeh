@@ -14,7 +14,10 @@
     "demoReiniciada": "Demo reset: everything is back to the original data",
     "proximamente": "Coming soon",
     "enConstruccion": "This section arrives in {fase}.",
-    "sinConexion": "You're offline: your passport and orders are still here"
+    "sinConexion": "You're offline: your passport and orders are still here",
+    "actualizado": "You're all caught up",
+    "actualizando": "Refreshing…",
+    "soltar": "Release to refresh"
   },
   "perfiles": {
     "consumidor": "Visitor / Shopper",
@@ -333,7 +336,10 @@
       "agotado": "Sold out for today",
       "agotadoBoton": "Sold out"
     },
-    "actividadDia": "{n} app orders today"
+    "actividadDia": "{n} app orders today",
+    "nuevo": "New on Bara Bara",
+    "sinStock": "No more {producto} left today",
+    "ubicacion": "Aisle {pasillo} · Stall {local}"
   },
   "carrito": {
     "titulo": "Your cart",
@@ -392,7 +398,10 @@
     "seguro": "Simulated payment · no backend",
     "planActual": "Your plan: {plan}",
     "recogerProductor": "Pick up from the grower",
-    "confirmando": "Confirming your payment…"
+    "confirmando": "Confirming your payment…",
+    "eligeColonia": "Pick your borough and neighborhood to calculate delivery and pay.",
+    "eligeColoniaCorto": "Pick neighborhood",
+    "errSoloPrueba": "The demo only accepts the test card 4242 4242 4242 4242"
   },
   "pedido": {
     "titulo": "Your order",
@@ -513,7 +522,17 @@
       "disponible": "Available {fecha}",
       "sinLotes": "You haven't published any harvest yet.",
       "nuevo": "New",
-      "mayoreo": "Wholesale straight from the farm"
+      "mayoreo": "Wholesale straight from the farm",
+      "sinReferencia": "No reference price per {unidad}: set your own",
+      "unidades": {
+        "piezas": "pieces",
+        "pieza": "piece",
+        "kg": "kg",
+        "manojos": "bunches",
+        "manojo": "bunch",
+        "caja": "box",
+        "ciento": "hundred"
+      }
     },
     "pedidos": {
       "titulo": "Wholesale orders",
@@ -558,13 +577,15 @@
     "foto": "Photo (optional)",
     "quitarFoto": "Remove photo",
     "publicar": "Post review",
-    "publicada": "Thanks! +15 points for your review",
+    "publicada": "Thanks! +{puntos} points for your review with a photo",
     "tu": "You",
     "vacio": "No reviews yet.",
     "fotos": "{n, plural, one {# photo} other {# photos}}",
     "idiomaEs": "ES",
     "idiomaEn": "EN",
-    "sinFiltro": "No reviews in that language."
+    "sinFiltro": "No reviews in that language.",
+    "publicadaSinPuntos": "Thanks for your review! Add a photo next time to earn 15 points",
+    "editada": "Your review was updated"
   },
   "pasaporte": {
     "titulo": "Market Passport",
@@ -692,7 +713,42 @@
     "ilimitado": "unlimited",
     "alDia": "{n} questions a day",
     "si": "yes",
-    "no": "no"
+    "no": "no",
+    "vencio": "Your {plan} expired. You're back on the Free plan.",
+    "pagarTitulo": "Activate {plan}",
+    "pagarTexto": "Simulated payment of {total}. Use CoDi QR or the test card.",
+    "activadoHasta": "{plan} active until {fecha}",
+    "vigenteHasta": "Valid until {fecha}",
+    "activarPrecio": "Activate for {precio}",
+    "beneficiosEn": {
+      "gratis": [
+        "Map of 340+ markets",
+        "Market info, hours and directions",
+        "Indoor map with step-by-step route",
+        "Farm map",
+        "Cultural calendar",
+        "Reviews",
+        "Market Passport (loyalty)",
+        "AI assistant 24/7 (20 questions a day)",
+        "Pay with QR or card",
+        "Pick up at the stall"
+      ],
+      "pase": [
+        "Everything in Free",
+        "Premium routes with ES/EN audio guide",
+        "Live translation with stallholders",
+        "Offline maps",
+        "Unlimited AI assistant",
+        "10% off at participating stalls",
+        "Priority on tours"
+      ],
+      "mercadoMas": [
+        "No service fee on orders",
+        "Double points",
+        "Unlimited AI assistant",
+        "Price and season alerts"
+      ]
+    }
   },
   "rescate": {
     "titulo": "Rescue today",
@@ -707,7 +763,9 @@
     "tuyo": "+{kg} kg from you",
     "kg": "{kg} kg",
     "simulado": "Simulated offers for the demo",
-    "donarCorto": "Donate"
+    "donarCorto": "Donate",
+    "alCarrito": "It's in your cart: pay to pick it up before {hora}",
+    "pagar": "Pay to reserve"
   },
   "asistente": {
     "titulo": "Marchanta",
@@ -805,7 +863,9 @@
         "preparando": "Start preparing",
         "listo": "Mark as ready",
         "entregado": "Mark as delivered"
-      }
+      },
+      "tipoRecoger": "Pickup at stall",
+      "tipoEnvio": "Third-party delivery"
     },
     "catalogo": {
       "titulo": "Catalog",
@@ -835,7 +895,31 @@
       "gratis": "$0 · subsidized by the government",
       "comision": "Online orders: Bara Bara 4% vs delivery apps 18–30% + VAT",
       "qr": "QR payments: 0% fee",
-      "pagoSimulado": "Simulated payment · no backend"
+      "pagoSimulado": "Simulated payment · no backend",
+      "beneficiosEn": {
+        "Gratis": [
+          "Stall page on the map and indoor map",
+          "Catalog up to 20 products",
+          "CoDi/SPEI QR payments with no fee",
+          "Pickup orders",
+          "Reviews and loyalty",
+          "Basic sales dashboard"
+        ],
+        "Pro": [
+          "Unlimited catalog",
+          "Third-party delivery",
+          "Promotions and coupons",
+          "Customer and hours analytics",
+          "Show up on tourist routes"
+        ],
+        "Plus": [
+          "Everything in Pro",
+          "Featured on map and search",
+          "Multi-user (employees)",
+          "Sales history report for credit",
+          "Automatic catalog translation"
+        ]
+      }
     },
     "ventasDia": "Sales"
   },

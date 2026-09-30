@@ -70,3 +70,14 @@ it("nombreMayoreo y proximosDias", () => {
   expect(d[0]).toBe("2026-09-30");
   expect(d[13]).toBe("2026-10-13");
 });
+
+describe("venta mínima de mayoreo", () => {
+  it("aplica el mínimo solo si está en la misma unidad que el precio", async () => {
+    const { minimoMayoreo } = await import("@/lib/huertos");
+    expect(minimoMayoreo("10 kg", "kg")).toBe(10);
+    expect(minimoMayoreo("5 kg", "kg")).toBe(5);
+    expect(minimoMayoreo("1 caja", "kg")).toBe(1);
+    expect(minimoMayoreo("10 kg", "ciento")).toBe(1);
+    expect(minimoMayoreo("", "kg")).toBe(1);
+  });
+});

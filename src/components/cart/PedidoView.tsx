@@ -14,6 +14,8 @@ import { useAppStore, useHydrated } from "@/store/useAppStore";
 import { EncabezadoSimple } from "./EncabezadoSimple";
 import { SelloPuntos } from "./SelloPuntos";
 import { TimelinePedido } from "./TimelinePedido";
+import { esPuestoSimulado } from "@/lib/catalogo-simulado";
+import { comoLlegarUrl } from "@/lib/geo";
 
 /** M5 · Confirmación del pedido. */
 export function PedidoView({ folio, puestos, productores }: { folio: string; puestos: Record<string, PuestoResumen>; productores: Productor[] }) {
@@ -101,12 +103,20 @@ export function PedidoView({ folio, puestos, productores }: { folio: string; pue
         ))}
 
         <div className="flex flex-col gap-3">
-          {puesto?.tipo === "puesto" && (
+          {puesto?.tipo === "puesto" && (puesto.interior ?? !esPuestoSimulado(puesto.id)) && (
             <Button asChild>
               <Link href={`/mercado/${puesto.mercadoId}/interior?puesto=${puesto.id}`}>
                 <Navigation aria-hidden />
                 {t("pedido.llevame")}
               </Link>
+            </Button>
+          )}
+          {puesto?.tipo === "puesto" && !(puesto.interior ?? !esPuestoSimulado(puesto.id)) && (
+            <Button asChild>
+              <a href={comoLlegarUrl(puesto)} target="_blank" rel="noopener noreferrer">
+                <Navigation aria-hidden />
+                {t("puesto.comoLlegar", { mercado: puesto.mercadoNombre })}
+              </a>
             </Button>
           )}
           <Button asChild variant="ghost">

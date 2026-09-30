@@ -119,10 +119,37 @@ describe("pasaporte en el store", () => {
     expect(useAppStore.getState().puntos).toBe(740 - 120);
     expect(useAppStore.getState().canjear({ id: "huerto", titulo: "Visita", puntos: 99999 })).toBeNull();
   });
-  it("reseña propia da +15", () => {
-    useAppStore.getState().escribirResena({ objetivo_id: "la-merced", estrellas: 5, texto: "Todo delicioso y la gente muy amable.", idioma: "es" });
-    expect(useAppStore.getState().puntos).toBe(755);
-    expect(useAppStore.getState().resenasPropias[0].objetivo_id).toBe("la-merced");
+  it("reseña con foto da +15 solo la primera vez; sin foto no da puntos; una por lugar", () => {
+    const base = useAppStore.getState().puntos;
+    const r1 = useAppStore.getState().escribirResena({ objetivo_id: "la-merced", estrellas: 5, texto: "Todo delicioso y la gente muy amable.", idioma: "es", fotoUrl: "data:x" });
+    expect(r1).toMatchObject({ puntos: 15, editada: false });
+    const r2 = useAppStore.getState().escribirResena({ objetivo_id: "la-merced", estrellas: 4, texto: "Volví y sigue muy bueno, algo lleno.", idioma: "es", fotoUrl: "data:y" });
+    expect(r2).toMatchObject({ puntos: 0, editada: true });
+    expect(useAppStore.getState().puntos).toBe(base + 15);
+    expect(useAppStore.getState().resenasPropias.filter((r) => r.objetivo_id === "la-merced")).toHaveLength(1);
+    expect(useAppStore.getState().escribirResena({ objetivo_id: "jamaica", estrellas: 5, texto: "Flores preciosas y buen trato siempre.", idioma: "es" }).puntos).toBe(0);
+  });
+  it("comprar un lote de Rescata hoy suma sus kg solo al pagar (con folio)", () => {
+    const antes = useAppStore.getState().rescates.length;
+    useAppStore.getState().agregarAlCarrito("rescate-lote-central-de-abasto", {
+      nombre: "Caja surtida · Rescata hoy",
+      precio: 108,
+      unidad: "caja",
+      qty: 1,
+      rescate: { ofertaId: "rescate-ceda-caja", kg: 10 },
+    });
+    expect(useAppStore.getState().rescates).toHaveLength(antes);
+    const linea = useAppStore.getState().carrito.find((l) => l.puestoId === "rescate-lote-central-de-abasto")!;
+    const pedido = useAppStore.getState().registrarPedido({
+      puestoId: "rescate-lote-central-de-abasto",
+      mercadoId: "central-de-abasto",
+      items: linea.items,
+      resumen: { subtotal: 108, descuento: 0, servicio: 9, servicioOriginal: 9, envio: 0, total: 117 },
+      metodo: "qr",
+      entrega: "recoger",
+    });
+    expect(pedido.folio).toMatch(/^BB-/);
+    expect(useAppStore.getState().rescates[0]).toMatchObject({ ofertaId: "rescate-ceda-caja", tipo: "compra", kg: 10 });
   });
   it("rescate suma kg una sola vez por oferta", () => {
     useAppStore.getState().rescatar("r1", "donacion", 3);
