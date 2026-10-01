@@ -58,6 +58,16 @@ Todo lo transaccional persiste en `localStorage` (Zustand, clave `bara-bara-demo
 - `next.config.ts` envía CSP (sin nonces: páginas estáticas), `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy` (solo ubicación), HSTS y COOP. Los únicos orígenes externos son los de CARTO (o Google Maps si se elige ese proveedor).
 - `.github/workflows/ci.yml`: `validate:data`, `lint`, `test`, `build` y `e2e` en cada push y PR.
 
+## Marca
+
+- Originales en `scripts/assets/marca/`:
+  - `icono.webp`: cuadro redondeado, fondo transparente;
+  - `icono-tienda.webp`: cuadrado a sangre para iOS y Android;
+  - `logotipo.webp`;
+  - `marchanta.webp`.
+- `pnpm icons` regenera los íconos de la PWA, el favicon, el logotipo web y los íconos de tienda.
+- Íconos para publicar en tiendas: `docs/marca/tiendas/app-store-1024.png` (App Store, sin transparencia) y `docs/marca/tiendas/google-play-512.png` (Google Play).
+
 ## Deploy en Vercel
 
 No hace falta `vercel.json`: Vercel detecta Next.js y usa `pnpm build` (que ya incluye `serwist build`).
