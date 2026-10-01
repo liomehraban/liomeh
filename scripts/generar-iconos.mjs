@@ -1,6 +1,9 @@
 /**
- * Genera los recursos de marca desde los originales de scripts/assets/marca (icono oficial, logotipo y
- * Marchanta): íconos de la PWA (192, 512, maskable 512, apple-touch 180), favicon y logotipo web.
+ * Genera los recursos de marca desde los originales de scripts/assets/marca:
+ * - icono.webp (cuadro redondeado con fondo transparente): íconos «any» de la PWA y favicon;
+ * - icono-tienda.webp (cuadrado a sangre): maskable de Android, apple-touch de iOS e íconos de App Store y Google Play
+ *   (docs/marca/tiendas; iOS los exige sin transparencia y redondea las esquinas él mismo);
+ * - logotipo.webp: logotipo web.
  * Uso: pnpm icons  (requiere Chromium de Playwright). Después conviene reducir los PNG a 256 colores
  * (p. ej. pngquant); así pesan ~10–45 KB sin diferencia visible.
  */
@@ -10,16 +13,15 @@ import { chromium } from "@playwright/test";
 const CHROMIUM = "/opt/pw-browsers/chromium";
 const dataUrl = (archivo) => `data:image/webp;base64,${readFileSync(new URL(`./assets/marca/${archivo}`, import.meta.url)).toString("base64")}`;
 
-/** Morado del cuadro del ícono (fondo del maskable, que exige lienzo lleno y 80% de zona segura). */
-const MORADO_ICONO = "#86057C";
-const CREMA = "#FEFAEB";
 
 const salidas = [
   // { archivo, fuente, ancho, alto, escala (fracción del lado que ocupa el recorte), fondo, formato }
   { archivo: "public/icons/icon-192.png", fuente: "icono.webp", lado: 192, escala: 0.96 },
   { archivo: "public/icons/icon-512.png", fuente: "icono.webp", lado: 512, escala: 0.96 },
-  { archivo: "public/icons/maskable-512.png", fuente: "icono.webp", lado: 512, escala: 0.74, fondo: MORADO_ICONO },
-  { archivo: "public/icons/apple-touch-icon.png", fuente: "icono.webp", lado: 180, escala: 0.9, fondo: CREMA },
+  { archivo: "public/icons/maskable-512.png", fuente: "icono-tienda.webp", lado: 512, escala: 1 },
+  { archivo: "public/icons/apple-touch-icon.png", fuente: "icono-tienda.webp", lado: 180, escala: 1 },
+  { archivo: "docs/marca/tiendas/app-store-1024.png", fuente: "icono-tienda.webp", lado: 1024, escala: 1 },
+  { archivo: "docs/marca/tiendas/google-play-512.png", fuente: "icono-tienda.webp", lado: 512, escala: 1 },
   { archivo: "src/app/icon.png", fuente: "icono.webp", lado: 64, escala: 1 },
   { archivo: "public/marca/logotipo-640.webp", fuente: "logotipo.webp", ancho: 640, formato: "image/webp" },
 ];
